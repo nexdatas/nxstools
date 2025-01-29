@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_triggermode_cb">
+    <result name="result">
+from nxstools.pyeval import xspress3
+ds.result = xspress3.triggermode_cb(commonblock, "$(name)", ds.$(name)_triggermode, ds.$(name)_nbframes, "$(hostname)", "$(device)", "$var.filename", "$var.entryname#'$(__entryname__)'$var.serialno", "$(__insname__)", ds.$(name)_filedir, ds.$(name)_fileprefix,  ds.$(name)_framesperfile,  ds.$(name)_maskdatatowrite,  ds.$(name)_mcalength,  ds.$(name)_savedata, "$var.acq_modes")
+    </result>
+    $datasources.$(name)_triggermode
+    $datasources.$(name)_nbframes
+    $datasources.$(name)_fileprefix
+    $datasources.$(name)_filedir
+    $datasources.$(name)_framesperfile
+    $datasources.$(name)_maskdatatowrite
+    $datasources.$(name)_mcalength
+    $datasources.$(name)_savedata
+  </datasource>
+</definition>
