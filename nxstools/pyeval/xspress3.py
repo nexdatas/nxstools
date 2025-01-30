@@ -74,9 +74,12 @@ def triggermode_cb(commonblock, name, triggermode,
         return triggermode
     amodes = acq_modes.split(",")
     xp = tango.DeviceProxy('%s/%s' % (hostname, device))
+    print("device", device, hostname)
     try:
         nbchannels = int(xp.get_property("NbChannels")["NbChannels"][0])
-    except Exception:
+        # print("GET", int(xp.get_property("NbChannels")["NbChannels"][0]))
+    except Exception as e:
+        print("EXCE", str(e))
         nbchannels = 0
 
     if not nbchannels:
@@ -116,8 +119,9 @@ def triggermode_cb(commonblock, name, triggermode,
         fvfl = nxw.virtual_field_layout(
             [nbframes, nbchannels, mcalength], dtype)
 
-    for nch in len(nbchannels):
+    for nch in range(nbchannels):
         masked = maskdatatowrite & (1 << nch)
+        print("NCHAN", nch, masked)
         if masked:
             continue
         chname = "%s_channel%02i" % (name, nch)
@@ -150,7 +154,8 @@ def triggermode_cb(commonblock, name, triggermode,
                 vfl.add(
                     (slice(off, off + nb), slice(0, shape[1])),
                     ef, (slice(None), slice(None)))
-        detc.create_virtual_field("data", vfl)
+        if "VDS" in amodes and "data" not in detc.names():
+            detc.create_virtual_field("data", vfl)
         if chname not in dt.names():
             nxw.link("/%s/%s/%s/data" % (entryname, insname, chname),
                      dt, chname)
@@ -169,3 +174,4 @@ def triggermode_cb(commonblock, name, triggermode,
         if name not in dt.names():
             nxw.link("/%s/%s/%s/data" % (entryname, insname, name),
                      dt, name)
+    return triggermode

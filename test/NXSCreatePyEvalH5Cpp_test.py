@@ -2041,7 +2041,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             tsv1.setUp()
             db = tango.Database()
             db.put_device_property(dcmdevice,
-                                   {'Version': [version]})
+                                   {'Version': [version]}) 
             tsv1.dp.Init()
             from nxstools.pyeval import dcm
             tsv1.dp.crystal = 1
@@ -2245,6 +2245,136 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             filestartnum,
             filename)
         self.assertEqual(fn1, sfn1)
+
+    def test_xspress_triggermode_splitmode(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        mfileprefix = "%s%s" % (self.__class__.__name__, fun)
+        scanid = 12345
+
+        name = "vortex"
+        filename = "%s_%s.nxs" % (mfileprefix, scanid)
+        mainpath = "%s_%s" % (mfileprefix, scanid)
+        path = "%s_%s/%s" % (mfileprefix, scanid, name)
+        filedir = os.path.abspath(path)
+        self._fname = filename
+        fileprefix = "testscan_data"
+        framesperfile = 10
+        maskdatatowrite = 10
+        savedata = True
+        fname1 = ['%s_%05i.nxs' % (fileprefix, i) for i in range(3)]
+        ffname1 = ['%s/%s' % (path, fn) for fn in fname1]
+        framenumbers = [14, 14, 2]
+        devicename = "ttestp09/testts/t1r228"
+
+        vl = [[self._rnd.randint(1, 1600) for _ in range(1024)]
+              for _ in range(30)]
+        vl2 = [[self._rnd.randint(1, 1600) for _ in range(1024)]
+               for _ in range(30)]
+        db = tango.Database()
+        try:
+            tsv1 = TestServerSetUp.TestServerSetUp(
+                devicename, "MYTESTS1")
+            tsv1.setUp()
+            db.put_device_property(devicename,
+                                   {'NbChannels': ['4']})
+            tsv1.dp.init()
+            try:
+                os.makedirs(path)
+            except FileExistsError:
+                pass
+
+            for i, fn in enumerate(ffname1):
+                fl1 = self.fwriter.create_file(fn, overwrite=True)
+                rt = fl1.root()
+                entry = rt.create_group("entry", "NXentry")
+                ins = entry.create_group("instrument", "NXinstrument")
+                det = ins.create_group("xspress3", "NXdetector")
+                chn = det.create_group("channel00")
+                intimage = chn.create_field(
+                    "histogram", "int32",
+                    [framenumbers[i], 1024], [1, 1024])
+                vv = [[vl[i * framenumbers[0] + nn][ii]
+                       for ii in range(1024)]
+                      for nn in range(framenumbers[i])]
+                intimage[:, :] = vv
+                intimage.close()
+                chn = det.create_group("channel03")
+                intimage = chn.create_field(
+                    "histogram", "int32",
+                    [framenumbers[i], 1024], [1, 1024])
+                vv = [[vl2[i * framenumbers[0] + nn][ii]
+                       for ii in range(1024)]
+                      for nn in range(framenumbers[i])]
+                intimage[:, :] = vv
+                intimage.close()
+                det.close()
+                ins.close()
+                entry.close()
+                fl1.close()
+
+            entryname = "entry123"
+            fl = self.fwriter.create_file(self._fname, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group(entryname, "NXentry")
+            ins = entry.create_group("instrument", "NXinstrument")
+            det = ins.create_group(name, "NXdetector")
+            dt = entry.create_group("data", "NXdata")
+            col = det.create_group("collection", "NXcollection")
+
+            commonblock = {
+                "__root__": rt,
+            }
+            triggermode = 0
+            name = "vortex"
+            nbframes = 30
+            mcalength = 1024
+            hostname = os.environ.get("TANGO_HOST", "localhost:10000")
+
+            device = devicename
+            insname = "instrument"
+
+            from nxstools.pyeval import xspress3
+            result = xspress3.triggermode_cb(
+                commonblock,
+                name,
+                triggermode,
+                nbframes,
+                hostname,
+                device,
+                filename,
+                entryname,
+                insname,
+                filedir,
+                fileprefix,
+                framesperfile,
+                maskdatatowrite,
+                mcalength,
+                savedata)
+            fl.flush()
+            self.assertEqual(result, 0)
+            for i in range(3):
+                images = col.open("data_%06i" % (i + 1))
+                rw = images.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
+                images = dt.open("eiger2_%06i" % (i + 1))
+                rw = images.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
+            intimage.close()
+            dt.close()
+            entry.close()
+            fl.close()
+        finally:
+            if tsv1:
+                tsv1.tearDown()
+            # shutil.rmtree(mainpath,
+            #               ignore_errors=False, onerror=None)
+            # os.remove(self._fname)
 
     def test_eigetdectris_triggermode_splitmode(self):
         """
