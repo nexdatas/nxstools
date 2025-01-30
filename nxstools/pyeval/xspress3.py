@@ -19,7 +19,7 @@
 
 """  pyeval helper functions for xspress """
 
-import json
+# import json
 try:
     import tango
 except Exception:
@@ -30,7 +30,8 @@ def triggermode_cb(commonblock, name, triggermode,
                    nbframes, hostname, device,
                    filename, entryname, insname,
                    filedir, fileprefix, framesperfile,
-                   maskdatatowrite, mcalength, savedata, , acq_modes=""):
+                   maskdatatowrite, mcalength, savedata,
+                   acq_modes=""):
     """ code for triggermode_cb  datasource
 
     :param commonblock: commonblock of nxswriter
@@ -81,21 +82,8 @@ def triggermode_cb(commonblock, name, triggermode,
     if not nbchannels:
         return triggermode
 
-    path = ""
-    sfname = []
-    if filename:
-        sfname = (filename).split("/")
-        path = sfname[-1].split(".")[0] + "/"
-    path += '%s/%s_' % (name, fileprefix)
-    filepostfix = ".nxs"
-    
-    spf = 0
-    cfid = 0
     if "__root__" in commonblock.keys():
         root = commonblock["__root__"]
-        if hasattr(root, "currentfileid") and hasattr(root, "stepsperfile"):
-            spf = root.stepsperfile
-            cfid = root.currentfileid
         if root.h5object.__class__.__name__ == "File":
             import nxstools.h5pywriter as nxw
         else:
@@ -103,105 +91,81 @@ def triggermode_cb(commonblock, name, triggermode,
     else:
         raise Exception("Writer cannot be found")
 
+    path = ""
+    sfname = []
+    if not filename:
+        if root.tparent is not None:
+            filename = root.tparent.filename
+    lfname = filename
+    if filename:
+        sfname = (filename).split("/")
+        lfname = sfname[-1]
+        path = sfname[-1].split(".")[0] + "/"
+    path += '%s/%s_' % (name, fileprefix)
+
     en = root.open(entryname)
     dt = en.open("data")
     ins = en.open(insname)
     det = ins.open(name)
-    col = det.open("collection")
 
     nbfiles = (nbframes + framesperfile - 1) // framesperfile
-    
+    shape = [nbframes, mcalength]
+    dtype = "int32"
+
+    if "VDS" in amodes and "data" not in det.names():
+        fvfl = nxw.virtual_field_layout(
+            [nbframes, nbchannels, mcalength], dtype)
+
     for nch in len(nbchannels):
         masked = maskdatatowrite & (1 << nch)
         if masked:
             continue
+        chname = "%s_channel%02i" % (name, nch)
+        detc = ins.create_group(chname, "NXdetector")
+        colc = detc.create_group("collection", "NXcollection")
+
+        if "VDS" in amodes and "data" not in detc.names():
+            vfl = nxw.virtual_field_layout(shape, dtype)
+
         for nbf in range(nbfiles):
-            # counter_00002_00000.nxs://entry/instrument/xspress3/channel00/histogram
-            # -> col/channel00_f00000
             nxw.link(
                 "%s%05i.nxs://entry/instrument/xspress3/channel%02i/histogram"
                 % (path, nbf, nch),
-                     col, "channel%02i_f%05i" % (nch, nbf))
+                colc, "data_f%05i" % (nbf))
             nxw.link("/%s/%s/%s/collection/%s" %
-                     (entryname, insname, name, "channel%02i_f%05i" % (nch, nbf)), dt,
+                     (entryname, insname, chname, "data_f%05i"
+                      % (nbf)), dt,
                      "%s_%02i_f%05i" % (name, nch, nbf))
 
-def old:
-            
+            if "VDS" in amodes and "data" not in detc.names():
+                off = framesperfile * nbf
+                if nbf + 1 == nbfiles:
+                    nb = nbframes - off
+                else:
+                    nb = framesperfile
+                ef = nxw.target_field_view(
+                    "%s%05i.nxs" % (path, nbf),
+                    "/entry/instrument/xspress3/channel%02i/histogram" % (nch),
+                    [nb, shape[1]], dtype)
+                vfl.add(
+                    (slice(off, off + nb), slice(0, shape[1])),
+                    ef, (slice(None), slice(None)))
+        detc.create_virtual_field("data", vfl)
+        if chname not in dt.names():
+            nxw.link("/%s/%s/%s/data" % (entryname, insname, chname),
+                     dt, chname)
 
-    # create VDS field
-    if shape and not isinstance(shape, list):
-        try:
-            shape = json.loads(shape)
-        except Exception:
-            shape = []
-    if not shape or len(shape) < 2:
-        return result
-
-    if "nb_images_in_file" not in col.names():
-        tni = col.create_field("nb_images_in_file", "uint64")
-    else:
-        tni = col.open("nb_images_in_file")
-        tni.grow()
-    tni[int(tni.shape[0] - 1)] = totnbimages
-    ttni = tni.read()
-    totalframenumbers = int(sum(ttni))
-    ttfn = tfn.read()
+        if "VDS" in amodes and "data" not in det.names():
+            fef = nxw.target_field_view(
+                lfname,
+                "/%s/%s/%s/data" % (entryname, insname, chname),
+                [shape[0], 1, shape[1]], dtype)
+            fvfl.add(
+                (slice(0, shape[0]), slice(nch, nch + 1), slice(0, shape[1])),
+                fef, (slice(None), slice(None), slice(None)))
 
     if "VDS" in amodes and "data" not in det.names():
-        edp = tango.DeviceProxy('%s/%s' % (hostname, device))
-        if hasattr(edp, "RoiMode") and edp.RoiMode:
-            if hasattr(edp, "RoiModeString") and \
-                    hasattr(edp, "RoiYSize") and \
-                    edp.RoiModeString == "lines":
-                if edp.RoiYSize:
-                    try:
-                        shape = [int(edp.RoiYSize), shape[1]]
-                    except Exception:
-                        pass
-            else:
-                shape = [2167, 2070]
-
-        npath = "/entry/data/data"
-
-        nbimg = []
-        nfi = []
-        fnms = []
-        for ii, tt in enumerate(ttni):
-            nbf = int((tt + imagesperfile - 1) // imagesperfile)
-            nfi.append(nbf)
-            nn = [int(imagesperfile)] * nbf
-
-            fn = [str(ttfn[j + ii * (int(imagesperfile) - 1)])
-                  for j in range(nbf)]
-            if nn:
-                nn[-1] = int(tt - (nbf - 1) * imagesperfile)
-            nbimg.extend(nn)
-            fnms.extend(fn)
-
-        nboff = [int(sum(nbimg[:(ii)])) for ii in range(len(nbimg))]
-        # eiger9m 3110 pixel x 3269 pixel
-        # /entry/data/data uint32 [1, 3269 , 3110]
-        # eiger4M 2070 pixel x 2167 pixel
-        # /entry/data/data uint32 [1, 2167 , 2070]
-        # eiger1M  1030 pixel x 1065 pixel
-        # /entry/data/data uint32 [1, 1065 , 1030]
-
-        vfl = nxw.virtual_field_layout(
-            [totalframenumbers, shape[0], shape[1]], dtype)
-        for ii, nb in enumerate(nbimg):
-            fnm = fnms[ii]
-            ef = nxw.target_field_view(
-                fnm, npath, [nb, shape[0], shape[1]], dtype)
-            off = nboff[ii]
-            vfl.add(
-                (slice(off, off + nb), slice(0, shape[0]), slice(0, shape[1])),
-                ef, (slice(None), slice(None), slice(None)))
-
-        if "data" not in det.names():
-            det.create_virtual_field("data", vfl)
+        detc.create_virtual_field("data", fvfl)
         if name not in dt.names():
             nxw.link("/%s/%s/%s/data" % (entryname, insname, name),
                      dt, name)
-
-    return triggermode
