@@ -97,8 +97,8 @@ def triggermode_cb(commonblock, name, triggermode,
     path = ""
     sfname = []
     if not filename:
-        if root.tparent is not None:
-            filename = root.tparent.filename
+        if root._tparent is not None:
+            filename = root._tparent.filename
     if filename:
         sfname = (filename).split("/")
         path = sfname[-1].split(".")[0] + "/"
