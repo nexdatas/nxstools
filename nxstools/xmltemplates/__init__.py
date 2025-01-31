@@ -1852,6 +1852,10 @@ moduleTemplateFiles = {
     'mca_xia': [
         'mcaxia.xml'
     ],
+    'xspress3': [
+        'xspress3.xml',
+        'xspress3_triggermode_cb.ds.xml'
+    ],
     'eigerdectris': [
         'eigerdectris.xml',
         'eigerdectris_stepindex.ds.xml',
@@ -2151,6 +2155,20 @@ moduleMultiAttributes = {
     ],
     'marccd': [
         'FrameShift', 'SavingDirectory', 'SavingPostfix', 'SavingPrefix'],
+    'xspress3': [
+        'Compression', 'ExposureTime', 'FileDir', 'FilePrefix',
+        'FramesPerFile',
+        'MaskDataToWrite', 'MCALength', 'NbFrames', 'RingBuffer', 'RunMode',
+        'SaveBufferOnStop', 'SaveData', 'TriggerMode',
+        'LastFrame', 'LastFrameWritten', 'LastLiveFrame',
+        'BufferUsage', 'BufferUsageWriter',
+        # DataCh00,
+        # DataCh00ROI0, DataCh00ROI0End, DataCh00ROI0Start,
+        # DataCh00ROI1, DataCh00ROI1End, DataCh00ROI1Start,
+        # DataCh01,
+        # DataCh01ROI0, DataCh01ROI0End, DataCh01ROI0Start,
+        # DataCh01ROI1, DataCh01ROI1End, DataCh01ROI1Start,
+    ],
     'eigerdectris': [
         'TriggerMode', 'NbTriggers', 'Description', 'NbImages', 'BitDepth',
         'ReadoutTime', 'CountTime', 'EnergyThreshold', 'FrameTime',

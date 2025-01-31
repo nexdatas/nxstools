@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<definition>
+  <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
+    <group type="NXinstrument" name="$(__insname__)">
+      <group type="NXdetector" name="$(name)">
+        <field type="NX_CHAR" name="layout">linear</field>
+        <field units="s" type="NX_FLOAT64" name="count_time">$datasources.$(name)_exposuretime<strategy mode="FINAL"/>
+        </field>
+        <group type="NXcollection" name="collection">
+          <field type="NX_INT64" name="last_frame">
+            <strategy mode="STEP"/>$datasources.$(name)_lastframe</field>
+          <field type="NX_UINT64" name="nb_frames">
+            <strategy mode="FINAL"/>$datasources.$(name)_nbframes</field>
+          <field type="NX_UINT64" name="mca_length">
+            <strategy mode="FINAL"/>$datasources.$(name)_mcalength</field>
+          <field type="NX_BOOLEAN" name="compression">
+	    <strategy mode="FINAL"/>$datasources.$(name)_compression</field>
+          <field type="NX_BOOLEAN" name="save_data">
+	    <strategy mode="FINAL"/>$datasources.$(name)_savedata</field>
+          <field type="NX_CHAR" name="file_dir">
+            <strategy mode="FINAL"/>$datasources.$(name)_filedir</field>
+          <field type="NX_CHAR" name="file_prefix">
+            <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field>
+          <field type="NX_UINT64" name="frames_per_file">
+            <strategy mode="FINAL"/>$datasources.$(name)_framesperfile</field>
+          <field type="NX_UINT64" name="mask_data_to_write">
+            <strategy mode="FINAL"/>$datasources.$(name)_maskdatatowrite</field>
+          <field type="NX_UINT64" name="nb_triggers">
+            <strategy mode="FINAL"/>$datasources.$(name)_nbtriggers</field>
+          <field type="NX_INT64" name="triggermode">
+            <strategy mode="FINAL"/>$datasources.$(name)_triggermode_cb</field>
+        </group>
+      </group>
+    </group>
+    <group type="NXdata" name="data">
+    </group>
+  </group>
+</definition>
