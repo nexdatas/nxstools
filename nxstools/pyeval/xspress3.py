@@ -155,7 +155,11 @@ def triggermode_cb(commonblock, name, triggermode,
                     ef, (slice(None), slice(None)))
         if "VDS" in amodes and "data" not in detc.names():
             detc.create_virtual_field("data", vfl)
-        if chname not in dt.names():
+        elif nbfiles == 1:
+            nxw.link("/%s/%s/%s/collection/%s" %
+                     (entryname, insname, chname, "data_%05i"
+                      % (0)), detc, "data")
+        if chname not in dt.names() and "data" in detc.names():
             nxw.link("/%s/%s/%s/data" % (entryname, insname, chname),
                      dt, chname)
 
