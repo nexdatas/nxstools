@@ -25,8 +25,6 @@
             <strategy mode="FINAL"/>$datasources.$(name)_framesperfile</field>
           <field type="NX_UINT64" name="mask_data_to_write">
             <strategy mode="FINAL"/>$datasources.$(name)_maskdatatowrite</field>
-          <field type="NX_UINT64" name="nb_triggers">
-            <strategy mode="FINAL"/>$datasources.$(name)_nbtriggers</field>
           <field type="NX_INT64" name="triggermode">
             <strategy mode="FINAL"/>$datasources.$(name)_triggermode_cb</field>
         </group>
