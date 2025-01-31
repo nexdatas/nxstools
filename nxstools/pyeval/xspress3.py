@@ -74,7 +74,7 @@ def triggermode_cb(commonblock, name, triggermode,
         return triggermode
     amodes = acq_modes.split(",")
     xp = tango.DeviceProxy('%s/%s' % (hostname, device))
-    print("device", device, hostname)
+    #  print("device", device, hostname)
     try:
         nbchannels = int(xp.get_property("NbChannels")["NbChannels"][0])
         # print("GET", int(xp.get_property("NbChannels")["NbChannels"][0]))
@@ -99,29 +99,22 @@ def triggermode_cb(commonblock, name, triggermode,
     if not filename:
         if root.tparent is not None:
             filename = root.tparent.filename
-    lfname = filename
     if filename:
         sfname = (filename).split("/")
-        lfname = sfname[-1]
         path = sfname[-1].split(".")[0] + "/"
     path += '%s/%s_' % (name, fileprefix)
 
     en = root.open(entryname)
     dt = en.open("data")
     ins = en.open(insname)
-    det = ins.open(name)
 
     nbfiles = (nbframes + framesperfile - 1) // framesperfile
     shape = [nbframes, mcalength]
     dtype = "int32"
 
-    if "VDS" in amodes and "data" not in det.names():
-        fvfl = nxw.virtual_field_layout(
-            [nbframes, nbchannels, mcalength], dtype)
-
     for nch in range(nbchannels):
         masked = maskdatatowrite & (1 << nch)
-        print("NCHAN", nch, masked)
+        # print("NCHAN", nch, masked)
         if masked:
             continue
         chname = "%s_channel%02i" % (name, nch)
@@ -135,11 +128,11 @@ def triggermode_cb(commonblock, name, triggermode,
             nxw.link(
                 "%s%05i.nxs://entry/instrument/xspress3/channel%02i/histogram"
                 % (path, nbf, nch),
-                colc, "data_f%05i" % (nbf))
+                colc, "data_%05i" % (nbf))
             nxw.link("/%s/%s/%s/collection/%s" %
-                     (entryname, insname, chname, "data_f%05i"
+                     (entryname, insname, chname, "data_%05i"
                       % (nbf)), dt,
-                     "%s_%02i_f%05i" % (name, nch, nbf))
+                     "%s_channel%02i_%05i" % (name, nch, nbf))
 
             if "VDS" in amodes and "data" not in detc.names():
                 off = framesperfile * nbf
@@ -160,18 +153,4 @@ def triggermode_cb(commonblock, name, triggermode,
             nxw.link("/%s/%s/%s/data" % (entryname, insname, chname),
                      dt, chname)
 
-        if "VDS" in amodes and "data" not in det.names():
-            fef = nxw.target_field_view(
-                lfname,
-                "/%s/%s/%s/data" % (entryname, insname, chname),
-                [shape[0], 1, shape[1]], dtype)
-            fvfl.add(
-                (slice(0, shape[0]), slice(nch, nch + 1), slice(0, shape[1])),
-                fef, (slice(None), slice(None), slice(None)))
-
-    if "VDS" in amodes and "data" not in det.names():
-        detc.create_virtual_field("data", fvfl)
-        if name not in dt.names():
-            nxw.link("/%s/%s/%s/data" % (entryname, insname, name),
-                     dt, name)
     return triggermode

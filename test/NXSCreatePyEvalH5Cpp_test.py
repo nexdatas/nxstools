@@ -173,6 +173,15 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                 print("EL %s %s %s" % (el, list2[i], error))
             self.assertTrue(abs(el - list2[i]) < error)
 
+    # float list tester
+    def myAssertList(self, list1, list2, error=0.0):
+
+        self.assertEqual(len(list1), len(list2))
+        for i, el in enumerate(list1):
+            if el != list2[i]:
+                print("EL %s %s %s" % (el, list2[i], error))
+            self.assertEqual(el, list2[i])
+
     # float image tester
     def myAssertImage(self, image1, image2, error=None):
 
@@ -2041,7 +2050,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             tsv1.setUp()
             db = tango.Database()
             db.put_device_property(dcmdevice,
-                                   {'Version': [version]}) 
+                                   {'Version': [version]})
             tsv1.dp.Init()
             from nxstools.pyeval import dcm
             tsv1.dp.crystal = 1
@@ -2262,7 +2271,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
         filedir = os.path.abspath(path)
         self._fname = filename
         fileprefix = "testscan_data"
-        framesperfile = 10
+        framesperfile = 14
         maskdatatowrite = 10
         savedata = True
         fname1 = ['%s_%05i.nxs' % (fileprefix, i) for i in range(3)]
@@ -2270,9 +2279,9 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
         framenumbers = [14, 14, 2]
         devicename = "ttestp09/testts/t1r228"
 
-        vl = [[self._rnd.randint(1, 1600) for _ in range(1024)]
+        vl = [[self._rnd.randint(1, 1600) for _ in range(128)]
               for _ in range(30)]
-        vl2 = [[self._rnd.randint(1, 1600) for _ in range(1024)]
+        vl2 = [[self._rnd.randint(1, 1600) for _ in range(128)]
                for _ in range(30)]
         db = tango.Database()
         try:
@@ -2296,18 +2305,18 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                 chn = det.create_group("channel00")
                 intimage = chn.create_field(
                     "histogram", "int32",
-                    [framenumbers[i], 1024], [1, 1024])
+                    [framenumbers[i], 128], [1, 128])
                 vv = [[vl[i * framenumbers[0] + nn][ii]
-                       for ii in range(1024)]
+                       for ii in range(128)]
                       for nn in range(framenumbers[i])]
                 intimage[:, :] = vv
                 intimage.close()
-                chn = det.create_group("channel03")
+                chn = det.create_group("channel02")
                 intimage = chn.create_field(
                     "histogram", "int32",
-                    [framenumbers[i], 1024], [1, 1024])
+                    [framenumbers[i], 128], [1, 128])
                 vv = [[vl2[i * framenumbers[0] + nn][ii]
-                       for ii in range(1024)]
+                       for ii in range(128)]
                       for nn in range(framenumbers[i])]
                 intimage[:, :] = vv
                 intimage.close()
@@ -2323,7 +2332,6 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             ins = entry.create_group("instrument", "NXinstrument")
             det = ins.create_group(name, "NXdetector")
             dt = entry.create_group("data", "NXdata")
-            col = det.create_group("collection", "NXcollection")
 
             commonblock = {
                 "__root__": rt,
@@ -2331,7 +2339,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             triggermode = 0
             name = "vortex"
             nbframes = 30
-            mcalength = 1024
+            mcalength = 128
             hostname = os.environ.get("TANGO_HOST", "localhost:10000")
 
             device = devicename
@@ -2356,15 +2364,29 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                 savedata)
             fl.flush()
             self.assertEqual(result, 0)
+            inames = ins.names()
+            self.assertEqual(
+                ['vortex', 'vortex_channel00', 'vortex_channel02'],
+                inames)
+            colc0 = ins.open("vortex_channel00").open("collection")
+            colc2 = ins.open("vortex_channel02").open("collection")
+            # print("NAMES", inames)
             for i in range(3):
-                images = col.open("data_%06i" % (i + 1))
-                rw = images.read()
+                spectra = colc0.open("data_%05i" % (i))
+                dspectra = dt.open("vortex_channel00_%05i" % (i))
+                rw = spectra.read()
+                drw = dspectra.read()
                 for j in range(framenumbers[i]):
-                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
-                images = dt.open("eiger2_%06i" % (i + 1))
-                rw = images.read()
+                    self.myAssertList(rw[j], vl[j + framenumbers[0] * i])
+                    self.myAssertList(drw[j], vl[j + framenumbers[0] * i])
+                # print(colc2.names())
+                spectra = colc2.open("data_%05i" % (i))
+                dspectra = dt.open("vortex_channel02_%05i" % (i))
+                rw = spectra.read()
+                drw = dspectra.read()
                 for j in range(framenumbers[i]):
-                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
+                    self.myAssertList(rw[j], vl2[j + framenumbers[0] * i])
+                    self.myAssertList(drw[j], vl2[j + framenumbers[0] * i])
             intimage.close()
             dt.close()
             entry.close()
@@ -2372,9 +2394,173 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
         finally:
             if tsv1:
                 tsv1.tearDown()
-            # shutil.rmtree(mainpath,
-            #               ignore_errors=False, onerror=None)
-            # os.remove(self._fname)
+            shutil.rmtree(mainpath,
+                          ignore_errors=False, onerror=None)
+            os.remove(self._fname)
+
+    def test_xspress_triggermode_splitmode_vds(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        mfileprefix = "%s%s" % (self.__class__.__name__, fun)
+        scanid = 12345
+
+        name = "vortex"
+        filename = "%s_%s.nxs" % (mfileprefix, scanid)
+        mainpath = "%s_%s" % (mfileprefix, scanid)
+        path = "%s_%s/%s" % (mfileprefix, scanid, name)
+        filedir = os.path.abspath(path)
+        self._fname = filename
+        fileprefix = "testscan_data"
+        framesperfile = 14
+        maskdatatowrite = 6
+        savedata = True
+        fname1 = ['%s_%05i.nxs' % (fileprefix, i) for i in range(3)]
+        ffname1 = ['%s/%s' % (path, fn) for fn in fname1]
+        framenumbers = [14, 14, 2]
+        devicename = "ttestp09/testts/t1r228"
+
+        vl = [[self._rnd.randint(1, 1600) for _ in range(128)]
+              for _ in range(30)]
+        vl2 = [[self._rnd.randint(1, 1600) for _ in range(128)]
+               for _ in range(30)]
+        db = tango.Database()
+        try:
+            tsv1 = TestServerSetUp.TestServerSetUp(
+                devicename, "MYTESTS1")
+            tsv1.setUp()
+            db.put_device_property(devicename,
+                                   {'NbChannels': ['4']})
+            tsv1.dp.init()
+            try:
+                os.makedirs(path)
+            except FileExistsError:
+                pass
+
+            for i, fn in enumerate(ffname1):
+                fl1 = self.fwriter.create_file(fn, overwrite=True)
+                rt = fl1.root()
+                entry = rt.create_group("entry", "NXentry")
+                ins = entry.create_group("instrument", "NXinstrument")
+                det = ins.create_group("xspress3", "NXdetector")
+                chn = det.create_group("channel00")
+                intimage = chn.create_field(
+                    "histogram", "int32",
+                    [framenumbers[i], 128], [1, 128])
+                vv = [[vl[i * framenumbers[0] + nn][ii]
+                       for ii in range(128)]
+                      for nn in range(framenumbers[i])]
+                intimage[:, :] = vv
+                intimage.close()
+                chn = det.create_group("channel03")
+                intimage = chn.create_field(
+                    "histogram", "int32",
+                    [framenumbers[i], 128], [1, 128])
+                vv = [[vl2[i * framenumbers[0] + nn][ii]
+                       for ii in range(128)]
+                      for nn in range(framenumbers[i])]
+                intimage[:, :] = vv
+                intimage.close()
+                det.close()
+                ins.close()
+                entry.close()
+                fl1.close()
+
+            entryname = "entry123"
+            fl = self.fwriter.create_file(self._fname, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group(entryname, "NXentry")
+            ins = entry.create_group("instrument", "NXinstrument")
+            det = ins.create_group(name, "NXdetector")
+            dt = entry.create_group("data", "NXdata")
+
+            commonblock = {
+                "__root__": rt,
+            }
+            triggermode = 0
+            name = "vortex"
+            nbframes = 30
+            mcalength = 128
+            hostname = os.environ.get("TANGO_HOST", "localhost:10000")
+            aqmode = 'VDS'
+
+            device = devicename
+            insname = "instrument"
+
+            from nxstools.pyeval import xspress3
+            result = xspress3.triggermode_cb(
+                commonblock,
+                name,
+                triggermode,
+                nbframes,
+                hostname,
+                device,
+                filename,
+                entryname,
+                insname,
+                filedir,
+                fileprefix,
+                framesperfile,
+                maskdatatowrite,
+                mcalength,
+                savedata, aqmode
+            )
+            fl.flush()
+            self.assertEqual(result, 0)
+            inames = ins.names()
+            self.assertEqual(
+                ['vortex', 'vortex_channel00', 'vortex_channel03'],
+                inames)
+            detc0 = ins.open("vortex_channel00")
+            detc3 = ins.open("vortex_channel03")
+            colc0 = detc0.open("collection")
+            colc3 = detc3.open("collection")
+            # print("NAMES", inames)
+            for i in range(3):
+                spectra = colc0.open("data_%05i" % (i))
+                dspectra = dt.open("vortex_channel00_%05i" % (i))
+                rw = spectra.read()
+                drw = dspectra.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertList(rw[j], vl[j + framenumbers[0] * i])
+                    self.myAssertList(drw[j], vl[j + framenumbers[0] * i])
+                # print(colc3.names())
+                spectra = colc3.open("data_%05i" % (i))
+                dspectra = dt.open("vortex_channel03_%05i" % (i))
+                rw = spectra.read()
+                drw = dspectra.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertList(rw[j], vl2[j + framenumbers[0] * i])
+                    self.myAssertList(drw[j], vl2[j + framenumbers[0] * i])
+
+            spectra = detc0.open("data")
+            dspectra = dt.open("vortex_channel00")
+            rw = spectra.read()
+            drw = dspectra.read()
+            for j in range(nbframes):
+                self.myAssertList(rw[j], vl[j])
+                self.myAssertList(drw[j], vl[j])
+            # print(colc3.names())
+            spectra = detc3.open("data")
+            dspectra = dt.open("vortex_channel03")
+            rw = spectra.read()
+            drw = dspectra.read()
+            for j in range(nbframes):
+                self.myAssertList(rw[j], vl2[j])
+                self.myAssertList(drw[j], vl2[j])
+
+            intimage.close()
+            dt.close()
+            entry.close()
+            fl.close()
+        finally:
+            if tsv1:
+                tsv1.tearDown()
+            shutil.rmtree(mainpath,
+                          ignore_errors=False, onerror=None)
+            os.remove(self._fname)
 
     def test_eigetdectris_triggermode_splitmode(self):
         """
