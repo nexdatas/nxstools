@@ -105,7 +105,7 @@ def triggermode_cb(commonblock, name, triggermode,
         path = sfname[-1].split(".")[0] + "/"
         basepath = "/".join(os.path.abspath(filename).split("/")[:-1])
     if filedir and filedir.startswith(basepath):
-        path = filedir
+        path = filedir[len(basepath):]
     else:
         path += '%s' % (name)
     path += '/%s_' % (fileprefix)
