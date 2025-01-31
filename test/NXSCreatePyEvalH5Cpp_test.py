@@ -2413,8 +2413,8 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
 
         name = "vortex"
         filename = "%s_%s.nxs" % (mfileprefix, scanid)
-        mainpath = "%s_%s" % (mfileprefix, scanid)
-        path = "%s_%s/%s" % (mfileprefix, scanid, name)
+        mainpath = "%s" % (name)
+        path = "%s" % (name)
         filedir = os.path.abspath(path)
         self._fname = filename
         fileprefix = "testscan_data"
