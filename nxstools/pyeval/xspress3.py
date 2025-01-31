@@ -19,7 +19,7 @@
 
 """  pyeval helper functions for xspress """
 
-# import json
+import os
 try:
     import tango
 except Exception:
@@ -99,10 +99,16 @@ def triggermode_cb(commonblock, name, triggermode,
     if not filename:
         if root._tparent is not None:
             filename = root._tparent.filename
+    basepath = ""
     if filename:
         sfname = (filename).split("/")
         path = sfname[-1].split(".")[0] + "/"
-    path += '%s/%s_' % (name, fileprefix)
+        basepath = "/".join(os.path.abspath(filename).split("/")[:-1])
+    if filedir and filedir.startswith(basepath):
+        path = filedir
+    else:
+        path += '%s' % (name)
+    path += '/%s_' % (fileprefix)
 
     en = root.open(entryname)
     dt = en.open("data")
