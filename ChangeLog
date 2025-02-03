@@ -1,4 +1,8 @@
 2025-01-30 Jan Kotanski <jankotan@gmail.com>
+	* set LastFrame in xspress component template to FINAL (#745)
+	* tagged as v4.19.1
+
+2025-01-30 Jan Kotanski <jankotan@gmail.com>
 	* add xspress component template (#740)
 	* tagged as v4.19.0
 
