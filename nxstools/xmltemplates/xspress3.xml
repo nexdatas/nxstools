@@ -8,7 +8,7 @@
         </field>
         <group type="NXcollection" name="collection">
           <field type="NX_INT64" name="last_frame">
-            <strategy mode="STEP"/>$datasources.$(name)_lastframe</field>
+            <strategy mode="FINAL"/>$datasources.$(name)_lastframe</field>
           <field type="NX_UINT64" name="nb_frames">
             <strategy mode="FINAL"/>$datasources.$(name)_nbframes</field>
           <field type="NX_UINT64" name="mca_length">
