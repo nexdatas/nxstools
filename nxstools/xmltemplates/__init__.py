@@ -1926,6 +1926,7 @@ moduleMultiAttributes = {
     'limaccd': [
         'camera_type', 'camera_pixelsize', 'camera_model',
         'acq_mode', 'acq_nb_frames', 'acq_trigger_mode',
+        'acq_expo_time',
         'last_image_saved',
         'latency_time',  'acc_max_expo_time',
         'acc_expo_time', 'acc_time_mode',
