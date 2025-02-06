@@ -19,6 +19,8 @@
 
 """  pyeval helper functions for limaccd """
 
+import os
+
 
 def postrun(commonblock,
             saving_next_number,
@@ -97,10 +99,11 @@ def postrun(commonblock,
         filedir = filedir[:-1]
     if acq_mode == "SINGLE" and \
             acq_trigger_mode in ["INTERNAL_TRIGGER_MULTI",
-                                 "EXTERNAL_TRIGGER_MULTI" ] and \
+                                 "EXTERNAL_TRIGGER_MULTI"] and \
             saving_format == "HDF5":
         filelastnumber = saving_next_number - 1
-        nbfiles = (acq_nb_frames + saving_frame_per_file - 1) // saving_frame_per_file
+        nbfiles = (acq_nb_frames + saving_frame_per_file - 1) \
+            // saving_frame_per_file
         filestartnum = filelastnumber - nbfiles + 1
 
         if "__root__" in commonblock.keys():
@@ -131,15 +134,15 @@ def postrun(commonblock,
         en = root.open(entryname)
         dt = en.open("data")
         ins = en.open(insname)
-        det = en.open(name)
+        det = ins.open(name)
         col = det.create_group("collection", "NXcollection")
-        
-        shape = [image_hight, image_width]
+
+        shape = [image_height, image_width]
         l2nt = {
-            "bpp8": "uint8", "bpp8s": "int8"
-            "bpp16": "uint16", "bpp16s": "int16"
-            "bpp32": "uint32", "bpp32s": "int32"
-            "bpp32f": "float"
+            "bpp8": "uint8", "bpp8s": "int8",
+            "bpp16": "uint16", "bpp16s": "int16",
+            "bpp32": "uint32", "bpp32s": "int32",
+            "bpp32f": "float",
         }
         dtype = l2nt.get(image_type.lower(), "int32")
         2
@@ -148,15 +151,16 @@ def postrun(commonblock,
                 [acq_nb_frames, shape[0], shape[1]], dtype)
 
         fnamepattern = "%s%s%s" % (path, saving_index_format, saving_suffix)
-        
+
         for nbf in range(filestartnum, filelastnumber + 1):
             rnbf = nbf - filestartnum
             try:
-                detfn = fnamepattern % ndf
+                detfn = fnamepattern % nbf
             except Exception:
                 detfn = fnamepattern
-                
-            nxw.link("%s:/" % (detfn, field_path),  col, "data_%05i" % (nbf))
+
+            nxw.link("%s:/%s" % (detfn, field_path),
+                     col, "data_%05i" % (nbf))
             nxw.link("/%s/%s/%s/collection/%s" %
                      (entryname, insname, name, "data_%05i" % (nbf)), dt,
                      "%s_%05i" % (name, nbf))
@@ -167,35 +171,46 @@ def postrun(commonblock,
                     nb = acq_nb_frames - off
                 else:
                     nb = saving_frame_per_file
-                ef = nxw.target_field_view(detfn, field_path,
+                ef = nxw.target_field_view(
+                    detfn, field_path,
                     [nb, shape[0], shape[1]], dtype)
                 vfl.add(
-                    (slice(off, off + nb), slice(0, shape[0]) , slice(0, shape[1])),
+                    (slice(off, off + nb),
+                     slice(0, shape[0]),
+                     slice(0, shape[1])),
                     ef, (slice(None), slice(None), slice(None)))
         if "VDS" in amodes and "data" not in det.names():
-            detc.create_virtual_field("data", vfl)
+            det.create_virtual_field("data", vfl)
         elif nbfiles == 1:
             nxw.link("/%s/%s/%s/collection/%s" %
-                     (entryname, insname, chname, "data_%05i"
-                      % (0)), detc, "data")
-        if chname not in dt.names() and "data" in detc.names():
-            nxw.link("/%s/%s/%s/data" % (entryname, insname, chname),
-                     dt, chname)
-        
+                     (entryname, insname, name, "data_%05i"
+                      % (0)), det, "data")
+        if name not in dt.names() and "data" in det.names():
+            nxw.link("/%s/%s/%s/data" % (entryname, insname, name),
+                     dt, name)
+
     else:
         filestartnum = commonblock[saving_next_number_str] - 1
         result = "" + filedir + "/" + saving_prefix + saving_index_format
         result += saving_suffix + ":"
         filelastnumber = saving_next_number - 1
+        if acq_mode == "SINGLE" and \
+                acq_trigger_mode in ["INTERNAL_TRIGGER_MULTI",
+                                     "EXTERNAL_TRIGGER_MULTI"]:
+            nbfiles = (acq_nb_frames + saving_frame_per_file - 1) \
+                // saving_frame_per_file
+            filestartnum = filelastnumber - nbfiles + 1
         if "__root__" in commonblock.keys():
             root = commonblock["__root__"]
-            if hasattr(root, "currentfileid") and hasattr(root, "stepsperfile"):
+            if hasattr(root, "currentfileid") and \
+                    hasattr(root, "stepsperfile"):
                 spf = root.stepsperfile
                 cfid = root.currentfileid
                 if spf > 0 and cfid > 0:
                     filelastnumber = min(
                         filestartnum + cfid * acq_nb_frames * spf - 1,
                         filelastnumber)
-                    filestartnum = filestartnum + (cfid - 1) * acq_nb_frames * spf
+                    filestartnum = filestartnum + (cfid - 1) \
+                        * acq_nb_frames * spf
         result += str(filestartnum) + ":" + str(filelastnumber)
     return result
