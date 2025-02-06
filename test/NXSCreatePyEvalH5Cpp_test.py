@@ -2863,6 +2863,9 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
 
         mfileprefix = "%s%s" % (self.__class__.__name__, fun)
         scanid = 12345
+        if not self.fwriter.is_vds_supported():
+            print("Skip the test: VDS not supported")
+            return
 
         name = "andor"
         filename = "%s_%s.nxs" % (mfileprefix, scanid)
