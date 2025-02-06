@@ -2733,6 +2733,385 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                           ignore_errors=False, onerror=None)
             os.remove(self._fname)
 
+    def test_limaccdvds_postrun_splitmode(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        mfileprefix = "%s%s" % (self.__class__.__name__, fun)
+        scanid = 12345
+
+        name = "andor"
+        filename = "%s_%s.nxs" % (mfileprefix, scanid)
+        mainpath = "%s_%s" % (mfileprefix, scanid)
+        path = "%s_%s/%s" % (mfileprefix, scanid, name)
+        self._fname = filename
+        fname1 = ['testscan_data_%06i.h5' % i for i in range(1, 4)]
+        ffname1 = ['%s/%s' % (path, fn) for fn in fname1]
+        framenumbers = [14, 14, 2]
+
+        vl = [[[self._rnd.randint(1, 1600) for _ in range(20)]
+               for _ in range(10)]
+              for _ in range(30)]
+        try:
+            try:
+                os.makedirs(path)
+            except FileExistsError:
+                pass
+
+            for i, fn in enumerate(ffname1):
+                fl1 = self.fwriter.create_file(fn, overwrite=True)
+                rt = fl1.root()
+                entry = rt.create_group("entry_0000", "NXentry")
+                dt = entry.create_group("measurement", "NXdata")
+                intimage = dt.create_field(
+                    "data", "uint32",
+                    [framenumbers[i], 10, 20], [1, 10, 20])
+                vv = [[[vl[i * framenumbers[0] + nn][jj][ii]
+                        for ii in range(20)]
+                       for jj in range(10)]
+                      for nn in range(framenumbers[i])]
+                intimage[:, :, :] = vv
+                intimage.close()
+                dt.close()
+                entry.close()
+                fl1.close()
+
+            entryname = "entry123"
+            fl = self.fwriter.create_file(self._fname, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group(entryname, "NXentry")
+            ins = entry.create_group("instrument", "NXinstrument")
+            det = ins.create_group(name, "NXdetector")
+            dt = entry.create_group("data", "NXdata")
+            col = det.create_group("collection", "NXcollection")
+
+            commonblock = {
+                "andor_saving_next_number": (2 - 30),
+                "__root__": rt,
+            }
+            nbimages = 30
+
+            insname = "instrument"
+
+            saving_next_number = 4
+            saving_directory = path
+            saving_suffix = ".h5"
+            acq_nb_frames = nbimages
+            saving_index_format = "%06i"
+            saving_prefix = "testscan_data_"
+            saving_next_number_str = "andor_saving_next_number"
+            saving_format = "HDF5"
+            saving_frame_per_file = 14
+            image_height = None
+            image_width = None
+            image_type = None
+            acq_trigger_mode = "INTERNAL_TRIGGER_MULTI"
+            acq_mode = 'SINGLE'
+            acq_modes = ""
+            field_path = "/entry_0000/measurement/data"
+
+            from nxstools.pyeval import limaccd
+            result = limaccd.postrun(
+                commonblock,
+                saving_next_number,
+                saving_directory,
+                saving_suffix,
+                acq_nb_frames,
+                saving_index_format,
+                saving_prefix,
+                saving_next_number_str,
+                name,
+                saving_format,
+                saving_frame_per_file,
+                image_height,
+                image_width,
+                image_type,
+                acq_trigger_mode,
+                acq_mode,
+                filename,
+                entryname,
+                insname,
+                acq_modes,
+                field_path)
+            fl.flush()
+            self.assertEqual(result, "")
+            for i in range(3):
+                images = col.open("data_%05i" % (i + 1))
+                rw = images.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
+                images = dt.open("andor_%05i" % (i + 1))
+                rw = images.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
+            intimage.close()
+            dt.close()
+            entry.close()
+            fl.close()
+        finally:
+            shutil.rmtree(mainpath,
+                          ignore_errors=False, onerror=None)
+            os.remove(self._fname)
+
+    def test_limaccdvds_postrun_splitmode_vds(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        mfileprefix = "%s%s" % (self.__class__.__name__, fun)
+        scanid = 12345
+        if not self.fwriter.is_vds_supported():
+            print("Skip the test: VDS not supported")
+            return
+
+        name = "andor"
+        filename = "%s_%s.nxs" % (mfileprefix, scanid)
+        mainpath = "%s_%s" % (mfileprefix, scanid)
+        path = "%s_%s/%s" % (mfileprefix, scanid, name)
+        self._fname = filename
+        fname1 = ['testscan_data_%06i.h5' % i for i in range(1, 4)]
+        ffname1 = ['%s/%s' % (path, fn) for fn in fname1]
+        framenumbers = [14, 14, 2]
+
+        vl = [[[self._rnd.randint(1, 1600) for _ in range(20)]
+               for _ in range(10)]
+              for _ in range(30)]
+        try:
+            try:
+                os.makedirs(path)
+            except FileExistsError:
+                pass
+
+            for i, fn in enumerate(ffname1):
+                fl1 = self.fwriter.create_file(fn, overwrite=True)
+                rt = fl1.root()
+                entry = rt.create_group("entry_0000", "NXentry")
+                dt = entry.create_group("measurement", "NXdata")
+                intimage = dt.create_field(
+                    "data", "uint32",
+                    [framenumbers[i], 10, 20], [1, 10, 20])
+                vv = [[[vl[i * framenumbers[0] + nn][jj][ii]
+                        for ii in range(20)]
+                       for jj in range(10)]
+                      for nn in range(framenumbers[i])]
+                intimage[:, :, :] = vv
+                intimage.close()
+                dt.close()
+                entry.close()
+                fl1.close()
+
+            entryname = "entry123"
+            fl = self.fwriter.create_file(self._fname, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group(entryname, "NXentry")
+            ins = entry.create_group("instrument", "NXinstrument")
+            det = ins.create_group(name, "NXdetector")
+            dt = entry.create_group("data", "NXdata")
+            col = det.create_group("collection", "NXcollection")
+
+            commonblock = {
+                "andor_saving_next_number": (2 - 30),
+                "__root__": rt,
+            }
+            nbimages = 30
+
+            insname = "instrument"
+
+            saving_next_number = 4
+            saving_directory = path
+            saving_suffix = ".h5"
+            acq_nb_frames = nbimages
+            saving_index_format = "%06i"
+            saving_prefix = "testscan_data_"
+            saving_next_number_str = "andor_saving_next_number"
+            saving_format = "HDF5"
+            saving_frame_per_file = 14
+            image_height = 10
+            image_width = 20
+            image_type = "Bpp32"
+            acq_trigger_mode = "INTERNAL_TRIGGER_MULTI"
+            acq_mode = 'SINGLE'
+            acq_modes = "VDS"
+            field_path = "/entry_0000/measurement/data"
+
+            from nxstools.pyeval import limaccd
+            result = limaccd.postrun(
+                commonblock,
+                saving_next_number,
+                saving_directory,
+                saving_suffix,
+                acq_nb_frames,
+                saving_index_format,
+                saving_prefix,
+                saving_next_number_str,
+                name,
+                saving_format,
+                saving_frame_per_file,
+                image_height,
+                image_width,
+                image_type,
+                acq_trigger_mode,
+                acq_mode,
+                filename,
+                entryname,
+                insname,
+                acq_modes,
+                field_path)
+            fl.flush()
+            self.assertEqual(result, "")
+            detdt = det.open("data").read()
+            dtandor = dt.open("andor").read()
+            for j in range(sum(framenumbers)):
+                self.myAssertImage(detdt[j], vl[j])
+                self.myAssertImage(dtandor[j], vl[j])
+            for i in range(3):
+                images = col.open("data_%05i" % (i + 1))
+                rw = images.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
+                images = dt.open("andor_%05i" % (i + 1))
+                rw = images.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
+            intimage.close()
+            dt.close()
+            entry.close()
+            fl.close()
+        finally:
+            shutil.rmtree(mainpath,
+                          ignore_errors=False, onerror=None)
+            os.remove(self._fname)
+
+    def test_limaccdvds_postrun_splitmode_one(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        mfileprefix = "%s%s" % (self.__class__.__name__, fun)
+        scanid = 12345
+
+        name = "andor"
+        filename = "%s_%s.nxs" % (mfileprefix, scanid)
+        mainpath = "%s_%s" % (mfileprefix, scanid)
+        path = "%s_%s/%s" % (mfileprefix, scanid, name)
+        self._fname = filename
+        fname1 = ['testscan_data_%06i.h5' % i for i in range(1, 2)]
+        ffname1 = ['%s/%s' % (path, fn) for fn in fname1]
+        framenumbers = [30]
+
+        vl = [[[self._rnd.randint(1, 1600) for _ in range(20)]
+               for _ in range(10)]
+              for _ in range(30)]
+        try:
+            try:
+                os.makedirs(path)
+            except FileExistsError:
+                pass
+
+            for i, fn in enumerate(ffname1):
+                fl1 = self.fwriter.create_file(fn, overwrite=True)
+                rt = fl1.root()
+                entry = rt.create_group("entry_0000", "NXentry")
+                dt = entry.create_group("measurement", "NXdata")
+                intimage = dt.create_field(
+                    "data", "uint32",
+                    [framenumbers[i], 10, 20], [1, 10, 20])
+                vv = [[[vl[i * framenumbers[0] + nn][jj][ii]
+                        for ii in range(20)]
+                       for jj in range(10)]
+                      for nn in range(framenumbers[i])]
+                intimage[:, :, :] = vv
+                intimage.close()
+                dt.close()
+                entry.close()
+                fl1.close()
+
+            entryname = "entry123"
+            fl = self.fwriter.create_file(self._fname, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group(entryname, "NXentry")
+            ins = entry.create_group("instrument", "NXinstrument")
+            det = ins.create_group(name, "NXdetector")
+            dt = entry.create_group("data", "NXdata")
+            col = det.create_group("collection", "NXcollection")
+
+            commonblock = {
+                "andor_saving_next_number": (2 - 30),
+                "__root__": rt,
+            }
+            nbimages = 30
+
+            insname = "instrument"
+
+            saving_next_number = 2
+            saving_directory = path
+            saving_suffix = ".h5"
+            acq_nb_frames = nbimages
+            saving_index_format = "%06i"
+            saving_prefix = "testscan_data_"
+            saving_next_number_str = "andor_saving_next_number"
+            saving_format = "HDF5"
+            saving_frame_per_file = 30
+            image_height = 10
+            image_width = 20
+            image_type = "Bpp32"
+            acq_trigger_mode = "INTERNAL_TRIGGER_MULTI"
+            acq_mode = 'SINGLE'
+            acq_modes = ""
+            field_path = "/entry_0000/measurement/data"
+
+            from nxstools.pyeval import limaccd
+            result = limaccd.postrun(
+                commonblock,
+                saving_next_number,
+                saving_directory,
+                saving_suffix,
+                acq_nb_frames,
+                saving_index_format,
+                saving_prefix,
+                saving_next_number_str,
+                name,
+                saving_format,
+                saving_frame_per_file,
+                image_height,
+                image_width,
+                image_type,
+                acq_trigger_mode,
+                acq_mode,
+                filename,
+                entryname,
+                insname,
+                acq_modes,
+                field_path)
+            fl.flush()
+            self.assertEqual(result, "")
+            detdt = det.open("data").read()
+            dtandor = dt.open("andor").read()
+            for j in range(sum(framenumbers)):
+                self.myAssertImage(detdt[j], vl[j])
+                self.myAssertImage(dtandor[j], vl[j])
+            for i in range(1):
+                images = col.open("data_%05i" % (i + 1))
+                rw = images.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
+                images = dt.open("andor_%05i" % (i + 1))
+                rw = images.read()
+                for j in range(framenumbers[i]):
+                    self.myAssertImage(rw[j], vl[j + framenumbers[0] * i])
+            intimage.close()
+            dt.close()
+            entry.close()
+            fl.close()
+        finally:
+            shutil.rmtree(mainpath,
+                          ignore_errors=False, onerror=None)
+            os.remove(self._fname)
+
     def test_eigetdectris_triggermode_splitmode(self):
         """
         """

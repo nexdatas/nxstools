@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_filestartnum_cb">
+    <result name="result">
+from nxstools.pyeval import common
+ds.result = common.filestartnum_cb(commonblock, ds.$(name)_saving_next_number, ds.$(name)_acq_nb_frames, "$(name)_saving_next_number")
+    </result>
+  $datasources.$(name)_saving_next_number
+  $datasources.$(name)_acq_nb_frames</datasource>
+</definition>
