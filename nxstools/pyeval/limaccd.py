@@ -135,18 +135,20 @@ def postrun(commonblock,
         dt = en.open("data")
         ins = en.open(insname)
         det = ins.open(name)
-        col = det.create_group("collection", "NXcollection")
+        try:
+            col = det.open("collection")
+        except Exception:
+            col = det.create_group("collection", "NXcollection")
 
         shape = [image_height, image_width]
-        l2nt = {
-            "bpp8": "uint8", "bpp8s": "int8",
-            "bpp16": "uint16", "bpp16s": "int16",
-            "bpp32": "uint32", "bpp32s": "int32",
-            "bpp32f": "float",
-        }
-        dtype = l2nt.get(image_type.lower(), "int32")
-        2
         if "VDS" in amodes and "data" not in det.names():
+            l2nt = {
+                "bpp8": "uint8", "bpp8s": "int8",
+                "bpp16": "uint16", "bpp16s": "int16",
+                "bpp32": "uint32", "bpp32s": "int32",
+                "bpp32f": "float",
+            }
+            dtype = l2nt.get(image_type.lower(), "int32")
             vfl = nxw.virtual_field_layout(
                 [acq_nb_frames, shape[0], shape[1]], dtype)
 
@@ -184,11 +186,11 @@ def postrun(commonblock,
         elif nbfiles == 1:
             nxw.link("/%s/%s/%s/collection/%s" %
                      (entryname, insname, name, "data_%05i"
-                      % (0)), det, "data")
+                      % (filestartnum)), det, "data")
         if name not in dt.names() and "data" in det.names():
             nxw.link("/%s/%s/%s/data" % (entryname, insname, name),
                      dt, name)
-
+        result = ""
     else:
         filestartnum = commonblock[saving_next_number_str] - 1
         result = "" + filedir + "/" + saving_prefix + saving_index_format
