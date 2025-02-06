@@ -1,0 +1,66 @@
+<?xml version='1.0'?>
+<definition>
+  <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
+    <group type="NXinstrument" name="$(__insname__)">
+      <group type="NXdetector" name="$(name)">
+        <field units="m" type="NX_FLOAT64" name="x_pixel_size">
+            <strategy mode="FINAL"/>$datasources.$(name)_xpixelsize</field>
+        <field units="m" type="NX_FLOAT64" name="y_pixel_size">
+            <strategy mode="FINAL"/>$datasources.$(name)_ypixelsize</field>
+        <field type="NX_CHAR" name="layout">area</field>
+        <field type="NX_CHAR" name="description">$datasources.$(name)_description<strategy mode="INIT"/>
+        </field>
+        <group type="NXcollection" name="collection">
+          <field units="s" type="NX_FLOAT64" name="latency_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_latency_time</field>
+          <field units="s" type="NX_FLOAT64" name="dead_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_acc_dead_time</field>
+          <field units="s" type="NX_FLOAT64" name="live_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_acc_live_time</field>
+          <field units="s" type="NX_FLOAT64" name="acc_max_expo_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_acc_max_expo_time</field>
+          <field units="s" type="NX_FLOAT64" name="acc_expo_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_acc_expo_time</field>
+          <field units="s" type="NX_FLOAT64" name="acq_expo_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_acq_expo_time</field>
+          <field type="NX_UINT64" name="acq_nb_frames">
+            <strategy mode="FINAL"/>$datasources.$(name)_acq_nb_frames</field>
+          <field type="NX_CHAR" name="postrun">$datasources.$(name)_postrun<strategy mode="FINAL"/>
+          </field>
+          <field type="NX_CHAR" name="saving_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_saving_mode</field>
+          <field type="NX_CHAR" name="acc_time_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_acc_time_mode</field>
+          <field type="NX_CHAR" name="acq_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_acq_mode</field>
+          <field type="NX_CHAR" name="acq_trigger_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_acq_trigger_mode</field>
+          <field type="NX_CHAR" name="saving_frame_per_file">
+            <strategy mode="FINAL"/>$datasources.$(name)_saving_frame_per_file</field>
+          <field type="NX_CHAR" name="saving_directory">
+            <strategy mode="FINAL"/>$datasources.$(name)_saving_directory</field>
+          <field type="NX_CHAR" name="saving_suffix">
+            <strategy mode="FINAL"/>$datasources.$(name)_saving_suffix</field>
+          <field type="NX_CHAR" name="saving_prefix">
+            <strategy mode="FINAL"/>$datasources.$(name)_saving_prefix</field>
+          <field type="NX_CHAR" name="last_image_saved">
+            <strategy mode="FINAL"/>$datasources.$(name)_last_image_saved</field>
+          <field type="NX_UINT" name="signal">1</field>
+          <field type="NX_CHAR" name="file_index_num">
+            <strategy mode="STEP"/>$datasources.$(name)_filestartnum_cb</field>
+          <field type="NX_CHAR" name="image_type">
+            <strategy mode="FINAL"/>$datasources.$(name)_image_type</field>
+            <field units="pixels" type="NX_UINT64" name="image_width">
+            <strategy mode="FINAL"/>$datasources.$(name)_image_width</field>
+          <field units="pixels" type="NX_UINT64" name="image_height">
+            <strategy mode="FINAL"/>$datasources.$(name)_image_height</field>
+          <field type="NX_CHAR" name="image_rotation">
+            <strategy mode="FINAL"/>$datasources.$(name)_image_rotation</field>
+        </group>
+      </group>
+    </group>
+    <group type="NXdata" name="data">
+      <link target="$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data" name="$(name)"/>
+    </group>
+  </group>
+</definition>
