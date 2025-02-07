@@ -1,4 +1,8 @@
 2025-02-07 Jan Kotanski <jankotan@gmail.com>
+	* add fix for limaccdvds_postrun datasource (#754)
+	* tagged as v4.20.1
+
+2025-02-07 Jan Kotanski <jankotan@gmail.com>
 	* add limaccdvds component template (#751)
 	* tagged as v4.20.0
 
