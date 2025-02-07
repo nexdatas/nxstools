@@ -1517,16 +1517,19 @@ class H5RedisField(H5Field):
                 #      "items": axes}, ["plots"])
                 pass
             else:
-                self.append_scaninfo(
-                    {"kind": "1d-plot",
-                     "name": dsname,
-                     "items": [
-                         # {
-                         #     "kind": "curve",
-                         #     "y": dsname
-                         # }
-                     ]},
-                    ["plots"])
+                # self.append_scaninfo(
+                #     {"kind": "1d-plot",
+                #      # "name": "mg_channels",
+                #      "name": dsname,
+                #      "x": "index",
+                #      "items": [
+                #          {
+                #              # "kind": "curve",
+                #              "y": [dsname]
+                #          }
+                #      ]},
+                #     ["plots"])
+                pass
             self.append_stream(dsname, self.__stream)
         else:
             self.__jstream = self.scan_command(
