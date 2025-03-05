@@ -271,6 +271,8 @@ class General(Runner):
                                 sat = sr.attributes["NX_class"]
                                 if sat and filewriter.first(sat.read()) \
                                    == 'NXsource':
+                                    if "name" not in sr.names():
+                                        continue
                                     try:
                                         vl = filewriter.first(
                                             sr.open("name").read())
