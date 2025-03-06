@@ -120,10 +120,7 @@ def triggermode_cb(commonblock, name, triggermode, saveallimages,
                 lastfile = filenames[fi]
                 totalframenumbers += framesnumbers[fi]
         dtm = {1: "int8", 6: "int8", 12: "int16", 24: "int32"}
-        try:
-            dtype = dtm[opmode]
-        except Exception:
-            dtype = "int32"
+        dtype = "uint16"
 
         path = ""
         if filename_str:

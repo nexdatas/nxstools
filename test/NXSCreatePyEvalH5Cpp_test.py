@@ -985,7 +985,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
 
         commonblock = {}
-        name = "lmbd"
+        name = "minipix1"
         triggermode = 0
         saveallimages = False
         framesperfile = 10
@@ -1005,8 +1005,8 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             width,
             opmode,
             filepostfix,
-            "lmbd_savefilename",
-            "lmbd_framenumbers",
+            "minipix1_savefilename",
+            "minipix1_framenumbers",
             "myfile_24234.nxs",
             "entry1234")
         self.assertEqual(triggermode, result)
@@ -1025,7 +1025,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
         fileprefix = "%s%s" % (self.__class__.__name__, fun)
         scanid = 12345
 
-        name = "lmbd"
+        name = "minipix1"
         filename = "%s_%s.nxs" % (mfileprefix, scanid)
         mainpath = "%s_%s" % (mfileprefix, scanid)
         path = "%s_%s/%s" % (mfileprefix, scanid, name)
@@ -1048,7 +1048,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             ins = entry.create_group("instrument", "NXinstrument")
             det = ins.create_group("detector", "NXdetector")
             intimage = det.create_field(
-                "data", "uint32", [30, 10, 20], [1, 10, 20])
+                "data", "uint16", [30, 10, 20], [1, 10, 20])
             intimage[...] = vl
             intimage.close()
             det.close()
@@ -1064,8 +1064,8 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             det = ins.create_group(name, "NXdetector")
 
             commonblock = {
-                "lmbd_savefilename": [sfname1],
-                "lmbd_framenumbers": [30],
+                "minipix1_savefilename": [sfname1],
+                "minipix1_framenumbers": [30],
                 "__root__": rt,
             }
             triggermode = 0
@@ -1087,8 +1087,8 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                 width,
                 opmode,
                 filepostfix,
-                "lmbd_savefilename",
-                "lmbd_framenumbers",
+                "minipix1_savefilename",
+                "minipix1_framenumbers",
                 filename,
                 entryname)
             self.assertEqual(triggermode, result)
@@ -1121,7 +1121,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
         fileprefix = "%s%s" % (self.__class__.__name__, fun)
         scanid = 12345
 
-        name = "lmbd"
+        name = "minipix1"
         filename = "%s_%s.nxs" % (mfileprefix, scanid)
         mainpath = "%s_%s" % (mfileprefix, scanid)
         path = "%s_%s/%s" % (mfileprefix, scanid, name)
@@ -1145,7 +1145,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                 ins = entry.create_group("instrument", "NXinstrument")
                 det = ins.create_group("detector", "NXdetector")
                 intimage = det.create_field(
-                    "data", "uint32", [1, 10, 20], [1, 10, 20])
+                    "data", "uint16", [1, 10, 20], [1, 10, 20])
                 vv = [[[vl[i][jj][ii] for ii in range(20)]
                        for jj in range(10)]]
                 intimage[0, :, :] = vv
@@ -1163,8 +1163,8 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             det = ins.create_group(name, "NXdetector")
 
             commonblock = {
-                "lmbd_savefilename": sfname1,
-                "lmbd_framenumbers": [1] * 30,
+                "minipix1_savefilename": sfname1,
+                "minipix1_framenumbers": [1] * 30,
                 "__root__": rt,
             }
             triggermode = 0
@@ -1186,8 +1186,8 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                 width,
                 opmode,
                 filepostfix,
-                "lmbd_savefilename",
-                "lmbd_framenumbers",
+                "minipix1_savefilename",
+                "minipix1_framenumbers",
                 filename,
                 entryname)
             self.assertEqual(triggermode, result)
@@ -1220,7 +1220,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
         fileprefix = "%s%s" % (self.__class__.__name__, fun)
         scanid = 12345
 
-        name = "lmbd"
+        name = "minipix1"
         filename = "%s_%s.nxs" % (mfileprefix, scanid)
         mainpath = "%s_%s" % (mfileprefix, scanid)
         path = "%s_%s/%s" % (mfileprefix, scanid, name)
@@ -1246,7 +1246,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                 ins = entry.create_group("instrument", "NXinstrument")
                 det = ins.create_group("detector", "NXdetector")
                 intimage = det.create_field(
-                    "data", "uint32",
+                    "data", "uint16",
                     [framenumbers[i], 10, 20], [1, 10, 20])
                 vv = [[[vl[i * framenumbers[0] + nn][jj][ii]
                         for ii in range(20)]
@@ -1267,8 +1267,8 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             det = ins.create_group(name, "NXdetector")
 
             commonblock = {
-                "lmbd_savefilename": sfname1,
-                "lmbd_framenumbers": framenumbers,
+                "minipix1_savefilename": sfname1,
+                "minipix1_framenumbers": framenumbers,
                 "__root__": rt,
             }
             triggermode = 0
@@ -1290,8 +1290,8 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                 width,
                 opmode,
                 filepostfix,
-                "lmbd_savefilename",
-                "lmbd_framenumbers",
+                "minipix1_savefilename",
+                "minipix1_framenumbers",
                 filename,
                 entryname)
             self.assertEqual(triggermode, result)
