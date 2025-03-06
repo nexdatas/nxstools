@@ -1,6 +1,7 @@
-2025-03-05 Jan Kotanski <jankotan@gmail.com>
+2025-03-10 Jan Kotanski <jankotan@gmail.com>
+	* add minipix component template (#762)
 	* add fix for missing source name in nxsfileinfo general (#760)
-	* tagged as v4.20.3
+	* tagged as v4.21.0
 
 2025-02-07 Jan Kotanski <jankotan@gmail.com>
 	* add fix for limaccdvds_filestartnum_cb datasource (#754)

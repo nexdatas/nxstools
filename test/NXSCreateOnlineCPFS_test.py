@@ -330,7 +330,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      "lambdavds",
                      "lambdavdsnm",
                      "limaccd", "limaccds", "limaccdvds",
-                     "marccd", "mca_xia",
+                     "marccd", "mca_xia", "minipix",
                      "mythen", "mythen2", "pco", "pco4000", "pcoedge",
                      "pedetector", "perkinelmer",
                      "perkinelmerdetector",
@@ -373,6 +373,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
             'mythen2',              #
             'perkinelmer',          #
             'mca_xia',              # +
+            "minipix",
             'pco',
             'pilatus6m',            #
             "pilc",
@@ -446,7 +447,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                              "lambda", "lambda2m",
                              "lambdavds", "lambdavdsnm",
                              "limaccd", "limaccds", "limaccdvds",
-                             "marccd", "mca_xia",
+                             "marccd", "mca_xia", "minipix",
                              "mythen", "mythen2", "pco", "pco4000", "pcoedge",
                              "pedetector", "perkinelmer",
                              "perkinelmerdetector",
@@ -524,7 +525,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                  "lambda", "lambda2m",
                  "lambdavds", "lambdavdsnm",
                  "limaccd", "limaccds", "limaccdvds",
-                 "marccd", "mca_xia",
+                 "marccd", "mca_xia", "minipix",
                  "mythen", "mythen2", "pco", "pco4000", "pcoedge",
                  "pedetector", "perkinelmer",
                  "perkinelmerdetector",
