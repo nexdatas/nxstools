@@ -19,8 +19,6 @@
 
 """  pyeval helper functions for lambdavds """
 
-import json
-
 try:
     from . import common
 except Exception:

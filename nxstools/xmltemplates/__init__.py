@@ -2215,7 +2215,7 @@ moduleMultiAttributes = {
     ],
     'minipix': [
         'EnergyThreshold', 'TriggerMode', 'FrameNumbers',
-        'SaveAllImages', 'Width', 'Height', 'ConfigFilePath', 
+        'SaveAllImages', 'Width', 'Height', 'ConfigFilePath',
         'FilePostfix', 'FilePrefix', 'SaveFilePath',
         "FramesPerFile", 'SaveFileName', 'FileStartNum',
         'AppendData', 'BiasVoltage', 'FrameCounter',
