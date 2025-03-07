@@ -368,39 +368,6 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
         self.assertEqual(
             commonblock["andor_filestartnum"], sfn1 - nbn1 + 1)
 
-    def test_lambdavds_triggermode_cb_nosave(self):
-        """
-        """
-        fun = sys._getframe().f_code.co_name
-        print("Run: %s.%s() " % (self.__class__.__name__, fun))
-
-        commonblock = {}
-        name = "lmbd"
-        triggermode = 0
-        saveallimages = False
-        framesperfile = 10
-        height = 2321
-        width = 32
-        opmode = 6
-        filepostfix = "nxs"
-
-        from nxstools.pyeval import lambdavds
-        result = lambdavds.triggermode_cb(
-            commonblock,
-            name,
-            triggermode,
-            saveallimages,
-            framesperfile,
-            height,
-            width,
-            opmode,
-            filepostfix,
-            "lmbd_savefilename",
-            "lmbd_framenumbers",
-            "myfile_24234.nxs",
-            "entry1234")
-        self.assertEqual(triggermode, result)
-
     def test_beamtimeid_nodir(self):
         """
         """
@@ -677,6 +644,39 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             self.assertEqual(bfn, result)
         finally:
             os.remove(bfn)
+
+    def test_lambdavds_triggermode_cb_nosave(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        commonblock = {}
+        name = "lmbd"
+        triggermode = 0
+        saveallimages = False
+        framesperfile = 10
+        height = 2321
+        width = 32
+        opmode = 6
+        filepostfix = "nxs"
+
+        from nxstools.pyeval import lambdavds
+        result = lambdavds.triggermode_cb(
+            commonblock,
+            name,
+            triggermode,
+            saveallimages,
+            framesperfile,
+            height,
+            width,
+            opmode,
+            filepostfix,
+            "lmbd_savefilename",
+            "lmbd_framenumbers",
+            "myfile_24234.nxs",
+            "entry1234")
+        self.assertEqual(triggermode, result)
 
     def test_lambdavds_triggermode_cb_onefile(self):
         """
@@ -959,6 +959,340 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
                 filepostfix,
                 "lmbd_savefilename",
                 "lmbd_framenumbers",
+                filename,
+                entryname)
+            self.assertEqual(triggermode, result)
+
+            images = det.open("data")
+            fl.flush()
+            rw = images.read()
+            for i in range(30):
+                self.myAssertImage(rw[i], vl[i])
+            intimage.close()
+            det.close()
+            ins.close()
+            entry.close()
+            fl.close()
+        finally:
+            shutil.rmtree(mainpath,
+                          ignore_errors=False, onerror=None)
+            os.remove(self._fname)
+
+    def test_minipix_triggermode_cb_nosave(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        commonblock = {}
+        name = "minipix1"
+        triggermode = 0
+        saveallimages = False
+        framesperfile = 10
+        height = 2321
+        width = 32
+        opmode = 6
+        filepostfix = "nxs"
+
+        from nxstools.pyeval import minipix
+        result = minipix.triggermode_cb(
+            commonblock,
+            name,
+            triggermode,
+            saveallimages,
+            framesperfile,
+            height,
+            width,
+            opmode,
+            filepostfix,
+            "minipix1_savefilename",
+            "minipix1_framenumbers",
+            "myfile_24234.nxs",
+            "entry1234")
+        self.assertEqual(triggermode, result)
+
+    def test_minipix_triggermode_cb_onefile(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        if not self.fwriter.is_vds_supported():
+            print("Skip the test: VDS not supported")
+            return
+
+        mfileprefix = "%s%s" % (self.__class__.__name__, fun)
+        fileprefix = "%s%s" % (self.__class__.__name__, fun)
+        scanid = 12345
+
+        name = "minipix1"
+        filename = "%s_%s.nxs" % (mfileprefix, scanid)
+        mainpath = "%s_%s" % (mfileprefix, scanid)
+        path = "%s_%s/%s" % (mfileprefix, scanid, name)
+        self._fname = filename
+        fname1 = '%s_00000.nxs' % (fileprefix)
+        sfname1 = '%s_00000' % (fileprefix)
+        ffname1 = '%s/%s' % (path, fname1)
+
+        vl = [[[self._rnd.randint(1, 1600) for _ in range(20)]
+               for _ in range(10)]
+              for _ in range(30)]
+        try:
+            try:
+                os.makedirs(path)
+            except FileExistsError:
+                pass
+            fl1 = self.fwriter.create_file(ffname1, overwrite=True)
+            rt = fl1.root()
+            entry = rt.create_group("entry", "NXentry")
+            ins = entry.create_group("instrument", "NXinstrument")
+            det = ins.create_group("detector", "NXdetector")
+            intimage = det.create_field(
+                "data", "uint16", [30, 10, 20], [1, 10, 20])
+            intimage[...] = vl
+            intimage.close()
+            det.close()
+            ins.close()
+            entry.close()
+            fl1.close()
+
+            entryname = "entry123"
+            fl = self.fwriter.create_file(self._fname, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group(entryname, "NXentry")
+            ins = entry.create_group("instrument", "NXinstrument")
+            det = ins.create_group(name, "NXdetector")
+
+            commonblock = {
+                "minipix1_savefilename": [sfname1],
+                "minipix1_framenumbers": [30],
+                "__root__": rt,
+            }
+            triggermode = 0
+            saveallimages = True
+            framesperfile = 0
+            height = 10
+            width = 20
+            opmode = 24
+            filepostfix = "nxs"
+
+            from nxstools.pyeval import minipix
+            result = minipix.triggermode_cb(
+                commonblock,
+                name,
+                triggermode,
+                saveallimages,
+                framesperfile,
+                height,
+                width,
+                opmode,
+                filepostfix,
+                "minipix1_savefilename",
+                "minipix1_framenumbers",
+                filename,
+                entryname)
+            self.assertEqual(triggermode, result)
+
+            images = det.open("data")
+            rw = images.read()
+            for i in range(30):
+                self.myAssertImage(rw[i], vl[i])
+            intimage.close()
+            det.close()
+            ins.close()
+            entry.close()
+            fl.close()
+        finally:
+            # pass
+            shutil.rmtree(mainpath,
+                          ignore_errors=False, onerror=None)
+            os.remove(self._fname)
+
+    def test_minipix_triggermode_cb_singleframe(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        if not self.fwriter.is_vds_supported():
+            print("Skip the test: VDS not supported")
+            return
+
+        mfileprefix = "%s%s" % (self.__class__.__name__, fun)
+        fileprefix = "%s%s" % (self.__class__.__name__, fun)
+        scanid = 12345
+
+        name = "minipix1"
+        filename = "%s_%s.nxs" % (mfileprefix, scanid)
+        mainpath = "%s_%s" % (mfileprefix, scanid)
+        path = "%s_%s/%s" % (mfileprefix, scanid, name)
+        self._fname = filename
+        fname1 = ['%s_%05d.nxs' % (fileprefix, i) for i in range(30)]
+        sfname1 = ['%s_%05d' % (fileprefix, i) for i in range(30)]
+        ffname1 = ['%s/%s' % (path, fn) for fn in fname1]
+
+        vl = [[[self._rnd.randint(1, 1600) for _ in range(20)]
+               for _ in range(10)]
+              for _ in range(30)]
+        try:
+            try:
+                os.makedirs(path)
+            except FileExistsError:
+                pass
+            for i, fn in enumerate(ffname1):
+                fl1 = self.fwriter.create_file(fn, overwrite=True)
+                rt = fl1.root()
+                entry = rt.create_group("entry", "NXentry")
+                ins = entry.create_group("instrument", "NXinstrument")
+                det = ins.create_group("detector", "NXdetector")
+                intimage = det.create_field(
+                    "data", "uint16", [1, 10, 20], [1, 10, 20])
+                vv = [[[vl[i][jj][ii] for ii in range(20)]
+                       for jj in range(10)]]
+                intimage[0, :, :] = vv
+                intimage.close()
+                det.close()
+                ins.close()
+                entry.close()
+                fl1.close()
+
+            entryname = "entry123"
+            fl = self.fwriter.create_file(self._fname, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group(entryname, "NXentry")
+            ins = entry.create_group("instrument", "NXinstrument")
+            det = ins.create_group(name, "NXdetector")
+
+            commonblock = {
+                "minipix1_savefilename": sfname1,
+                "minipix1_framenumbers": [1] * 30,
+                "__root__": rt,
+            }
+            triggermode = 0
+            saveallimages = True
+            framesperfile = 0
+            height = 10
+            width = 20
+            opmode = 24
+            filepostfix = "nxs"
+
+            from nxstools.pyeval import minipix
+            result = minipix.triggermode_cb(
+                commonblock,
+                name,
+                triggermode,
+                saveallimages,
+                framesperfile,
+                height,
+                width,
+                opmode,
+                filepostfix,
+                "minipix1_savefilename",
+                "minipix1_framenumbers",
+                filename,
+                entryname)
+            self.assertEqual(triggermode, result)
+
+            images = det.open("data")
+            rw = images.read()
+            for i in range(30):
+                self.myAssertImage(rw[i], vl[i])
+            intimage.close()
+            det.close()
+            ins.close()
+            entry.close()
+            fl.close()
+        finally:
+            shutil.rmtree(mainpath,
+                          ignore_errors=False, onerror=None)
+            os.remove(self._fname)
+
+    def test_minipix_triggermode_cb_splitmode(self):
+        """
+        """
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+
+        if not self.fwriter.is_vds_supported():
+            print("Skip the test: VDS not supported")
+            return
+
+        mfileprefix = "%s%s" % (self.__class__.__name__, fun)
+        fileprefix = "%s%s" % (self.__class__.__name__, fun)
+        scanid = 12345
+
+        name = "minipix1"
+        filename = "%s_%s.nxs" % (mfileprefix, scanid)
+        mainpath = "%s_%s" % (mfileprefix, scanid)
+        path = "%s_%s/%s" % (mfileprefix, scanid, name)
+        self._fname = filename
+        fname1 = ['%s_00000_part%05d.nxs' % (fileprefix, i) for i in range(3)]
+        sfname1 = ['%s_00000_part%05d' % (fileprefix, i) for i in range(3)]
+        ffname1 = ['%s/%s' % (path, fn) for fn in fname1]
+        framenumbers = [14, 14, 2]
+
+        vl = [[[self._rnd.randint(1, 1600) for _ in range(20)]
+               for _ in range(10)]
+              for _ in range(30)]
+        try:
+            try:
+                os.makedirs(path)
+            except FileExistsError:
+                pass
+
+            for i, fn in enumerate(ffname1):
+                fl1 = self.fwriter.create_file(fn, overwrite=True)
+                rt = fl1.root()
+                entry = rt.create_group("entry", "NXentry")
+                ins = entry.create_group("instrument", "NXinstrument")
+                det = ins.create_group("detector", "NXdetector")
+                intimage = det.create_field(
+                    "data", "uint16",
+                    [framenumbers[i], 10, 20], [1, 10, 20])
+                vv = [[[vl[i * framenumbers[0] + nn][jj][ii]
+                        for ii in range(20)]
+                       for jj in range(10)]
+                      for nn in range(framenumbers[i])]
+                intimage[:, :, :] = vv
+                intimage.close()
+                det.close()
+                ins.close()
+                entry.close()
+                fl1.close()
+
+            entryname = "entry123"
+            fl = self.fwriter.create_file(self._fname, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group(entryname, "NXentry")
+            ins = entry.create_group("instrument", "NXinstrument")
+            det = ins.create_group(name, "NXdetector")
+
+            commonblock = {
+                "minipix1_savefilename": sfname1,
+                "minipix1_framenumbers": framenumbers,
+                "__root__": rt,
+            }
+            triggermode = 0
+            saveallimages = True
+            framesperfile = 14
+            height = 10
+            width = 20
+            opmode = 24
+            filepostfix = "nxs"
+
+            from nxstools.pyeval import minipix
+            result = minipix.triggermode_cb(
+                commonblock,
+                name,
+                triggermode,
+                saveallimages,
+                framesperfile,
+                height,
+                width,
+                opmode,
+                filepostfix,
+                "minipix1_savefilename",
+                "minipix1_framenumbers",
                 filename,
                 entryname)
             self.assertEqual(triggermode, result)

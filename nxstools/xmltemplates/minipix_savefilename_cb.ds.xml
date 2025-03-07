@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_savefilename_cb">
+    <result name="result">
+from nxstools.pyeval import common
+ds.result = common.blockitem_add(commonblock, "$(name)_savefilename", ds.$(name)_savefilename)
+    </result>
+    $datasources.$(name)_savefilename
+  </datasource>
+</definition>

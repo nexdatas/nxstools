@@ -1,0 +1,18 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_triggermode_cb">
+    <result name="result">
+from nxstools.pyeval import minipix
+ds.result = minipix.triggermode_cb(commonblock, "$(name)", ds.$(name)_triggermode, ds.$(name)_saveallimages, ds.$(name)_framesperfile, ds.$(name)_height, ds.$(name)_width, ds.$(name)_opmode, ds.$(name)_filepostfix, "$(name)_savefilename", "$(name)_framenumbers", "$var.filename", "$var.entryname#'$(__entryname__)'$var.serialno")
+    </result>
+    $datasources.$(name)_triggermode
+    $datasources.$(name)_opmode
+    $datasources.$(name)_savefilename
+    $datasources.$(name)_saveallimages
+    $datasources.$(name)_framesperfile
+    $datasources.$(name)_framenumbers
+    $datasources.$(name)_filepostfix
+    $datasources.$(name)_height
+    $datasources.$(name)_width
+  </datasource>
+</definition>

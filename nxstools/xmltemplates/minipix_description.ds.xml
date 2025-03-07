@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_description">
+    <result name="result">
+from nxstools.pyeval import common
+common.blockitem_rm(
+    commonblock, ["$(name)_savefilename", "$(name)_framenumbers"])
+ds.result = "$(name)"
+    </result>
+  </datasource>
+</definition>

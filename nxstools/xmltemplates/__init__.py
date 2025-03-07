@@ -1862,6 +1862,14 @@ moduleTemplateFiles = {
         'xspress3.xml',
         'xspress3_triggermode_cb.ds.xml'
     ],
+    'minipix': [
+        'minipix.xml',
+        'minipix_nxdata.ds.xml',
+        'minipix_description.ds.xml',
+        'minipix_triggermode_cb.ds.xml',
+        'minipix_framenumbers_cb.ds.xml',
+        'minipix_savefilename_cb.ds.xml'
+    ],
     'eigerdectris': [
         'eigerdectris.xml',
         'eigerdectris_stepindex.ds.xml',
@@ -2204,6 +2212,14 @@ moduleMultiAttributes = {
         # DataCh01,
         # DataCh01ROI0, DataCh01ROI0End, DataCh01ROI0Start,
         # DataCh01ROI1, DataCh01ROI1End, DataCh01ROI1Start,
+    ],
+    'minipix': [
+        'EnergyThreshold', 'TriggerMode', 'FrameNumbers',
+        'SaveAllImages', 'Width', 'Height', 'ConfigFilePath',
+        'FilePostfix', 'FilePrefix', 'SaveFilePath',
+        "FramesPerFile", 'SaveFileName', 'FileStartNum',
+        'AppendData', 'BiasVoltage', 'FrameCounter',
+        'FrameTime', 'LiveImage', 'OpMode',
     ],
     'eigerdectris': [
         'TriggerMode', 'NbTriggers', 'Description', 'NbImages', 'BitDepth',

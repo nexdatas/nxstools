@@ -1,0 +1,58 @@
+<?xml version='1.0'?>
+<definition>
+  <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
+    <group type="NXinstrument" name="$(__insname__)">
+      <group type="NXdetector" name="$(name)">
+        <field units="um" type="NX_FLOAT64" name="x_pixel_size">55<strategy mode="INIT"/>
+        </field>
+        <field units="um" type="NX_FLOAT64" name="y_pixel_size">55<strategy mode="INIT"/>
+        </field>
+        <field type="NX_CHAR" name="layout">area<strategy mode="INIT"/>
+        </field>
+        <field type="NX_CHAR" name="description">$datasources.$(name)_description<strategy mode="INIT"/>
+        </field>
+        <field units="eV" type="NX_FLOAT32" name="threshold_energy">
+          <strategy mode="FINAL"/>$datasources.$(name)_energythreshold</field>
+        <group type="NXcollection" name="collection">
+          <field type="NX_INT16" name="trigger_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_triggermode_cb</field>
+          <field type="NX_INT64" name="frame_numbers">
+            <strategy mode="STEP"/>$datasources.$(name)_framenumbers_cb</field>
+          <field type="NX_BOOLEAN" name="save_all_images">
+            <strategy mode="FINAL"/>$datasources.$(name)_saveallimages</field>
+          <field type="NX_UINT64" name="width">
+            <strategy mode="FINAL"/>$datasources.$(name)_width</field>
+          <field type="NX_UINT64" name="height">
+            <strategy mode="FINAL"/>$datasources.$(name)_height</field>
+          <field type="NX_UINT64" name="frames_per_file">
+            <strategy mode="FINAL"/>$datasources.$(name)_framesperfile</field>
+          <field type="NX_UINT64" name="frame_counter">
+            <strategy mode="FINAL"/>$datasources.$(name)_framecounter</field>
+          <field  units="um" type="NX_UINT64" name="frame_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_frametime</field>
+          <field type="NX_BOOLEAN" name="append_data">
+            <strategy mode="FINAL"/>$datasources.$(name)_appenddata</field>
+          <field type="NX_FLOAT64" name="bias_voltage">
+            <strategy mode="FINAL"/>$datasources.$(name)_biasvoltage</field>
+          <field type="NX_INT64" name="op_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_opmode</field>
+          <field type="NX_CHAR" name="config_file_path">
+            <strategy mode="FINAL"/>$datasources.$(name)_configfilepath</field>
+          <field type="NX_CHAR" name="file_prefix">
+            <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field>
+          <field type="NX_CHAR" name="file_start_num">
+            <strategy mode="INIT"/>$datasources.$(name)_filestartnum</field>
+          <field type="NX_CHAR" name="file_postfix">
+            <strategy mode="FINAL"/>$datasources.$(name)_filepostfix</field>
+          <field type="NX_CHAR" name="save_file_path">
+            <strategy mode="FINAL"/>$datasources.$(name)_savefilepath</field>
+          <field type="NX_CHAR" name="save_file_name">
+            <strategy mode="STEP"/>$datasources.$(name)_savefilename_cb</field>
+        </group>
+      </group>
+    </group>
+    <group type="NXdata" name="data">
+      <link name="$(name)">$datasources.$(name)_nxdata<strategy mode="FINAL"/></link>
+    </group>
+  </group>
+</definition>
