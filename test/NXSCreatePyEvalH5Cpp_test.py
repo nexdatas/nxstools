@@ -1103,6 +1103,7 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             entry.close()
             fl.close()
         finally:
+            # pass
             shutil.rmtree(mainpath,
                           ignore_errors=False, onerror=None)
             os.remove(self._fname)

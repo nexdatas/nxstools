@@ -19,49 +19,12 @@
 
 """  pyeval helper functions for lambdavds """
 
-try:
-    from . import common
-except Exception:
-    import common
-
-
-def savefilename_cb(commonblock, savefilename, savefilename_str):
-    """ code for savefilename_cb  datasource
-
-    :param commonblock: commonblock of nxswriter
-    :type commonblock: :obj:`dict`<:obj:`str`, `any`>
-    :param savefilename:  name of saved file
-    :type savefilename: :obj:`str`
-    :param savefilename_str: name of savefilename datasource
-    :type savefilename_str: :obj:`str`
-    :returns:   name of saved file
-    :rtype: :obj:`str`
-    """
-    return common.blockitem_add(
-        commonblock, savefilename_str, savefilename)
-
-
-def framenumbers_cb(commonblock, framenumbers, framenumbers_str):
-    """ code for triggermode_cb  datasource
-
-    :param commonblock: commonblock of nxswriter
-    :type commonblock: :obj:`dict`<:obj:`str`, `any`>
-    :param framenumbers:  number of frames
-    :type framenumbers: :obj:`str` or :obj:`int`
-    :param framenumbers_str: name of framenumbers datasource
-    :type framenumbers_str: :obj:`str`
-    :returns:  number of frames
-    :rtype: :obj:`str` or :obj:`int`
-    """
-    return common.blockitem_addint(
-        commonblock, framenumbers_str, framenumbers)
-
 
 def triggermode_cb(commonblock, name, triggermode, saveallimages,
                    framesperfile, height, width, opmode,
                    filepostfix, savefilename_str, framenumbers_str,
                    filename_str, entry_str,
-                   shortdetpath=None):
+                   shortdetpath=None, dtype="uint16"):
     """ code for triggermode_cb  datasource
 
     :param commonblock: commonblock of nxswriter
@@ -90,11 +53,11 @@ def triggermode_cb(commonblock, name, triggermode, saveallimages,
     :param framenumbers_str: name of framenumbers datasource
     :type framenumbers_str: :obj:`str`
     :param filename_str: file name
-    :type filename_str: :obj:`str`
-    :param entry_str: entry name
     :type entry_str: :obj:`str`
     :param shortdetpath: shortdetpath
     :type shortdetpath: :obj:`bool`
+    :type dtype: :obj:`str`
+    :param dtype: pixel data type
     :returns:  triggermode
     :rtype: :obj:`str` or :obj:`int`
     """
@@ -119,8 +82,6 @@ def triggermode_cb(commonblock, name, triggermode, saveallimages,
                 filesframes.append((filenames[fi], framesnumbers[fi]))
                 lastfile = filenames[fi]
                 totalframenumbers += framesnumbers[fi]
-        # dtm = {1: "int8", 6: "int8", 12: "int16", 24: "int32"}
-        dtype = "uint16"
 
         path = ""
         if filename_str:
@@ -146,36 +107,44 @@ def triggermode_cb(commonblock, name, triggermode, saveallimages,
         det = ins.open(name)
         npath = "/entry/instrument/detector/data"
 
-        vfl = nxw.virtual_field_layout(
-            [totalframenumbers, height, width], dtype)
+        if len(filesframes) == 1 and \
+                not (filesframes[0][1] > framesperfile and framesperfile > 10):
+            filename = path + name + "/" + str(filesframes[0][0]) \
+                + "." + str(filepostfix)
 
-        foffset = 0
-        for savefilename, framenumbers in filesframes:
-            if framenumbers > 0 and framesperfile > 10:
-                nbfiles = (framenumbers - 1) // framesperfile + 1
-                lastfilenbframes = framenumbers - (nbfiles - 1) * framesperfile
-            elif framenumbers > 0:
-                nbfiles = 1
-                lastfilenbframes = framenumbers
-            else:
-                nbfiles = 0
-                lastfilenbframes = 0
+            nxw.link("%s:/%s" % (filename, npath), det, "data")
+        else:
+            vfl = nxw.virtual_field_layout(
+                [totalframenumbers, height, width], dtype)
 
-            if nbfiles > 0:
-                for nbf in range(0, nbfiles):
-                    if framenumbers > framesperfile and framesperfile > 10:
-                        connector = "_part%05d." % nbf
-                    else:
-                        connector = "."
-                    filename = path + name + "/" + str(savefilename) \
-                        + connector + str(filepostfix)
-                    ln = framesperfile if nbf + 1 != nbfiles \
-                        else lastfilenbframes
-                    ef = nxw.target_field_view(
-                        filename, npath, [ln, height, width], dtype)
-                    vfl[
-                        (foffset + nbf * framesperfile):
-                        (foffset + nbf * framesperfile + ln), :, :] = ef
-                foffset += framenumbers
-        det.create_virtual_field("data", vfl)
+            foffset = 0
+            for savefilename, framenumbers in filesframes:
+                if framenumbers > 0 and framesperfile > 10:
+                    nbfiles = (framenumbers - 1) // framesperfile + 1
+                    lastfilenbframes = framenumbers \
+                        - (nbfiles - 1) * framesperfile
+                elif framenumbers > 0:
+                    nbfiles = 1
+                    lastfilenbframes = framenumbers
+                else:
+                    nbfiles = 0
+                    lastfilenbframes = 0
+
+                if nbfiles > 0:
+                    for nbf in range(0, nbfiles):
+                        if framenumbers > framesperfile and framesperfile > 10:
+                            connector = "_part%05d." % nbf
+                        else:
+                            connector = "."
+                        filename = path + name + "/" + str(savefilename) \
+                            + connector + str(filepostfix)
+                        ln = framesperfile if nbf + 1 != nbfiles \
+                            else lastfilenbframes
+                        ef = nxw.target_field_view(
+                            filename, npath, [ln, height, width], dtype)
+                        vfl[
+                            (foffset + nbf * framesperfile):
+                            (foffset + nbf * framesperfile + ln), :, :] = ef
+                    foffset += framenumbers
+            det.create_virtual_field("data", vfl)
     return triggermode
