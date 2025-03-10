@@ -27,9 +27,9 @@ The beamtime ID at DESY is an 8 digit number.R</doc>
         <doc>generic description of the $(sourcename) storage ring</doc>
         <field short_name="PETRAIII" type="NX_CHAR" name="name">
           <strategy mode="INIT"/>$(sourcename)</field>
-        <field type="NX_CHAR" name="type">Synchrotron X-ray Source<strategy mode="INIT"/>
+        <field type="NX_CHAR" name="type">$(type)<strategy mode="INIT"/>
         </field>
-        <field type="NX_CHAR" name="probe">x-ray<strategy mode="INIT"/>
+        <field type="NX_CHAR" name="probe">$(probe)<strategy mode="INIT"/>
         </field>
       </group>
       <field short_name="$(shortname)" type="NX_CHAR" name="name">$(longname)<strategy mode="INIT"/>

@@ -1110,6 +1110,14 @@ standardComponentVariables = {
             'default': 'source',
             'doc': "source group name (string)"
         },
+        'type': {
+            'default': 'Synchrotron X-ray Source',
+            'doc': "source type (string)"
+        },
+        'probe': {
+            'default': 'x-ray',
+            'doc': "source probe (string)"
+        },
     },
     'defaultsample': {
     },
