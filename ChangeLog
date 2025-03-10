@@ -1,4 +1,8 @@
 2025-03-10 Jan Kotanski <jankotan@gmail.com>
+	* make type and probe of default component changeble (#765)
+	* tagged as v4.22.0
+
+2025-03-10 Jan Kotanski <jankotan@gmail.com>
 	* add minipix component template (#762)
 	* add fix for missing source name in nxsfileinfo general (#760)
 	* tagged as v4.21.0
