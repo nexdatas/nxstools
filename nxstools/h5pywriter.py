@@ -1247,8 +1247,11 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             else:
                 sourcekey = _selection2slice(sourcekey, source.shape)
             self._h5object.__setitem__(key, source._h5object[sourcekey])
-        elif key is not None:
-            usel = unlimited_selection(key, shape)
+        elif key is not None and not isinstance(key, int):
+            try:
+                usel = unlimited_selection(key, shape)
+            except Exception:
+                usel = None
             if usel is not None:
                 self._h5object[key] = source._h5object[usel]
             else:
