@@ -180,7 +180,7 @@ def _slice2selection(t, shape):
                 offset=(start,),
                 count=int(math.ceil((stop - start) / float(t.step))),
                 stride=(t.step,))
-    elif isinstance(t, (int, long)) and shape:
+    elif isinstance(t, (int, long)) and shape and len(shape) > 1:
         offset = [0] * len(shape)
         offset[0] = t
         return h5cpp.dataspace.Hyperslab(
