@@ -1,3 +1,7 @@
+2025-04-08 Jan Kotanski <jankotan@gmail.com>
+	* fix setting vds layout with key integer for h5pywriter (#767)
+	* tagged as v4.22.1
+
 2025-03-10 Jan Kotanski <jankotan@gmail.com>
 	* make type and probe of default component changeble (#765)
 	* tagged as v4.22.0
