@@ -1,4 +1,8 @@
 2025-04-08 Jan Kotanski <jankotan@gmail.com>
+	* add support for utf8 in  py2
+	* tagged as v3.67.3
+
+2025-04-08 Jan Kotanski <jankotan@gmail.com>
 	* fixes for vds
 	* tagged as v3.67.2
 

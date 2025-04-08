@@ -1498,7 +1498,10 @@ class H5PYAttribute(filewriter.FTAttribute):
            (hasattr(o, "__len__") and t == slice(0, len(o), None)):
             if self.dtype in ['string', b'string']:
                 if isinstance(o, str):
-                    self._h5object[0][self.name] = unicode(o)
+                    try:
+                        self._h5object[0][self.name] = unicode(o)
+                    except Exception:
+                        self._h5object[0][self.name] = o.decode("utf8")
                 else:
                     dtype = h5py.special_dtype(vlen=unicode)
                     self._h5object[0][self.name] = np.array(o, dtype=dtype)
