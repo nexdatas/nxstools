@@ -1,5 +1,6 @@
 2025-04-08 Jan Kotanski <jankotan@gmail.com>
 	* fix setting vds layout with key integer for h5pywriter (#767)
+	* fix slice2selection with integer key for h5cppwriter (#769)
 	* tagged as v4.22.1
 
 2025-03-10 Jan Kotanski <jankotan@gmail.com>
