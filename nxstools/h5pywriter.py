@@ -1247,8 +1247,11 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             else:
                 sourcekey = _selection2slice(sourcekey, source.shape)
             self._h5object.__setitem__(key, source._h5object[sourcekey])
-        elif key is not None:
-            usel = unlimited_selection(key, shape)
+        elif key is not None and not isinstance(key, int):
+            try:
+                usel = unlimited_selection(key, shape)
+            except Exception:
+                usel = None
             if usel is not None:
                 self._h5object[key] = source._h5object[usel]
             else:
@@ -1495,11 +1498,7 @@ class H5PYAttribute(filewriter.FTAttribute):
            (hasattr(o, "__len__") and t == slice(0, len(o), None)):
             if self.dtype in ['string', b'string']:
                 if isinstance(o, str):
-                    try:
-                        self._h5object[0][self.name] = unicode(o)
-                    except Exception:
-                        dtype = h5py.special_dtype(vlen=unicode)
-                        self._h5object[0][self.name] = np.array(o, dtype=dtype)
+                    self._h5object[0][self.name] = unicode(o)
                 else:
                     dtype = h5py.special_dtype(vlen=unicode)
                     self._h5object[0][self.name] = np.array(o, dtype=dtype)
