@@ -1580,7 +1580,8 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
             "common4",
         ]
 
-        if __name__ == 'test.NXSCreateStdCompFSTest':
+        if __name__ in ['test.NXSCreateStdCompFSTest',
+                        'test.NXSCreateStdCompFS_test']:
             args = [
                 ('nxscreate stdcomp %s -p test.nxsextrasp00 -c cptest -t '
                  % self.flags).split(),
