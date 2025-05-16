@@ -107,6 +107,8 @@ def isoDate(text):
             fmt = '%Y-%m-%dT%H:%M:%S.%f%z'
             if date.tzinfo is None:
                 tzone = time.tzname[0]
+                if tzone in ['CET', 'CEST']:
+                    tzone = 'Europe/Berlin'
                 try:
                     if sys.version_info >= (3, 9):
                         import zoneinfo
