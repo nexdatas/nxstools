@@ -34,6 +34,13 @@ writer = None
 writerlock = threading.Lock()
 
 
+try:
+    _npver = numpy.version.version.split(".")
+    NPMAJOR = int(_npver[0])
+except Exception:
+    NPMAJOR = 1
+
+
 def open_file(filename, readonly=False, **pars):
     """ open the new file
 
@@ -449,7 +456,8 @@ def first(array):
     except Exception:
         try:
             if hasattr(array, "all"):
-                array = array.all()
+                if NPMAJOR < 2:
+                    array = array.all()
                 if hasattr(array, "decode"):
                     return array.decode()
         except Exception:
