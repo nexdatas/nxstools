@@ -147,10 +147,12 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
         old_argv = sys.argv
         sys.argv = argv
         err = False
+        lee = None
         try:
             nxscreate.main()
-        except Exception:
+        except Exception as ee:
             err = True
+            lee = ee
         sys.argv = old_argv
 
         sys.stdout = old_stdout
@@ -160,7 +162,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
         if err:
             print(vl)
             print(er)
-            raise
+            raise lee
         return vl, er
 
     def runtestexcept(self, argv, exception):
@@ -1872,7 +1874,8 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
             '  </datasource>\n' \
             '</definition>\n'
 
-        if __name__ == 'test.NXSCreateOnlineDSFSTest':
+        if __name__ in ['test.NXSCreateOnlineDSFSTest',
+                        "test.NXSCreateOnlineDSFS_test"]:
             commands = [
                 ('nxscreate onlineds -p test.nxsextrasp00 %s %s'
                  % (fname, self.flags)).split(),
