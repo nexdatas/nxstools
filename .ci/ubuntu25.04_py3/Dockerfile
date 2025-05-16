@@ -18,7 +18,7 @@ ENV RUNLEVEL=1
 
 RUN  /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections <<< "mariadb-server mysql-server/root_password password rootpw"' \
      && /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections <<< "mariadb-server mysql-server/root_password_again password rootpw"' \
-     && apt-get -qq update && apt-get -qq install -y mariadb-server  python3-mysqldb dialog \
+     && apt-get -qq update && apt-get -qq install -y mariadb-server  python3-mysqldb dialog git \
      &&  /bin/bash -c 'sleep 10'
 RUN /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections <<< "tango-db tango-db/db/app-user string tango"'  \
      && /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections <<< "tango-db tango-db/mysql/app-pass	password rootpw"' \
@@ -36,6 +36,10 @@ RUN apt-get -qq update && apt-get -qq install -y  python3-h5py  python3-mysqldb 
 #  python3-whichcraft
 
 ENV PKG_CONFIG_PATH=/home/tango/lib/pkgconfig
+
+# # install nxswriter for numpy >= 2
+RUN /bin/sh -c 'git clone -b issue_178 https://github.com/nexdatas/nxsdatawriter nxswriter; cd nxswriter; python3 setup.py install'
+
 
 ENV MYSQL_HOST=localhost
 USER tango
