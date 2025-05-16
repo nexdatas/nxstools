@@ -28,6 +28,18 @@ from . import filewriter
 # from .Types import nptype
 
 
+try:
+    _npver = np.version.version.split(".")
+    NPMAJOR = int(_npver[0])
+    if NPMAJOR > 1:
+        npunicode = np.str_
+    else:
+        npunicode = np.unicode_
+except Exception:
+    NPMAJOR = 1
+    npunicode = np.unicode_
+
+
 def nptype(dtype):
     """ converts to numpy types
 
@@ -1703,7 +1715,7 @@ class H5CppAttribute(filewriter.FTAttribute):
                 if isinstance(o, str):
                     self._h5object.write(unicode(o))
                 else:
-                    dtype = np.unicode_
+                    dtype = npunicode
                     self._h5object.write(np.array(o, dtype=dtype))
             else:
                 self._h5object.write(np.array(o, dtype=self.dtype))
@@ -1712,13 +1724,13 @@ class H5CppAttribute(filewriter.FTAttribute):
             if self.dtype not in ['string', b'string']:
                 var[t] = np.array(o, dtype=nptype(self.dtype))
             else:
-                dtype = np.unicode_
+                dtype = npunicode
                 var[t] = np.array(o, dtype=dtype)
                 var = var.astype(dtype)
             try:
                 self._h5object.write(var)
             except Exception:
-                dtype = np.unicode_
+                dtype = npunicode
                 tvar = np.array(var, dtype=dtype)
                 self._h5object[0][self.name] = tvar
 
@@ -1727,7 +1739,7 @@ class H5CppAttribute(filewriter.FTAttribute):
             if self.dtype not in ['string', b'string']:
                 var[t] = np.array(o, dtype=nptype(self.dtype))
             else:
-                dtype = np.unicode_
+                dtype = npunicode
                 if hasattr(var, "flatten"):
                     vv = var.flatten().tolist() + \
                         np.array(o, dtype=dtype).flatten().tolist()
