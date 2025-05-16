@@ -802,6 +802,15 @@ class H5PYGroup(filewriter.FTGroup):
                         shuffle=dfilter.shuffle, maxshape=mshape
                     ),
                     self)
+            elif dfilter.filterid == 0 or dfilter.name == 'shuffle':
+                f = H5PYField(
+                    self._h5object.create_dataset(
+                        name, shape, type_code,
+                        chunks=(tuple(chunk)
+                                if chunk is not None else None),
+                        shuffle=True, maxshape=mshape
+                    ),
+                    self)
             elif dfilter.filterid > 0 or dfilter.name:
                 f = H5PYField(
                     self._h5object.create_dataset(
