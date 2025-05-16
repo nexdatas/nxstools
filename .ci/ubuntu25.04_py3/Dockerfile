@@ -38,7 +38,7 @@ RUN apt-get -qq update && apt-get -qq install -y  python3-h5py  python3-mysqldb 
 ENV PKG_CONFIG_PATH=/home/tango/lib/pkgconfig
 
 # # install nxswriter for numpy >= 2
-RUN /bin/sh -c 'git clone -b issue_178 https://github.com/nexdatas/nxsdatawriter nxswriter; cd nxswriter; python3 setup.py install'
+# RUN /bin/sh -c 'git clone -b issue_178 https://github.com/nexdatas/nxsdatawriter nxswriter; cd nxswriter; python3 setup.py install'
 
 
 ENV MYSQL_HOST=localhost
