@@ -146,23 +146,21 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
 
         old_argv = sys.argv
         sys.argv = argv
-        err = False
-        lee = None
+        err = None
         try:
             nxscreate.main()
         except Exception as ee:
-            err = True
-            lee = ee
+            err = ee
         sys.argv = old_argv
 
         sys.stdout = old_stdout
         sys.stderr = old_stderr
         vl = mystdout.getvalue()
         er = mystderr.getvalue()
-        if err:
+        if err is not None:
             print(vl)
             print(er)
-            raise lee
+            raise err
         return vl, er
 
     def runtestexcept(self, argv, exception):
