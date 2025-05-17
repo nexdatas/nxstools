@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>nxscreate &#8212; NXSTools 4.22.1 documentation</title>
+    <title>nxscreate &#8212; NXSTools 4.23.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -40,7 +40,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.22</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.23</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -276,7 +276,7 @@
 <ul class="simple">
 <li><p>with -b: datasources are created in Configuration Server database</p></li>
 <li><p>without -b: datasources are created on the local filesystem in -d &lt;directory&gt;</p></li>
-<li><p>default &lt;directory&gt; is ‘.’</p></li>
+<li><p>default &lt;directory&gt; is '.'</p></li>
 <li><p>default &lt;server&gt; is taken from Tango DB</p></li>
 </ul>
 <dl>
@@ -309,7 +309,7 @@
 <dd><p>store datasources in Configuration Server database</p>
 </dd>
 <dt><kbd><span class="option">-m</span>, <span class="option">--minimal_device</span></kbd></dt>
-<dd><p>device name without first ‘0’</p>
+<dd><p>device name without first '0'</p>
 </dd>
 <dt><kbd><span class="option">-r <var>SERVER</var></span>, <span class="option">--server=<var>SERVER</var></span></kbd></dt>
 <dd><p>configuration server device name</p>
@@ -339,9 +339,9 @@ nxscreate<span class="w"> </span>clientds<span class="w"> </span>-v<span class="
 <ul class="simple">
 <li><p>with -b: datasources are created in Configuration Server database</p></li>
 <li><p>without -b: datasources are created on the local filesystem in -d &lt;directory&gt;</p></li>
-<li><p>default &lt;directory&gt; is ‘.’</p></li>
+<li><p>default &lt;directory&gt; is '.'</p></li>
 <li><p>default &lt;server&gt; is taken from Tango DB</p></li>
-<li><p>default &lt;datasource&gt; is ‘exp_mot’</p></li>
+<li><p>default &lt;datasource&gt; is 'exp_mot'</p></li>
 <li><p>default &lt;host&gt;, &lt;port&gt; are taken from &lt;server&gt;</p></li>
 </ul>
 <dl>
@@ -420,9 +420,9 @@ nxscreate<span class="w"> </span>tangods<span class="w"> </span>-v<span class="w
 <li><p>without &lt;dv_attr1&gt;: datasources for all attributes are created</p></li>
 <li><p>with -b: datasources are created in Configuration Server database</p></li>
 <li><p>without -b: datasources are created on the local filesystem in -d &lt;directory&gt;</p></li>
-<li><p>default &lt;directory&gt; is ‘.’</p></li>
+<li><p>default &lt;directory&gt; is '.'</p></li>
 <li><p>default &lt;server&gt; is taken from Tango DB</p></li>
-<li><p>default &lt;datasource&gt; is ‘exp_mot’</p></li>
+<li><p>default &lt;datasource&gt; is 'exp_mot'</p></li>
 <li><p>default &lt;host&gt;, &lt;port&gt; are taken from &lt;server&gt;</p></li>
 </ul>
 <dl>
@@ -452,7 +452,7 @@ nxscreate<span class="w"> </span>tangods<span class="w"> </span>-v<span class="w
 <dd><p>store datasources in Configuration Server database</p>
 </dd>
 <dt><kbd><span class="option">-n</span>, <span class="option">--no-group</span></kbd></dt>
-<dd><p>don’t create common group with a name of datasource
+<dd><p>don't create common group with a name of datasource
 prefix</p>
 </dd>
 <dt><kbd><span class="option">-r <var>SERVER</var></span>, <span class="option">--server=<var>SERVER</var></span></kbd></dt>
@@ -483,7 +483,7 @@ nxscreate<span class="w"> </span>deviceds<span class="w">  </span>-v<span class=
 <li><p>with -b: datasources are created in Configuration Server database</p></li>
 <li><p>with -d &lt;directory&gt;: datasources are created on the local filesystem</p></li>
 <li><p>without -b or -d &lt;directory&gt;: run in the test mode</p></li>
-<li><p>default &lt;inputFile&gt; is ‘/online_dir/online.xml’</p></li>
+<li><p>default &lt;inputFile&gt; is '/online_dir/online.xml'</p></li>
 <li><p>default &lt;server&gt; is taken from Tango DB</p></li>
 </ul>
 <p><cite>onlineds</cite> overwrites existing datasources</p>
@@ -545,7 +545,7 @@ nxscreate<span class="w"> </span>onlineds
 <li><p>with -b: datasources are created in Configuration Server database</p></li>
 <li><p>with -d &lt;directory&gt;: datasources are created on the local filesystem</p></li>
 <li><p>without -b or -d &lt;directory&gt;: run in the test mode</p></li>
-<li><p>default &lt;channel&gt; is ‘ALL’</p></li>
+<li><p>default &lt;channel&gt; is 'ALL'</p></li>
 <li><p>default &lt;server&gt; is taken from Tango DB</p></li>
 <li><p>default &lt;pool&gt; is taken from Tango DB</p></li>
 </ul>
@@ -602,11 +602,11 @@ and its set of datasources.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>without ‘-c &lt;component&gt;’: show a list of possible components</p></li>
+<li><p>without '-c &lt;component&gt;': show a list of possible components</p></li>
 <li><p>with -b: datasources are created in Configuration Server database</p></li>
 <li><p>without -b: datasources are created on the local filesystem in -d &lt;directory&gt;</p></li>
-<li><p>default &lt;directory&gt; is ‘.’</p></li>
-<li><p>default &lt;inputFile&gt; is ‘/online_dir/online.xml’</p></li>
+<li><p>default &lt;directory&gt; is '.'</p></li>
+<li><p>default &lt;inputFile&gt; is '/online_dir/online.xml'</p></li>
 <li><p>default &lt;server&gt; is taken from Tango DB</p></li>
 </ul>
 <dl>
@@ -686,12 +686,12 @@ and its set of datasources.</p>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>without ‘-t &lt;type&gt;’: show a list of possible component types</p></li>
-<li><p>with ‘-t &lt;type&gt;  and without -c &lt;component&gt;: show a list of component variables for the given component type</p></li>
+<li><p>without '-t &lt;type&gt;': show a list of possible component types</p></li>
+<li><p>with '-t &lt;type&gt;  and without -c &lt;component&gt;: show a list of component variables for the given component type</p></li>
 <li><p>with -b: datasources are created in Configuration Server database</p></li>
 <li><p>without -b: datasources are created on the local filesystem in -d &lt;directory&gt;</p></li>
-<li><p>default &lt;directory&gt; is ‘.’</p></li>
-<li><p>[name1 value1 [name2 value2] …] sequence  defines component variable values</p></li>
+<li><p>default &lt;directory&gt; is '.'</p></li>
+<li><p>[name1 value1 [name2 value2] ...] sequence  defines component variable values</p></li>
 </ul>
 <dl>
 <dt>Options:</dt><dd><dl class="option-list">
@@ -759,12 +759,12 @@ nxscreate<span class="w"> </span>stdcomp<span class="w"> </span>-t<span class="w
 <ul class="simple">
 <li><p>with -b: datasources are created in Configuration Server database</p></li>
 <li><p>without -b: datasources are created on the local filesystem in -d &lt;directory&gt;</p></li>
-<li><p>default &lt;directory&gt; is ‘.’</p></li>
+<li><p>default &lt;directory&gt; is '.'</p></li>
 <li><p>default &lt;server&gt; is taken from Tango DB</p></li>
 <li><p>default &lt;strategy&gt; is step</p></li>
 <li><p>default &lt;type&gt; is NX_FLOAT</p></li>
 <li><p>default &lt;chunk&gt; is SCALAR</p></li>
-<li><p>default &lt;nexuspath&gt; is “/$var.entryname#’scan’$var.serialno:NXentry/instrument/collection/”</p></li>
+<li><p>default &lt;nexuspath&gt; is &quot;/$var.entryname#'scan'$var.serialno:NXentry/instrument/collection/&quot;</p></li>
 </ul>
 <dl>
 <dt>Options:</dt><dd><dl class="option-list">
@@ -817,7 +817,7 @@ nxscreate<span class="w"> </span>stdcomp<span class="w"> </span>-t<span class="w
 <dd><p>chunk format, i.e. SCALAR, SPECTRUM, IMAGE</p>
 </dd>
 <dt><kbd><span class="option">-m</span>, <span class="option">--minimal_device</span></kbd></dt>
-<dd><p>device name without first ‘0’</p>
+<dd><p>device name without first '0'</p>
 </dd>
 </dl>
 </dd>
@@ -888,18 +888,18 @@ nxscreate<span class="w"> </span>comp<span class="w"> </span>-n<span class="w"> 
 <dt><kbd><span class="option">-k <var>MEANINGS</var></span>, <span class="option">--links <var>MEANINGS</var></span></kbd></dt>
 <dd><p>NXlog links of physical quantities to sensors
 separated by comman. Default:
-‘temperature,magnetic_field,electric_field,stress_field,pressure’</p>
+'temperature,magnetic_field,electric_field,stress_field,pressure'</p>
 </dd>
 <dt><kbd><span class="option">-v <var>ENVIRONMENTS</var></span>, <span class="option">--environments <var>ENVIRONMENTS</var></span></kbd></dt>
 <dd><p>NXenvironment links of physical quantities separated
-by comman. Default: ‘temperature,magnetic_field’</p>
+by comman. Default: 'temperature,magnetic_field'</p>
 </dd>
 <dt><kbd><span class="option">-f <var>FIRST</var></span>, <span class="option">--first <var>FIRST</var></span></kbd></dt>
 <dd><p>first linked targets separated by comman</p>
 </dd>
 <dt><kbd><span class="option">-z <var>TRANSATTRS</var></span>, <span class="option">--transformation-attributes <var>TRANSATTRS</var></span></kbd></dt>
-<dd><p>a JSON dictionary with transformation parameters i.e, “transformation_type”, “vector”, “depends_on”. Default:
-{“rotation_z”:{“transformation_type”:”rotation”,”vector”:[0,-1,0]}}</p>
+<dd><p>a JSON dictionary with transformation parameters i.e, &quot;transformation_type&quot;, &quot;vector&quot;, &quot;depends_on&quot;. Default:
+{&quot;rotation_z&quot;:{&quot;transformation_type&quot;:&quot;rotation&quot;,&quot;vector&quot;:[0,-1,0]}}</p>
 </dd>
 <dt><kbd><span class="option">-p <var>XMLPACKAGE</var></span>, <span class="option">--xml-package <var>XMLPACKAGE</var></span></kbd></dt>
 <dd><p>xml template package</p>
@@ -969,7 +969,7 @@ nxscreate<span class="w"> </span>secopcp<span class="w"> </span>-d<span class="w
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>default: second &lt;online_file&gt; is ‘/online_dir/online.xml’ if only file is given</p></li>
+<li><p>default: second &lt;online_file&gt; is '/online_dir/online.xml' if only file is given</p></li>
 </ul>
 <dl>
 <dt>positional arguments:</dt><dd><p>online_file    online.xml files</p>

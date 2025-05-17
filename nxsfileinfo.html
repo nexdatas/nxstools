@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>nxsfileinfo &#8212; NXSTools 4.22.1 documentation</title>
+    <title>nxsfileinfo &#8212; NXSTools 4.23.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -40,7 +40,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.22</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.23</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -302,7 +302,7 @@
 <dd><p>names of column to be shown (separated by commas without spaces). The possible names are: depends_on, dtype, full_path, nexus_path, nexus_type, shape, source, source_name, source_type, strategy, trans_type, trans_offset, trans_vector, units, value</p>
 </dd>
 <dt><kbd><span class="option">-f <var>FILTERS</var></span>, <span class="option">--filters=<var>FILTERS</var></span></kbd></dt>
-<dd><p>full_path filters (separated by commas without spaces). Default: ‘*’. E.g. ‘<em>:NXsample/</em>’</p>
+<dd><p>full_path filters (separated by commas without spaces). Default: '*'. E.g. '<em>:NXsample/</em>'</p>
 </dd>
 <dt><kbd><span class="option">-v <var>VALUES</var></span>, <span class="option">--values=<var>VALUES</var></span></kbd></dt>
 <dd><p>field names which value should be stored (separated by commas without spaces). Default: depends_on</p>
@@ -349,7 +349,7 @@ nxsfileinfo<span class="w"> </span>field<span class="w"> </span>/user/data/myfil
 <dd><p>names of field or group attributes to be show (separated by commas without spaces). The default takes all attributes</p>
 </dd>
 <dt><kbd><span class="option">-n <var>NATTRS</var></span>, <span class="option">--hidden-attributes <var>NATTRS</var></span></kbd></dt>
-<dd><p>names of field or group attributes to be hidden (separated by commas without spaces). The default: ‘nexdatas_source,nexdatas_strategy’</p>
+<dd><p>names of field or group attributes to be hidden (separated by commas without spaces). The default: 'nexdatas_source,nexdatas_strategy'</p>
 </dd>
 <dt><kbd><span class="option">-v <var>VALUES</var></span>, <span class="option">--values <var>VALUES</var></span></kbd></dt>
 <dd><p>field names of more dimensional datasets which value should be shown (separated by commas without spaces)</p>
@@ -365,13 +365,13 @@ nxsfileinfo<span class="w"> </span>field<span class="w"> </span>/user/data/myfil
 {beamtimeid}-clbt,{beamtimeId}-dmgt,{beamline}dmgt</p>
 </dd>
 <dt><kbd><span class="option">-g <var>GROUP_POSTFIX</var></span>, <span class="option">--group-postfix <var>GROUP_POSTFIX</var></span></kbd></dt>
-<dd><p>postfix to be added to NeXus group name. The default: ‘Parameters’</p>
+<dd><p>postfix to be added to NeXus group name. The default: 'Parameters'</p>
 </dd>
 <dt><kbd><span class="option">-t <var>ENTRYCLASSES</var></span>, <span class="option">--entry-classes <var>ENTRYCLASSES</var></span></kbd></dt>
-<dd><p>names of entry NX_class to be shown (separated by commas without spaces). If name is ‘’ all groups are shown. The default: ‘NXentry’</p>
+<dd><p>names of entry NX_class to be shown (separated by commas without spaces). If name is '' all groups are shown. The default: 'NXentry'</p>
 </dd>
 <dt><kbd><span class="option">-e <var>ENTRYNAMES</var></span>, <span class="option">--entry-names <var>ENTRYNAMES</var></span></kbd></dt>
-<dd><p>names of entry groups to be shown (separated by commas without spaces). If name is ‘’ all groups are shown. The default: ‘’</p>
+<dd><p>names of entry groups to be shown (separated by commas without spaces). If name is '' all groups are shown. The default: ''</p>
 </dd>
 <dt><kbd><span class="option">-m</span>, <span class="option">--raw-metadata</span></kbd></dt>
 <dd><p>do not store NXentry as scientificMetadata</p>
@@ -383,7 +383,7 @@ nxsfileinfo<span class="w"> </span>field<span class="w"> </span>/user/data/myfil
 <dd><p>add 1d values to scientificMetadata</p>
 </dd>
 <dt><kbd><span class="option">--max-oned-size <var>MAXONEDSIZE</var></span></kbd></dt>
-<dd><p>add min and max (or first and last) values of 1d records to scientificMetadata if its size excides –max-oned-size value</p>
+<dd><p>add min and max (or first and last) values of 1d records to scientificMetadata if its size excides --max-oned-size value</p>
 </dd>
 <dt><kbd><span class="option">-p <var>PID</var></span>, <span class="option">--pid <var>PID</var></span></kbd></dt>
 <dd><p>dataset pid</p>
@@ -399,7 +399,7 @@ nxsfileinfo<span class="w"> </span>field<span class="w"> </span>/user/data/myfil
 </dd>
 <dt><kbd><span class="option">-q <var>TECHNIQUES</var></span>, <span class="option">--techniques <var>TECHNIQUES</var></span></kbd></dt>
 <dd><p>names of techniques (separated by commas without
-spaces).The default: ‘’</p>
+spaces).The default: ''</p>
 </dd>
 <dt><kbd><span class="option">-j <var>SAMPLEID</var></span>, <span class="option">--sample-id <var>SAMPLEID</var></span></kbd></dt>
 <dd><p>sampleId</p>
@@ -435,16 +435,16 @@ or a text file list to re-arrange metadata</p>
 <dt><kbd><span class="option">--copy-map-field <var>COPYMAPFIELD</var></span></kbd></dt>
 <dd><p>field json or yaml with map {output: input} or [[output, input],]
 or a text file list to re-arrange metadata. The default:
-‘scientificMetadata.nxsfileinfo_parameters.copymap.value’</p>
+'scientificMetadata.nxsfileinfo_parameters.copymap.value'</p>
 </dd>
 <dt><kbd><span class="option">--copy-map-error</span></kbd></dt>
 <dd><p>Raise an error when the copy map file does not exist</p>
 </dd>
 <dt><kbd><span class="option">--copy-map-file <var>COPYMAPFILE</var></span></kbd></dt>
-<dd><p>json or yaml file containing the copy map, see also –copy-map</p>
+<dd><p>json or yaml file containing the copy map, see also --copy-map</p>
 </dd>
 <dt><kbd><span class="option">-f <var>FILEFORMAT</var></span>, <span class="option">--file-format <var>FILEFORMAT</var></span></kbd></dt>
-<dd><p>input file format, e.g. ‘nxs’. Default is defined by the file extension</p>
+<dd><p>input file format, e.g. 'nxs'. Default is defined by the file extension</p>
 </dd>
 <dt><kbd><span class="option">--proposal-as-proposal</span></kbd></dt>
 <dd><p>Store the DESY proposal as the SciCat proposal</p>
@@ -498,13 +498,13 @@ nxsfileinfo<span class="w"> </span>metadata<span class="w"> </span>/user/data/my
 </dd>
 <dt><kbd><span class="option">-s <var>SKIP</var></span>, <span class="option">--skip <var>SKIP</var></span></kbd></dt>
 <dd><p>filters for files to be skipped (separated by commas
-without spaces). Default: ‘’. E.g.
-‘<em>.pyc,</em>~’</p>
+without spaces). Default: ''. E.g.
+'<em>.pyc,</em>~'</p>
 </dd>
 <dt><kbd><span class="option">-a <var>ADD</var></span>, <span class="option">--add <var>ADD</var></span></kbd></dt>
 <dd><p>list of files to be added (separated by commas
-without spaces). Default: ‘’. E.g.
-‘scan1.nxs,scan2.nxs’</p>
+without spaces). Default: ''. E.g.
+'scan1.nxs,scan2.nxs'</p>
 </dd>
 <dt><kbd><span class="option">-r <var>RELPATH</var></span>, <span class="option">--relative-path <var>RELPATH</var></span></kbd></dt>
 <dd><p>relative path to the scan files</p>
@@ -672,7 +672,7 @@ amtimeId}-dmgt,{beamtimeid}-clbt,{beamtimeId}-part,{be
 amline}dmgt,{beamline}staff</p>
 </dd>
 <dt><kbd><span class="option">-f <var>FILEFORMAT</var></span>, <span class="option">--file-format <var>FILEFORMAT</var></span></kbd></dt>
-<dd><p>input file format, e.g. ‘nxs’. Default is defined by
+<dd><p>input file format, e.g. 'nxs'. Default is defined by
 the file extension</p>
 </dd>
 <dt><kbd><span class="option">--h5py</span></kbd></dt>
@@ -694,7 +694,7 @@ the file extension</p>
 <dd><p>a JSON dictionary with scan-command axes to override,
 axis/axes data name(s) separated by comma for
 detectors and by semicolon for more plots. Default:
-{“hklscan”:”h;k;l”,”qscan”:”qz;qpar”}</p>
+{&quot;hklscan&quot;:&quot;h;k;l&quot;,&quot;qscan&quot;:&quot;qz;qpar&quot;}</p>
 </dd>
 <dt><kbd><span class="option">-m <var>FRAME</var></span>, <span class="option">--frame <var>FRAME</var></span></kbd></dt>
 <dd><p>a frame number for if more 2D images in the data</p>
@@ -716,7 +716,7 @@ detectors and by semicolon for more plots. Default:
 </dd>
 <dt><kbd><span class="option">-n <var>NEXUSPATH</var></span>, <span class="option">--nexus-path <var>NEXUSPATH</var></span></kbd></dt>
 <dd><p>base nexus path to element to be shown.
-If th path is ‘’ the default group is shown. The default: ‘’</p>
+If th path is '' the default group is shown. The default: ''</p>
 </dd>
 <dt><kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></dt>
 <dd><p>output scicat metadata file</p>
