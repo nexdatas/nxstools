@@ -1474,6 +1474,7 @@ class H5RedisField(H5Field):
             if vl[0] in anames:
                 sds[key] = vl[1](
                     filewriter.first(attrs[vl[0]].read()))
+        sds["nexus_path"] = self.path
         self.append_scaninfo(sds, ["datadesc", dsname])
         if self.dtype not in ['string', b'string']:
             mgchannels = self.get_scaninfo(
