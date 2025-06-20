@@ -1,6 +1,11 @@
+2025-06-20 Jan Kotanski <jankotan@gmail.com>
+	* add nexus_path to descdata h5redis records (#777)
+	* tagged as v4.24.0
+
 2025-05-16 Jan Kotanski <jankotan@gmail.com>
 	* adapt code to numpy 2 (#772)
 	* fix timezones for py3.13 and improve tests (#774)
+	* add nexus_path to descdata h5redis records (#777)
 	* tagged as v4.23.0
 
 2025-04-08 Jan Kotanski <jankotan@gmail.com>
