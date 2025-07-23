@@ -29,7 +29,7 @@ RUN /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections 
      && /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections <<< "nxsconfigserver-db nxsconfigserver-db/mysql/admin-pass password rootpw"' \
      && /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections <<< "nxsconfigserver-db nxsconfigserver-db/app-password-confirm password rootpw"' \
      && /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections <<< "nxsconfigserver-db nxsconfigserver-db/db/app-user string tango"' \
-     && sed -i "s/\[mysql\]/\[mysqld\]\nsql_mode = NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION\ncharacter-set-collations = latin1=latin1_swedish_ci\ncharacter-set-server=latin1\n\[mysql\]/g" /etc/mysql/conf.d/mysql.cnf
+     && sed -i "s/\[mysql\]/\[mysqld\]\nsql_mode = NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION\n\[mysql\]/g" /etc/mysql/conf.d/mysql.cnf
 
 
 RUN apt-get -qq update && apt-get -qq install -y  python3-h5py  python3-mysqldb python3-sphinx  apt-utils debconf-utils net-tools  omniidl    python3-pninexus python3-argcomplete python3-tz python3-lxml python3-pytest bitshuffle-serial-links hdf5-filter-plugin-serial-links  liblog4j1.2-java python3-fabio python3-setuptools python3-yaml python3-pytest-cov python3-pil python3-matplotlib xvfb  libxcb1 libx11-xcb1 libxcb-keysyms1 libxcb-image0 libxcb-icccm4 libxcb-render-util0 xkb-data
