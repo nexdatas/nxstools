@@ -1,3 +1,7 @@
+2025-07-29 Jan Kotanski <jankotan@gmail.com>
+	* set redis stream types to real datasource type (#779)
+	* tagged as v4.25.0
+
 2025-06-20 Jan Kotanski <jankotan@gmail.com>
 	* add nexus_path to descdata h5redis records (#777)
 	* tagged as v4.24.0

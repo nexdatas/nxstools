@@ -1450,7 +1450,8 @@ class H5RedisField(H5Field):
         return H5RedisAttributeManager(
             h5imp=super(H5RedisField, self).attributes)
 
-    def __set_step_channel_info(self, dsname, units, shape, strategy="STEP"):
+    def __set_step_channel_info(self, dsname, units, shape, strategy="STEP",
+                                o=None):
         """ set step channel info
 
         :param dsname: datasource name
@@ -1461,6 +1462,8 @@ class H5RedisField(H5Field):
         :type shape: :obj:`list` <:obj:`int`>
         :param strategy: datasource strategy
         :type strategy: :obj:`str`
+        :param o: object value to write
+        :type o: :obj:`any`
         """
         attrs = self.attributes
         sds = {
@@ -1469,6 +1472,12 @@ class H5RedisField(H5Field):
             "strategy": strategy,
             "dtype": self.dtype
         }
+        if o is not None:
+            if str(type(o).__name__) == "int":
+                sds["dtype"] = "int64"
+            elif str(type(o).__name__) == "float":
+                sds["dtype"] = "float64"
+
         anames = [at.name for at in attrs]
         for key, vl in attrdesc.items():
             if vl[0] in anames:
@@ -1497,11 +1506,10 @@ class H5RedisField(H5Field):
                 ch = ChannelDict(
                     device=device_type, dim=len(shape),
                     display_name=dsname)
-            # print("CHANNEL", dsname)
             self.set_channels(ch, [dsname])
 
             encoder = NumericStreamEncoder(
-                dtype=self.dtype,
+                dtype=sds["dtype"],
                 shape=shape)
             self.__stream = self.scan_command(
                 "create_stream",
@@ -1612,7 +1620,7 @@ class H5RedisField(H5Field):
         #       type(o), str(t), units)
         if strategy in ["STEP"] and dsnm:
             if not shape or len(shape) < 2:
-                self.__set_step_channel_info(dsname, units, shape, strategy)
+                self.__set_step_channel_info(dsname, units, shape, strategy, o)
         else:
             self.__set_init_channel_info(dsname, units, shape, strategy, o)
 
