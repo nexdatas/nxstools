@@ -407,19 +407,19 @@ class ConfigServer(object):
         for ar in args:
             if ds:
                 name = os.path.join(directory, "%s.ds.xml" % ar)
-                with open(name.replace("/", "_"), 'r') as fl:
+                with open(name, 'r') as fl:
                     txt = fl.read()
                 self._cnfServer.XMLString = txt
                 self._cnfServer.StoreDataSource(ar)
             elif profiles:
                 name = os.path.join(directory, "%s.json" % ar)
-                with open(name.replace("/", "_"), 'r') as fl:
+                with open(name, 'r') as fl:
                     txt = fl.read()
                 self._cnfServer.Selection = txt
                 self._cnfServer.StoreSelection(ar)
             else:
                 name = os.path.join(directory, "%s.xml" % ar)
-                with open(name.replace("/", "_"), 'r') as fl:
+                with open(name, 'r') as fl:
                     txt = fl.read()
                 if external and external.lower() == "esrf":
                     txt = ESRFConverter().convert(txt)
