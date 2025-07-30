@@ -265,8 +265,9 @@ class ConfigServer(object):
                 return elems
             else:
                 for i, ar in enumerate(args):
-                    name = os.path.join(directory, "%s.ds.xml" % ar)
-                    with open(name.replace("/", "_"), "w") as text_file:
+                    name = os.path.join(
+                        directory, "%s.ds.xml" % ar.replace("/", "_"))
+                    with open(name, "w") as text_file:
                         text_file.write(elems[i])
 
         elif profiles:
@@ -282,8 +283,9 @@ class ConfigServer(object):
                 return elems
             else:
                 for i, ar in enumerate(args):
-                    name = os.path.join(directory, "%s.json" % ar)
-                    with open(name.replace("/", "_"), "w") as text_file:
+                    name = os.path.join(
+                        directory, "%s.json" % ar.replace("/", "_"))
+                    with open(name, "w") as text_file:
                         text_file.write(elems[i])
         else:
             cmps = self._cnfServer.AvailableComponents()
@@ -304,8 +306,9 @@ class ConfigServer(object):
                 return elems
             else:
                 for i, ar in enumerate(mand):
-                    name = os.path.join(directory, "%s.xml" % ar)
-                    with open(name.replace("/", "_"), "w") as text_file:
+                    name = os.path.join(
+                        directory, "%s.xml" % ar.replace("/", "_"))
+                    with open(name, "w") as text_file:
                         text_file.write(elems[i])
         return []
 
@@ -406,19 +409,22 @@ class ConfigServer(object):
                     return []
         for ar in args:
             if ds:
-                name = os.path.join(directory, "%s.ds.xml" % ar)
+                name = os.path.join(
+                    directory, "%s.ds.xml" % ar.replace("/", "_"))
                 with open(name, 'r') as fl:
                     txt = fl.read()
                 self._cnfServer.XMLString = txt
                 self._cnfServer.StoreDataSource(ar)
             elif profiles:
-                name = os.path.join(directory, "%s.json" % ar)
+                name = os.path.join(
+                    directory, "%s.json" % ar.replace("/", "_"))
                 with open(name, 'r') as fl:
                     txt = fl.read()
                 self._cnfServer.Selection = txt
                 self._cnfServer.StoreSelection(ar)
             else:
-                name = os.path.join(directory, "%s.xml" % ar)
+                name = os.path.join(
+                    directory, "%s.xml" % ar.replace("/", "_"))
                 with open(name, 'r') as fl:
                     txt = fl.read()
                 if external and external.lower() == "esrf":
