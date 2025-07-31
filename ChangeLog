@@ -1,4 +1,8 @@
 2025-07-30 Jan Kotanski <jankotan@gmail.com>
+	* merge no raw metadata with the same pid (#786)
+	* tagged as v4.26.0
+
+2025-07-30 Jan Kotanski <jankotan@gmail.com>
 	* replace "/" by "_" in filenames of nxsconfig tool (#783)
 	* tagged as v4.25.1
 
