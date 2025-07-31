@@ -112,6 +112,7 @@ Options:
    -e ENTRYNAMES, --entry-names ENTRYNAMES
                         names of entry groups to be shown (separated by commas without spaces). If name is '' all groups are shown. The default: ''
    -m, --raw-metadata    do not store NXentry as scientificMetadata
+   --dont-merge          keep entries separate
    --add-empty-units     add empty units for fields without units
    --oned                add 1d values to scientificMetadata
    --max-oned-size MAXONEDSIZE

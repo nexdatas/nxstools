@@ -827,11 +827,11 @@ class BeamtimeLoader(object):
         return metadata
 
     @classmethod
-    def _mergedict(self, dct1, dct2):
+    def _mergedict(cls, dct1, dct2):
         for key in set(dct1) | set(dct2):
             if key in dct1 and key in dct2:
                 if isinstance(dct1[key], dict) and isinstance(dct2[key], dict):
-                    yield (key, dict(self._mergedict(dct1[key], dct2[key])))
+                    yield (key, dict(cls._mergedict(dct1[key], dct2[key])))
                 else:
                     yield (key, dct2[key])
             elif key in dct1:
@@ -1206,6 +1206,10 @@ class Metadata(Runner):
             default=False, dest="rawscientific",
             help="do not store NXentry as scientificMetadata")
         self._parser.add_argument(
+            "--dont-merge", action="store_true",
+            default=False, dest="dontmerge",
+            help="keep entries separate")
+        self._parser.add_argument(
             "--add-empty-units", action="store_true",
             default=False, dest="emptyunits",
             help="add empty units for fields without units")
@@ -1382,6 +1386,19 @@ class Metadata(Runner):
             result['creationLocation'] = "/DESY/PETRA III"
         if 'ownerGroup' not in result:
             result['ownerGroup'] = "ingestor"
+        return result
+
+    @classmethod
+    def _merge(cls, resultlist):
+        if not isinstance(resultlist, list):
+            return resultlist
+        elif len(resultlist) == 0:
+            return {}
+        elif len(resultlist) == 1:
+            return resultlist[0]
+        result = resultlist[0]
+        for rs in resultlist[1:]:
+            result = dict(BeamtimeLoader._mergedict(result, rs))
         return result
 
     @classmethod
@@ -1651,6 +1668,8 @@ class Metadata(Runner):
                     if not options.rawscientific:
                         rst = cls._cure(rst)
                     result.append(rst)
+                if not options.rawscientific and not options.dontmerge:
+                    result = cls._merge(result)
         if result is not None:
             return json.dumps(
                 result, sort_keys=True, indent=4,
