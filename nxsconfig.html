@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>nxsconfig &#8212; NXSTools 4.25.1 documentation</title>
+    <title>nxsconfig &#8212; NXSTools 4.26.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -40,7 +40,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.25</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.26</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -226,31 +226,31 @@ perform the process of component merging.</p>
 </dd>
 <dt>list -r [-s &lt;config_server&gt;] [-n]</dt><dd><p>list names of available profiles</p>
 </dd>
-<dt>show [-s &lt;config_server&gt;] [-m] [-o &lt;dir&gt;] component_name1 component_name2 …</dt><dd><p>show components with given names</p>
+<dt>show [-s &lt;config_server&gt;] [-m] [-o &lt;dir&gt;] component_name1 component_name2 ...</dt><dd><p>show components with given names</p>
 </dd>
-<dt>show -d [-s &lt;config_server&gt;]  [-o &lt;dir&gt;] dsource_name1 dsource_name2 …</dt><dd><p>show datasources with given names</p>
+<dt>show -d [-s &lt;config_server&gt;]  [-o &lt;dir&gt;] dsource_name1 dsource_name2 ...</dt><dd><p>show datasources with given names</p>
 </dd>
-<dt>show -r [-s &lt;config_server&gt;]  [-o &lt;dir&gt;] profile_name1 profile_name2 …</dt><dd><p>show profiles with given names</p>
+<dt>show -r [-s &lt;config_server&gt;]  [-o &lt;dir&gt;] profile_name1 profile_name2 ...</dt><dd><p>show profiles with given names</p>
 </dd>
-<dt>upload [-s &lt;config_server&gt;] [-m] [-i &lt;dir&gt;] [-f] component_name1 component_name2 …</dt><dd><p>load components from given files</p>
+<dt>upload [-s &lt;config_server&gt;] [-m] [-i &lt;dir&gt;] [-f] component_name1 component_name2 ...</dt><dd><p>load components from given files</p>
 </dd>
-<dt>upload -d [-s &lt;config_server&gt;]  [-i &lt;dir&gt;] [-f] dsource_name1 dsource_name2 …</dt><dd><p>load datasources from given files</p>
+<dt>upload -d [-s &lt;config_server&gt;]  [-i &lt;dir&gt;] [-f] dsource_name1 dsource_name2 ...</dt><dd><p>load datasources from given files</p>
 </dd>
-<dt>upload -r [-s &lt;config_server&gt;]  [-i &lt;dir&gt;] [-f] profile_name1 profile_name2 …</dt><dd><p>load profiles from given files</p>
+<dt>upload -r [-s &lt;config_server&gt;]  [-i &lt;dir&gt;] [-f] profile_name1 profile_name2 ...</dt><dd><p>load profiles from given files</p>
 </dd>
-<dt>get [-s &lt;config_server&gt;]  [-n] component_name1 component_name2 …</dt><dd><p>get merged configuration of components</p>
+<dt>get [-s &lt;config_server&gt;]  [-n] component_name1 component_name2 ...</dt><dd><p>get merged configuration of components</p>
 </dd>
-<dt>delete [-s &lt;config_server&gt;] [-f] component_name1 component_name2 …</dt><dd><p>delete components with given names</p>
+<dt>delete [-s &lt;config_server&gt;] [-f] component_name1 component_name2 ...</dt><dd><p>delete components with given names</p>
 </dd>
-<dt>delete -d [-s &lt;config_server&gt;] [-f] dsource_name1 dsource_name2 …</dt><dd><p>delete datasources with given names</p>
+<dt>delete -d [-s &lt;config_server&gt;] [-f] dsource_name1 dsource_name2 ...</dt><dd><p>delete datasources with given names</p>
 </dd>
-<dt>delete -r [-s &lt;config_server&gt;] [-f] profile_name1 profile_name2 …</dt><dd><p>delete profiles with given names</p>
+<dt>delete -r [-s &lt;config_server&gt;] [-f] profile_name1 profile_name2 ...</dt><dd><p>delete profiles with given names</p>
 </dd>
-<dt>sources [-s &lt;config_server&gt;] [-m] [-n] component_name1 component_name2 …</dt><dd><p>get a list of component datasources</p>
+<dt>sources [-s &lt;config_server&gt;] [-m] [-n] component_name1 component_name2 ...</dt><dd><p>get a list of component datasources</p>
 </dd>
-<dt>components [-s &lt;config_server&gt;] [-n] component_name1 component_name2 …</dt><dd><p>get a list of dependent components</p>
+<dt>components [-s &lt;config_server&gt;] [-n] component_name1 component_name2 ...</dt><dd><p>get a list of dependent components</p>
 </dd>
-<dt>variables [-s &lt;config_server&gt;] [-m] [-n] component_name1 component_name2 …</dt><dd><p>get a list of component variables</p>
+<dt>variables [-s &lt;config_server&gt;] [-m] [-n] component_name1 component_name2 ...</dt><dd><p>get a list of component variables</p>
 </dd>
 <dt>data [-s &lt;config_server&gt;] json_data</dt><dd><p>set values of component variables</p>
 </dd>
@@ -260,15 +260,15 @@ perform the process of component merging.</p>
 </dd>
 <dt>servers [-s &lt;config_server/host&gt;] [-n]</dt><dd><p>get lists of configuration servers from the current tango host</p>
 </dd>
-<dt>describe [-s &lt;config_server&gt;] [-m | -p] [-n] component_name1 component_name2 …</dt><dd><p>show all parameters of given components</p>
+<dt>describe [-s &lt;config_server&gt;] [-m | -p] [-n] component_name1 component_name2 ...</dt><dd><p>show all parameters of given components</p>
 </dd>
-<dt>describe|info -d [-s &lt;config_server&gt;] [-n] dsource_name1 dsource_name2 …</dt><dd><p>show all parameters of given datasources</p>
+<dt>describe|info -d [-s &lt;config_server&gt;] [-n] dsource_name1 dsource_name2 ...</dt><dd><p>show all parameters of given datasources</p>
 </dd>
-<dt>info [-s &lt;config_server&gt;] [-m | -p] [-n] component_name1 component_name2 …</dt><dd><p>show source parameters of given components</p>
+<dt>info [-s &lt;config_server&gt;] [-m | -p] [-n] component_name1 component_name2 ...</dt><dd><p>show source parameters of given components</p>
 </dd>
-<dt>info -r [-s &lt;config_server&gt;]  [-n] profile_name1 profile_name2 …</dt><dd><p>show general parameters of given profiles</p>
+<dt>info -r [-s &lt;config_server&gt;]  [-n] profile_name1 profile_name2 ...</dt><dd><p>show general parameters of given profiles</p>
 </dd>
-<dt>geometry [-s &lt;config_server&gt;] [-m | -p] [-n] component_name1 component_name2 …</dt><dd><p>show transformation parameters of given components</p>
+<dt>geometry [-s &lt;config_server&gt;] [-m | -p] [-n] component_name1 component_name2 ...</dt><dd><p>show transformation parameters of given components</p>
 </dd>
 </dl>
 </dd>
@@ -286,7 +286,7 @@ perform the process of component merging.</p>
 <dd><p>make use mandatory components as well</p>
 </dd>
 <dt><kbd><span class="option">-p</span>, <span class="option">--private</span></kbd></dt>
-<dd><p>make use private components, i.e. starting with ‘__’</p>
+<dd><p>make use private components, i.e. starting with '__'</p>
 </dd>
 <dt><kbd><span class="option">-n</span>, <span class="option">--no-newlines</span></kbd></dt>
 <dd><p>split result with space characters</p>
