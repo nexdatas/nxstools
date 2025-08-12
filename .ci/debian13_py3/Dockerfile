@@ -12,7 +12,7 @@ RUN cd /etc/apt/sources.list.d && wget http://repos.pni-hdri.de/trixie-pni-hdri.
 
 
 RUN apt-get -qq update && apt-get -qq -y dist-upgrade
-RUN apt-get -qq update && apt-get -qq install -y default-mysql-client  python3-h5py  python3-mysqldb python3-sphinx  apt-utils debconf-utils net-tools  omniidl libomniorb4-dev libcos4-dev libomnithread4-dev libzmq3-dev python3-pninexus python3-argcomplete python3-tz python3-lxml python3-pytest bitshuffle  hdf5-filter-plugin-serial   liblog4j1.2-java python3-whichcraft python3-fabio python3-setuptools python3-yaml python3-pytest-cov python3-pil python3-matplotlib xvfb  libxcb1 libx11-xcb1 libxcb-keysyms1 libxcb-image0 libxcb-icccm4 libxcb-render-util0 xkb-data
+RUN apt-get -qq update && apt-get -qq install -y default-mysql-client  python3-h5py  python3-mysqldb python3-sphinx  apt-utils debconf-utils net-tools  omniidl libomniorb4-dev libcos4-dev libomnithread4-dev libzmq3-dev python3-pninexus python3-argcomplete python3-tz python3-lxml python3-pytest bitshuffle  hdf5-filter-plugin   liblog4j1.2-java python3-whichcraft python3-fabio python3-setuptools python3-yaml python3-pytest-cov python3-pil python3-matplotlib xvfb  libxcb1 libx11-xcb1 libxcb-keysyms1 libxcb-image0 libxcb-icccm4 libxcb-render-util0 xkb-data
 # hdf5-plugin-bz2 hdf5-plugin-lz4
 
 RUN useradd -ms /bin/bash tango
