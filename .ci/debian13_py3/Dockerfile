@@ -1,6 +1,6 @@
 FROM debian:trixie
 
-MAINTAINER DESY, Jan Kotanski <jankotan@gmail.com>
+# MAINTAINER DESY, Jan Kotanski <jankotan@gmail.com>
 RUN /bin/bash -c 'echo "deb http://ftp.de.debian.org/debian trixie main" > /etc/apt/sources.list.d/debiande.list'
 RUN apt-get -qq update && apt-get -qq install -y libterm-readline-gnu-perl coreutils gnupg2 procps apt-utils curl apt-transport-https gnupg2 ca-certificates wget
 
