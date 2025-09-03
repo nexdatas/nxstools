@@ -1,6 +1,6 @@
 FROM ubuntu:jammy
 
-MAINTAINER DESY, Jan Kotanski <jankotan@gmail.com>
+# MAINTAINER DESY, Jan Kotanski <jankotan@gmail.com>
 # RUN sed -i 's|http://archive|http://de.archive|g' /etc/apt/sources.list
 RUN apt-get update && apt-get install -y libterm-readline-gnu-perl software-properties-common coreutils gnupg2 procps apt-utils curl apt-transport-https gnupg2 ca-certificates wget
 
