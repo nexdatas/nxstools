@@ -70,6 +70,10 @@ try:
     from blissdata.redis_engine.encoding.json import JsonStreamEncoder
 except Exception:
     JsonStreamEncoder = None
+try:
+    from blissdata.streams.base import Stream
+except Exception:
+    Stream = None
 
 try:
     from blissdata.schemas.scan_info import (
@@ -826,6 +830,7 @@ class H5RedisFile(H5File):
                            "number": sinfo["scan_nb"],
                            "dataset": fbase,
                            "path": dr,
+                           # "beamline": '',
                            "session": self.__session,
                            "collection": measurement,
                            "data_policy": "no_policy"}
@@ -1511,11 +1516,18 @@ class H5RedisField(H5Field):
             encoder = NumericStreamEncoder(
                 dtype=sds["dtype"],
                 shape=shape)
-            self.__stream = self.scan_command(
-                "create_stream",
-                dsname,
-                encoder,
-                info={"unit": units})
+            if Stream is not None:
+                sdef = Stream.make_definition(dsname,
+                                              encoder,
+                                              info={"unit": units})
+                self.__stream = self.scan_command(
+                    "create_stream", sdef)
+            else:
+                self.__stream = self.scan_command(
+                    "create_stream",
+                    dsname,
+                    encoder,
+                    info={"unit": units})
             if not shape:
                 # plot_type = 1
                 # plot_axes = []

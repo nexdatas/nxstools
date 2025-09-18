@@ -47,14 +47,14 @@ if REDIS:
         data_policy: str = Field(index=True)
 
         # DESY data policy
-        beamline: Optional[str] = Field(index=True)
-        session: Optional[str] = Field(index=True)
-        proposal: Optional[str] = Field(index=True)
-        collection: Optional[str] = Field(index=True)
-        dataset: Optional[str] = Field(index=True)
+        beamline: Optional[str] = Field(index=True, default=None)
+        session: Optional[str] = Field(index=True, default=None)
+        proposal: Optional[str] = Field(index=True, default=None)
+        collection: Optional[str] = Field(index=True, default=None)
+        dataset: Optional[str] = Field(index=True, default=None)
 
         # Without data policy
-        path: Optional[str] = Field(index=True)
+        path: Optional[str] = Field(index=True, default=None)
 
 else:
     DESYIdentityModel = None

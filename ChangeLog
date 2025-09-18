@@ -1,3 +1,7 @@
+2025-09-18 Jan Kotanski <jankotan@gmail.com>
+	* add support for blissdata 2 and pydantic 2 (#793)
+	* tagged as v4.27.0
+
 2025-07-30 Jan Kotanski <jankotan@gmail.com>
 	* merge no raw metadata with the same pid (#786)
 	* tagged as v4.26.0
