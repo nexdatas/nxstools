@@ -662,11 +662,13 @@ class H5RedisFile(H5File):
         #     ["axis"])
         self.set_devices(
             DeviceDict(
+                name="time", channels=[], metadata={},
+                triggered_devices=["mg_channels", "observables"]),
+            ["time"])
+        self.set_devices(
+            DeviceDict(
                 name="mg_channels", channels=[], metadata={}),
             ["mg_channels"])
-        self.set_devices(
-            DeviceDict(name="time", channels=[], metadata={}),
-            ["time"])
         self.set_devices(
             DeviceDict(
                 name="observables", channels=[], metadata={}),
