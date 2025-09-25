@@ -1,3 +1,7 @@
+2025-09-25 Jan Kotanski <jankotan@gmail.com>
+	* fix support for mca in blissdata 2 (#799)
+	* tagged as v4.27.2
+
 2025-09-24 Jan Kotanski <jankotan@gmail.com>
 	* add missing triggered_devices for flint 2.2.1 (#796)
 	* tagged as v4.27.1

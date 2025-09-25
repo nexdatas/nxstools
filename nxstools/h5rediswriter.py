@@ -663,7 +663,8 @@ class H5RedisFile(H5File):
         self.set_devices(
             DeviceDict(
                 name="time", channels=[], metadata={},
-                triggered_devices=["mg_channels", "observables"]),
+                triggered_devices=["mg_channels", "other_channels",
+                                   "mca", "image"]),
             ["time"])
         self.set_devices(
             DeviceDict(
@@ -671,8 +672,16 @@ class H5RedisFile(H5File):
             ["mg_channels"])
         self.set_devices(
             DeviceDict(
-                name="observables", channels=[], metadata={}),
-            ["observables"])
+                name="other_channels", channels=[], metadata={}),
+            ["other_channels"])
+        self.set_devices(
+            DeviceDict(
+                name="mca", channels=[], metadata={}, type="mca"),
+            ["mca"])
+        self.set_devices(
+            DeviceDict(
+                name="image", channels=[], metadata={}, type="image"),
+            ["image"])
         self.set_channels({})
 
     def set_scaninfo(self, value, keys=None, direct=False):
@@ -1495,13 +1504,22 @@ class H5RedisField(H5Field):
         if self.dtype not in ['string', b'string']:
             mgchannels = self.get_scaninfo(
                 ["measurement_group_channels"])
-            device_type = "observables"
+            device_type = "other_channels"
+            if shape and len(shape) == 1:
+                device_type = "mca"
+            elif shape and len(shape) == 2:
+                device_type = "image"
             # if "timestamp" in dsname or \
             #    dsname.endswith("_time"):
             if "timestamp" in dsname:
                 device_type = "time"
             elif dsname in mgchannels:
-                device_type = "mg_channels"
+                if shape and len(shape) == 1:
+                    device_type = "mca"
+                elif shape and len(shape) == 2:
+                    device_type = "image"
+                else:
+                    device_type = "mg_channels"
 
             self.append_devices(
                 dsname, [device_type, 'channels'])
@@ -1521,6 +1539,7 @@ class H5RedisField(H5Field):
             if Stream is not None:
                 sdef = Stream.make_definition(dsname,
                                               encoder,
+                                              shape=shape,
                                               info={"unit": units})
                 self.__stream = self.scan_command(
                     "create_stream", sdef)
@@ -1555,9 +1574,15 @@ class H5RedisField(H5Field):
                 pass
             self.append_stream(dsname, self.__stream)
         else:
-            self.__jstream = self.scan_command(
-                "create_stream",
-                dsname, JsonStreamEncoder())
+            if Stream is not None:
+                sdef = Stream.make_definition(
+                    dsname, JsonStreamEncoder())
+                self.__jstream = self.scan_command(
+                    "create_stream", sdef)
+            else:
+                self.__jstream = self.scan_command(
+                    "create_stream",
+                    dsname, JsonStreamEncoder())
             self.append_stream(dsname, self.__jstream)
 
     def __set_init_channel_info(self, dsname, units, shape, strategy, o):
@@ -1633,6 +1658,7 @@ class H5RedisField(H5Field):
         #        self.__dsname, strategy, self.dtype,
         #       type(o), str(t), units)
         if strategy in ["STEP"] and dsnm:
+            # skip 2D images
             if not shape or len(shape) < 2:
                 self.__set_step_channel_info(dsname, units, shape, strategy, o)
         else:
