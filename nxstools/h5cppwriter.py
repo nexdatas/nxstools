@@ -1439,6 +1439,149 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         self.dtype = dtype
         #: (:obj:`list` < :obj:`int` >) maximal shape
         self.maxshape = maxshape
+        #: (:obj:`list` <:obj:`dict` >) vmap list
+        self.__vmaps = []
+
+    def __cureKeys(self, key):
+        tkey = []
+        if isinstance(key, list):
+            try:
+                sk = list(set([len(ky) for ky in key]))
+            except Exception:
+                sk = []
+            if len(sk) == 1 and sk[0] == 4:
+                offset = []
+                block = []
+                count = []
+                stride = []
+                for ky in key:
+                    off, bl, cnt, std = ky
+                    offset.append(off)
+                    block.append(bl)
+                    count.append(cnt)
+                    stride.append(std)
+                return filewriter.FTHyperslab(offset, block, count, stride)
+            for ky in key:
+                if isinstance(ky, list) and len(ky) > 0 and len(ky) < 4:
+                    tkey.append(slice(*ky))
+                else:
+                    if ky is None:
+                        ky = slice(None)
+                    tkey.append(ky)
+
+            return tuple(tkey)
+        return key
+
+    def process_target_field_views(self, parent):
+        """ process target fields views to virtual field layout
+        """
+        counter = 0
+        for vmap in self.__vmaps:
+            fieldpath = ""
+            filename = ""
+            edtype = vmap["dtype"] \
+                if "dtype" in vmap else self.dtype
+            key = vmap["key"] if "key" in vmap else counter
+            key = self.__cureKeys(key)
+            if "shape" in vmap:
+                eshape = vmap["shape"]
+            elif isinstance(key, int):
+                eshape = list(self.shape)
+                eshape[0] = 1
+            else:
+                eshape = [0] * len(self.shape)
+            fieldpath = vmap["fieldpath"] \
+                if "fieldpath" in vmap else "/data"
+            filename = vmap["filename"] if "filename" in vmap else None
+            if "target" in vmap:
+                target = vmap["target"]
+                if target.startswith("h5file:/"):
+                    target = target[8:]
+                if "::" in target:
+                    filename, fieldpath = target.split("::")
+                elif ":/" in target:
+                    filename, fieldpath = target.split(":/")
+                else:
+                    fieldpath = target
+            obj = parent
+            while filename is None:
+                par = obj.parent
+                if par is None:
+                    break
+                if hasattr(par, "root") and hasattr(par, "name"):
+                    filename = par.name
+                    break
+                else:
+                    obj = par
+            sourceshape = vmap["sourceshape"] \
+                if "sourceshape" in vmap else None
+            sourcekey = vmap["sourcekey"] \
+                if "sourcekey" in vmap else None
+            sourcekey = self.__cureKeys(sourcekey)
+            if not any(eshape):
+                eshape = self.__findShape(key, eshape, unlimited=False)
+            ef = filewriter.target_field_view(
+                filename, fieldpath, eshape, edtype)
+            if eshape:
+                counter += eshape[0]
+            else:
+                counter += 1
+            # print("KEY", key, sourcekey, sourceshape, eshape)
+            self.add(key, ef, sourcekey, sourceshape)
+
+    def __findShape(self, key, eshape=None, unlimited=True):
+        """ find a layout shape from elemnt keys and shape
+        :param key: field key
+        :type key: :class:`FTHyperslab` o :obj:`tuple`
+        :param eshape: element shape
+        :type eshape: ::obj:`list`
+        :param unlimited: unlimited flag
+        :type unlimited: ::obj:`bool`
+        :returns: layout shake
+        :rtype: ::obj:`list`
+        """
+
+        if isinstance(key, filewriter.FTHyperslab):
+            if not unlimited:
+                count = [(ct if ct != filewriter.writer.unlimited() else 1)
+                         for ct in key.count]
+
+                block = [(ct if ct != filewriter.writer.unlimited() else 1)
+                         for ct in key.block]
+            else:
+                count = key.count
+                block = key.block
+            eshape = [bl * count[hi] for hi, bl in enumerate(block)]
+        if isinstance(key, tuple):
+            eshape = []
+            for ky in key:
+                if not unlimited and ky.stop == filewriter.writer.unlimited():
+                    eshape.append(1)
+                elif isinstance(ky, slice) and ky.stop > 0:
+                    start = ky.start if ky.start is not None else 0
+                    step = ky.step if ky.step is not None else 1
+                    eshape.append((ky.stop - start) // step)
+                else:
+                    eshape.append(1)
+        return eshape
+
+    def __len__(self):
+        """ provides virtual map list length
+
+        :rtype: :obj:`int`
+        :returns:  virtual map list length
+        """
+        print("LEN", len(self.__vmaps))
+        return (len(self.__vmaps))
+
+    def append_vmap(self, vmap):
+        """ appends virtual map description into vmap list
+
+        :param vmap: virtual map description
+        :type vmap: :obj:`dict`
+        """
+        print("APEEND", vmap)
+        self.__vmaps.append(vmap)
 
     def __setitem__(self, key, source):
         """ add target field to layout

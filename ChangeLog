@@ -1,5 +1,9 @@
 2025-10-13 Jan Kotanski <jankotan@gmail.com>
-	* add virtual map list methods to VirtualFieldLayout (#799)
+	* move virtual map list methods to h5py/h5cpp writers (#806)
+	* tagged as v4.28.1
+
+2025-10-13 Jan Kotanski <jankotan@gmail.com>
+	* add virtual map list methods to VirtualFieldLayout (#803)
 	* tagged as v4.28.0
 
 2025-09-25 Jan Kotanski <jankotan@gmail.com>
