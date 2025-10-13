@@ -1766,7 +1766,6 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
             H5VirtualFieldLayout.__init__(
                 self, h5object, shape, dtype, maxshape)
         #: (:obj:`list` <:obj:`dict` >) vmap list
-        self.__sa
         self.__vmaps = []
 
     def __cureKeys(self, key):
