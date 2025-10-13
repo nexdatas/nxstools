@@ -495,7 +495,7 @@ def virtual_field_layout(shape, dtype, maxshape=None):
     maxshape = maxshape or [None for _ in shape]
     return H5PYVirtualFieldLayout(
         h5py.VirtualLayout(tuple(shape), dtype, tuple(maxshape or [])),
-        tuple(shape)
+        tuple(shape), dtype
     )
 
 
@@ -1205,7 +1205,7 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
 
     """ virtual field layout """
 
-    def __init__(self, h5object, shape):
+    def __init__(self, h5object, shape, dtype=None):
         """ constructor
 
         :param h5object: h5 object
@@ -1216,6 +1216,8 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         filewriter.FTVirtualFieldLayout.__init__(self, h5object)
         #: (:obj:`list` < :obj:`int` >) shape
         self.shape = shape
+        # : (:obj:`str`): data type
+        self.dtype = dtype
 
     def __setitem__(self, key, source):
         """ add target field to layout
