@@ -1571,16 +1571,18 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :rtype: :obj:`int`
         :returns:  virtual map list length
         """
-        print("LEN", len(self.__vmaps))
+        # print("LEN", len(self.__vmaps))
         return (len(self.__vmaps))
 
-    def append_vmap(self, vmap):
+    def append_vmap(self, vmap, strategy=None):
         """ appends virtual map description into vmap list
 
         :param vmap: virtual map description
         :type vmap: :obj:`dict`
+        :param strategy: datasource strategy i.e. INIT or FINAL
+        :type strategy: :obj:`str`
         """
-        print("APEEND", vmap)
+        # print("APEEND", vmap)
         self.__vmaps.append(vmap)
 
     def __setitem__(self, key, source):
