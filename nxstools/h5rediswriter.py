@@ -75,6 +75,12 @@ try:
 except Exception:
     Stream = None
 
+FileStream = None
+# try:
+#     from h5file_detector.stream import FileStream
+# except Exception:
+#     FileStream = None
+
 try:
     from blissdata.schemas.scan_info import (
         ScanInfoDict,
@@ -193,6 +199,7 @@ def unlimited(parent=None):
 
 
 def open_file(filename, readonly=False, redisurl=None, session=None,
+              h5fileplugin=None,
               **pars):
     """ open the new file
 
@@ -204,13 +211,16 @@ def open_file(filename, readonly=False, redisurl=None, session=None,
     :type redisurl: :obj:`str`
     :param session: redis session
     :type session: :obj:`str`
+    :param h5fileplugin: use h5file_detector plugin
+    :type h5fileplugin: :obj:`str`
     :param libver: library version: 'lastest' or 'earliest'
     :type libver: :obj:`str`
     :returns: file object
     :rtype: :class:`H5RedisFile`
     """
     return H5RedisFile(h5imp=h5writer.open_file(filename, readonly, **pars),
-                       redisurl=redisurl, session=session)
+                       redisurl=redisurl, session=session,
+                       h5fileplugin=h5fileplugin)
 
 
 def is_image_file_supported():
@@ -259,6 +269,7 @@ def load_file(membuffer, filename=None, readonly=False, **pars):
 
 
 def create_file(filename, overwrite=False, redisurl=None, session=None,
+                h5fileplugin=None,
                 **pars):
     """ create a new file
 
@@ -272,12 +283,14 @@ def create_file(filename, overwrite=False, redisurl=None, session=None,
     :type redisurl: :obj:`str`
     :param session: redis session
     :type session: :obj:`str`
+    :param h5fileplugin: use h5file_detector plugin
+    :type h5fileplugin: :obj:`str`
     :returns: file object
     :rtype: :class:`H5RedisFile`
     """
     return H5RedisFile(
         h5imp=h5writer.create_file(filename, overwrite, **pars),
-        redisurl=redisurl, session=session)
+        redisurl=redisurl, session=session, h5fileplugin=h5fileplugin)
 
 
 def link(target, parent, name):
@@ -390,7 +403,7 @@ class H5RedisFile(H5File):
     """
 
     def __init__(self, h5object=None, filename=None, h5imp=None,
-                 redisurl=None, session=None):
+                 redisurl=None, session=None, h5fileplugin=None):
         """ constructor
 
         :param h5object: h5 object
@@ -403,6 +416,8 @@ class H5RedisFile(H5File):
         :type redisurl: :obj:`str`
         :param session: redis session
         :type session: :obj:`str`
+        :param h5fileplugin: use h5file_detector plugin
+        :type h5fileplugin: :obj:`str`
         """
         if h5imp is not None:
             H5File.__init__(self, h5imp.h5object, h5imp.name)
@@ -427,6 +442,14 @@ class H5RedisFile(H5File):
         if REDIS and self.__redisurl:
             # print("FILENAME", self.name)
             self.__datastore = getDataStore(self.__redisurl)
+            global FileStream
+            if h5fileplugin:
+                try:
+                    from h5file_detector.stream import FileStream
+                except Exception:
+                    FileStream = None
+            else:
+                FileStream = None
 
     def root(self):
         """ root object
@@ -1310,6 +1333,8 @@ class H5RedisField(H5Field):
         self.__dsname = None
         self.__stream = None
         self.__jstream = None
+        self.__rstream = None
+        self.__rcounter = 0
 
     def append_stream(self, name, stream):
         """ scan object
@@ -1532,47 +1557,75 @@ class H5RedisField(H5Field):
                     device=device_type, dim=len(shape),
                     display_name=dsname)
             self.set_channels(ch, [dsname])
+            if len(shape) < 2:
+                encoder = NumericStreamEncoder(
+                    dtype=sds["dtype"],
+                    shape=shape)
+                if Stream is not None:
+                    sdef = Stream.make_definition(dsname,
+                                                  encoder,
+                                                  shape=shape,
+                                                  info={"unit": units})
+                    self.__stream = self.scan_command(
+                        "create_stream", sdef)
+                else:
+                    self.__stream = self.scan_command(
+                        "create_stream",
+                        dsname,
+                        encoder,
+                        info={"unit": units})
+                if not shape:
+                    # plot_type = 1
+                    # plot_axes = []
+                    # axes = []
+                    # self.append_scaninfo(
+                    #     {"kind": "curve-plot",
+                    #      "name": dsname,
+                    #      "items": axes}, ["plots"])
+                    pass
+                else:
+                    # self.append_scaninfo(
+                    #     {"kind": "1d-plot",
+                    #      # "name": "mg_channels",
+                    #      "name": dsname,
+                    #      "x": "index",
+                    #      "items": [
+                    #          {
+                    #              # "kind": "curve",
+                    #              "y": [dsname]
+                    #          }
+                    #      ]},
+                    #     ["plots"])
+                    pass
+            elif Stream is not None and FileStream is not None:
+                filename = None
+                obj = self
+                while filename is None:
+                    par = obj.parent
+                    if par is None:
+                        break
+                    print("PAR", par.name)
+                    if hasattr(par, "root") and hasattr(par, "name"):
+                        filename = par.name
+                        break
+                    else:
+                        obj = par
 
-            encoder = NumericStreamEncoder(
-                dtype=sds["dtype"],
-                shape=shape)
-            if Stream is not None:
-                sdef = Stream.make_definition(dsname,
-                                              encoder,
-                                              shape=shape,
-                                              info={"unit": units})
-                self.__stream = self.scan_command(
+                    # print("FILENAME", filename)
+                sdef = FileStream.make_definition(
+                    name=dsname,
+                    dtype=sds["dtype"],
+                    shape=shape,
+                    file_pattern=str(filename),
+                    frames_per_file=-1,
+                    data_path=self.path,
+                    # data_path="/scan/data/%s" % dsname ,
+                    info={"unit": units},
+                    file_index_offset=1)
+                self.__rstream = self.scan_command(
                     "create_stream", sdef)
-            else:
-                self.__stream = self.scan_command(
-                    "create_stream",
-                    dsname,
-                    encoder,
-                    info={"unit": units})
-            if not shape:
-                # plot_type = 1
-                # plot_axes = []
-                # axes = []
-                # self.append_scaninfo(
-                #     {"kind": "curve-plot",
-                #      "name": dsname,
-                #      "items": axes}, ["plots"])
-                pass
-            else:
-                # self.append_scaninfo(
-                #     {"kind": "1d-plot",
-                #      # "name": "mg_channels",
-                #      "name": dsname,
-                #      "x": "index",
-                #      "items": [
-                #          {
-                #              # "kind": "curve",
-                #              "y": [dsname]
-                #          }
-                #      ]},
-                #     ["plots"])
-                pass
-            self.append_stream(dsname, self.__stream)
+                self.__rcounter = 0
+            self.append_stream(dsname, self.__rstream)
         else:
             if Stream is not None:
                 sdef = Stream.make_definition(
@@ -1659,7 +1712,7 @@ class H5RedisField(H5Field):
         #       type(o), str(t), units)
         if strategy in ["STEP"] and dsnm:
             # skip 2D images
-            if not shape or len(shape) < 2:
+            if not shape or len(shape) < 2 or FileStream is not None:
                 self.__set_step_channel_info(dsname, units, shape, strategy, o)
         else:
             self.__set_init_channel_info(dsname, units, shape, strategy, o)
@@ -1684,6 +1737,10 @@ class H5RedisField(H5Field):
                 if not isinstance(o, dict):
                     jo = {"value": o}
                 self.__jstream.send(jo)
+            if hasattr(self.__rstream, "send"):
+                jo = {"stored": True, "frame": self.__rcounter}
+                self.__rstream.send(jo)
+                self.__rcounter += 1
         H5Field.__setitem__(self, t, o)
 
 
