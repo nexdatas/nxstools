@@ -74,10 +74,12 @@ try:
     from blissdata.streams.base import Stream
 except Exception:
     Stream = None
-try:
-    from h5file_detector.stream import FileStream
-except Exception:
-    FileStream = None
+
+FileStream = None
+# try:
+#     from h5file_detector.stream import FileStream
+# except Exception:
+#     FileStream = None
 
 try:
     from blissdata.schemas.scan_info import (
@@ -1710,7 +1712,7 @@ class H5RedisField(H5Field):
         #       type(o), str(t), units)
         if strategy in ["STEP"] and dsnm:
             # skip 2D images
-            if not shape or len(shape) < 3:
+            if not shape or len(shape) < 2 or FileStream is not None:
                 self.__set_step_channel_info(dsname, units, shape, strategy, o)
         else:
             self.__set_init_channel_info(dsname, units, shape, strategy, o)
