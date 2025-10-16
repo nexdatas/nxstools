@@ -1,3 +1,7 @@
+2025-10-16 Jan Kotanski <jankotan@gmail.com>
+	* add support for h5file_detector (#809)
+	* tagged as v4.29.0
+
 2025-10-13 Jan Kotanski <jankotan@gmail.com>
 	* move virtual map list methods to h5py/h5cpp writers (#806)
 	* tagged as v4.28.1
