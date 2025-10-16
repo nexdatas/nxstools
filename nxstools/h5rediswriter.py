@@ -75,10 +75,9 @@ try:
 except Exception:
     Stream = None
 try:
-    from h5file_detector.stream import FileStream    # , FileView
+    from h5file_detector.stream import FileStream
 except Exception:
     FileStream = None
-    FielView = None
 
 try:
     from blissdata.schemas.scan_info import (
@@ -198,6 +197,7 @@ def unlimited(parent=None):
 
 
 def open_file(filename, readonly=False, redisurl=None, session=None,
+              h5fileplugin=None,
               **pars):
     """ open the new file
 
@@ -209,13 +209,16 @@ def open_file(filename, readonly=False, redisurl=None, session=None,
     :type redisurl: :obj:`str`
     :param session: redis session
     :type session: :obj:`str`
+    :param h5fileplugin: use h5file_detector plugin
+    :type h5fileplugin: :obj:`str`
     :param libver: library version: 'lastest' or 'earliest'
     :type libver: :obj:`str`
     :returns: file object
     :rtype: :class:`H5RedisFile`
     """
     return H5RedisFile(h5imp=h5writer.open_file(filename, readonly, **pars),
-                       redisurl=redisurl, session=session)
+                       redisurl=redisurl, session=session,
+                       h5fileplugin=h5fileplugin)
 
 
 def is_image_file_supported():
@@ -264,6 +267,7 @@ def load_file(membuffer, filename=None, readonly=False, **pars):
 
 
 def create_file(filename, overwrite=False, redisurl=None, session=None,
+                h5fileplugin=None,
                 **pars):
     """ create a new file
 
@@ -277,12 +281,14 @@ def create_file(filename, overwrite=False, redisurl=None, session=None,
     :type redisurl: :obj:`str`
     :param session: redis session
     :type session: :obj:`str`
+    :param h5fileplugin: use h5file_detector plugin
+    :type h5fileplugin: :obj:`str`
     :returns: file object
     :rtype: :class:`H5RedisFile`
     """
     return H5RedisFile(
         h5imp=h5writer.create_file(filename, overwrite, **pars),
-        redisurl=redisurl, session=session)
+        redisurl=redisurl, session=session, h5fileplugin=h5fileplugin)
 
 
 def link(target, parent, name):
@@ -395,7 +401,7 @@ class H5RedisFile(H5File):
     """
 
     def __init__(self, h5object=None, filename=None, h5imp=None,
-                 redisurl=None, session=None):
+                 redisurl=None, session=None, h5fileplugin=None):
         """ constructor
 
         :param h5object: h5 object
@@ -408,6 +414,8 @@ class H5RedisFile(H5File):
         :type redisurl: :obj:`str`
         :param session: redis session
         :type session: :obj:`str`
+        :param h5fileplugin: use h5file_detector plugin
+        :type h5fileplugin: :obj:`str`
         """
         if h5imp is not None:
             H5File.__init__(self, h5imp.h5object, h5imp.name)
@@ -432,6 +440,14 @@ class H5RedisFile(H5File):
         if REDIS and self.__redisurl:
             # print("FILENAME", self.name)
             self.__datastore = getDataStore(self.__redisurl)
+            global FileStream
+            if h5fileplugin:
+                try:
+                    from h5file_detector.stream import FileStream
+                except Exception:
+                    FileStream = None
+            else:
+                FileStream = None
 
     def root(self):
         """ root object
