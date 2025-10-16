@@ -1557,7 +1557,7 @@ class H5RedisField(H5Field):
                     device=device_type, dim=len(shape),
                     display_name=dsname)
             self.set_channels(ch, [dsname])
-            if len(shape) < 3:
+            if len(shape) < 2:
                 encoder = NumericStreamEncoder(
                     dtype=sds["dtype"],
                     shape=shape)
