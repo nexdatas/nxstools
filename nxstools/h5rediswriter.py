@@ -1617,7 +1617,7 @@ class H5RedisField(H5Field):
                     dtype=sds["dtype"],
                     shape=shape,
                     file_pattern=str(filename),
-                    frames_per_file=-1,
+                    frames_per_file=0,
                     data_path=self.path,
                     # data_path="/scan/data/%s" % dsname ,
                     info={"unit": units},
