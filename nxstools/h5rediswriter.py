@@ -1621,7 +1621,8 @@ class H5RedisField(H5Field):
                     data_path=self.path,
                     # data_path="/scan/data/%s" % dsname ,
                     info={"unit": units},
-                    file_index_offset=1)
+                    file_index_offset=1,
+                    file_mode="single")
                 self.__rstream = self.scan_command(
                     "create_stream", sdef)
                 self.__rcounter = 0
