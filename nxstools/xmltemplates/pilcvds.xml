@@ -15,7 +15,7 @@
           <field units="s" type="NX_FLOAT64" name="trigger_pulse_length">
             <strategy mode="FINAL"/>$datasources.$(name)_triggerpulselength</field>
           <field type="NX_INT32" name="trigger_mode">
-            <strategy mode="FINAL"/>$datasources.$(name)_triggermode_cb</field>
+            <strategy mode="FINAL"/>$datasources.$(name)_triggermode</field>
           <field units="s" type="NX_FLOAT64" name="time_trigger_start">
             <strategy mode="FINAL"/>$datasources.$(name)_timetriggerstart</field>
           <field units="s" type="NX_FLOAT64" name="time_trigger_step_size">
@@ -57,7 +57,17 @@
           <field units="steps/unit" type="NX_FLOAT64" name="position5_conversion">
             <strategy mode="FINAL"/>$datasources.$(name)_position5conversion</field>
 	</group>
-        <group type="NXdata" name="data">
+        <group type="NXdata" name="data">	  
+	  <vds name="counter" type="NX_FLOAT32">
+	    <dimensions rank="2">
+	      <dim index="1" value="3"/>
+	      <dim index="2" value="100"/>
+	    </dimensions>
+	    <map>
+	      $datasources.$(name)_countermap
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
         </group>
       </group>
     </group>

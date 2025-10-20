@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_countermap">
+    <result name="result">
+import json
+import time
+step = commonblock["__counter__"] - 1
+ds.result = json.dumps({"target":"/tmp/scan_0106%d_00000.nxs:/entry/data/counter" % (step + 2), "key":step, "shape":[1, 100]})
+    </result>
+    $datasources.$(name)_triggermode
+    $datasources.$(name)_nbtriggers
+    $datasources.$(name)_triggersperfile
+    $datasources.$(name)_fileprefix
+    $datasources.$(name)_filedir
+  </datasource>
+</definition>
