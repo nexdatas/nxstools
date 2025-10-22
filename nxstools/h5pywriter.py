@@ -438,7 +438,7 @@ def deflate_filter(rate=None, shuffle=None, availability=None):
     :param shuffle: filter shuffle
     :type shuffle: :obj:`bool`
     :returns: deflate filter object
-    :rtype: :class:`H5CppDataFilter`
+    :rtype: :class:`H5PYDataFilter`
     """
     dtf = H5PYDataFilter()
     dtf.filterid = 1
@@ -493,7 +493,7 @@ def virtual_field_layout(shape, dtype, maxshape=None, vmaps=None):
     if not is_vds_supported():
         raise Exception("VDS not supported")
     if vmaps is not None:
-        shape = H5CppVirtualFieldLayout.cure_shape(vmaps, shape)
+        shape = H5PYVirtualFieldLayout.cure_shape(vmaps, shape)
     maxshape = maxshape or [None for _ in shape]
     return H5PYVirtualFieldLayout(
         h5py.VirtualLayout(tuple(shape), dtype, tuple(maxshape or [])),
@@ -1222,7 +1222,7 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         self.shape = shape
         #: (:obj:`str`): data type
         self.dtype = dtype
-        #:(:obj:`list`<:obj:`dict`>) list of virtual map description
+        #: (:obj:`list`<:obj:`dict`>) list of virtual map description
         self.__vmaps = list(vmaps) or []
 
     @classmethod
@@ -1230,7 +1230,8 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         """ cure keys
 
         :param key: field key
-        :type key: :class:`FTHyperslab` or :obj:`tuple` or :obj:`list` or :obj:`int`
+        :type key: :class:`FTHyperslab` or :obj:`tuple` or :obj:`list`
+        :          or :obj:`int`
         :returns: field key
         :rtype: :class:`FTHyperslab` or :obj:`tuple`
         """
@@ -1381,7 +1382,6 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             # print("KEY", key, sourcekey, sourceshape, eshape)
             self.add(key, ef, sourcekey, sourceshape)
 
-
     @classmethod
     def find_shape(cls, key, eshape=None, unlimited=True):
         """ find a layout shape from elemnt keys and shape
@@ -1392,7 +1392,7 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :param unlimited: unlimited flag
         :type unlimited: ::obj:`bool`
         :returns: layout shape
-        :rtype: :obj:`list` < :obj:`int` > 
+        :rtype: :obj:`list` < :obj:`int` >
         """
 
         if isinstance(key, filewriter.FTHyperslab):

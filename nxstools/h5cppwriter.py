@@ -1486,7 +1486,7 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :param shape: field shape
         :type shape: :obj:`list` < :obj:`int` >
         :returns: field shape
-        :rtype: :obj:`list` < :obj:`int` > 
+        :rtype: :obj:`list` < :obj:`int` >
         """
         # print("vmaps", vmaps, shape)
         if shape is None:
@@ -1614,7 +1614,7 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :param unlimited: unlimited flag
         :type unlimited: ::obj:`bool`
         :returns: layout shape
-        :rtype: :obj:`list` < :obj:`int` > 
+        :rtype: :obj:`list` < :obj:`int` >
         """
 
         if isinstance(key, filewriter.FTHyperslab):
