@@ -93,16 +93,21 @@ def vmap(commonblock, name, fieldname,
                 prefix=(patternprefix[-5]))
         meta = {
             "plugin": "h5file_detector",
-            "shape": shape,
-            "file_pattern": pattern,
-            "frames_per_file": 1,
-            "data_path": ("/entry/data/%s" % fieldname),
-            "file_index_offset": 0,
-            "file_mode": "noframe"
+            "plugin_def": {
+                "name": "%s_%s" % (name, fieldname),
+                "dtype": "float32",
+                "shape": shape,
+                "file_pattern": pattern,
+                "frames_per_file": 1,
+                "data_path": ("/entry/data/%s" % fieldname),
+                "info": {"unit": ""},
+                "file_index_offset": 0,
+                "file_mode": "noframe"
+            }
         }
 
-    vmap = {"target": target, "key": step, "shape": [1, nbtriggers],
-            "frame": step}
+    vmap = {"target": target, "key": step, "shape": [1, shape[0]],
+            "plugin_stream": {"frame": step, "stored": True}}
     if meta:
         vmap.update(meta)
     return json.dumps(vmap)
