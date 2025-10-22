@@ -1824,6 +1824,17 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
             H5VirtualFieldLayout.__init__(
                 self, h5object, shape, dtype, maxshape)
 
+    def append_vmap(self, vmap, strategy=None):
+        """ appends virtual map description into vmap list
+
+        :param vmap: virtual map description
+        :type vmap: :obj:`dict`
+        :param strategy: datasource strategy i.e. INIT or FINAL
+        :type strategy: :obj:`str`
+        """
+        # print("APEEND", vmap)
+        H5VirtualFieldLayout.append_vmap(vmap)
+
 
 class H5RedisTargetFieldView(H5TargetFieldView):
 
