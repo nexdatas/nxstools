@@ -1304,19 +1304,36 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                                             + start) + 1
                                     sizes[si] = max(sizes[si], size)
                                 else:
+                                    if si:
+                                        sizes[si] = max(
+                                            sizes[si],
+                                            eshape[si]
+                                            if len(eshape) > si else 1, 1)
+                                    else:
+                                        sizes[si] += max(
+                                            eshape[si]
+                                            if len(eshape) > si else 1, 1)
+                            else:
+                                if si:
+                                    sizes[si] = max(
+                                        sizes[si],
+                                        eshape[si]
+                                        if len(eshape) > si else 1, 1)
+                                else:
                                     sizes[si] += max(
                                         eshape[si]
                                         if len(eshape) > si else 1, 1)
-                            else:
-                                sizes[si] += max(
-                                    eshape[si]
-                                    if len(eshape) > si else 1, 1)
             else:
                 eshape = vmap["shape"] if "shape" in vmap else []
                 for si, sh in enumerate(shape):
                     if sh < 2:
-                        sizes[si] += max(
-                            eshape[si] if len(eshape) > si else 1, 1)
+                        if si:
+                            sizes[si] = max(
+                                sizes[si],
+                                eshape[si] if len(eshape) > si else 1, 1)
+                        else:
+                            sizes[si] += max(
+                                eshape[si] if len(eshape) > si else 1, 1)
         return sizes
 
     def process_target_field_views(self, parent):

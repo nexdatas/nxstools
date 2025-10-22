@@ -2,18 +2,8 @@
 <definition>
   <datasource type="PYEVAL" name="$(name)_countermap">
     <result name="result">
-import json
-import time
-unlimited = 18446744073709551615
-step = commonblock["__counter__"] - 1
-ds.result = json.dumps({"target":"/tmp/scan_0106%d_00000.nxs:/entry/data/counter" % (step + 2), "key":step, "shape":[1, 100]})
-# ds.result = json.dumps({"target":"/tmp/scan_0106%d_00000.nxs:/entry/data/counter" % (step + 2), "key":[[step, step + 1],[0,100]], "shape":[1, 100] })
-# ds.result = json.dumps({"target":"/tmp/scan_0106%d_00000.nxs:/entry/data/counter" % (step + 2), "key":[[step, step + 1],[0,100]], "shape":[1, 100], "sourceshape":[1,100] })
-# ds.result = json.dumps({"target":"/tmp/scan_0106%d_00000.nxs:/entry/data/counter" % (step + 2), "key":[[step, step + 1],[0,100]], "shape":[1, 100] , "sourceshape":[1,100], "sourcekey":[[0,1],[0, 100]]})
-# ds.result = json.dumps({"target":"/tmp/scan_0106%d_00000.nxs:/entry/data/counter" % (step + 2), "key":[[step, step + 1],[0,100]], "shape":[1, 100] , "sourceshape":[1,100], "sourcekey":[[0,100],[0,1]]})
-# ds.result = json.dumps({"target":"/tmp/scan_0106%d_00000.nxs:/entry/data/counter" % (step + 2), "key":[[step, unlimited],[0,100]], "shape":[1, 100] , "sourceshape":[1,100], "sourcekey":[[0,100],[0,unlimited-step]]})
-# ds.result = json.dumps({"target":"/tmp/scan_0106%d_00000.nxs:/entry/data/counter" % (step + 2), "key":[[step, step + 1],[0,100]], "shape":[1, 100]})
-# json.dumps({"target":"/tmp/scan_0106%d_00000.nxs:/entry/data/counter" % (step + 2), "key":[[step, step + 1],[0,100]], "shape":[1, 100] , "sourcekey":[[0, 1],[None,None]]})
+from nxstools.pyeval import pilcvds
+ds.result = pilcvds.vmap(commonblock, "$(name)", "counter", ds.$(name)_triggermode, ds.$(name)_nbtriggers, ds.$(name)_triggersperfile, "$(hostname)", "$(device)", "$var.filename", "$var.entryname#'$(__entryname__)'$var.serialno", "$(__insname__)", ds.$(name)_fileprefix, ds.$(name)_filedir)
     </result>
     $datasources.$(name)_triggermode
     $datasources.$(name)_nbtriggers
