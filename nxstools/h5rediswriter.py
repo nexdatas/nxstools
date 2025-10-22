@@ -380,7 +380,7 @@ def target_field_view(filename, fieldpath, shape,
             filename, fieldpath, shape, dtype, maxshape))
 
 
-def virtual_field_layout(shape, dtype, maxshape=None):
+def virtual_field_layout(shape, dtype, maxshape=None, vmaps=None):
     """ creates a virtual field layout for a VDS file
 
     :param shape: shape
@@ -394,7 +394,7 @@ def virtual_field_layout(shape, dtype, maxshape=None):
     """
     return H5RedisVirtualFieldLayout(
         h5imp=h5writer.virtual_field_layout(
-            shape, dtype, maxshape))
+            shape, dtype, maxshape, vmaps))
 
 
 class H5RedisFile(H5File):
