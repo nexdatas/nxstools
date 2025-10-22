@@ -1453,7 +1453,8 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         """ cure keys
 
         :param key: field key
-        :type key: :class:`FTHyperslab` or :obj:`tuple` or :obj:`list` or :obj:`int`
+        :type key: :class:`FTHyperslab` or :obj:`tuple` or :obj:`list`
+        :  or :obj:`int`
         :returns: field key
         :rtype: :class:`FTHyperslab` or :obj:`tuple`
         """
