@@ -77,7 +77,32 @@ def vmap(commonblock, name, fieldname,
             path = ""
     fpattern = pilcfileprefix.split("/")[-1]
     path += '%s/%s' % (name, fpattern)
-    return json.dumps(
-        # {"target": "%s_%05d_00000.nxs:/entry/data/%s"
-        {"target": "%s_%05d.nxs:/entry/data/%s"
-         % (path, step, fieldname), "key": step, "shape": [1, nbtriggers]})
+    shape = [min(nbtriggers, triggersperfile or nbtriggers)]
+    if nbtriggers > triggersperfile:
+        target = "%s_%05d.nxs:/entry/data/%s" % (path, step, fieldname)
+    else:
+        target = "%s%05d_00000.nxs:/entry/data/%s" % (
+            path[:-5], step, fieldname)
+    meta = {}
+    if step == 0:
+        patternprefix = "%s/%s" % (pilcfiledir, pilcfileprefix)
+        if nbtriggers > triggersperfile:
+            pattern = "{prefix}_%05d.nxs".format(prefix=patternprefix)
+        else:
+            pattern = "{prefix}%05d_00000.nxs".format(
+                prefix=(patternprefix[-5]))
+        meta = {
+            "plugin": "h5file_detector",
+            "shape": shape,
+            "file_pattern": pattern,
+            "frames_per_file": 1,
+            "data_path": ("/entry/data/%s" % fieldname),
+            "file_index_offset": 0,
+            "file_mode": "noframe"
+        }
+
+    vmap = {"target": target, "key": step, "shape": [1, nbtriggers],
+            "frame": step}
+    if meta:
+        vmap.update(meta)
+    return json.dumps(vmap)
