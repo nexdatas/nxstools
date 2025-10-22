@@ -256,7 +256,7 @@ def target_field_view(filename, fieldpath, shape,
                                 dtype, maxshape)
 
 
-def virtual_field_layout(shape, dtype, maxshape=None, parent=None, vmaps=None):
+def virtual_field_layout(shape, dtype, maxshape=None, parent=None):
     """ creates a virtual field layout for a VDS file
 
     :param shape: shape
@@ -284,7 +284,7 @@ def virtual_field_layout(shape, dtype, maxshape=None, parent=None, vmaps=None):
     if not wr:
         with writerlock:
             wr = writer
-    return wr.virtual_field_layout(shape, dtype, maxshape, vmaps)
+    return wr.virtual_field_layout(shape, dtype, maxshape)
 
 
 def setwriter(wr):

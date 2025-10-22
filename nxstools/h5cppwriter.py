@@ -91,27 +91,18 @@ def unlimited_selection(sel, shape):
         res = []
         for sl in sel:
             if hasattr(sl, "stop"):
-                res.append(
-                    True if sl.stop in [unlimited()]
-                    else False)
+                res.append(True if sl.stop in [unlimited()] else False)
             elif hasattr(sl, "count"):
-                res.append(
-                    True if sl.count in [unlimited()]
-                    else False)
+                res.append(True if sl.count in [unlimited()] else False)
             else:
-                res.append(
-                    True if sl in [unlimited()]
-                    else False)
+                res.append(True if sl in [unlimited()] else False)
 
     elif hasattr(sel, "count"):
         res = []
         for ct in sel.count():
-            res.append(
-                True if ct in [unlimited()]
-                else False)
+            res.append(True if ct in [unlimited()] else False)
     elif isinstance(sel, slice):
-        res = [True if sel.stop in [unlimited()]
-               else False]
+        res = [True if sel.stop in [unlimited()] else False]
 
     elif sel in [unlimited()]:
         res = [True]
@@ -567,7 +558,7 @@ def target_field_view(filename, fieldpath, shape,
         filename, fieldpath, shape, dtype, maxshape)
 
 
-def virtual_field_layout(shape, dtype, maxshape=None, vmaps=None):
+def virtual_field_layout(shape, dtype, maxshape=None):
     """ creates a virtual field layout for a VDS file
 
     :param shape: shape
@@ -576,20 +567,14 @@ def virtual_field_layout(shape, dtype, maxshape=None, vmaps=None):
     :type dtype: :obj:`str`
     :param maxshape: shape
     :type maxshape: :obj:`list` < :obj:`int` >
-    :param vmaps: list of virtual map description
-    :type vmaps: :obj:`list`<:obj:`dict`>
     :returns: virtual layout
     :rtype: :class:`H5CppVirtualFieldLayout`
     """
     if not is_vds_supported():
         raise Exception("VDS not supported")
-    if vmaps is not None:
-        # print("SHAPE1", shape)
-        shape = H5CppVirtualFieldLayout.cure_shape(vmaps, shape)
-        # print("SHAPE12", shape)
     return H5CppVirtualFieldLayout(
         h5cpp.property.VirtualDataMaps(),
-        shape, dtype, maxshape, vmaps)
+        shape, dtype, maxshape)
 
 
 class H5CppFile(filewriter.FTFile):
@@ -1426,7 +1411,7 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
 
     """ virtual field layout """
 
-    def __init__(self, h5object, shape, dtype=None, maxshape=None, vmaps=None):
+    def __init__(self, h5object, shape, dtype=None, maxshape=None):
         """ constructor
 
         :param h5object: h5 object
@@ -1446,7 +1431,7 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         #: (:obj:`list` < :obj:`int` >) maximal shape
         self.maxshape = maxshape
         #: (:obj:`list` <:obj:`dict` >) vmap list
-        self.__vmaps = list(vmaps) or []
+        self.__vmaps = []
 
     @classmethod
     def cure_keys(cls, key):
@@ -1504,8 +1489,8 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                     offset, block, count, stride = map(list, zip(*key))
                     for si, sh in enumerate(shape):
                         if sh < 2:
-                            if block[si] != filewriter.writer.unlimited() \
-                               and count[si] != filewriter.writer.unlimited() \
+                            if block[si] != unlimited() \
+                                    and count[si] != unlimited() \
                                     and count[si] and block[si] and stride[si]:
                                 sizes[si] = max(
                                     sizes[si],
@@ -1523,7 +1508,7 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                                     and isinstance(key[si], list) \
                                     and len(key[si]) > 0 and len(key[si]) < 4:
                                 sky = slice(*key[si])
-                                if sky.stop != filewriter.writer.unlimited():
+                                if sky.stop != unlimited():
                                     start = sky.start or 0
                                     stop = sky.stop or 0
                                     step = sky.step or 1
@@ -1552,6 +1537,10 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :param parent: tree parent
         :type parent: :obj:`FTObject`
         """
+        if self.__vmaps is not None:
+            # print("SHAPE1", shape)
+            self.shape = self.cure_shape(self.__vmaps, self.shape)
+        # print("SHAPE12", shape)
         counter = 0
         for vmap in self.__vmaps:
             edtype = vmap["dtype"] \
@@ -1595,8 +1584,8 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                 if "sourcekey" in vmap else None
             sourcekey = self.cure_keys(sourcekey)
             if not any(eshape):
-                eshape = self.find_shape(key, eshape, unlimited=False)
-            ef = filewriter.target_field_view(
+                eshape = self.find_shape(key, eshape, change_unlimited=False)
+            ef = target_field_view(
                 filename, fieldpath, eshape, edtype)
             if eshape:
                 counter += eshape[0]
@@ -1606,25 +1595,22 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             self.add(key, ef, sourcekey, sourceshape)
 
     @classmethod
-    def find_shape(cls, key, eshape=None, unlimited=True):
+    def find_shape(cls, key, eshape=None, change_unlimited=True):
         """ find a layout shape from elemnt keys and shape
         :param key: field key
         :type key: :class:`FTHyperslab` o :obj:`tuple`
         :param eshape: element shape
         :type eshape: ::obj:`list`
-        :param unlimited: unlimited flag
-        :type unlimited: ::obj:`bool`
+        :param change_unlimited: unlimited flag
+        :type change_unlimited: ::obj:`bool`
         :returns: layout shape
         :rtype: :obj:`list` < :obj:`int` >
         """
 
         if isinstance(key, filewriter.FTHyperslab):
-            if not unlimited:
-                count = [(ct if ct != filewriter.writer.unlimited() else 1)
-                         for ct in key.count]
-
-                block = [(ct if ct != filewriter.writer.unlimited() else 1)
-                         for ct in key.block]
+            if not change_unlimited:
+                count = [(ct if ct != unlimited() else 1) for ct in key.count]
+                block = [(ct if ct != unlimited() else 1) for ct in key.block]
             else:
                 count = key.count
                 block = key.block
@@ -1632,7 +1618,7 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         if isinstance(key, tuple):
             eshape = []
             for ky in key:
-                if not unlimited and ky.stop == filewriter.writer.unlimited():
+                if not change_unlimited and ky.stop == unlimited():
                     eshape.append(1)
                 elif isinstance(ky, slice) and ky.stop > 0:
                     start = ky.start if ky.start is not None else 0
