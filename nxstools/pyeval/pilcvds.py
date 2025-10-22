@@ -21,11 +21,6 @@
 
 import json
 
-try:
-    import tango
-except Exception:
-    import PyTango as tango
-
 
 def vmap(commonblock, name, fieldname,
          triggermode,
@@ -71,40 +66,6 @@ def vmap(commonblock, name, fieldname,
     :rtype: :obj:`str` or :obj:`int`
     """
     step = commonblock["__counter__"] - 1
-    return json.dumps(
-        {"target": "/tmp/scan_0106%d_00000.nxs:/entry/data/%s"
-         % (step + 2, fieldname), "key": step, "shape": [1, nbtriggers]})
-
-
-def oldfunction(commonblock, name, fieldname,
-                triggermode,
-                nbtriggers, triggersperfile,
-                hostname, device,
-                filename, entryname,
-                insname, pilcfileprefix, pilcfiledir,
-                timeid=False,
-                shortdetpath=None):
-    dp = tango.DeviceProxy('%s/%s' % (hostname, device))
-    fpattern = pilcfileprefix.split("/")[-1]
-    if triggersperfile >= 1:
-        nbfiles = (nbtriggers + triggersperfile - 1) // triggersperfile
-    else:
-        nbfiles = 1
-    fields = ["counter", "time", "trigger",
-              "encoder_1", "encoder_2",
-              "encoder_3", "encoder_4", "encoder_5"]
-    nbstart = 0
-    filepostfix = ".nxs"
-    try:
-        pilcfilename = str(dp.FileName)
-        if pilcfilename.startswith(fpattern + "_") and \
-                pilcfilename.endswith(filepostfix):
-            nblast = int(pilcfilename[
-                    len(fpattern) + 1: - len(filepostfix)])
-            nbstart = max(0, nblast - nbfiles + 1)
-    except Exception:
-        pilcfilename = None
-    nblist = [nb for nb in range(nbstart, nbstart + nbfiles)]
     path = ""
     if filename:
         sfname = (filename).split("/")
@@ -114,66 +75,9 @@ def oldfunction(commonblock, name, fieldname,
             path = ""
         elif shortdetpath:
             path = ""
-    path += '%s/%s_' % (name, fpattern)
-    result = triggermode
-
-    spf = 0
-    cfid = 0
-    if "__root__" in commonblock.keys():
-        root = commonblock["__root__"]
-        if hasattr(root, "currentfileid") and hasattr(root, "stepsperfile"):
-            spf = root.stepsperfile
-            cfid = root.currentfileid
-        if root.h5object.__class__.__name__ == "File":
-            import nxstools.h5pywriter as nxw
-        else:
-            import nxstools.h5cppwriter as nxw
-    else:
-        raise Exception("Writer cannot be found")
-
-    en = root.open(entryname)
-    dt = en.open("data")
-    ins = en.open(insname)
-    pilc = ins.open(name)
-    pilcdata = pilc.open("data")
-    col = pilc.open("collection")
-
-    if timeid and pilcfilename and "filenames" in col.names():
-        try:
-            filenames = list(col.open("filenames").read())
-            if filenames:
-                filenames.append(str(pilcfilename))
-                nlist = []
-                for fname in filenames:
-                    fname = str(fname)
-                    if fname.startswith(fpattern + "_") and \
-                            fname.endswith(filepostfix):
-                        nlist.append(int(fname[
-                            len(fpattern) + 1: - len(filepostfix)]))
-                nblist = nlist
-        except Exception:
-            pass
-    for nbf in nblist:
-        # nnbf = "%05i" % (nbf)
-        for field in fields:
-            fnbf = "%s_%05i" % (field, nbf)
-            if spf > 0 and cfid > 0:
-                if cfid == nbf:
-                    nxw.link(
-                        "%s%05i%s://entry/data/%s"
-                        % (path, nbf, filepostfix, field),
-                        pilcdata, field)
-                    nxw.link("/%s/%s/%s/data/%s"
-                             % (entryname, insname, name, field),
-                             dt, "%s_%s" % (name, field))
-                nxw.link("%s%05i%s://entry/data/%s"
-                         % (path, nbf, filepostfix, field),
-                         pilcdata, "%s" % (fnbf))
-            else:
-                nxw.link("%s%05i%s://entry/data/%s"
-                         % (path, nbf, filepostfix, field),
-                         pilcdata, "%s" % (fnbf))
-                nxw.link("/%s/%s/%s/data/%s" %
-                         (entryname, insname, name, fnbf), dt,
-                         "%s_%s" % (name, fnbf))
-    return result
+    fpattern = pilcfileprefix.split("/")[-1]
+    path += '%s/%s' % (name, fpattern)
+    return json.dumps(
+        # {"target": "%s_%05d_00000.nxs:/entry/data/%s"
+        {"target": "%s_%05d.nxs:/entry/data/%s"
+         % (path, step, fieldname), "key": step, "shape": [1, nbtriggers]})
