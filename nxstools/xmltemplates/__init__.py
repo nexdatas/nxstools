@@ -1767,6 +1767,13 @@ moduleTemplateFiles = {
                 'pilcvds_encoder4map.ds.xml',
                 'pilcvds_encoder5map.ds.xml'
                 ],
+    'pilcvds4': ['pilcvds4.xml',
+                 'pilcvds_countermap.ds.xml',
+                 'pilcvds_encoder1map.ds.xml',
+                 'pilcvds_encoder2map.ds.xml',
+                 'pilcvds_encoder3map.ds.xml',
+                 'pilcvds_encoder4map.ds.xml'
+                 ],
     'pilctimeid': ['pilctimeid.xml',
                    'pilctimeid_triggermode_cb.ds.xml'],
     'pilatus100k': ['pilatus.xml',

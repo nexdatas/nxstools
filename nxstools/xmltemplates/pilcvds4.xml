@@ -1,0 +1,107 @@
+<?xml version='1.0'?>
+<definition>
+  <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
+    <group type="NXinstrument" name="$(__insname__)">
+      <group type="NXcollection" name="$(name)">
+	<group type="NXcollection" name="collection">
+          <field type="NX_FLOAT64" name="position_trigger_start">
+            <strategy mode="FINAL"/>$datasources.$(name)_positiontriggerstart</field>
+          <field type="NX_FLOAT64" name="position_trigger_step_size">
+            <strategy mode="FINAL"/>$datasources.$(name)_positiontriggerstepsize</field>
+          <field units="s" type="NX_FLOAT64" name="position_trigger_stop">
+            <strategy mode="FINAL"/>$datasources.$(name)_positiontriggerstop</field>
+          <field type="NX_INT32" name="nb_triggers">
+            <strategy mode="FINAL"/>$datasources.$(name)_nbtriggers</field>
+          <field units="s" type="NX_FLOAT64" name="trigger_pulse_length">
+            <strategy mode="FINAL"/>$datasources.$(name)_triggerpulselength</field>
+          <field type="NX_INT32" name="trigger_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_triggermode</field>
+          <field units="s" type="NX_FLOAT64" name="time_trigger_start">
+            <strategy mode="FINAL"/>$datasources.$(name)_timetriggerstart</field>
+          <field units="s" type="NX_FLOAT64" name="time_trigger_step_size">
+            <strategy mode="FINAL"/>$datasources.$(name)_timetriggerstepsize</field>
+          <field type="NX_CHAR" name="file_prefix">
+            <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field> 
+          <field type="NX_CHAR" name="file_dir">
+            <strategy mode="FINAL"/>$datasources.$(name)_filedir</field> 
+          <field type="NX_CHAR" name="last_file_name">
+            <strategy mode="FINAL"/>$datasources.$(name)_filename</field> 
+          <field type="NX_INT32" name="trigger_counter">
+            <strategy mode="FINAL"/>$datasources.$(name)_triggercounter</field>
+          <field type="NX_INT32" name="encoder_trigger">
+            <strategy mode="FINAL"/>$datasources.$(name)_encodertrigger</field>
+          <field type="NX_INT32" name="encoder_triggering">
+            <strategy mode="FINAL"/>$datasources.$(name)_encodertriggering</field>
+          <field type="NX_INT32" name="remaining_triggers">
+            <strategy mode="FINAL"/>$datasources.$(name)_remainingtriggers</field>
+          <field type="NX_INT32" name="buffer_load">
+            <strategy mode="FINAL"/>$datasources.$(name)_bufferload</field>
+          <field type="NX_INT32" name="software_inhibit">
+            <strategy mode="FINAL"/>$datasources.$(name)_softwareinhibit</field>
+          <field type="NX_FLOAT64" name="hardware_inhibit">
+            <strategy mode="FINAL"/>$datasources.$(name)_hardwareinhibit</field>
+          <field type="NX_FLOAT64" name="mask_data_to_write">
+            <strategy mode="FINAL"/>$datasources.$(name)_maskdatatowrite</field>
+          <field type="NX_INT32" name="triggers_per_file">
+            <strategy mode="FINAL"/>$datasources.$(name)_triggersperfile</field>
+          <field type="NX_INT32" name="counter_config">
+            <strategy mode="FINAL"/>$datasources.$(name)_counterconfig</field>
+          <field units="steps/unit" type="NX_FLOAT64" name="position1_conversion">
+            <strategy mode="FINAL"/>$datasources.$(name)_position1conversion</field>
+          <field units="steps/unit" type="NX_FLOAT64" name="position2_conversion">
+            <strategy mode="FINAL"/>$datasources.$(name)_position2conversion</field>
+          <field units="steps/unit" type="NX_FLOAT64" name="position3_conversion">
+            <strategy mode="FINAL"/>$datasources.$(name)_position3conversion</field>
+          <field units="steps/unit" type="NX_FLOAT64" name="position4_conversion">
+            <strategy mode="FINAL"/>$datasources.$(name)_position4conversion</field>
+          <field units="steps/unit" type="NX_FLOAT64" name="position5_conversion">
+            <strategy mode="FINAL"/>$datasources.$(name)_position5conversion</field>
+	</group>
+        <group type="NXdata" name="data">	  
+	  <vds name="counter" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_countermap
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="encoder_1" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_encoder1map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="encoder_2" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_encoder2map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="encoder_3" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_encoder3map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="encoder_4" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_encoder4map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+        </group>
+      </group>
+    </group>
+    <group type="NXdata" name="data">
+      <link name="$(name)_counter" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/counter" />
+      <link name="$(name)_encoder_1" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_1" />
+      <link name="$(name)_encoder_2" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_2" />
+      <link name="$(name)_encoder_3" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_3" />
+      <link name="$(name)_encoder_4" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_4" />
+    </group>
+  </group>
+</definition>

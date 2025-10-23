@@ -1865,12 +1865,67 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
                     self.append_stream(plugin_def["name"], self.__rstream)
                 except Exception as e:
                     print("VMAP ERROR", vmap, str(e))
+
+                dsname = plugin_def["name"]
+                sds = {
+                    "name": dsname,
+                    "label": dsname,
+                    "strategy": strategy,
+                    "dtype": plugin_def["dtype"]
+                }
+                shape = plugin_def["shape"]
+
+                sds["nexus_path"] = self._tparent.path
+                self.append_scaninfo(sds, ["datadesc", dsname])
+                mgchannels = self.get_scaninfo(
+                    ["measurement_group_channels"])
+                device_type = "other_channels"
+                if shape and len(shape) == 1:
+                    device_type = "mca"
+                elif shape and len(shape) == 2:
+                    device_type = "image"
+                if "timestamp" in dsname:
+                    device_type = "time"
+                elif dsname in mgchannels:
+                    if shape and len(shape) == 1:
+                        device_type = "mca"
+                    elif shape and len(shape) == 2:
+                        device_type = "image"
+                    else:
+                        device_type = "mg_channels"
+
+                self.append_devices(
+                    dsname, [device_type, 'channels'])
+                units = None
+                if "info" in plugin_def and "unit" in plugin_def["info"]:
+                    units = plugin_def["info"]["unit"]
+                if units:
+                    ch = ChannelDict(
+                        device=device_type, dim=len(shape),
+                        display_name=dsname, unit=units)
+                else:
+                    ch = ChannelDict(
+                        device=device_type, dim=len(shape),
+                        display_name=dsname)
+                self.set_channels(ch, [dsname])
+
             if hasattr(self.__rstream, "send") and plugin_stream is not None:
                 try:
                     self.__rstream.send(plugin_stream)
                     self.__rcounter += 1
                 except Exception as e:
                     print("VMAP SEND  ERROR", vmap, str(e))
+
+    def append_devices(self, value, keys=None):
+        """ append device parameters
+
+        :param value: device value
+        :type value: :obj:`any`
+        :param keys: device parameter keys
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "append_devices"):
+            return self._tparent.append_devices(value, keys)
 
     def append_stream(self, name, stream):
         """ scan object
@@ -1897,6 +1952,39 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
         """
         if hasattr(self._tparent, "scan_command"):
             return self._tparent.scan_command(command, *args, **kwargs)
+
+    def append_scaninfo(self, value, keys=None, direct=False):
+        """ append scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "append_scaninfo"):
+            return self._tparent.append_scaninfo(value, keys, direct)
+
+    def get_scaninfo(self, keys=None, direct=False):
+        """ get scan info parameters
+
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        :returns value: scan parameter value
+        :rtype value: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_scaninfo"):
+            return self._tparent.get_scaninfo(keys, direct)
+
+    def set_channels(self, value, keys=None):
+        """ set device parameters
+
+        :param value: device parameter value
+        :type value: :obj:`any`
+        :param keys: device parameter keys
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "set_channels"):
+            return self._tparent.set_channels(value, keys)
 
 
 class H5RedisTargetFieldView(H5TargetFieldView):
