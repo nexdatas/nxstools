@@ -62,6 +62,8 @@ except Exception:
     H5AttributeManager = h5writer.H5PYAttributeManager
     H5Attribute = h5writer.H5PYAttribute
 
+PLUGINS = {}
+
 try:
     from blissdata.redis_engine.encoding.numeric import NumericStreamEncoder
 except Exception:
@@ -72,14 +74,16 @@ except Exception:
     JsonStreamEncoder = None
 try:
     from blissdata.streams.base import Stream
+    PLUGINS["stream"] = Stream
 except Exception:
     Stream = None
 
 FileStream = None
-# try:
-#     from h5file_detector.stream import FileStream
-# except Exception:
-#     FileStream = None
+try:
+    from h5file_detector.stream import FileStream
+    PLUGINS["h5file_detector"] = FileStream
+except Exception:
+    FileStream = None
 
 try:
     from blissdata.schemas.scan_info import (
@@ -380,7 +384,7 @@ def target_field_view(filename, fieldpath, shape,
             filename, fieldpath, shape, dtype, maxshape))
 
 
-def virtual_field_layout(shape, dtype, maxshape=None):
+def virtual_field_layout(shape, dtype, maxshape=None, parent=None):
     """ creates a virtual field layout for a VDS file
 
     :param shape: shape
@@ -394,7 +398,7 @@ def virtual_field_layout(shape, dtype, maxshape=None):
     """
     return H5RedisVirtualFieldLayout(
         h5imp=h5writer.virtual_field_layout(
-            shape, dtype, maxshape))
+            shape, dtype, maxshape, parent), tparent=parent)
 
 
 class H5RedisFile(H5File):
@@ -442,14 +446,15 @@ class H5RedisFile(H5File):
         if REDIS and self.__redisurl:
             # print("FILENAME", self.name)
             self.__datastore = getDataStore(self.__redisurl)
-            global FileStream
-            if h5fileplugin:
-                try:
-                    from h5file_detector.stream import FileStream
-                except Exception:
-                    FileStream = None
-            else:
-                FileStream = None
+            # global FileStream
+            # if h5fileplugin:
+            #     try:
+            #         from h5file_detector.stream import FileStream
+            #         PLUGINS["h5file_detector"] = FileStream
+            #     except Exception:
+            #         FileStream = None
+            # else:
+            #     FileStream = None
 
     def root(self):
         """ root object
@@ -1604,7 +1609,7 @@ class H5RedisField(H5Field):
                     par = obj.parent
                     if par is None:
                         break
-                    print("PAR", par.name)
+                    # print("PAR", par.name)
                     if hasattr(par, "root") and hasattr(par, "name"):
                         filename = par.name
                         break
@@ -1800,7 +1805,7 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
     """ virtual field layout """
 
     def __init__(self, h5object=None, shape=None, dtype=None, maxshape=None,
-                 h5imp=None):
+                 h5imp=None, tparent=None):
         """ constructor
 
         :param h5object: h5 object
@@ -1817,12 +1822,14 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
         if h5imp is not None:
             H5VirtualFieldLayout.__init__(
                 self, h5imp.h5object, h5imp.shape, h5imp.dtype,
-                h5imp.maxshape)
+                h5imp.maxshape, tparent)
         else:
             if h5object is None or shape is None:
                 raise Exception("Undefined constructor parameters")
             H5VirtualFieldLayout.__init__(
-                self, h5object, shape, dtype, maxshape)
+                self, h5object, shape, dtype, maxshape, tparent)
+        self.__rstream = None
+        self.__rcounter = 0
 
     def append_vmap(self, vmap, strategy=None):
         """ appends virtual map description into vmap list
@@ -1832,8 +1839,64 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
         :param strategy: datasource strategy i.e. INIT or FINAL
         :type strategy: :obj:`str`
         """
-        # print("APEEND", vmap)
-        H5VirtualFieldLayout.append_vmap(vmap)
+        H5VirtualFieldLayout.append_vmap(self, vmap)
+        # print("APEEND", vmap, strategy)
+        plugin_stream = None
+        if strategy in ["STEP"]:
+            frame = 0
+            if "plugin_stream" in vmap:
+
+                plugin_stream = vmap["plugin_stream"]
+                if "frame" in plugin_stream:
+                    frame = plugin_stream["frame"]
+            # print("FRAME", frame)
+            if frame == 0 and "plugin" in vmap and \
+                    vmap["plugin"] in PLUGINS.keys() \
+                    and "plugin_def" in vmap:
+                # print("CREATE", vmap["plugin"])
+                plugin = PLUGINS[vmap["plugin"]]
+                plugin_def = vmap["plugin_def"]
+                try:
+                    sdef = plugin.make_definition(**plugin_def)
+                    # print("create", plugin_def)
+                    self.__rstream = self.scan_command(
+                        "create_stream", sdef)
+                    self.__rcounter = 0
+                    self.append_stream(plugin_def["name"], self.__rstream)
+                except Exception as e:
+                    print("VMAP ERROR", vmap, str(e))
+            if hasattr(self.__rstream, "send") and plugin_stream is not None:
+                try:
+                    self.__rstream.send(plugin_stream)
+                    self.__rcounter += 1
+                except Exception as e:
+                    print("VMAP SEND  ERROR", vmap, str(e))
+
+    def append_stream(self, name, stream):
+        """ scan object
+
+        :param name: stream name
+        :type name: :obj:`str`
+        :param scan: stream object
+        :type scan: :class:`Stream`
+        """
+        if hasattr(self._tparent, "append_stream"):
+            return self._tparent.append_stream(name, stream)
+
+    def scan_command(self, command, *args, **kwargs):
+        """ set scan attribute
+
+        :param command: scan command
+        :type command: :obj:`str`
+        :param args: function list arguments
+        :type args: :obj:`list` <`any`>
+        :param kwargs: function dict arguments
+        :type kwargs: :obj:`dict` <:obj:`str` , `any`>
+        :returns: scan command value
+        :rtype:  :obj:`any`
+        """
+        if hasattr(self._tparent, "scan_command"):
+            return self._tparent.scan_command(command, *args, **kwargs)
 
 
 class H5RedisTargetFieldView(H5TargetFieldView):

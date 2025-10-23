@@ -4064,11 +4064,12 @@ class H5PYWriterTest(unittest.TestCase):
                  "shape": [10, 10, 20], "dtype": "uint32",
                  "key": [[20, 30], [0, 10], [0, 20]]},
             ]
-            vfl = H5PYWriter.virtual_field_layout([30, 10, 20], "uint32")
+            vfl = H5PYWriter.virtual_field_layout([30, 10, 20], "uint32",
+                                                  parent=dt)
             for vmap in vmaps:
                 vfl.append_vmap(vmap)
 
-            vfl.process_target_field_views(dt)
+            vfl.process_target_field_views()
 
             intimage = dt.create_virtual_field("data", vfl)
             rw = intimage.read()

@@ -78,7 +78,7 @@ def vmap(commonblock, name, fieldname,
     fpattern = pilcfileprefix.split("/")[-1]
     path += '%s/%s' % (name, fpattern)
     shape = [min(nbtriggers, triggersperfile or nbtriggers)]
-    if nbtriggers > triggersperfile:
+    if triggersperfile and nbtriggers > triggersperfile:
         target = "%s_%05d.nxs:/entry/data/%s" % (path, step, fieldname)
     else:
         target = "%s%05d_00000.nxs:/entry/data/%s" % (
@@ -86,11 +86,11 @@ def vmap(commonblock, name, fieldname,
     meta = {}
     if step == 0:
         patternprefix = "%s/%s" % (pilcfiledir, pilcfileprefix)
-        if nbtriggers > triggersperfile:
+        if triggersperfile and nbtriggers > triggersperfile:
             pattern = "{prefix}_%05d.nxs".format(prefix=patternprefix)
         else:
             pattern = "{prefix}%05d_00000.nxs".format(
-                prefix=(patternprefix[-5]))
+                prefix=(patternprefix[:-5]))
         meta = {
             "plugin": "h5file_detector",
             "plugin_def": {

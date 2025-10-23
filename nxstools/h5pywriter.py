@@ -469,7 +469,7 @@ def target_field_view(filename, fieldpath, shape,
     return H5PYTargetFieldView(vs, tuple(shape or []))
 
 
-def virtual_field_layout(shape, dtype, maxshape=None):
+def virtual_field_layout(shape, dtype, maxshape=None, parent=None):
     """ creates a virtual field layout for a VDS file
 
     :param shape: shape
@@ -486,7 +486,7 @@ def virtual_field_layout(shape, dtype, maxshape=None):
     maxshape = maxshape or [None for _ in shape]
     return H5PYVirtualFieldLayout(
         h5py.VirtualLayout(tuple(shape), dtype, tuple(maxshape or [])),
-        tuple(shape), dtype
+        tuple(shape), dtype, tparent=parent
     )
 
 
@@ -1196,7 +1196,7 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
 
     """ virtual field layout """
 
-    def __init__(self, h5object, shape, dtype=None):
+    def __init__(self, h5object, shape, dtype=None, tparent=None):
         """ constructor
 
         :param h5object: h5 object
@@ -1204,7 +1204,7 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :param shape: shape
         :type shape: :obj:`list` < :obj:`int` >
         """
-        filewriter.FTVirtualFieldLayout.__init__(self, h5object)
+        filewriter.FTVirtualFieldLayout.__init__(self, h5object, tparent)
         #: (:obj:`str`): data type
         self.dtype = dtype
         #: (:obj:`list`<:obj:`dict`>) list of virtual map description
@@ -1336,7 +1336,7 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                                 eshape[si] if len(eshape) > si else 1, 1)
         return sizes
 
-    def process_target_field_views(self, parent):
+    def process_target_field_views(self, parent=None):
         """ process target fields views to virtual field layout
 
         :param parent: parent object
@@ -1371,7 +1371,9 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                     filename, fieldpath = target.split(":/")
                 else:
                     fieldpath = target
-            obj = parent
+            if self._tparent is None and parent is not None:
+                self._tparent = parent
+            obj = self._tparent
             while filename is None:
                 par = obj.parent
                 if par is None:
