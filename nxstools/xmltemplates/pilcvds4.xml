@@ -93,13 +93,6 @@
 	      <strategy mode="STEP"/>
 	    </map>
 	  </vds>
-	  <vds name="encoder_5" type="NX_FLOAT32">
-	    <dimensions rank="2" />
-	    <map>
-	      $datasources.$(name)_encoder5map
-	      <strategy mode="STEP"/>
-	    </map>
-	  </vds>
         </group>
       </group>
     </group>
@@ -109,7 +102,6 @@
       <link name="$(name)_encoder_2" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_2" />
       <link name="$(name)_encoder_3" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_3" />
       <link name="$(name)_encoder_4" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_4" />
-      <link name="$(name)_encoder_5" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_5" />
     </group>
   </group>
 </definition>

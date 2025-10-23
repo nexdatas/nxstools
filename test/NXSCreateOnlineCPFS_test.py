@@ -337,6 +337,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      "pilatus", "pilatus100k",
                      "pilatus1m", "pilatus2m", "pilatus300k",
                      "pilatus6m", "pilc", "pilctimeid", "pilcvds",
+                     "pilcvds4",
                      "tangovimba", "xspress3"])
         finally:
             os.remove(fname)
@@ -379,6 +380,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
             "pilc",
             "pilctimeid",
             "pilcvds",
+            "pilcvds4",
             'marccd',               # +
             'pcoedge',              #
             'pilatus100k',          #
@@ -455,6 +457,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                              "pilatus", "pilatus100k",
                              "pilatus1m", "pilatus2m", "pilatus300k",
                              "pilatus6m", "pilc", "pilctimeid", "pilcvds",
+                             "pilcvds4",
                              "tangovimba", "xspress3"])
                 finally:
                     os.remove(fname)
@@ -532,7 +535,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                  "perkinelmerdetector",
                  "pilatus", "pilatus100k",
                  "pilatus1m", "pilatus2m", "pilatus300k",
-                 "pilatus6m", "pilc", "pilctimeid", "pilcvds",
+                 "pilatus6m", "pilc", "pilctimeid", "pilcvds", "pilcvds4",
                  "tangovimba", "xspress3"])
         finally:
             os.remove(fname)

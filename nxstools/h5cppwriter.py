@@ -558,7 +558,7 @@ def target_field_view(filename, fieldpath, shape,
         filename, fieldpath, shape, dtype, maxshape)
 
 
-def virtual_field_layout(shape, dtype, maxshape=None):
+def virtual_field_layout(shape, dtype, maxshape=None, parent=None):
     """ creates a virtual field layout for a VDS file
 
     :param shape: shape
@@ -574,7 +574,7 @@ def virtual_field_layout(shape, dtype, maxshape=None):
         raise Exception("VDS not supported")
     return H5CppVirtualFieldLayout(
         h5cpp.property.VirtualDataMaps(),
-        shape, dtype, maxshape)
+        shape, dtype, maxshape, parent)
 
 
 class H5CppFile(filewriter.FTFile):
@@ -1411,7 +1411,8 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
 
     """ virtual field layout """
 
-    def __init__(self, h5object, shape, dtype=None, maxshape=None):
+    def __init__(self, h5object, shape, dtype=None, maxshape=None,
+                 tparent=None):
         """ constructor
 
         :param h5object: h5 object
@@ -1423,7 +1424,7 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :param maxshape: shape
         :type maxshape: :obj:`list` < :obj:`int` >
         """
-        filewriter.FTVirtualFieldLayout.__init__(self, h5object)
+        filewriter.FTVirtualFieldLayout.__init__(self, h5object, tparent)
         #: (:obj:`list` < :obj:`int` >) shape
         self.shape = shape
         # : (:obj:`str`): data type
@@ -1516,22 +1517,39 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                                             + start) + 1
                                     sizes[si] = max(sizes[si], size)
                                 else:
+                                    if si:
+                                        sizes[si] = max(
+                                            sizes[si],
+                                            eshape[si]
+                                            if len(eshape) > si else 1, 1)
+                                    else:
+                                        sizes[si] += max(
+                                            eshape[si]
+                                            if len(eshape) > si else 1, 1)
+                            else:
+                                if si:
+                                    sizes[si] = max(
+                                        sizes[si],
+                                        eshape[si]
+                                        if len(eshape) > si else 1, 1)
+                                else:
                                     sizes[si] += max(
                                         eshape[si]
                                         if len(eshape) > si else 1, 1)
-                            else:
-                                sizes[si] += max(
-                                    eshape[si]
-                                    if len(eshape) > si else 1, 1)
             else:
                 eshape = vmap["shape"] if "shape" in vmap else []
                 for si, sh in enumerate(shape):
                     if sh < 2:
-                        sizes[si] += max(
-                            eshape[si] if len(eshape) > si else 1, 1)
+                        if si:
+                            sizes[si] = max(
+                                sizes[si],
+                                eshape[si] if len(eshape) > si else 1, 1)
+                        else:
+                            sizes[si] += max(
+                                eshape[si] if len(eshape) > si else 1, 1)
         return sizes
 
-    def process_target_field_views(self, parent):
+    def process_target_field_views(self, parent=None):
         """ process target fields views to virtual field layout
 
         :param parent: tree parent
@@ -1568,7 +1586,9 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                     filename, fieldpath = target.split(":/")
                 else:
                     fieldpath = target
-            obj = parent
+            if self._tparent is None and parent is not None:
+                self._tparent = parent
+            obj = self._tparent
             while filename is None:
                 par = obj.parent
                 if par is None:

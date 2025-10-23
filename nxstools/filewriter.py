@@ -284,7 +284,7 @@ def virtual_field_layout(shape, dtype, maxshape=None, parent=None):
     if not wr:
         with writerlock:
             wr = writer
-    return wr.virtual_field_layout(shape, dtype, maxshape)
+    return wr.virtual_field_layout(shape, dtype, maxshape, parent)
 
 
 def setwriter(wr):
@@ -786,13 +786,13 @@ class FTVirtualFieldLayout(FTObject):
 
     """ virtual field layout """
 
-    def __init__(self, h5object=None):
+    def __init__(self, h5object=None, tparent=None):
         """ constructor
 
         :param h5object: h5 object
         :type h5object: :obj:`any`
         """
-        FTObject.__init__(self, h5object)
+        FTObject.__init__(self, h5object, tparent)
 
     def __setitem__(self, key, source):
         """ add target field view to layout
