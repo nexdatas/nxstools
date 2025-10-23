@@ -1402,6 +1402,7 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
     @classmethod
     def find_shape(cls, key, eshape=None, change_unlimited=True):
         """ find a layout shape from elemnt keys and shape
+
         :param key: field key
         :type key: :class:`FTHyperslab` o :obj:`tuple`
         :param eshape: element shape
