@@ -2124,6 +2124,26 @@ moduleMultiAttributes = {
         # 'Encoder2Data', 'Encoder3Data', 'Encoder4Data', 'Encoder5Data',
         # 'Position2Data', 'Position3Data', 'Position4Data', 'Position5Data'
     ],
+    'pilcvds4': [
+        'PositionTriggerStart', 'PositionTriggerStepSize',
+        'PositionTriggerStop',
+        'NbTriggers', 'TriggerPulseLength', 'Arm', 'TriggerMode',
+        'TimeTriggerStart', 'TimeTriggerStepSize',
+        'FilePrefix', 'FileDir', 'FileName',
+        'TriggerCounter', 'EncoderTrigger', 'RemainingTriggers',
+        'EncoderTriggering', 'BufferLoad',
+        'Position1Conversion', 'Position2Conversion', 'Position3Conversion',
+        'Position4Conversion', 'Position5Conversion',
+        'CurrentPosition1', 'CurrentPosition2', 'CurrentPosition3',
+        'CurrentPosition4', 'CurrentPosition5', 'MaskDataToWrite',
+        'Metadata1', 'Metadata2', 'Metadata3', 'Metadata4', 'Metadata5',
+        'TriggersPerFile', 'SoftwareInhibit', 'HardwareInhibit',
+        'CounterConfig',
+        # 'CounterData',
+        # 'Encoder1Data', 'Position1Data',
+        # 'Encoder2Data', 'Encoder3Data', 'Encoder4Data', 'Encoder5Data',
+        # 'Position2Data', 'Position3Data', 'Position4Data', 'Position5Data'
+    ],
     'pilctimeid': [
         'PositionTriggerStart', 'PositionTriggerStepSize',
         'PositionTriggerStop',
