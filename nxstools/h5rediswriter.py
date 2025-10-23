@@ -122,7 +122,7 @@ def splitstr(text):
 
 
 progattrdesc = {
-    "npoints": ["npoints", str, True],
+    "npoints": ["npoints", int, True],
     "count_time": ["count_time", float, True],
     "measurement_group_channels": [
         "measurement_group_channels", splitstr, True],
@@ -1682,8 +1682,11 @@ class H5RedisField(H5Field):
             for key, vl in progattrdesc.items():
                 if vl[0] in anames:
                     try:
-                        np = vl[1](
-                            filewriter.first(attrs[vl[0]].read()))
+                        try:
+                            np = vl[1](
+                                filewriter.first(attrs[vl[0]].read()))
+                        except Exception:
+                            np = str(filewriter.first(attrs[vl[0]].read()))
                         if vl[2] or np:
                             self.set_scaninfo(np, [key])
                     except Exception as e:
