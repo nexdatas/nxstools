@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.nxscollect &#8212; NXSTools 3.67.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <title>nxstools.nxscollect &#8212; NXSTools 4.29.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
@@ -35,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>3.67</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.29</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -116,20 +118,25 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../nxstools.html">nxstools package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filenamegenerator">nxstools.filenamegenerator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filewriter">nxstools.filewriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5cppwriter">nxstools.h5cppwriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5pywriter">nxstools.h5pywriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5rediswriter">nxstools.h5rediswriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsargparser">nxstools.nxsargparser module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscollect">nxstools.nxscollect module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsconfig">nxstools.nxsconfig module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscreate">nxstools.nxscreate module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdata">nxstools.nxsdata module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsetup">nxstools.nxsetup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscreator">nxstools.nxscreator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdata">nxstools.nxsdata module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdevicetools">nxstools.nxsdevicetools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsetup">nxstools.nxsetup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsfileinfo">nxstools.nxsfileinfo module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsfileparser">nxstools.nxsfileparser module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsargparser">nxstools.nxsargparser module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsparser">nxstools.nxsparser module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsxml">nxstools.nxsxml module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdevicetools">nxstools.nxsdevicetools module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filenamegenerator">nxstools.filenamegenerator module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.release">nxstools.release module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.redisutils">nxstools.redisutils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools">Module contents</a></li>
 </ul>
 </li>
@@ -259,7 +266,7 @@
 
 
 <span class="k">def</span> <span class="nf">_tostr</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; converts text  to str type</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; converts text  to str type</span>
 
 <span class="sd">    :param text: text</span>
 <span class="sd">    :type text: :obj:`bytes` or :obj:`unicode`</span>
@@ -275,7 +282,7 @@
 
 
 <div class="viewcode-block" id="filegenerator"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.filegenerator">[docs]</a><span class="k">def</span> <span class="nf">filegenerator</span><span class="p">(</span><span class="n">filestr</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; provides file name generator from file string</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; provides file name generator from file string</span>
 
 <span class="sd">    :param filestr: file string</span>
 <span class="sd">    :type: filestr: :obj:`str`</span>
@@ -293,7 +300,7 @@
 
 
 <div class="viewcode-block" id="splitcoords"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.splitcoords">[docs]</a><span class="k">def</span> <span class="nf">splitcoords</span><span class="p">(</span><span class="n">crdstr</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; splits coordinate string</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; splits coordinate string</span>
 
 <span class="sd">    :param crdstr: cordinate string</span>
 <span class="sd">    :type crdstr: cordinate string</span>
@@ -316,7 +323,7 @@
 
 
 <div class="viewcode-block" id="crdtoint"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.crdtoint">[docs]</a><span class="k">def</span> <span class="nf">crdtoint</span><span class="p">(</span><span class="n">crd</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; convert coorinate to int or  None or Unlimited</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; convert coorinate to int or  None or Unlimited</span>
 
 <span class="sd">    :param crd: cordinate as string</span>
 <span class="sd">    :type crd: cordinate as string</span>
@@ -339,7 +346,7 @@
 
 
 <div class="viewcode-block" id="splitslices"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.splitslices">[docs]</a><span class="k">def</span> <span class="nf">splitslices</span><span class="p">(</span><span class="n">crdstr</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; splits coordinate string</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; splits coordinate string</span>
 
 <span class="sd">    :param crdstr: cordinate string</span>
 <span class="sd">    :type crdstr: cordinate string</span>
@@ -374,7 +381,7 @@
 
 
 <div class="viewcode-block" id="getcompression"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.getcompression">[docs]</a><span class="k">def</span> <span class="nf">getcompression</span><span class="p">(</span><span class="n">compression</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; converts compression string to a deflate level parameter</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; converts compression string to a deflate level parameter</span>
 <span class="sd">        or list with [filterid, opt1, opt2, ...]</span>
 
 <span class="sd">    :param compression: compression string</span>
@@ -410,12 +417,12 @@
 
 <div class="viewcode-block" id="Linker"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Linker">[docs]</a><span class="k">class</span> <span class="nc">Linker</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Create external and internal links of NeXus files</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Create external and internal links of NeXus files</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nexusfilepath</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">storeold</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">testmode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; The constructor creates the collector object</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; The constructor creates the collector object</span>
 
 <span class="sd">        :param nexusfilepath: the nexus file name and nexus path</span>
 <span class="sd">        :type nexusfilepath: :obj:`str`</span>
@@ -449,7 +456,7 @@
             <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signalhandler</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_signalhandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; signal handler</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; signal handler</span>
 
 <span class="sd">        :param sig: signal name, i.e. &#39;SIGINT&#39;, &#39;SIGHUP&#39;, &#39;SIGALRM&#39;, &#39;SIGTERM&#39;</span>
 <span class="sd">        :type sig: :obj:`str`</span>
@@ -459,7 +466,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;terminated by </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__siginfo</span><span class="p">[</span><span class="n">sig</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_createtmpfile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates temporary file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates temporary file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__tempfilename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span> <span class="o">+</span> <span class="s2">&quot;.__nxscollect_temp__&quot;</span>
         <span class="k">while</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tempfilename</span><span class="p">):</span>
@@ -467,7 +474,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">copy2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tempfilename</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_storeoldfile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; makes back up of the input file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; makes back up of the input file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span> <span class="o">+</span> <span class="s2">&quot;.__nxscollect_old__&quot;</span>
         <span class="k">while</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
@@ -475,7 +482,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Linker.link"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Linker.link">[docs]</a>    <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates NeXus link</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates NeXus link</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_createtmpfile</span><span class="p">()</span>
         <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nexuspath</span>
@@ -521,11 +528,11 @@
 
 <div class="viewcode-block" id="TargetFieldView"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.TargetFieldView">[docs]</a><span class="k">class</span> <span class="nc">TargetFieldView</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; target field map</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; target field map</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
                  <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hyperslab</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxshape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; constructor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
 
 <span class="sd">        :param filename: file name</span>
 <span class="sd">        :type filename: :obj:`str`</span>
@@ -557,7 +564,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">hyperslab</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; constructor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
 
 <span class="sd">        :param hyperslab: target field object</span>
 <span class="sd">        :type hyperslab: :class:`TargetFieldView`</span>
@@ -580,7 +587,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exfieldpaths</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">exfieldshapes</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">separator</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">):</span>
 
-        <span class="sd">&quot;&quot;&quot; constructor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
 
 <span class="sd">        :param exfieldpaths: target field paths</span>
 <span class="sd">        :type exfieldpaths: :obj:`str`</span>
@@ -619,7 +626,7 @@
                 <span class="c1"># print(lfd.shape)</span>
 
 <div class="viewcode-block" id="TargetFieldsLayout.add_target_hyperslabs"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.TargetFieldsLayout.add_target_hyperslabs">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_hyperslabs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">strides</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; add target hyperslabs</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; add target hyperslabs</span>
 
 <span class="sd">        :param offsets: target offsets</span>
 <span class="sd">        :type offsets: :obj:`str`</span>
@@ -650,7 +657,7 @@
                 <span class="n">lfd</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">hyperslab</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="TargetFieldsLayout.add_layout_hyperslabs"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.TargetFieldsLayout.add_layout_hyperslabs">[docs]</a>    <span class="k">def</span> <span class="nf">add_layout_hyperslabs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offsets</span><span class="p">,</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">strides</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; add layout hyperslabs</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; add layout hyperslabs</span>
 
 <span class="sd">        :param offsets: layout offsets</span>
 <span class="sd">        :type offsets: :obj:`str`</span>
@@ -680,7 +687,7 @@
                 <span class="n">lfd</span><span class="o">.</span><span class="n">hyperslab</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="TargetFieldsLayout.add_layout_slices"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.TargetFieldsLayout.add_layout_slices">[docs]</a>    <span class="k">def</span> <span class="nf">add_layout_slices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slices</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; add layout slices</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; add layout slices</span>
 
 <span class="sd">        :param slices: layout slices</span>
 <span class="sd">        :type slices: :obj:`str`</span>
@@ -691,7 +698,7 @@
                 <span class="n">lfd</span><span class="o">.</span><span class="n">slices</span> <span class="o">=</span> <span class="n">slices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="TargetFieldsLayout.add_target_slices"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.TargetFieldsLayout.add_target_slices">[docs]</a>    <span class="k">def</span> <span class="nf">add_target_slices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slices</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; add taget slices</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; add taget slices</span>
 
 <span class="sd">        :param slices: target slices</span>
 <span class="sd">        :type slices: :obj:`str`</span>
@@ -704,11 +711,11 @@
 
 <div class="viewcode-block" id="VirtualDataset"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.VirtualDataset">[docs]</a><span class="k">class</span> <span class="nc">VirtualDataset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Create virtual dataset in the master NeXus files</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Create virtual dataset in the master NeXus files</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nexusfilepath</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; The constructor creates the collector object</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; The constructor creates the collector object</span>
 
 <span class="sd">        :param nexusfilepath: the nexus file name and nexus path</span>
 <span class="sd">        :type nexusfilepath: :obj:`str`</span>
@@ -775,7 +782,7 @@
             <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signalhandler</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_signalhandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; signal handler</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; signal handler</span>
 
 <span class="sd">        :param sig: signal name, i.e. &#39;SIGINT&#39;, &#39;SIGHUP&#39;, &#39;SIGALRM&#39;, &#39;SIGTERM&#39;</span>
 <span class="sd">        :type sig: :obj:`str`</span>
@@ -785,7 +792,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;terminated by </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__siginfo</span><span class="p">[</span><span class="n">sig</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_createtmpfile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates temporary file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates temporary file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__tempfilename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span> <span class="o">+</span> <span class="s2">&quot;.__nxscollect_temp__&quot;</span>
         <span class="k">while</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tempfilename</span><span class="p">):</span>
@@ -793,7 +800,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">copy2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tempfilename</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_storeoldfile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; makes back up of the input file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; makes back up of the input file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span> <span class="o">+</span> <span class="s2">&quot;.__nxscollect_old__&quot;</span>
         <span class="k">while</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
@@ -801,7 +808,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span><span class="p">,</span> <span class="n">temp</span><span class="p">)</span>
 
 <div class="viewcode-block" id="VirtualDataset.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.VirtualDataset.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates VDS</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates VDS</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_createtmpfile</span><span class="p">()</span>
         <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nexuspath</span>
@@ -860,14 +867,14 @@
 
 <div class="viewcode-block" id="Collector"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Collector">[docs]</a><span class="k">class</span> <span class="nc">Collector</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Collector merge images of external file-formats</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Collector merge images of external file-formats</span>
 <span class="sd">    into the master NeXus file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nexusfilename</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                  <span class="n">skipmissing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">storeold</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">testmode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">writer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; The constructor creates the collector object</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; The constructor creates the collector object</span>
 
 <span class="sd">        :param nexusfilename: the nexus file name</span>
 <span class="sd">        :type nexusfilename: :obj:`str`</span>
@@ -903,7 +910,7 @@
             <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_signalhandler</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_signalhandler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; signal handler</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; signal handler</span>
 
 <span class="sd">        :param sig: signal name, i.e. &#39;SIGINT&#39;, &#39;SIGHUP&#39;, &#39;SIGALRM&#39;, &#39;SIGTERM&#39;</span>
 <span class="sd">        :type sig: :obj:`str`</span>
@@ -913,7 +920,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;terminated by </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__siginfo</span><span class="p">[</span><span class="n">sig</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_createtmpfile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates temporary file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates temporary file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__tempfilename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span> <span class="o">+</span> <span class="s2">&quot;.__nxscollect_temp__&quot;</span>
         <span class="k">while</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__tempfilename</span><span class="p">):</span>
@@ -921,7 +928,7 @@
         <span class="n">shutil</span><span class="o">.</span><span class="n">copy2</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tempfilename</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_storeoldfile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; makes back up of the input file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; makes back up of the input file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__nexusfilename</span> <span class="o">+</span> <span class="s2">&quot;.__nxscollect_old__&quot;</span>
         <span class="k">while</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">temp</span><span class="p">):</span>
@@ -930,7 +937,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_absolutefilename</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">masterfile</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides absolute image file name</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides absolute image file name</span>
 
 <span class="sd">        :param filename: image file name</span>
 <span class="sd">        :type: filename: :obj:`str`</span>
@@ -946,7 +953,7 @@
         <span class="k">return</span> <span class="n">filename</span>
 
     <span class="k">def</span> <span class="nf">_findfile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">nname</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; searches for absolute image file name</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; searches for absolute image file name</span>
 
 <span class="sd">        :param filename: image file name</span>
 <span class="sd">        :type: filename: :obj:`str`</span>
@@ -997,7 +1004,7 @@
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_loadrawimage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; loads image from file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; loads image from file</span>
 
 <span class="sd">        :param filename: image file name</span>
 <span class="sd">        :type filename: :obj:`str`</span>
@@ -1031,7 +1038,7 @@
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_loadimage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; loads image from file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; loads image from file</span>
 
 <span class="sd">        :param filename: image file name</span>
 <span class="sd">        :type filename: :obj:`str`</span>
@@ -1071,7 +1078,7 @@
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_loadh5data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; loads image from hdf5 file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; loads image from hdf5 file</span>
 
 <span class="sd">        :param filename: hdf5 image file name</span>
 <span class="sd">        :type filename: :obj:`str`</span>
@@ -1117,7 +1124,7 @@
             <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">_addattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; adds attributes to the parent node in nexus file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; adds attributes to the parent node in nexus file</span>
 
 <span class="sd">        :param node: parent hdf5 node</span>
 <span class="sd">        :type node: parent hdf5 node</span>
@@ -1132,7 +1139,7 @@
 
     <span class="k">def</span> <span class="nf">_getfield</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">fieldname</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">fieldattrs</span><span class="p">,</span>
                   <span class="n">fieldcompression</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates a field in nexus file</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates a field in nexus file</span>
 
 <span class="sd">        :param node: parent hdf5 node</span>
 <span class="sd">        :type node: :class:`filewriter.FTGroup` or \</span>
@@ -1185,7 +1192,7 @@
 
     <span class="k">def</span> <span class="nf">_collectimages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">fieldname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fieldattrs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                        <span class="n">fieldcompression</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; collects images</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; collects images</span>
 
 <span class="sd">        :param files: a list of file strings</span>
 <span class="sd">        :type files: :obj:`list` &lt;:obj:`str`&gt;</span>
@@ -1257,7 +1264,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">__nxsfile</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_inspect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">collection</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; collects recursively the all image files defined</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; collects recursively the all image files defined</span>
 <span class="sd">        by hdf5 postrun fields bellow hdf5 parent node</span>
 
 <span class="sd">        :param parent: hdf5 parent node</span>
@@ -1319,7 +1326,7 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_inspect</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">coll</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">inputfiles</span><span class="p">,</span> <span class="n">fieldtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fieldshape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;appends specific data if path and inputfiles are given</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;appends specific data if path and inputfiles are given</span>
 
 <span class="sd">        :param path: nexus path of the data field</span>
 <span class="sd">        :type path: :obj:`str`</span>
@@ -1363,7 +1370,7 @@
             <span class="n">fieldcompression</span><span class="p">,</span> <span class="n">fieldtype</span><span class="p">,</span> <span class="n">fieldshape</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Collector.collect"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Collector.collect">[docs]</a>    <span class="k">def</span> <span class="nf">collect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inputfiles</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">datatype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates a temporary file,</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates a temporary file,</span>
 <span class="sd">        collects the all image files defined by hdf5</span>
 <span class="sd">        postrun fields of NXcollection groups and renames the temporary file</span>
 <span class="sd">        to the origin one if the action was successful</span>
@@ -1405,7 +1412,7 @@
 
 <div class="viewcode-block" id="VDS"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.VDS">[docs]</a><span class="k">class</span> <span class="nc">VDS</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Execute runner</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Execute runner</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#: (:obj:`str`) command description</span>
@@ -1456,7 +1463,7 @@
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
 <div class="viewcode-block" id="VDS.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.VDS.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates parser</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
@@ -1600,7 +1607,7 @@
             <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use h5py module as a nexus reader/writer&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="VDS.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.VDS.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates parser</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
@@ -1610,7 +1617,7 @@
             <span class="s1">&#39;to create the VDS field&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="VDS.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.VDS.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; the main program function</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
 <span class="sd">        :type options: :class:`argparse.Namespace`</span>
@@ -1666,7 +1673,7 @@
 
 <div class="viewcode-block" id="Link"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Link">[docs]</a><span class="k">class</span> <span class="nc">Link</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Execute runner</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Execute runner</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#: (:obj:`str`) command description</span>
@@ -1682,7 +1689,7 @@
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
 <div class="viewcode-block" id="Link.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Link.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates parser</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
@@ -1712,7 +1719,7 @@
             <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use h5py module as a nexus reader/writer&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Link.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Link.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates parser</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
@@ -1721,7 +1728,7 @@
             <span class="n">help</span><span class="o">=</span><span class="s1">&#39;nexus files with the nexus directory to place the link&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Link.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Link.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; the main program function</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
 <span class="sd">        :type options: :class:`argparse.Namespace`</span>
@@ -1760,7 +1767,7 @@
 
 <div class="viewcode-block" id="Execute"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Execute">[docs]</a><span class="k">class</span> <span class="nc">Execute</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; Execute runner</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Execute runner</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">#: (:obj:`str`) command description</span>
@@ -1777,7 +1784,7 @@
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
 <div class="viewcode-block" id="Execute.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Execute.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates parser</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
@@ -1834,7 +1841,7 @@
             <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use h5py module as a nexus reader/writer&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Execute.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Execute.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; creates parser</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;nexus_file&#39;</span><span class="p">,</span>
@@ -1842,7 +1849,7 @@
                             <span class="n">help</span><span class="o">=</span><span class="s1">&#39;nexus files to be collected&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Execute.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.Execute.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; the main program function</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
 <span class="sd">        :type options: :class:`argparse.Namespace`</span>
@@ -1915,7 +1922,7 @@
 
 
 <span class="k">def</span> <span class="nf">_supportoldcommands</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot; replace the old command names to the new ones</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; replace the old command names to the new ones</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">oldnew</span> <span class="o">=</span> <span class="p">{</span>
@@ -1938,7 +1945,7 @@
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxscollect.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot; the main program function</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;  Command-line tool to merge images of external &quot;</span> \
                   <span class="o">+</span> <span class="s2">&quot;file-formats into the master NeXus file&quot;</span>
@@ -2001,7 +2008,7 @@
         &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
 
 GNU GENERAL PUBLIC LICENSE, version 3.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>

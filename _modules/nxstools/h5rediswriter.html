@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.h5rediswriter &#8212; NXSTools 4.25.1 documentation</title>
+    <title>nxstools.h5rediswriter &#8212; NXSTools 4.29.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.25</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.29</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -249,6 +249,8 @@
     <span class="n">H5AttributeManager</span> <span class="o">=</span> <span class="n">h5writer</span><span class="o">.</span><span class="n">H5PYAttributeManager</span>
     <span class="n">H5Attribute</span> <span class="o">=</span> <span class="n">h5writer</span><span class="o">.</span><span class="n">H5PYAttribute</span>
 
+<span class="n">PLUGINS</span> <span class="o">=</span> <span class="p">{}</span>
+
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">blissdata.redis_engine.encoding.numeric</span> <span class="kn">import</span> <span class="n">NumericStreamEncoder</span>
 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
@@ -257,6 +259,18 @@
     <span class="kn">from</span> <span class="nn">blissdata.redis_engine.encoding.json</span> <span class="kn">import</span> <span class="n">JsonStreamEncoder</span>
 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
     <span class="n">JsonStreamEncoder</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">blissdata.streams.base</span> <span class="kn">import</span> <span class="n">Stream</span>
+    <span class="n">PLUGINS</span><span class="p">[</span><span class="s2">&quot;stream&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Stream</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="n">Stream</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">FileStream</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">h5file_detector.stream</span> <span class="kn">import</span> <span class="n">FileStream</span>
+    <span class="n">PLUGINS</span><span class="p">[</span><span class="s2">&quot;h5file_detector&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">FileStream</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="n">FileStream</span> <span class="o">=</span> <span class="kc">None</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">blissdata.schemas.scan_info</span> <span class="kn">import</span> <span class="p">(</span>
@@ -295,7 +309,7 @@
 
 
 <span class="n">progattrdesc</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;npoints&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;npoints&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+    <span class="s2">&quot;npoints&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;npoints&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
     <span class="s2">&quot;count_time&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;count_time&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
     <span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">,</span> <span class="n">splitstr</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
@@ -376,6 +390,7 @@
 
 
 <div class="viewcode-block" id="open_file"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.open_file">[docs]</a><span class="k">def</span> <span class="nf">open_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">redisurl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+              <span class="n">h5fileplugin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
               <span class="o">**</span><span class="n">pars</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; open the new file</span>
 
@@ -387,13 +402,16 @@
 <span class="sd">    :type redisurl: :obj:`str`</span>
 <span class="sd">    :param session: redis session</span>
 <span class="sd">    :type session: :obj:`str`</span>
+<span class="sd">    :param h5fileplugin: use h5file_detector plugin</span>
+<span class="sd">    :type h5fileplugin: :obj:`str`</span>
 <span class="sd">    :param libver: library version: &#39;lastest&#39; or &#39;earliest&#39;</span>
 <span class="sd">    :type libver: :obj:`str`</span>
 <span class="sd">    :returns: file object</span>
 <span class="sd">    :rtype: :class:`H5RedisFile`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">H5RedisFile</span><span class="p">(</span><span class="n">h5imp</span><span class="o">=</span><span class="n">h5writer</span><span class="o">.</span><span class="n">open_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">readonly</span><span class="p">,</span> <span class="o">**</span><span class="n">pars</span><span class="p">),</span>
-                       <span class="n">redisurl</span><span class="o">=</span><span class="n">redisurl</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span></div>
+                       <span class="n">redisurl</span><span class="o">=</span><span class="n">redisurl</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span>
+                       <span class="n">h5fileplugin</span><span class="o">=</span><span class="n">h5fileplugin</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="is_image_file_supported"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.is_image_file_supported">[docs]</a><span class="k">def</span> <span class="nf">is_image_file_supported</span><span class="p">():</span>
@@ -442,6 +460,7 @@
 
 
 <div class="viewcode-block" id="create_file"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.create_file">[docs]</a><span class="k">def</span> <span class="nf">create_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">redisurl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">h5fileplugin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="o">**</span><span class="n">pars</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; create a new file</span>
 
@@ -455,12 +474,14 @@
 <span class="sd">    :type redisurl: :obj:`str`</span>
 <span class="sd">    :param session: redis session</span>
 <span class="sd">    :type session: :obj:`str`</span>
+<span class="sd">    :param h5fileplugin: use h5file_detector plugin</span>
+<span class="sd">    :type h5fileplugin: :obj:`str`</span>
 <span class="sd">    :returns: file object</span>
 <span class="sd">    :rtype: :class:`H5RedisFile`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">H5RedisFile</span><span class="p">(</span>
         <span class="n">h5imp</span><span class="o">=</span><span class="n">h5writer</span><span class="o">.</span><span class="n">create_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">,</span> <span class="o">**</span><span class="n">pars</span><span class="p">),</span>
-        <span class="n">redisurl</span><span class="o">=</span><span class="n">redisurl</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span></div>
+        <span class="n">redisurl</span><span class="o">=</span><span class="n">redisurl</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span> <span class="n">h5fileplugin</span><span class="o">=</span><span class="n">h5fileplugin</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="link"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.link">[docs]</a><span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -550,7 +571,7 @@
             <span class="n">filename</span><span class="p">,</span> <span class="n">fieldpath</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">maxshape</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="virtual_field_layout"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.virtual_field_layout">[docs]</a><span class="k">def</span> <span class="nf">virtual_field_layout</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">maxshape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="virtual_field_layout"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.virtual_field_layout">[docs]</a><span class="k">def</span> <span class="nf">virtual_field_layout</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">maxshape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; creates a virtual field layout for a VDS file</span>
 
 <span class="sd">    :param shape: shape</span>
@@ -564,7 +585,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">H5RedisVirtualFieldLayout</span><span class="p">(</span>
         <span class="n">h5imp</span><span class="o">=</span><span class="n">h5writer</span><span class="o">.</span><span class="n">virtual_field_layout</span><span class="p">(</span>
-            <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">maxshape</span><span class="p">))</span></div>
+            <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">maxshape</span><span class="p">,</span> <span class="n">parent</span><span class="p">),</span> <span class="n">tparent</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="H5RedisFile"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisFile">[docs]</a><span class="k">class</span> <span class="nc">H5RedisFile</span><span class="p">(</span><span class="n">H5File</span><span class="p">):</span>
@@ -573,7 +594,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">h5imp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">redisurl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">redisurl</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">h5fileplugin</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
 
 <span class="sd">        :param h5object: h5 object</span>
@@ -586,6 +607,8 @@
 <span class="sd">        :type redisurl: :obj:`str`</span>
 <span class="sd">        :param session: redis session</span>
 <span class="sd">        :type session: :obj:`str`</span>
+<span class="sd">        :param h5fileplugin: use h5file_detector plugin</span>
+<span class="sd">        :type h5fileplugin: :obj:`str`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">h5imp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">H5File</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5imp</span><span class="o">.</span><span class="n">h5object</span><span class="p">,</span> <span class="n">h5imp</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -610,6 +633,15 @@
         <span class="k">if</span> <span class="n">REDIS</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__redisurl</span><span class="p">:</span>
             <span class="c1"># print(&quot;FILENAME&quot;, self.name)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__datastore</span> <span class="o">=</span> <span class="n">getDataStore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__redisurl</span><span class="p">)</span>
+            <span class="c1"># global FileStream</span>
+            <span class="c1"># if h5fileplugin:</span>
+            <span class="c1">#     try:</span>
+            <span class="c1">#         from h5file_detector.stream import FileStream</span>
+            <span class="c1">#         PLUGINS[&quot;h5file_detector&quot;] = FileStream</span>
+            <span class="c1">#     except Exception:</span>
+            <span class="c1">#         FileStream = None</span>
+            <span class="c1"># else:</span>
+            <span class="c1">#     FileStream = None</span>
 
 <div class="viewcode-block" id="H5RedisFile.root"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisFile.root">[docs]</a>    <span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; root object</span>
@@ -845,15 +877,26 @@
         <span class="c1">#     [&quot;axis&quot;])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_devices</span><span class="p">(</span>
             <span class="n">DeviceDict</span><span class="p">(</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mg_channels&quot;</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[],</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{}),</span>
-            <span class="p">[</span><span class="s2">&quot;mg_channels&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_devices</span><span class="p">(</span>
-            <span class="n">DeviceDict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[],</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{}),</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[],</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{},</span>
+                <span class="n">triggered_devices</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mg_channels&quot;</span><span class="p">,</span> <span class="s2">&quot;other_channels&quot;</span><span class="p">,</span>
+                                   <span class="s2">&quot;mca&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">]),</span>
             <span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_devices</span><span class="p">(</span>
             <span class="n">DeviceDict</span><span class="p">(</span>
-                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;observables&quot;</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[],</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{}),</span>
-            <span class="p">[</span><span class="s2">&quot;observables&quot;</span><span class="p">])</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mg_channels&quot;</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[],</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{}),</span>
+            <span class="p">[</span><span class="s2">&quot;mg_channels&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_devices</span><span class="p">(</span>
+            <span class="n">DeviceDict</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;other_channels&quot;</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[],</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{}),</span>
+            <span class="p">[</span><span class="s2">&quot;other_channels&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_devices</span><span class="p">(</span>
+            <span class="n">DeviceDict</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;mca&quot;</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[],</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{},</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;mca&quot;</span><span class="p">),</span>
+            <span class="p">[</span><span class="s2">&quot;mca&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_devices</span><span class="p">(</span>
+            <span class="n">DeviceDict</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">[],</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{},</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">),</span>
+            <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_channels</span><span class="p">({})</span></div>
 
 <div class="viewcode-block" id="H5RedisFile.set_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisFile.set_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">set_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -1013,6 +1056,7 @@
                            <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="n">sinfo</span><span class="p">[</span><span class="s2">&quot;scan_nb&quot;</span><span class="p">],</span>
                            <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="n">fbase</span><span class="p">,</span>
                            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">dr</span><span class="p">,</span>
+                           <span class="c1"># &quot;beamline&quot;: &#39;&#39;,</span>
                            <span class="s2">&quot;session&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__session</span><span class="p">,</span>
                            <span class="s2">&quot;collection&quot;</span><span class="p">:</span> <span class="n">measurement</span><span class="p">,</span>
                            <span class="s2">&quot;data_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;no_policy&quot;</span><span class="p">}</span>
@@ -1481,6 +1525,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__dsname</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__stream</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__jstream</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rcounter</span> <span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="H5RedisField.append_stream"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisField.append_stream">[docs]</a>    <span class="k">def</span> <span class="nf">append_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; scan object</span>
@@ -1675,13 +1721,22 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;string&#39;</span><span class="p">]:</span>
             <span class="n">mgchannels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span>
                 <span class="p">[</span><span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">])</span>
-            <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;observables&quot;</span>
+            <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;other_channels&quot;</span>
+            <span class="k">if</span> <span class="n">shape</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;mca&quot;</span>
+            <span class="k">elif</span> <span class="n">shape</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;image&quot;</span>
             <span class="c1"># if &quot;timestamp&quot; in dsname or \</span>
             <span class="c1">#    dsname.endswith(&quot;_time&quot;):</span>
             <span class="k">if</span> <span class="s2">&quot;timestamp&quot;</span> <span class="ow">in</span> <span class="n">dsname</span><span class="p">:</span>
                 <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;time&quot;</span>
             <span class="k">elif</span> <span class="n">dsname</span> <span class="ow">in</span> <span class="n">mgchannels</span><span class="p">:</span>
-                <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;mg_channels&quot;</span>
+                <span class="k">if</span> <span class="n">shape</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;mca&quot;</span>
+                <span class="k">elif</span> <span class="n">shape</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;image&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;mg_channels&quot;</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">append_devices</span><span class="p">(</span>
                 <span class="n">dsname</span><span class="p">,</span> <span class="p">[</span><span class="n">device_type</span><span class="p">,</span> <span class="s1">&#39;channels&#39;</span><span class="p">])</span>
@@ -1694,43 +1749,86 @@
                     <span class="n">device</span><span class="o">=</span><span class="n">device_type</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span>
                     <span class="n">display_name</span><span class="o">=</span><span class="n">dsname</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_channels</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="p">[</span><span class="n">dsname</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">encoder</span> <span class="o">=</span> <span class="n">NumericStreamEncoder</span><span class="p">(</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">sds</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">],</span>
+                    <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">Stream</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">sdef</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="n">make_definition</span><span class="p">(</span><span class="n">dsname</span><span class="p">,</span>
+                                                  <span class="n">encoder</span><span class="p">,</span>
+                                                  <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+                                                  <span class="n">info</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">units</span><span class="p">})</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
+                        <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span> <span class="n">sdef</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
+                        <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span>
+                        <span class="n">dsname</span><span class="p">,</span>
+                        <span class="n">encoder</span><span class="p">,</span>
+                        <span class="n">info</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">units</span><span class="p">})</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">shape</span><span class="p">:</span>
+                    <span class="c1"># plot_type = 1</span>
+                    <span class="c1"># plot_axes = []</span>
+                    <span class="c1"># axes = []</span>
+                    <span class="c1"># self.append_scaninfo(</span>
+                    <span class="c1">#     {&quot;kind&quot;: &quot;curve-plot&quot;,</span>
+                    <span class="c1">#      &quot;name&quot;: dsname,</span>
+                    <span class="c1">#      &quot;items&quot;: axes}, [&quot;plots&quot;])</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># self.append_scaninfo(</span>
+                    <span class="c1">#     {&quot;kind&quot;: &quot;1d-plot&quot;,</span>
+                    <span class="c1">#      # &quot;name&quot;: &quot;mg_channels&quot;,</span>
+                    <span class="c1">#      &quot;name&quot;: dsname,</span>
+                    <span class="c1">#      &quot;x&quot;: &quot;index&quot;,</span>
+                    <span class="c1">#      &quot;items&quot;: [</span>
+                    <span class="c1">#          {</span>
+                    <span class="c1">#              # &quot;kind&quot;: &quot;curve&quot;,</span>
+                    <span class="c1">#              &quot;y&quot;: [dsname]</span>
+                    <span class="c1">#          }</span>
+                    <span class="c1">#      ]},</span>
+                    <span class="c1">#     [&quot;plots&quot;])</span>
+                    <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">Stream</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">FileStream</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span>
+                <span class="k">while</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">par</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent</span>
+                    <span class="k">if</span> <span class="n">par</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="k">break</span>
+                    <span class="c1"># print(&quot;PAR&quot;, par.name)</span>
+                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="s2">&quot;root&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">par</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">):</span>
+                        <span class="n">filename</span> <span class="o">=</span> <span class="n">par</span><span class="o">.</span><span class="n">name</span>
+                        <span class="k">break</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">obj</span> <span class="o">=</span> <span class="n">par</span>
 
-            <span class="n">encoder</span> <span class="o">=</span> <span class="n">NumericStreamEncoder</span><span class="p">(</span>
-                <span class="n">dtype</span><span class="o">=</span><span class="n">sds</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">],</span>
-                <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
-                <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span>
-                <span class="n">dsname</span><span class="p">,</span>
-                <span class="n">encoder</span><span class="p">,</span>
-                <span class="n">info</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">units</span><span class="p">})</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">shape</span><span class="p">:</span>
-                <span class="c1"># plot_type = 1</span>
-                <span class="c1"># plot_axes = []</span>
-                <span class="c1"># axes = []</span>
-                <span class="c1"># self.append_scaninfo(</span>
-                <span class="c1">#     {&quot;kind&quot;: &quot;curve-plot&quot;,</span>
-                <span class="c1">#      &quot;name&quot;: dsname,</span>
-                <span class="c1">#      &quot;items&quot;: axes}, [&quot;plots&quot;])</span>
-                <span class="k">pass</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># self.append_scaninfo(</span>
-                <span class="c1">#     {&quot;kind&quot;: &quot;1d-plot&quot;,</span>
-                <span class="c1">#      # &quot;name&quot;: &quot;mg_channels&quot;,</span>
-                <span class="c1">#      &quot;name&quot;: dsname,</span>
-                <span class="c1">#      &quot;x&quot;: &quot;index&quot;,</span>
-                <span class="c1">#      &quot;items&quot;: [</span>
-                <span class="c1">#          {</span>
-                <span class="c1">#              # &quot;kind&quot;: &quot;curve&quot;,</span>
-                <span class="c1">#              &quot;y&quot;: [dsname]</span>
-                <span class="c1">#          }</span>
-                <span class="c1">#      ]},</span>
-                <span class="c1">#     [&quot;plots&quot;])</span>
-                <span class="k">pass</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">dsname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stream</span><span class="p">)</span>
+                    <span class="c1"># print(&quot;FILENAME&quot;, filename)</span>
+                <span class="n">sdef</span> <span class="o">=</span> <span class="n">FileStream</span><span class="o">.</span><span class="n">make_definition</span><span class="p">(</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">dsname</span><span class="p">,</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">sds</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">],</span>
+                    <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span>
+                    <span class="n">file_pattern</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span>
+                    <span class="n">frames_per_file</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                    <span class="n">data_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+                    <span class="c1"># data_path=&quot;/scan/data/%s&quot; % dsname ,</span>
+                    <span class="n">info</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">units</span><span class="p">},</span>
+                    <span class="n">file_index_offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">file_mode</span><span class="o">=</span><span class="s2">&quot;single&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
+                    <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span> <span class="n">sdef</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__rcounter</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">dsname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__jstream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
-                <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span>
-                <span class="n">dsname</span><span class="p">,</span> <span class="n">JsonStreamEncoder</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">Stream</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">sdef</span> <span class="o">=</span> <span class="n">Stream</span><span class="o">.</span><span class="n">make_definition</span><span class="p">(</span>
+                    <span class="n">dsname</span><span class="p">,</span> <span class="n">JsonStreamEncoder</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__jstream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
+                    <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span> <span class="n">sdef</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__jstream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
+                    <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span>
+                    <span class="n">dsname</span><span class="p">,</span> <span class="n">JsonStreamEncoder</span><span class="p">())</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">dsname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__jstream</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__set_init_channel_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dsname</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
@@ -1771,8 +1869,11 @@
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="n">progattrdesc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
                     <span class="k">try</span><span class="p">:</span>
-                        <span class="n">np</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span>
-                            <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">np</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span>
+                                <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+                        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                            <span class="n">np</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
                         <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">or</span> <span class="n">np</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">])</span>
                     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -1806,7 +1907,8 @@
         <span class="c1">#        self.__dsname, strategy, self.dtype,</span>
         <span class="c1">#       type(o), str(t), units)</span>
         <span class="k">if</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;STEP&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">dsnm</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">shape</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># skip 2D images</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">shape</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">FileStream</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__set_step_channel_info</span><span class="p">(</span><span class="n">dsname</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__set_init_channel_info</span><span class="p">(</span><span class="n">dsname</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
@@ -1831,6 +1933,10 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                     <span class="n">jo</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">o</span><span class="p">}</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__jstream</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">jo</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span><span class="p">,</span> <span class="s2">&quot;send&quot;</span><span class="p">):</span>
+                <span class="n">jo</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;stored&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;frame&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rcounter</span><span class="p">}</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">jo</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__rcounter</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">H5Field</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span></div>
 
 
@@ -1889,7 +1995,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; virtual field layout &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">maxshape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">h5imp</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">h5imp</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tparent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
 
 <span class="sd">        :param h5object: h5 object</span>
@@ -1906,12 +2012,169 @@
         <span class="k">if</span> <span class="n">h5imp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">H5VirtualFieldLayout</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span> <span class="n">h5imp</span><span class="o">.</span><span class="n">h5object</span><span class="p">,</span> <span class="n">h5imp</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">h5imp</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
-                <span class="n">h5imp</span><span class="o">.</span><span class="n">maxshape</span><span class="p">)</span>
+                <span class="n">h5imp</span><span class="o">.</span><span class="n">maxshape</span><span class="p">,</span> <span class="n">tparent</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">h5object</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Undefined constructor parameters&quot;</span><span class="p">)</span>
             <span class="n">H5VirtualFieldLayout</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-                <span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">maxshape</span><span class="p">)</span></div>
+                <span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">maxshape</span><span class="p">,</span> <span class="n">tparent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rcounter</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="H5RedisVirtualFieldLayout.append_vmap"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.append_vmap">[docs]</a>    <span class="k">def</span> <span class="nf">append_vmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; appends virtual map description into vmap list</span>
+
+<span class="sd">        :param vmap: virtual map description</span>
+<span class="sd">        :type vmap: :obj:`dict`</span>
+<span class="sd">        :param strategy: datasource strategy i.e. INIT or FINAL</span>
+<span class="sd">        :type strategy: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">H5VirtualFieldLayout</span><span class="o">.</span><span class="n">append_vmap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmap</span><span class="p">)</span>
+        <span class="c1"># print(&quot;APEEND&quot;, vmap, strategy)</span>
+        <span class="n">plugin_stream</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">strategy</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;STEP&quot;</span><span class="p">]:</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="s2">&quot;plugin_stream&quot;</span> <span class="ow">in</span> <span class="n">vmap</span><span class="p">:</span>
+
+                <span class="n">plugin_stream</span> <span class="o">=</span> <span class="n">vmap</span><span class="p">[</span><span class="s2">&quot;plugin_stream&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;frame&quot;</span> <span class="ow">in</span> <span class="n">plugin_stream</span><span class="p">:</span>
+                    <span class="n">frame</span> <span class="o">=</span> <span class="n">plugin_stream</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
+            <span class="c1"># print(&quot;FRAME&quot;, frame)</span>
+            <span class="k">if</span> <span class="n">frame</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="s2">&quot;plugin&quot;</span> <span class="ow">in</span> <span class="n">vmap</span> <span class="ow">and</span> \
+                    <span class="n">vmap</span><span class="p">[</span><span class="s2">&quot;plugin&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">PLUGINS</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> \
+                    <span class="ow">and</span> <span class="s2">&quot;plugin_def&quot;</span> <span class="ow">in</span> <span class="n">vmap</span><span class="p">:</span>
+                <span class="c1"># print(&quot;CREATE&quot;, vmap[&quot;plugin&quot;])</span>
+                <span class="n">plugin</span> <span class="o">=</span> <span class="n">PLUGINS</span><span class="p">[</span><span class="n">vmap</span><span class="p">[</span><span class="s2">&quot;plugin&quot;</span><span class="p">]]</span>
+                <span class="n">plugin_def</span> <span class="o">=</span> <span class="n">vmap</span><span class="p">[</span><span class="s2">&quot;plugin_def&quot;</span><span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sdef</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">.</span><span class="n">make_definition</span><span class="p">(</span><span class="o">**</span><span class="n">plugin_def</span><span class="p">)</span>
+                    <span class="c1"># print(&quot;create&quot;, plugin_def)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
+                        <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span> <span class="n">sdef</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__rcounter</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;VMAP ERROR&quot;</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+                <span class="n">dsname</span> <span class="o">=</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">sds</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
+                    <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
+                    <span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="n">strategy</span><span class="p">,</span>
+                    <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span>
+                <span class="p">}</span>
+                <span class="n">shape</span> <span class="o">=</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span>
+
+                <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">path</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">append_scaninfo</span><span class="p">(</span><span class="n">sds</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;datadesc&quot;</span><span class="p">,</span> <span class="n">dsname</span><span class="p">])</span>
+                <span class="n">mgchannels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span>
+                    <span class="p">[</span><span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">])</span>
+                <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;other_channels&quot;</span>
+                <span class="k">if</span> <span class="n">shape</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;mca&quot;</span>
+                <span class="k">elif</span> <span class="n">shape</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;image&quot;</span>
+                <span class="k">if</span> <span class="s2">&quot;timestamp&quot;</span> <span class="ow">in</span> <span class="n">dsname</span><span class="p">:</span>
+                    <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;time&quot;</span>
+                <span class="k">elif</span> <span class="n">dsname</span> <span class="ow">in</span> <span class="n">mgchannels</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">shape</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;mca&quot;</span>
+                    <span class="k">elif</span> <span class="n">shape</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;image&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;mg_channels&quot;</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">append_devices</span><span class="p">(</span>
+                    <span class="n">dsname</span><span class="p">,</span> <span class="p">[</span><span class="n">device_type</span><span class="p">,</span> <span class="s1">&#39;channels&#39;</span><span class="p">])</span>
+                <span class="n">units</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="s2">&quot;info&quot;</span> <span class="ow">in</span> <span class="n">plugin_def</span> <span class="ow">and</span> <span class="s2">&quot;unit&quot;</span> <span class="ow">in</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]:</span>
+                    <span class="n">units</span> <span class="o">=</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">][</span><span class="s2">&quot;unit&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">units</span><span class="p">:</span>
+                    <span class="n">ch</span> <span class="o">=</span> <span class="n">ChannelDict</span><span class="p">(</span>
+                        <span class="n">device</span><span class="o">=</span><span class="n">device_type</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span>
+                        <span class="n">display_name</span><span class="o">=</span><span class="n">dsname</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">units</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ch</span> <span class="o">=</span> <span class="n">ChannelDict</span><span class="p">(</span>
+                        <span class="n">device</span><span class="o">=</span><span class="n">device_type</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">),</span>
+                        <span class="n">display_name</span><span class="o">=</span><span class="n">dsname</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_channels</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="p">[</span><span class="n">dsname</span><span class="p">])</span>
+
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span><span class="p">,</span> <span class="s2">&quot;send&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">plugin_stream</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">plugin_stream</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__rcounter</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;VMAP SEND  ERROR&quot;</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="H5RedisVirtualFieldLayout.append_devices"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.append_devices">[docs]</a>    <span class="k">def</span> <span class="nf">append_devices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; append device parameters</span>
+
+<span class="sd">        :param value: device value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        :param keys: device parameter keys</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;append_devices&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">append_devices</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisVirtualFieldLayout.append_stream"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.append_stream">[docs]</a>    <span class="k">def</span> <span class="nf">append_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; scan object</span>
+
+<span class="sd">        :param name: stream name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :param scan: stream object</span>
+<span class="sd">        :type scan: :class:`Stream`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;append_stream&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisVirtualFieldLayout.scan_command"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.scan_command">[docs]</a>    <span class="k">def</span> <span class="nf">scan_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set scan attribute</span>
+
+<span class="sd">        :param command: scan command</span>
+<span class="sd">        :type command: :obj:`str`</span>
+<span class="sd">        :param args: function list arguments</span>
+<span class="sd">        :type args: :obj:`list` &lt;`any`&gt;</span>
+<span class="sd">        :param kwargs: function dict arguments</span>
+<span class="sd">        :type kwargs: :obj:`dict` &lt;:obj:`str` , `any`&gt;</span>
+<span class="sd">        :returns: scan command value</span>
+<span class="sd">        :rtype:  :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;scan_command&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisVirtualFieldLayout.append_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.append_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">append_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; append scan info parameters</span>
+
+<span class="sd">        :param value: scan parameter value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        :param keys: scan parameter value</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;append_scaninfo&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">append_scaninfo</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisVirtualFieldLayout.get_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.get_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">get_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
+
+<span class="sd">        :param keys: scan parameter value</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        :returns value: scan parameter value</span>
+<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_scaninfo&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisVirtualFieldLayout.set_channels"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.set_channels">[docs]</a>    <span class="k">def</span> <span class="nf">set_channels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
+
+<span class="sd">        :param value: device parameter value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        :param keys: device parameter keys</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;set_channels&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">set_channels</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="H5RedisTargetFieldView"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisTargetFieldView">[docs]</a><span class="k">class</span> <span class="nc">H5RedisTargetFieldView</span><span class="p">(</span><span class="n">H5TargetFieldView</span><span class="p">):</span>

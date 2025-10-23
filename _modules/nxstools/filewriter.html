@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.filewriter &#8212; NXSTools 4.23.0 documentation</title>
+    <title>nxstools.filewriter &#8212; NXSTools 4.29.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.23</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.29</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -471,7 +471,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">wr</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">writerlock</span><span class="p">:</span>
             <span class="n">wr</span> <span class="o">=</span> <span class="n">writer</span>
-    <span class="k">return</span> <span class="n">wr</span><span class="o">.</span><span class="n">virtual_field_layout</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">maxshape</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">wr</span><span class="o">.</span><span class="n">virtual_field_layout</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">maxshape</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="setwriter"><a class="viewcode-back" href="../../nxstools.html#nxstools.filewriter.setwriter">[docs]</a><span class="k">def</span> <span class="nf">setwriter</span><span class="p">(</span><span class="n">wr</span><span class="p">):</span>
@@ -973,13 +973,13 @@
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; virtual field layout &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tparent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
 
 <span class="sd">        :param h5object: h5 object</span>
 <span class="sd">        :type h5object: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">FTObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">)</span>
+        <span class="n">FTObject</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">,</span> <span class="n">tparent</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; add target field view to layout</span>

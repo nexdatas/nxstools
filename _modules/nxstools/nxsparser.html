@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.nxsparser &#8212; NXSTools 3.67.0 documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <title>nxstools.nxsparser &#8212; NXSTools 4.29.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
@@ -35,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>3.67</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.29</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -116,20 +118,25 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../nxstools.html">nxstools package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filenamegenerator">nxstools.filenamegenerator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filewriter">nxstools.filewriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5cppwriter">nxstools.h5cppwriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5pywriter">nxstools.h5pywriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5rediswriter">nxstools.h5rediswriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsargparser">nxstools.nxsargparser module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscollect">nxstools.nxscollect module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsconfig">nxstools.nxsconfig module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscreate">nxstools.nxscreate module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdata">nxstools.nxsdata module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsetup">nxstools.nxsetup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscreator">nxstools.nxscreator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdata">nxstools.nxsdata module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdevicetools">nxstools.nxsdevicetools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsetup">nxstools.nxsetup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsfileinfo">nxstools.nxsfileinfo module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsfileparser">nxstools.nxsfileparser module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsargparser">nxstools.nxsargparser module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsparser">nxstools.nxsparser module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsxml">nxstools.nxsxml module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdevicetools">nxstools.nxsdevicetools module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filenamegenerator">nxstools.filenamegenerator module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.release">nxstools.release module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.redisutils">nxstools.redisutils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools">Module contents</a></li>
 </ul>
 </li>
@@ -222,7 +229,7 @@
 
 
 <span class="k">def</span> <span class="nf">_tostr</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; converts text  to str type</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; converts text  to str type</span>
 
 <span class="sd">    :param text: text</span>
 <span class="sd">    :type text: :obj:`bytes` or :obj:`unicode`</span>
@@ -240,7 +247,7 @@
 
 
 <span class="k">def</span> <span class="nf">_toxml</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; provides xml content of the whole node</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; provides xml content of the whole node</span>
 
 <span class="sd">    :param node: DOM node</span>
 <span class="sd">    :type node: :class:`xml.dom.Node`</span>
@@ -257,10 +264,10 @@
 
 
 <div class="viewcode-block" id="ESRFConverter"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ESRFConverter">[docs]</a><span class="k">class</span> <span class="nc">ESRFConverter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; ESRF xml configuration converter &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; ESRF xml configuration converter &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; constructor &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__allowed_tags</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="s2">&quot;field&quot;</span><span class="p">,</span> <span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="s2">&quot;attribute&quot;</span><span class="p">,</span> <span class="s2">&quot;doc&quot;</span><span class="p">,</span>
@@ -274,7 +281,7 @@
         <span class="p">}</span>
 
 <div class="viewcode-block" id="ESRFConverter.convert"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ESRFConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; converts ESRF xml configuration to nxsdatawriter format</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; converts ESRF xml configuration to nxsdatawriter format</span>
 
 <span class="sd">        :param text: input xml string</span>
 <span class="sd">        :type text: :obj:`str`</span>
@@ -291,7 +298,7 @@
         <span class="k">return</span> <span class="n">_toxml</span><span class="p">(</span><span class="n">definition</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; converts ESRF xml etree configuration to nxsdatawriter format</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; converts ESRF xml etree configuration to nxsdatawriter format</span>
 
 <span class="sd">        :param tree: etree Element node</span>
 <span class="sd">        :type tree: :class:`lxml.etree.Element`</span>
@@ -320,12 +327,12 @@
 
 <div class="viewcode-block" id="ParserTools"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ParserTools">[docs]</a><span class="k">class</span> <span class="nc">ParserTools</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; configuration server adapter</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; configuration server adapter</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_getPureText</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; collects text from text child nodes</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; collects text from text child nodes</span>
 
 <span class="sd">        :param node: parent node</span>
 <span class="sd">        :type node: :obj:`xml.etree.ElementTree.Element`</span>
@@ -338,7 +345,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_getText</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides  xml content of the node</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides  xml content of the node</span>
 
 <span class="sd">        :param node: DOM node</span>
 <span class="sd">        :type node: :class:`lxml.etree.Element`</span>
@@ -357,7 +364,7 @@
 
 <div class="viewcode-block" id="ParserTools.getRecord"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ParserTools.getRecord">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">getRecord</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; fetches record name or query from datasource node</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; fetches record name or query from datasource node</span>
 
 <span class="sd">        :param node: datasource node</span>
 <span class="sd">        :type node: :class:`lxml.etree.Element`</span>
@@ -427,7 +434,7 @@
 
 <div class="viewcode-block" id="ParserTools.mergeDefinitions"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ParserTools.mergeDefinitions">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">mergeDefinitions</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">xmls</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; merges the xmls list of definitions xml strings</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; merges the xmls list of definitions xml strings</span>
 <span class="sd">            to one output xml string</span>
 
 <span class="sd">        :param xmls: a list of xml string with definitions</span>
@@ -452,7 +459,7 @@
 
 <div class="viewcode-block" id="ParserTools.parseDataSources"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ParserTools.parseDataSources">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parseDataSources</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">xmlc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
 
 <span class="sd">        :param xmlc: xml string</span>
 <span class="sd">        :type xmlc: :obj:`str`</span>
@@ -464,7 +471,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__getDataSources</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
 
 <span class="sd">        :param xmlc: xml string</span>
 <span class="sd">        :type xmlc: :obj:`str`</span>
@@ -494,7 +501,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__getPath</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides node path</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides node path</span>
 
 <span class="sd">        :param node: etree node</span>
 <span class="sd">        :type node: :class:`lxml.etree.Element`</span>
@@ -529,7 +536,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__getFullPath</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides node path</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides node path</span>
 
 <span class="sd">        :param node: etree node</span>
 <span class="sd">        :type node: :class:`lxml.etree.Element`</span>
@@ -567,7 +574,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__getAttr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides value of attirbute</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides value of attirbute</span>
 
 <span class="sd">        :param node: etree node</span>
 <span class="sd">        :type node: :class:`lxml.etree.Element`</span>
@@ -595,7 +602,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__getAllAttr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides value of attirbute</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides value of attirbute</span>
 
 <span class="sd">        :param node: etree node</span>
 <span class="sd">        :type node: :class:`lxml.etree.Element`</span>
@@ -611,7 +618,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__getShape</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides node shape</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides node shape</span>
 
 <span class="sd">        :param node: etree node</span>
 <span class="sd">        :type node: :class:`lxml.etree.Element`</span>
@@ -654,7 +661,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__getChildrenByTagName</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides direct children by tag name</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides direct children by tag name</span>
 
 <span class="sd">        :param parent: parent node</span>
 <span class="sd">        :type parent: :class:`lxml.etree.Element`</span>
@@ -667,7 +674,7 @@
 
 <div class="viewcode-block" id="ParserTools.parseFields"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ParserTools.parseFields">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parseFields</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">xmlc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
 
 <span class="sd">        :param xmlc: xml string</span>
 <span class="sd">        :type xmlc: :obj:`str`</span>
@@ -740,7 +747,7 @@
 
 <div class="viewcode-block" id="ParserTools.parseAttributes"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ParserTools.parseAttributes">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parseAttributes</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">xmlc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
 
 <span class="sd">        :param xmlc: xml string</span>
 <span class="sd">        :type xmlc: :obj:`str`</span>
@@ -808,7 +815,7 @@
 
 <div class="viewcode-block" id="ParserTools.parseLinks"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ParserTools.parseLinks">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parseLinks</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">xmlc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides datasources and its records from xml string</span>
 
 <span class="sd">        :param xmlc: xml string</span>
 <span class="sd">        :type xmlc: :obj:`str`</span>
@@ -865,7 +872,7 @@
 
 <div class="viewcode-block" id="ParserTools.parseRecord"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.ParserTools.parseRecord">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parseRecord</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">xmlc</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; provides source record from xml string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; provides source record from xml string</span>
 
 <span class="sd">        :param xmlc: xml string</span>
 <span class="sd">        :type xmlc: :obj:`str`</span>
@@ -878,11 +885,11 @@
 
 <div class="viewcode-block" id="TableTools"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.TableTools">[docs]</a><span class="k">class</span> <span class="nc">TableTools</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; configuration server adapter</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; configuration server adapter</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">nonone</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; constructor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
 
 <span class="sd">        :param description: description list</span>
 <span class="sd">        :type description:  :obj:`list` &lt;:obj:`str`&gt;</span>
@@ -929,7 +936,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">loadDescription</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TableTools.loadDescription"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.TableTools.loadDescription">[docs]</a>    <span class="k">def</span> <span class="nf">loadDescription</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; loads description</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; loads description</span>
 
 <span class="sd">        :param description:  description list</span>
 <span class="sd">        :type description:  :obj:`list` &lt;:obj:`str`&gt;</span>
@@ -983,7 +990,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__toString</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">lst</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; converts list to string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; converts list to string</span>
 
 <span class="sd">        :param lst: given list</span>
 <span class="sd">        :type lst: :obj:`list` &lt;:obj:`str`&gt;</span>
@@ -996,7 +1003,7 @@
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TableTools.generateList"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.TableTools.generateList">[docs]</a>    <span class="k">def</span> <span class="nf">generateList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; generate row lists of table</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; generate row lists of table</span>
 
 <span class="sd">        :returns:  table rows</span>
 <span class="sd">        :rtype: :obj:`list` &lt;:obj:`str`&gt;</span>
@@ -1055,11 +1062,11 @@
 
 <div class="viewcode-block" id="TableDictTools"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.TableDictTools">[docs]</a><span class="k">class</span> <span class="nc">TableDictTools</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot; configuration server adapter</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; configuration server adapter</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">nonone</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; constructor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
 
 <span class="sd">        :param description: description list</span>
 <span class="sd">        :type description:  :obj:`list` &lt;:obj:`str`&gt;</span>
@@ -1185,7 +1192,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">__toString</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">lst</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; converts list to string</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; converts list to string</span>
 
 <span class="sd">        :param lst: given list</span>
 <span class="sd">        :type lst: :obj:`list` &lt;:obj:`str`&gt;</span>
@@ -1198,7 +1205,7 @@
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 
 <div class="viewcode-block" id="TableDictTools.generateList"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsparser.TableDictTools.generateList">[docs]</a>    <span class="k">def</span> <span class="nf">generateList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; generate row lists of table</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; generate row lists of table</span>
 
 <span class="sd">        :returns:  table rows</span>
 <span class="sd">        :rtype: :obj:`list` &lt;:obj:`str`&gt;</span>
@@ -1250,7 +1257,7 @@
         &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
 
 GNU GENERAL PUBLIC LICENSE, version 3.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
     </p>
   </div>
 </footer>
