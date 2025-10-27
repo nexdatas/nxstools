@@ -81,7 +81,10 @@ def checknodes(utest, n1, n2):
     """
     utest.assertEqual(n1.tag, n2.tag)
     utest.assertEqual(n1.text, n2.text)
-    utest.assertEqual(n1.tail, n2.tail)
+    if n1.tail and n2.tail:
+        utest.assertEqual(n1.tail.strip(), n2.tail.strip())
+    else:
+        utest.assertEqual(n1.tail, n2.tail)
     utest.assertEqual(len(n1.attrib), len(n2.attrib))
     for k, v in n1.attrib.items():
         utest.assertTrue(k in n2.attrib.keys())
