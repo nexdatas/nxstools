@@ -4613,6 +4613,116 @@ class H5CppWriterTest(unittest.TestCase):
             os.remove(fname3)
             os.remove(self._fname)
 
+    def test_h5cpp_vitualfield_image_concatinate_lazy(self):
+        fun = sys._getframe().f_code.co_name
+        print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        if not H5CppWriter.is_vds_supported():
+            print("Skip the test: VDS not supported")
+            return
+        self._fname = '%s/%s%s.h5' % (
+            os.getcwd(), self.__class__.__name__, fun)
+        fname1 = '%s/%s%s_1.h5' % (
+            os.getcwd(), self.__class__.__name__, fun)
+        fname2 = '%s/%s%s_2.h5' % (
+            os.getcwd(), self.__class__.__name__, fun)
+        fname3 = '%s/%s%s_3.h5' % (
+            os.getcwd(), self.__class__.__name__, fun)
+
+        try:
+            vl = [[[self.__rnd.randint(1, 1600) for _ in range(20)]
+                   for _ in range(10)]
+                  for _ in range(30)]
+
+            fl = H5CppWriter.create_file(fname1, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group("entry1", "NXentry")
+            dt = entry.create_group("data", "NXdata")
+            intimage = dt.create_field(
+                "data", "uint32", [10, 10, 20], [1, 10, 20])
+            vv = [[[vl[n][j][i] for i in range(20)]
+                   for j in range(10)] for n in range(10)]
+            intimage[...] = vv
+            rw = intimage.read()
+            for i in range(10):
+                self.myAssertImage(rw[i], vv[i])
+            intimage.close()
+            dt.close()
+            entry.close()
+            fl.close()
+
+            fl = H5CppWriter.create_file(fname2, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group("entry2", "NXentry")
+            dt = entry.create_group("data", "NXdata")
+            intimage = dt.create_field(
+                "data", "uint32", [10, 10, 20], [1, 10, 20])
+            vv = [[[vl[n + 10][j][i] for i in range(20)]
+                   for j in range(10)] for n in range(10)]
+            intimage[...] = vv
+            rw = intimage.read()
+            for i in range(10):
+                self.myAssertImage(rw[i], vv[i])
+            intimage.close()
+            dt.close()
+            entry.close()
+            fl.close()
+
+            fl = H5CppWriter.create_file(fname3, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group("entry3", "NXentry")
+            dt = entry.create_group("data", "NXdata")
+            intimage = dt.create_field(
+                "data", "uint32", [10, 10, 20], [1, 10, 20])
+            vv = [[[vl[n + 20][j][i] for i in range(20)]
+                   for j in range(10)] for n in range(10)]
+            intimage[...] = vv
+            rw = intimage.read()
+            for i in range(10):
+                self.myAssertImage(rw[i], vv[i])
+            intimage.close()
+            dt.close()
+            entry.close()
+            fl.close()
+
+            fl = H5CppWriter.create_file(self._fname, overwrite=True)
+            rt = fl.root()
+            entry = rt.create_group("entry123", "NXentry")
+            dt = entry.create_group("data", "NXdata")
+
+            vmaps = [
+                {"filename": fname1, "fieldpath": "/entry1/data/data",
+                 "shape": [10, 10, 20], "dtype": "uint32",
+                 "key": [[0, 10], [0, 10], [0, 20]]},
+                {"filename": fname2, "fieldpath": "/entry2/data/data",
+                 "shape": [10, 10, 20], "dtype": "uint32",
+                 "key": [[10, 20], [0, 10], [0, 20]]},
+                {"filename": fname3, "fieldpath": "/entry3/data/data",
+                 "shape": [10, 10, 20], "dtype": "uint32",
+                 "key": [[20, 30], [0, 10], [0, 20]]},
+            ]
+            vfl = H5CppWriter.virtual_field_layout([1, 1, 1], "uint32",
+                                                   parent=dt)
+            for vmap in vmaps:
+                vfl.append_vmap(vmap)
+
+            vfl.process_target_field_views()
+
+            intimage = dt.create_virtual_field("data", vfl)
+            rw = intimage.read()
+            for i in range(30):
+                self.myAssertImage(rw[i], vl[i])
+            intimage.close()
+
+            dt.close()
+            entry.close()
+            fl.close()
+
+        finally:
+            os.remove(fname1)
+            os.remove(fname2)
+            os.remove(fname3)
+            os.remove(self._fname)
+
     def test_h5cpp_vitualfield_image_interleaving(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))

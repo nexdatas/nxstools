@@ -15,7 +15,7 @@
           <field units="s" type="NX_FLOAT64" name="trigger_pulse_length">
             <strategy mode="FINAL"/>$datasources.$(name)_triggerpulselength</field>
           <field type="NX_INT32" name="trigger_mode">
-            <strategy mode="FINAL"/>$datasources.$(name)_triggermode_cb</field>
+            <strategy mode="FINAL"/>$datasources.$(name)_triggermode</field>
           <field units="s" type="NX_FLOAT64" name="time_trigger_start">
             <strategy mode="FINAL"/>$datasources.$(name)_timetriggerstart</field>
           <field units="s" type="NX_FLOAT64" name="time_trigger_step_size">
@@ -57,9 +57,59 @@
           <field units="steps/unit" type="NX_FLOAT64" name="position5_conversion">
             <strategy mode="FINAL"/>$datasources.$(name)_position5conversion</field>
 	</group>
-        <group type="NXdata" name="data">
+        <group type="NXdata" name="data">	  
+	  <vds name="counter" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_countermap
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="encoder_1" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_encoder1map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="encoder_2" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_encoder2map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="encoder_3" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_encoder3map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="encoder_4" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_encoder4map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="encoder_5" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_encoder5map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
         </group>
       </group>
+    </group>
+    <group type="NXdata" name="data">
+      <link name="$(name)_counter" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/counter" />
+      <link name="$(name)_encoder_1" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_1" />
+      <link name="$(name)_encoder_2" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_2" />
+      <link name="$(name)_encoder_3" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_3" />
+      <link name="$(name)_encoder_4" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_4" />
+      <link name="$(name)_encoder_5" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/encoder_5" />
     </group>
   </group>
 </definition>
