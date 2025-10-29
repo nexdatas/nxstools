@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="CLIENT" name="collection_description">
+    <record name="collection_description"/>
+  </datasource>
+</definition>

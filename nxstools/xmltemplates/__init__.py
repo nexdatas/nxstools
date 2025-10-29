@@ -1127,6 +1127,8 @@ standardComponentVariables = {
             'doc': "source probe (string)"
         },
     },
+    'defaultcollection': {
+    },
     'defaultsample': {
     },
     'dcm': {
@@ -1636,6 +1638,11 @@ standardComponentTemplateFiles = {
         'defaultsample.xml',
         'sample_name.ds.xml',
         'chemical_formula.ds.xml',
+    ],
+    'defaultcollection': [
+        'defaultcollection.xml',
+        'collection_identifier.ds.xml',
+        'collection_description.ds.xml',
     ],
     'datasignal': [
         'datasignal.xml',
