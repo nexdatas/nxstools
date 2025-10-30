@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<definition>
+  <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
+    <field type="NX_CHAR" name="collection_identifier">
+      <strategy mode="INIT"/>$datasources.collection_identifier
+    </field>
+    <field type="NX_CHAR" name="collection_description">
+      <strategy mode="INIT"/>$datasources.collection_description</field>
+  </group>
+</definition>
