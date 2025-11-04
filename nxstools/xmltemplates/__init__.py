@@ -1642,7 +1642,7 @@ standardComponentTemplateFiles = {
         'chemical_formula.ds.xml',
     ],
     'defaultsampleidentifier': [
-        'defaultsample.xml',
+        'defaultsampleidentifier.xml',
         'sample_name.ds.xml',
         'sample_identifier.ds.xml',
     ],

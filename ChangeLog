@@ -1,5 +1,9 @@
 2025-11-04 Jan Kotanski <jankotan@gmail.com>
-	* add defaultsampleidentifier component (#819)
+	* fix typo in defaultsampleidentifier component (#822)
+	* tagged as v4.31.1
+
+2025-11-04 Jan Kotanski <jankotan@gmail.com>
+	* add defaultsampleidentifier component (#822)
 	* tagged as v4.31.0
 
 2025-10-29 Jan Kotanski <jankotan@gmail.com>
