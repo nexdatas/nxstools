@@ -2,10 +2,8 @@
 <definition>
   <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
     <group type="NXsample" name="sample">
-      <field type="NX_CHAR" name="name">
-	<strategy mode="INIT"/>$datasources.sample_name
-	<attribute type="NX_CHAR" name="sample_identifier">
-        <strategy mode="INIT"/>$datasources.sample_identifier</attribute>
+      <field type="NX_CHAR" name="sample_identifier">
+	<strategy mode="INIT"/>$datasources.sample_identifier
       </field>
     </group>
   </group>

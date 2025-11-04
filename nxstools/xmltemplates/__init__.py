@@ -1643,7 +1643,6 @@ standardComponentTemplateFiles = {
     ],
     'defaultsampleidentifier': [
         'defaultsampleidentifier.xml',
-        'sample_name.ds.xml',
         'sample_identifier.ds.xml',
     ],
     'defaultcollection': [

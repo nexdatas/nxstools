@@ -1,4 +1,8 @@
 2025-11-04 Jan Kotanski <jankotan@gmail.com>
+	* change sample_identifier to  nexus field (#822)
+	* tagged as v4.31.2
+
+2025-11-04 Jan Kotanski <jankotan@gmail.com>
 	* fix typo in defaultsampleidentifier component (#822)
 	* tagged as v4.31.1
 
