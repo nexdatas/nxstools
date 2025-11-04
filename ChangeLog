@@ -1,3 +1,7 @@
+2025-11-04 Jan Kotanski <jankotan@gmail.com>
+	* add defaultsampleidentifier component (#819)
+	* tagged as v4.31.0
+
 2025-10-29 Jan Kotanski <jankotan@gmail.com>
 	* add defaultcollection component (#819)
 	* tagged as v4.30.0

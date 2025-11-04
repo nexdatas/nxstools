@@ -307,7 +307,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      "dataaxessignal",
                      "datasignal", "dcm", "default", "defaultcollection",
                      "defaultinstrument",
-                     "defaultsample", "description",
+                     "defaultsample", "defaultsampleidentifier", "description",
                      "descriptiontext", "detectorlive",
                      "empty", "groupsecop", "keithley", "maia",
                      "maiadimension", "maiaflux", "msnsar", "mssar",
@@ -334,7 +334,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                  "dataaxessignal",
                  "datasignal", "dcm", "default", "defaultcollection",
                  "defaultinstrument",
-                 "defaultsample", "description",
+                 "defaultsample", "defaultsampleidentifier", "description",
                  "descriptiontext", "detectorlive",
                  "empty", "groupsecop", "keithley", "maia",
                  "maiadimension", "maiaflux",
@@ -406,7 +406,8 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
             # "dcm",                #
             # "default",            # +
             # "defaultinstrument",  # .
-            # "defaultsample",      # .
+            # "defaultsample",
+            # "defaultsampleidentifier",      # .
             # "empty",              #
             # "keithley",           #
             # "maia",               #
@@ -481,7 +482,8 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
             # "dcm",                #
             # "default",            # +
             # "defaultinstrument",  # .
-            # "defaultsample",      # .
+            # "defaultsample",
+            # "defaultsampleidentifier",      # .
             # "empty",              #
             # "keithley",           #
             # "maia",               #

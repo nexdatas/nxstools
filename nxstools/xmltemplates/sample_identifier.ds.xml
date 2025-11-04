@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="CLIENT" name="sample_identifier">
+    <record name="sample_identifier"/>
+    <doc>Data source providing the identifier of the sample.</doc>
+  </datasource>
+</definition>

@@ -1131,6 +1131,8 @@ standardComponentVariables = {
     },
     'defaultsample': {
     },
+    'defaultsampleidentifier': {
+    },
     'dcm': {
         'usage': {
             'default': 'Bragg',
@@ -1638,6 +1640,11 @@ standardComponentTemplateFiles = {
         'defaultsample.xml',
         'sample_name.ds.xml',
         'chemical_formula.ds.xml',
+    ],
+    'defaultsampleidentifier': [
+        'defaultsample.xml',
+        'sample_name.ds.xml',
+        'sample_identifier.ds.xml',
     ],
     'defaultcollection': [
         'defaultcollection.xml',
