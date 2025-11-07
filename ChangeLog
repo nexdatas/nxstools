@@ -1,5 +1,6 @@
 2025-11-07 Jan Kotanski <jankotan@gmail.com>
 	* skip stream creation for already existing streams (#828)
+	* remove compression_enabled and compression_shuffle (#831)
 	* tagged as v4.31.4
 
 2025-11-05 Jan Kotanski <jankotan@gmail.com>
