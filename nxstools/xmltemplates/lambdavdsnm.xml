@@ -56,12 +56,8 @@
             <strategy mode="FINAL"/>$datasources.$(name)_framesperfile</field>
           <field type="NX_CHAR" name="save_file_name">
             <strategy mode="STEP"/>$datasources.$(name)_savefilename</field>
-          <field type="NX_BOOLEAN" name="compressor_shuffle">
-            <strategy mode="FINAL"/>$datasources.$(name)_compressorshuffle</field>
-          <field type="NX_UINT16" name="compressor_rate">
+          <field type="NX_UINT16" name="compression_rate">
             <strategy mode="FINAL"/>$datasources.$(name)_compressionrate</field>
-          <field type="NX_BOOLEAN" name="compressor_enabled">
-            <strategy mode="FINAL"/>$datasources.$(name)_compressionenabled</field>
           <field type="NX_CHAR" name="layout">
             <strategy mode="FINAL"/>$datasources.$(name)_layout</field>
           <field units="ms" type="NX_FLOAT64" name="shutter_time_max">
