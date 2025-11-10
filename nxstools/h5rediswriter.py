@@ -34,7 +34,6 @@ from .nxsfileparser import (getdsname, getdssource,
                             # getdstype
                             )
 
-
 H5CPP = False
 try:
     from . import h5cppwriter as h5writer
@@ -406,6 +405,12 @@ class H5RedisFile(H5File):
     """ file tree file
     """
 
+    #: (:obj:`dict`) global data stores
+    global_data_stores = {}
+
+    #: (:class:`threading.Lock`) global data store lock
+    global_data_store_lock = threading.Lock()
+
     def __init__(self, h5object=None, filename=None, h5imp=None,
                  redisurl=None, session=None, h5fileplugin=None):
         """ constructor
@@ -444,8 +449,13 @@ class H5RedisFile(H5File):
         self.__entryname = ''
         self.__insname = ''
         if REDIS and self.__redisurl:
-            # print("FILENAME", self.name)
-            self.__datastore = getDataStore(self.__redisurl)
+            with self.global_data_store_lock:
+                # print("FILENAME", self.name)
+                if self.__redisurl in self.global_data_stores:
+                    self.__datastore = self.global_data_stores[self.__redisurl]
+                else:
+                    self.__datastore = getDataStore(self.__redisurl)
+                    self.global_data_stores[self.__redisurl] = self.__datastore
             # global FileStream
             # if h5fileplugin:
             #     try:
