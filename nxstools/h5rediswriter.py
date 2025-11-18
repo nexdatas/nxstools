@@ -129,6 +129,10 @@ progattrdesc = {
     "beamtime_id": ["beamtime_id", str, False],
 }
 
+titleplots = {
+    "mesh": {"kind": "scatter-plot", "items": [{"kind":"scatter"}]},
+}
+
 
 def nptype(dtype):
     """ converts to numpy types
@@ -1706,10 +1710,15 @@ class H5RedisField(H5Field):
                             np = str(filewriter.first(attrs[vl[0]].read()))
                         if vl[2] or np:
                             self.set_scaninfo(np, [key])
+                            if isinstance(np, str):
+                                macro_name = np.split(" ")[0]
+                            for mn, plot in titleplots.items():
+                                if mn in macro_name:
+                                    self.append_scaninfo(plot, ["plots"])
+
                     except Exception as e:
                         print(str(e))
                         pass
-
     def __set_channel_info(self, o):
         """ set channel value
 
