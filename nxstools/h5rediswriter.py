@@ -130,7 +130,7 @@ progattrdesc = {
 }
 
 titleplots = {
-    "mesh": {"kind": "scatter-plot", "items": [{"kind":"scatter"}]},
+    "mesh": {"kind": "scatter-plot", "items": [{"kind": "scatter"}]},
 }
 
 
@@ -1719,6 +1719,7 @@ class H5RedisField(H5Field):
                     except Exception as e:
                         print(str(e))
                         pass
+
     def __set_channel_info(self, o):
         """ set channel value
 
