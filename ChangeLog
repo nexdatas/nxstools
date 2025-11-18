@@ -1,3 +1,7 @@
+2025-11-18 Jan Kotanski <jankotan@gmail.com>
+	* add scatter plots to h5rediswriter (#835)
+	* tagged as v4.33.0
+
 2025-11-10 Jan Kotanski <jankotan@gmail.com>
 	* avoid to recreate redis data store because of memory leak (#832)
 	* tagged as v4.32.0
