@@ -34,7 +34,6 @@ from .nxsfileparser import (getdsname, getdssource,
                             # getdstype
                             )
 
-
 H5CPP = False
 try:
     from . import h5cppwriter as h5writer
@@ -128,6 +127,10 @@ progattrdesc = {
         "measurement_group_channels", splitstr, True],
     "title": ["scan_command", str, False],
     "beamtime_id": ["beamtime_id", str, False],
+}
+
+titleplots = {
+    "mesh": {"kind": "scatter-plot", "items": [{"kind": "scatter"}]},
 }
 
 
@@ -406,6 +409,12 @@ class H5RedisFile(H5File):
     """ file tree file
     """
 
+    #: (:obj:`dict`) global data stores
+    global_data_stores = {}
+
+    #: (:class:`threading.Lock`) global data store lock
+    global_data_store_lock = threading.Lock()
+
     def __init__(self, h5object=None, filename=None, h5imp=None,
                  redisurl=None, session=None, h5fileplugin=None):
         """ constructor
@@ -444,8 +453,13 @@ class H5RedisFile(H5File):
         self.__entryname = ''
         self.__insname = ''
         if REDIS and self.__redisurl:
-            # print("FILENAME", self.name)
-            self.__datastore = getDataStore(self.__redisurl)
+            with self.global_data_store_lock:
+                # print("FILENAME", self.name)
+                if self.__redisurl in self.global_data_stores:
+                    self.__datastore = self.global_data_stores[self.__redisurl]
+                else:
+                    self.__datastore = getDataStore(self.__redisurl)
+                    self.global_data_stores[self.__redisurl] = self.__datastore
             # global FileStream
             # if h5fileplugin:
             #     try:
@@ -1531,118 +1545,125 @@ class H5RedisField(H5Field):
                     filewriter.first(attrs[vl[0]].read()))
         sds["nexus_path"] = self.path
         self.append_scaninfo(sds, ["datadesc", dsname])
-        if self.dtype not in ['string', b'string']:
-            mgchannels = self.get_scaninfo(
-                ["measurement_group_channels"])
-            device_type = "other_channels"
-            if shape and len(shape) == 1:
-                device_type = "mca"
-            elif shape and len(shape) == 2:
-                device_type = "image"
-            # if "timestamp" in dsname or \
-            #    dsname.endswith("_time"):
-            if "timestamp" in dsname:
-                device_type = "time"
-            elif dsname in mgchannels:
+        try:
+            if self.dtype not in ['string', b'string']:
+                mgchannels = self.get_scaninfo(
+                    ["measurement_group_channels"])
+                device_type = "other_channels"
                 if shape and len(shape) == 1:
                     device_type = "mca"
                 elif shape and len(shape) == 2:
                     device_type = "image"
-                else:
-                    device_type = "mg_channels"
+                # if "timestamp" in dsname or \
+                #    dsname.endswith("_time"):
+                if "timestamp" in dsname:
+                    device_type = "time"
+                elif dsname in mgchannels:
+                    if shape and len(shape) == 1:
+                        device_type = "mca"
+                    elif shape and len(shape) == 2:
+                        device_type = "image"
+                    else:
+                        device_type = "mg_channels"
 
-            self.append_devices(
-                dsname, [device_type, 'channels'])
-            if units:
-                ch = ChannelDict(
-                    device=device_type, dim=len(shape),
-                    display_name=dsname, unit=units)
+                self.append_devices(
+                    dsname, [device_type, 'channels'])
+                if units:
+                    ch = ChannelDict(
+                        device=device_type, dim=len(shape),
+                        display_name=dsname, unit=units)
+                else:
+                    ch = ChannelDict(
+                        device=device_type, dim=len(shape),
+                        display_name=dsname)
+                self.set_channels(ch, [dsname])
+                if len(shape) < 2:
+                    encoder = NumericStreamEncoder(
+                        dtype=sds["dtype"],
+                        shape=shape)
+                    if Stream is not None:
+                        sdef = Stream.make_definition(dsname,
+                                                      encoder,
+                                                      shape=shape,
+                                                      info={"unit": units})
+                        self.__stream = self.scan_command(
+                            "create_stream", sdef)
+                    else:
+                        self.__stream = self.scan_command(
+                            "create_stream",
+                            dsname,
+                            encoder,
+                            info={"unit": units})
+                    self.append_stream(dsname, self.__stream)
+                    if not shape:
+                        # plot_type = 1
+                        # plot_axes = []
+                        # axes = []
+                        # self.append_scaninfo(
+                        #     {"kind": "curve-plot",
+                        #      "name": dsname,
+                        #      "items": axes}, ["plots"])
+                        pass
+                    else:
+                        # self.append_scaninfo(
+                        #     {"kind": "1d-plot",
+                        #      # "name": "mg_channels",
+                        #      "name": dsname,
+                        #      "x": "index",
+                        #      "items": [
+                        #          {
+                        #              # "kind": "curve",
+                        #              "y": [dsname]
+                        #          }
+                        #      ]},
+                        #     ["plots"])
+                        pass
+                elif Stream is not None and FileStream is not None:
+                    filename = None
+                    obj = self
+                    while filename is None:
+                        par = obj.parent
+                        if par is None:
+                            break
+                        # print("PAR", par.name)
+                        if hasattr(par, "root") and hasattr(par, "name"):
+                            filename = par.name
+                            break
+                        else:
+                            obj = par
+
+                        # print("FILENAME", filename)
+                    sdef = FileStream.make_definition(
+                        name=dsname,
+                        dtype=sds["dtype"],
+                        shape=shape,
+                        file_pattern=str(filename),
+                        frames_per_file=0,
+                        data_path=self.path,
+                        # data_path="/scan/data/%s" % dsname ,
+                        info={"unit": units},
+                        file_index_offset=1,
+                        file_mode="single")
+                    self.__rstream = self.scan_command(
+                        "create_stream", sdef)
+                    self.__rcounter = 0
+                self.append_stream(dsname, self.__rstream)
             else:
-                ch = ChannelDict(
-                    device=device_type, dim=len(shape),
-                    display_name=dsname)
-            self.set_channels(ch, [dsname])
-            if len(shape) < 2:
-                encoder = NumericStreamEncoder(
-                    dtype=sds["dtype"],
-                    shape=shape)
                 if Stream is not None:
-                    sdef = Stream.make_definition(dsname,
-                                                  encoder,
-                                                  shape=shape,
-                                                  info={"unit": units})
-                    self.__stream = self.scan_command(
+                    sdef = Stream.make_definition(
+                        dsname, JsonStreamEncoder())
+                    self.__jstream = self.scan_command(
                         "create_stream", sdef)
                 else:
-                    self.__stream = self.scan_command(
+                    self.__jstream = self.scan_command(
                         "create_stream",
-                        dsname,
-                        encoder,
-                        info={"unit": units})
-                if not shape:
-                    # plot_type = 1
-                    # plot_axes = []
-                    # axes = []
-                    # self.append_scaninfo(
-                    #     {"kind": "curve-plot",
-                    #      "name": dsname,
-                    #      "items": axes}, ["plots"])
-                    pass
-                else:
-                    # self.append_scaninfo(
-                    #     {"kind": "1d-plot",
-                    #      # "name": "mg_channels",
-                    #      "name": dsname,
-                    #      "x": "index",
-                    #      "items": [
-                    #          {
-                    #              # "kind": "curve",
-                    #              "y": [dsname]
-                    #          }
-                    #      ]},
-                    #     ["plots"])
-                    pass
-            elif Stream is not None and FileStream is not None:
-                filename = None
-                obj = self
-                while filename is None:
-                    par = obj.parent
-                    if par is None:
-                        break
-                    # print("PAR", par.name)
-                    if hasattr(par, "root") and hasattr(par, "name"):
-                        filename = par.name
-                        break
-                    else:
-                        obj = par
-
-                    # print("FILENAME", filename)
-                sdef = FileStream.make_definition(
-                    name=dsname,
-                    dtype=sds["dtype"],
-                    shape=shape,
-                    file_pattern=str(filename),
-                    frames_per_file=0,
-                    data_path=self.path,
-                    # data_path="/scan/data/%s" % dsname ,
-                    info={"unit": units},
-                    file_index_offset=1,
-                    file_mode="single")
-                self.__rstream = self.scan_command(
-                    "create_stream", sdef)
-                self.__rcounter = 0
-            self.append_stream(dsname, self.__rstream)
-        else:
-            if Stream is not None:
-                sdef = Stream.make_definition(
-                    dsname, JsonStreamEncoder())
-                self.__jstream = self.scan_command(
-                    "create_stream", sdef)
+                        dsname, JsonStreamEncoder())
+                self.append_stream(dsname, self.__jstream)
+        except RuntimeError as e:
+            if "already exists" in str(e):
+                print(str(e))
             else:
-                self.__jstream = self.scan_command(
-                    "create_stream",
-                    dsname, JsonStreamEncoder())
-            self.append_stream(dsname, self.__jstream)
+                raise
 
     def __set_init_channel_info(self, dsname, units, shape, strategy, o):
         """ set init channel info
@@ -1689,6 +1710,12 @@ class H5RedisField(H5Field):
                             np = str(filewriter.first(attrs[vl[0]].read()))
                         if vl[2] or np:
                             self.set_scaninfo(np, [key])
+                            if isinstance(np, str):
+                                macro_name = np.split(" ")[0]
+                            for mn, plot in titleplots.items():
+                                if mn in macro_name:
+                                    self.append_scaninfo(plot, ["plots"])
+
                     except Exception as e:
                         print(str(e))
                         pass

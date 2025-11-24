@@ -1213,9 +1213,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                 ],
                 [
                     ['mylmbd'],
-                    ['mylmbd_compressionenabled',
-                     'mylmbd_compressionrate',
-                     'mylmbd_compressorshuffle',
+                    ['mylmbd_compressionrate',
                      'mylmbd_configfilepath',
                      'mylmbd_delaytime',
                      'mylmbd_depth',
@@ -1337,18 +1335,10 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '          <field type="NX_CHAR" name="save_file_name">\n'
                      '            <strategy mode="FINAL"/>'
                      '$datasources.mylmbd_savefilename</field>\n'
-                     '          <field type="NX_BOOLEAN" '
-                     'name="compressor_shuffle">\n'
-                     '            <strategy mode="FINAL"/>'
-                     '$datasources.mylmbd_compressorshuffle</field>\n'
                      '          <field type="NX_UINT16" '
-                     'name="compressor_rate">\n'
+                     'name="compression_rate">\n'
                      '            <strategy mode="FINAL"/>'
                      '$datasources.mylmbd_compressionrate</field>\n'
-                     '          <field type="NX_BOOLEAN" '
-                     'name="compressor_enabled">\n'
-                     '            <strategy mode="FINAL"/>'
-                     '$datasources.mylmbd_compressionenabled</field>\n'
                      '          <field type="NX_CHAR" name="layout">\n'
                      '            <strategy mode="FINAL"/>'
                      '$datasources.mylmbd_layout</field>\n'
@@ -1376,36 +1366,12 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '</definition>\n'],
                     ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
                      '<definition>\n'
-                     '  <datasource type="TANGO" '
-                     'name="mylmbd_compressionenabled"'
-                     '>\n'
-                     '    <device name="p09/lambda/exp.01"'
-                     ' member="attribute" hostname="haso000" '
-                     'port="10000" group="mylmbd_"/>\n'
-                     '    <record name="CompressionEnabled"/>\n'
-                     '  </datasource>\n'
-                     '</definition>\n'
-                     '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
-                     '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_compressionrate"'
                      '>\n'
                      '    <device name="p09/lambda/exp.01"'
                      ' member="attribute" hostname="haso000" '
                      'port="10000" group="mylmbd_"/>\n'
                      '    <record name="CompressionRate"/>\n'
-                     '  </datasource>\n'
-                     '</definition>\n'
-                     '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
-                     '<definition>\n'
-                     '  <datasource type="TANGO"'
-                     ' name="mylmbd_compressorshuffle"'
-                     '>\n'
-                     '    <device name="p09/lambda/exp.01"'
-                     ' member="attribute" hostname="haso000" '
-                     'port="10000" group="mylmbd_"/>\n'
-                     '    <record name="CompressorShuffle"/>\n'
                      '  </datasource>\n'
                      '</definition>\n'
                      '',

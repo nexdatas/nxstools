@@ -1,3 +1,32 @@
+2025-11-18 Jan Kotanski <jankotan@gmail.com>
+	* add scatter plots to h5rediswriter (#835)
+	* tagged as v4.33.0
+
+2025-11-10 Jan Kotanski <jankotan@gmail.com>
+	* avoid to recreate redis data store because of memory leak (#832)
+	* tagged as v4.32.0
+
+2025-11-07 Jan Kotanski <jankotan@gmail.com>
+	* skip stream creation for already existing streams (#828)
+	* remove compression_enabled and compression_shuffle (#831)
+	* tagged as v4.31.4
+
+2025-11-05 Jan Kotanski <jankotan@gmail.com>
+	* change NXsample/sample_identifier to  NXsample/identifier field (#822)
+	* tagged as v4.31.3
+
+2025-11-04 Jan Kotanski <jankotan@gmail.com>
+	* change sample_identifier to  nexus field (#822)
+	* tagged as v4.31.2
+
+2025-11-04 Jan Kotanski <jankotan@gmail.com>
+	* fix typo in defaultsampleidentifier component (#822)
+	* tagged as v4.31.1
+
+2025-11-04 Jan Kotanski <jankotan@gmail.com>
+	* add defaultsampleidentifier component (#822)
+	* tagged as v4.31.0
+
 2025-10-29 Jan Kotanski <jankotan@gmail.com>
 	* add defaultcollection component (#819)
 	* tagged as v4.30.0
