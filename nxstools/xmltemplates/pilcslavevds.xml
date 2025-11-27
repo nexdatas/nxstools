@@ -1,0 +1,115 @@
+<?xml version='1.0'?>
+<definition>
+  <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
+    <group type="NXinstrument" name="$(__insname__)">
+      <group type="NXcollection" name="$(name)">
+	<group type="NXcollection" name="collection">
+          <field type="NX_INT32" name="nb_triggers">
+            <strategy mode="FINAL"/>$datasources.$(name)_nbtriggers</field>
+          <field type="NX_INT32" name="manual_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_manualmode</field>
+          <field type="NX_CHAR" name="file_prefix">
+            <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field> 
+          <field type="NX_CHAR" name="file_dir">
+            <strategy mode="FINAL"/>$datasources.$(name)_filedir</field> 
+          <field type="NX_INT32" name="remaining_triggers">
+            <strategy mode="FINAL"/>$datasources.$(name)_remainingtriggers</field>
+          <field type="NX_INT32" name="buffer_load">
+            <strategy mode="FINAL"/>$datasources.$(name)_bufferload</field>
+          <field type="NX_INT32" name="pilc_tg_connected">
+            <strategy mode="FINAL"/>$datasources.$(name)_pilctgconnected</field>
+          <field type="NX_FLOAT64" name="mask_data_to_write">
+            <strategy mode="FINAL"/>$datasources.$(name)_maskdatatowrite</field>
+          <field type="NX_CHAR" name="metadata_1">
+            <strategy mode="FINAL"/>$datasources.$(name)_metadata1</field> 
+          <field type="NX_CHAR" name="metadata_2">
+            <strategy mode="FINAL"/>$datasources.$(name)_metadata2</field> 
+          <field type="NX_CHAR" name="metadata_3">
+            <strategy mode="FINAL"/>$datasources.$(name)_metadata3</field> 
+          <field type="NX_CHAR" name="metadata_4">
+            <strategy mode="FINAL"/>$datasources.$(name)_metadata4</field> 
+          <field type="NX_CHAR" name="metadata_5">
+            <strategy mode="FINAL"/>$datasources.$(name)_metadat_5</field> 
+          <field type="NX_INT32" name="triggers_per_file">
+            <strategy mode="FINAL"/>$datasources.$(name)_triggersperfile</field>
+          <field type="NX_INT32" name="gate_control">
+            <strategy mode="FINAL"/>$datasources.$(name)_gatecontrol</field>
+          <field type="NX_FLOAT64" name="gate_exp_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_gateexptime</field>
+          <field type="NX_INT32" name="vfc_conversion_1">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversion1</field>
+          <field type="NX_INT32" name="vfc_conversion_2">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversion2</field>
+          <field type="NX_INT32" name="vfc_conversion_3">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversion3</field>
+          <field type="NX_INT32" name="vfc_conversion_4">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversion4</field>
+          <field type="NX_INT32" name="vfc_conversion_5">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversion5</field>
+          <field type="NX_INT32" name="vfc_conversion_hz_v_1">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversionhzv1</field>
+          <field type="NX_INT32" name="vfc_conversion_hz_v_2">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversionhzv2</field>
+          <field type="NX_INT32" name="vfc_conversion_hz_v_3">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversionhzv3</field>
+          <field type="NX_INT32" name="vfc_conversion_hz_v_4">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversionhzv4</field>
+          <field type="NX_INT32" name="vfc_conversion_hz_v_5">
+            <strategy mode="FINAL"/>$datasources.$(name)_vfcconversionhzv5</field>
+	</group>
+        <group type="NXdata" name="data">	  
+	  <vds name="exposure_time" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_exposuretimemap
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="value_1" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_value1map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="value_2" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_value2map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="value_3" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_value3map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="value_4" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_value4map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+	  <vds name="value_5" type="NX_FLOAT32">
+	    <dimensions rank="2" />
+	    <map>
+	      $datasources.$(name)_value5map
+	      <strategy mode="STEP"/>
+	    </map>
+	  </vds>
+        </group>
+      </group>
+    </group>
+    <group type="NXdata" name="data">
+      <link name="$(name)_exposure_time" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/exposure_time" />
+      <link name="$(name)_value_1" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/value_1" />
+      <link name="$(name)_value_2" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/value_2" />
+      <link name="$(name)_value_3" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/value_3" />
+      <link name="$(name)_value_4" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/value_4" />
+      <link name="$(name)_value_5" target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data/value_5" />
+    </group>
+  </group>
+</definition>
