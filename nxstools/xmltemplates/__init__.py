@@ -1778,16 +1778,14 @@ moduleTemplateFiles = {
                 'pilcvds_encoder2map.ds.xml',
                 'pilcvds_encoder3map.ds.xml',
                 'pilcvds_encoder4map.ds.xml',
-                'pilcvds_encoder5map.ds.xml'
-                ],
+                'pilcvds_encoder5map.ds.xml'],
     'pilcslavevds': ['pilcslavevds.xml',
                      'pilcslavevds_exposuretimemap.ds.xml',
                      'pilcslavevds_value1map.ds.xml',
                      'pilcslavevds_value2map.ds.xml',
                      'pilcslavevds_value3map.ds.xml',
                      'pilcslavevds_value4map.ds.xml',
-                     'pilcslavevds_value5map.ds.xml',
-                ],
+                     'pilcslavevds_value5map.ds.xml'],
     'pilcvds4': ['pilcvds4.xml',
                  'pilcvds_countermap.ds.xml',
                  'pilcvds_encoder1map.ds.xml',
@@ -2139,7 +2137,7 @@ moduleMultiAttributes = {
         'VFCConversion4', 'VFCConversion5',
         'VFCConversionHzV1', 'VFCConversionHzV2', 'VFCConversionHzV3',
         'VFCConversionHzV4', 'VFCConversionHzV5',
-        #'ADC1Data', 'ADC2Data', 'ADC3Data', 'ADC4Data', 'ADC5Data'
+        # 'ADC1Data', 'ADC2Data', 'ADC3Data', 'ADC4Data', 'ADC5Data'
     ],
     'pilcvds': [
         'PositionTriggerStart', 'PositionTriggerStepSize',
