@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_value5map">
+    <result name="result">
+from nxstools.pyeval import pilcvds
+ds.result = pilcvds.vmap(commonblock, "$(name)", "value_5", None, ds.$(name)_nbtriggers, ds.$(name)_triggersperfile, "$(hostname)", "$(device)", "$var.filename", "$var.entryname#'$(__entryname__)'$var.serialno", "$(__insname__)", ds.$(name)_fileprefix, ds.$(name)_filedir)
+    </result>
+    $datasources.$(name)_nbtriggers
+    $datasources.$(name)_triggersperfile
+    $datasources.$(name)_fileprefix
+    $datasources.$(name)_filedir
+  </datasource>
+</definition>

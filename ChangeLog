@@ -1,3 +1,7 @@
+2025-11-27 Jan Kotanski <jankotan@gmail.com>
+	* pilcslavevds component (#839)
+	* tagged as v4.34.0
+
 2025-11-18 Jan Kotanski <jankotan@gmail.com>
 	* add scatter plots to h5rediswriter (#835)
 	* tagged as v4.33.0
