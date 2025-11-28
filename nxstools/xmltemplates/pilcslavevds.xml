@@ -29,7 +29,7 @@
           <field type="NX_CHAR" name="metadata_4">
             <strategy mode="FINAL"/>$datasources.$(name)_metadata4</field> 
           <field type="NX_CHAR" name="metadata_5">
-            <strategy mode="FINAL"/>$datasources.$(name)_metadat_5</field> 
+            <strategy mode="FINAL"/>$datasources.$(name)_metadata_5</field> 
           <field type="NX_INT32" name="triggers_per_file">
             <strategy mode="FINAL"/>$datasources.$(name)_triggersperfile</field>
           <field type="NX_INT32" name="gate_control">
