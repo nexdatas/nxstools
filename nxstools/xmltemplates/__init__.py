@@ -1766,6 +1766,7 @@ standardComponentTemplateFiles = {
 #:     xml template files of modules
 moduleTemplateFiles = {
     'mythen2': ['mythen2.xml'],
+    'prodigyremote': ['prodigyremote.xml'],
     'cobold': ['cobold.xml'],
     'mythen': ['mythen.xml',
                'mythen_postrun.ds.xml',
@@ -1986,6 +1987,17 @@ moduleMultiAttributes = {
     ],
     'mca_xia@pool': [
         'CountsRoI', 'RoIEnd', 'RoIStart',
+    ],
+    'prodigyremote': [
+        'FullSpectrum', 'IntegratedSpectrum', 'EnergyPoints',
+        'LensMode', 'EntrySlit',
+        'StartEnergy', 'PassEnergy', 'StepWidth', 'StopEnergy',
+        # 'ExitSlit',
+        'KinEnergy', 'KinEnergyBase',
+        'NumberOfAcquiredPoints', 'ExpectedNumberOfPoints',
+        'DwellTime', 'ScanRange',
+        'Samples', 'RetardingRatio', 'Mode',
+        'NonEnergyChannels', 'ScanVariable',
     ],
     'limaccd': [
         'camera_type', 'camera_pixelsize', 'camera_model',
