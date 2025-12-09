@@ -1,0 +1,75 @@
+<?xml version='1.0'?>
+<definition>
+  <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
+    <group type="NXinstrument" name="instrument">
+      <group type="NXelectronanalyzer" name="$(name)">
+	<group type="NXelectron_detector" name="electron_detector">
+	  <group type="NXdata" name="raw_data" signal="raw">
+            <field type="NX_FLOAT64" name="raw">
+              <strategy mode="STEP"/>$datasources.$(name)_integratedspectrum<dimensions rank="1"/>
+            </field>
+            <field units="eV" type="NX_FLOAT64" name="energy">
+              <strategy mode="STEP"/>$datasources.$(name)_energypoints<dimensions rank="1"/>
+            </field>
+	  </group>
+          <field units="eV" type="NX_FLOAT64" name="data">
+            <strategy mode="STEP"/>$datasources.$(name)_fullspectrum<dimensions rank="2"/>
+          </field>
+  	</group>
+        <group type="NXcollectioncolumn" name="collectioncolumn">
+          <field type="NX_CHAR" name="lens_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_lensmode</field>
+	</group>
+	<group type="NXenergydispersion" name="energydispersion">
+	  <group type="NXaperture" name="entrance_slit">
+          <field type="NX_CHAR" name="description">
+            <strategy mode="FINAL"/>$datasources.$(name)_entryslit</field>
+	  </group>
+          <field units="eV" type="NX_FLOAT64" name="pass_energy">
+            <strategy mode="FINAL"/>$datasources.$(name)_passenergy</field>
+        </group>
+	<group type="NXresolution" name="energy_resolution">
+          <field units="eV" type="NX_CHAR" name="physical_quantity">
+          <strategy mode="FINAL"/>energy</field>
+          <field units="eV" type="NX_FLOAT64" name="resolution">
+          <strategy mode="FINAL"/>$datasources.$(name)_stepwidth</field>
+          <group type="NXcollection" name="collection">
+            <field units="eV" type="NX_FLOAT64" name="start_energy">
+            <strategy mode="FINAL"/>$datasources.$(name)_startenergy</field>
+            <field units="eV" type="NX_FLOAT64" name="stop_energy">
+            <strategy mode="FINAL"/>$datasources.$(name)_stopenergy</field>
+            <field units="eV" type="NX_FLOAT64" name="kin_energy">
+            <strategy mode="FINAL"/>$datasources.$(name)_kinenergy</field>
+            <field units="eV" type="NX_FLOAT64" name="kin_energybase">
+            <strategy mode="FINAL"/>$datasources.$(name)_kinenergybase</field>
+	  </group>
+	</group>
+        <group type="NXcollection" name="collection">
+          <field units="s" type="NX_FLOAT64" name="dwell_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_dwelltime</field>
+          <field type="NX_INT64" name="number_of_acquired_points">
+            <strategy mode="FINAL"/>$datasources.$(name)_numberofacquiredpoints</field>
+          <field type="NX_INT64" name="expected_of_acquired_points">
+            <strategy mode="FINAL"/>$datasources.$(name)_expectedofacquiredpoints</field>
+          <field type="NX_INT64" name="samples">
+            <strategy mode="FINAL"/>$datasources.$(name)_samples</field>
+          <field type="NX_FLOAT64" name="retarding_ratio">
+            <strategy mode="FINAL"/>$datasources.$(name)_retardingratio</field>
+          <field type="NX_CHAR" name="scan_range">
+            <strategy mode="FINAL"/>$datasources.$(name)_scanrange</field>
+          <field type="NX_INT64" name="mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_mode</field>
+          <field type="NX_INT64" name="non_energy_channels">
+            <strategy mode="FINAL"/>$datasources.$(name)_nonenergychannels</field>
+          <field type="NX_CHAR" name="scan_variable">
+            <strategy mode="FINAL"/>$datasources.$(name)_scanvariable</field>
+        </group>
+      </group>
+    </group>
+    <group type="NXdata" name="data">
+      <link target="/scan$var.serialno/instrument/$(name)/electron_detector/raw/raw_data" name="$(name)_integratedspectrum"/>
+      <link target="/scan$var.serialno/instrument/$(name)/electron_detector/raw/energy" name="$(name)_energy"/>
+      <link target="/scan$var.serialno/instrument/$(name)/electron_detector/data" name="$(name)_fullspectrum"/>
+    </group>
+  </group>
+</definition>
