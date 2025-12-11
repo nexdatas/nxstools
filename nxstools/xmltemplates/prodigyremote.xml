@@ -4,7 +4,10 @@
     <group type="NXinstrument" name="instrument">
       <group type="NXelectronanalyzer" name="$(name)">
 	<group type="NXelectron_detector" name="electron_detector">
-	  <group type="NXdata" name="raw_data" signal="raw">
+	  <group type="NXdata" name="raw_data">
+            <attribute type="NX_CHAR" name="signal">
+              <strategy mode="INIT"/>raw
+            </attribute>
             <field type="NX_FLOAT64" name="raw">
               <strategy mode="STEP"/>$datasources.$(name)_integratedspectrum<dimensions rank="1"/>
             </field>
@@ -49,8 +52,8 @@
             <strategy mode="FINAL"/>$datasources.$(name)_dwelltime</field>
           <field type="NX_INT64" name="number_of_acquired_points">
             <strategy mode="FINAL"/>$datasources.$(name)_numberofacquiredpoints</field>
-          <field type="NX_INT64" name="expected_of_acquired_points">
-            <strategy mode="FINAL"/>$datasources.$(name)_expectedofacquiredpoints</field>
+          <field type="NX_INT64" name="expected_number_of_points">
+            <strategy mode="FINAL"/>$datasources.$(name)_expectednumberofpoints</field>
           <field type="NX_INT64" name="samples">
             <strategy mode="FINAL"/>$datasources.$(name)_samples</field>
           <field type="NX_FLOAT64" name="retarding_ratio">
@@ -67,8 +70,8 @@
       </group>
     </group>
     <group type="NXdata" name="data">
-      <link target="/scan$var.serialno/instrument/$(name)/electron_detector/raw/raw_data" name="$(name)_integratedspectrum"/>
-      <link target="/scan$var.serialno/instrument/$(name)/electron_detector/raw/energy" name="$(name)_energy"/>
+      <link target="/scan$var.serialno/instrument/$(name)/electron_detector/raw_data/raw" name="$(name)_integratedspectrum"/>
+      <link target="/scan$var.serialno/instrument/$(name)/electron_detector/raw_data/energy" name="$(name)_energy"/>
       <link target="/scan$var.serialno/instrument/$(name)/electron_detector/data" name="$(name)_fullspectrum"/>
     </group>
   </group>
