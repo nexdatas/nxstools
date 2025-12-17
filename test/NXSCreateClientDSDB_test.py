@@ -79,12 +79,12 @@ class NXSCreateClientDSDBTest(
 
         found = False
         cnt = 0
-        while not found and cnt < 100:
+        while not found and cnt < 20:
             try:
                 sys.stdout.write(".")
                 xmlc = tango.DeviceProxy(
                     self._sv.new_device_info_writer.name)
-                time.sleep(0.1)
+                time.sleep(0.5)
                 if xmlc.state() == tango.DevState.ON:
                     found = True
                 found = True
