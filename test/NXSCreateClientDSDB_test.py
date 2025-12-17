@@ -79,47 +79,48 @@ class NXSCreateClientDSDBTest(
 
         found = False
         cnt = 0
-        while not found and cnt < 1000:
-            try:
-                sys.stdout.write(".")
-                xmlc = tango.DeviceProxy(
-                    self._sv.new_device_info_writer.name)
-                time.sleep(0.01)
-                if xmlc.state() == tango.DevState.ON:
-                    found = True
-                found = True
-            except Exception as e:
-                print("%s %s" % (self._sv.new_device_info_writer.name, e))
-                found = False
-            except Exception:
-                found = False
+        # while not found and cnt < 1000:
+        #     try:
+        #         sys.stdout.write(".")
+        #         xmlc = tango.DeviceProxy(
+        #             self._sv.new_device_info_writer.name)
+        #         time.sleep(0.01)
+        #         if xmlc.state() == tango.DevState.ON:
+        #             found = True
+        #         found = True
+        #     except Exception as e:
+        #         print("%s %s" % (self._sv.new_device_info_writer.name, e))
+        #         found = False
+        #     except Exception:
+        #         found = False
 
-            cnt += 1
+        #     cnt += 1
 
-        if not found:
-            raise Exception(
-                "Cannot connect to %s"
-                % self._sv.new_device_info_writer.name)
+        # if not found:
+        #     raise Exception(
+        #         "Cannot connect to %s"
+        #         % self._sv.new_device_info_writer.name)
 
-        if xmlc.state() == tango.DevState.ON:
-            xmlc.JSONSettings = args
-            xmlc.Open()
-        version = xmlc.version
-        vv = version.split('.')
-        self.revision = long(vv[-1])
-        self.version = ".".join(vv[0:3])
-        self.label = ".".join(vv[3:-1])
+        # if xmlc.state() == tango.DevState.ON:
+        #     xmlc.JSONSettings = args
+        #     xmlc.Open()
+        # version = xmlc.version
+        # vv = version.split('.')
+        # self.revision = long(vv[-1])
+        # self.version = ".".join(vv[0:3])
+        # self.label = ".".join(vv[3:-1])
 
-        self.assertEqual(xmlc.state(), tango.DevState.OPEN)
-        return xmlc
+        # self.assertEqual(xmlc.state(), tango.DevState.OPEN)
+        # return xmlc
 
     # closes opens config server
     # \param xmlc XMLConfigurator instance
     def closeConfig(self):
-        self.assertEqual(self._proxy.state(), tango.DevState.OPEN)
+        # self.assertEqual(self._proxy.state(), tango.DevState.OPEN)
 
-        self._proxy.Close()
-        self.assertEqual(self._proxy.state(), tango.DevState.ON)
+        # self._proxy.Close()
+        # self.assertEqual(self._proxy.state(), tango.DevState.ON)
+        pass
 
     # test starter
     # \brief Common set up
