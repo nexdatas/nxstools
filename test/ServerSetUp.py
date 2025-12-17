@@ -49,7 +49,7 @@ class ServerSetUp(object):
     # test starter
     # \brief Common set up of Tango Server
     def setUp(self):
-        print("setting up ...")
+        # print("setting up ...")
         db = tango.Database()
         db.add_device(self.new_device_info_writer)
         db.add_server(
@@ -68,34 +68,34 @@ class ServerSetUp(object):
                 "NXSConfigServer %s &" % self.__instance,
                 stdout=None,
                 stderr=None, shell=True)
-        sys.stdout.write("waiting for server.")
+        # sys.stdout.write("waiting for server.")
 
         found = False
         cnt = 0
         dvname = self.new_device_info_writer.name
-        while not found and cnt < 1000:
+        while not found and cnt < 10000:
             try:
-                sys.stdout.write(".")
-                sys.stdout.flush()
+                # sys.stdout.write(".")
+                # sys.stdout.flush()
                 exl = db.get_device_exported(dvname)
                 if dvname not in exl.value_string:
-                    time.sleep(0.01)
+                    time.sleep(0.001)
                     cnt += 1
                     continue
                 dp = tango.DeviceProxy(dvname)
-                time.sleep(0.01)
+                time.sleep(0.001)
                 if dp.state() == tango.DevState.ON:
                     found = True
                 found = True
             except Exception:
                 found = False
             cnt += 1
-        print("")
+        # print("")
 
     # test closer
     # \brief Common tear down oif Tango Server
     def tearDown(self):
-        print("tearing down ...")
+        # print("tearing down ...")
         db = tango.Database()
         db.delete_server(self.new_device_info_writer.server)
 
