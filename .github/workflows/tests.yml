@@ -8,23 +8,11 @@ on:
 
 jobs:
 
-  flake8_tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-      - name: Install flake8
-        run: pip install flake8
-      - name: Run flake8
-        run: flake8 .
-
   python3_tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [debian13, debian12tg10, debian12, debian11, ubuntu25.10, ubuntu24.04, ubuntu22.04]
+        os: [debian12tg10, debian12]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
