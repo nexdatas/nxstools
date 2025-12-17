@@ -84,7 +84,7 @@ class NXSCreateClientDSDBTest(
                 sys.stdout.write(".")
                 xmlc = tango.DeviceProxy(
                     self._sv.new_device_info_writer.name)
-                time.sleep(0.5)
+                time.sleep(2)
                 if xmlc.state() == tango.DevState.ON:
                     found = True
                 found = True
