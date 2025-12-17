@@ -73,23 +73,23 @@ class ServerSetUp(object):
         found = False
         cnt = 0
         dvname = self.new_device_info_writer.name
-        while not found and cnt < 10000:
-            try:
-                # sys.stdout.write(".")
-                # sys.stdout.flush()
-                exl = db.get_device_exported(dvname)
-                if dvname not in exl.value_string:
-                    time.sleep(0.001)
-                    cnt += 1
-                    continue
-                dp = tango.DeviceProxy(dvname)
-                time.sleep(0.001)
-                if dp.state() == tango.DevState.ON:
-                    found = True
-                found = True
-            except Exception:
-                found = False
-            cnt += 1
+        # while not found and cnt < 10000:
+        #     try:
+        #         # sys.stdout.write(".")
+        #         # sys.stdout.flush()
+        #         exl = db.get_device_exported(dvname)
+        #         if dvname not in exl.value_string:
+        #             time.sleep(0.001)
+        #             cnt += 1
+        #             continue
+        #         dp = tango.DeviceProxy(dvname)
+        #         time.sleep(0.001)
+        #         if dp.state() == tango.DevState.ON:
+        #             found = True
+        #         found = True
+        #     except Exception:
+        #         found = False
+        #     cnt += 1
         # print("")
 
     # test closer
