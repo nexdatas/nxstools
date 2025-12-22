@@ -1196,7 +1196,7 @@ class H5CppField(filewriter.FTField):
                 v = v[0, :, :]
                 shape = v.shape
             if len(shape) == 2 and shape[1] == 1:
-                # v.reshape([shape[0]])
+                # v.reshape([shape[0]]]
                 v = v[0, :]
                 shape = v.shape
             if len(shape) == 2 and shape[0] == 1:
@@ -1960,7 +1960,7 @@ class H5CppAttribute(filewriter.FTAttribute):
             except Exception:
                 dtype = npunicode
                 tvar = np.array(var, dtype=dtype)
-                self._h5object[0][self.name] = tvar
+                self.write(tvar)
 
         elif isinstance(t, tuple):
             var = self._h5object.read()
