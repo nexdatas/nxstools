@@ -2239,7 +2239,9 @@ class H5RedisAttribute(H5Attribute):
         :returns: python object
         :rtype: :obj:`any`
         """
-        vl = self.get_attr_value(self.name)
+        vl = None
+        if H5CPP:
+            vl = self.get_attr_value(self.name)
         if vl is None:
             vl = self._h5object.read()
             if self.dtype in ['string', b'string']:
@@ -2265,7 +2267,7 @@ class H5RedisAttribute(H5Attribute):
         """
         self._h5object.write(o)
         vl = o
-        if vl is not None:
+        if vl is not None and H5CPP:
             if self.dtype in ['string', b'string']:
                 try:
                     vl = vl.decode('UTF-8')
