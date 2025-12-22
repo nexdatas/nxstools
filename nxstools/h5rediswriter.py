@@ -2239,7 +2239,12 @@ class H5RedisAttribute(H5Attribute):
         """
         vl = self.get_attr_value(self.name)
         if vl is None:
-            vl = H5Field.read(self)
+            vl = self._h5object.read()
+            if self.dtype in ['string', b'string']:
+                try:
+                    vl = vl.decode('UTF-8')
+                except Exception:
+                    pass
             if vl is not None:
                 self.set_attr_value(self.name, vl)
         else:
@@ -2248,7 +2253,6 @@ class H5RedisAttribute(H5Attribute):
                     vl = vl.decode('UTF-8')
                 except Exception:
                     pass
-
         return vl
 
     def write(self, o):
@@ -2265,7 +2269,7 @@ class H5RedisAttribute(H5Attribute):
                 except Exception:
                     pass
             self.set_attr_value(self.name, vl)
-        H5Field.write(self, o)
+        self._h5object.write(o)
 
     def set_attr_value(self, name, value):
         """ set device parameters
