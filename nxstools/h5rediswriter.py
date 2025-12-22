@@ -1410,6 +1410,18 @@ class H5RedisField(H5Field):
             vl = self.__avcache.get(name, None)
         return vl
 
+    def get_attrs(self):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            vl = dict(self.__avcache)
+        return vl
+
     def append_stream(self, name, stream):
         """ scan object
 
@@ -1566,7 +1578,7 @@ class H5RedisField(H5Field):
             h5imp=super(H5RedisField, self).attributes)
 
     def __set_step_channel_info(self, dsname, units, shape, strategy="STEP",
-                                o=None):
+                                o=None, av=None):
         """ set step channel info
 
         :param dsname: datasource name
@@ -1580,6 +1592,7 @@ class H5RedisField(H5Field):
         :param o: object value to write
         :type o: :obj:`any`
         """
+        av = av or {}
         attrs = self.attributes
         sds = {
             "name": dsname,
@@ -1596,8 +1609,8 @@ class H5RedisField(H5Field):
         anames = [at.name for at in attrs]
         for key, vl in attrdesc.items():
             if vl[0] in anames:
-                sds[key] = vl[1](
-                    filewriter.first(attrs[vl[0]].read()))
+                avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
+                sds[key] = vl[1](filewriter.first(avl))
         sds["nexus_path"] = self.path
         self.append_scaninfo(sds, ["datadesc", dsname])
         try:
@@ -1720,7 +1733,7 @@ class H5RedisField(H5Field):
             else:
                 raise
 
-    def __set_init_channel_info(self, dsname, units, shape, strategy, o):
+    def __set_init_channel_info(self, dsname, units, shape, strategy, o, av):
         """ set init channel info
 
         :param dsname: datasource name
@@ -1746,8 +1759,8 @@ class H5RedisField(H5Field):
         anames = [at.name for at in attrs]
         for key, vl in attrdesc.items():
             if vl[0] in anames:
-                ids[key] = vl[1](
-                    filewriter.first(attrs[vl[0]].read()))
+                avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
+                ids[key] = vl[1](filewriter.first(avl))
         ids["nexus_path"] = self.path
         pars = (self.get_scaninfo(["snapshot"]) or {}).keys()
         dsn = dsname
@@ -1783,25 +1796,30 @@ class H5RedisField(H5Field):
         :type o: :obj:`any`
         """
         attrs = self.attributes
-        strategy = self.get_attr_value("nexdatas_strategy")
+        av = self.get_attrs()
+        strategy = av.get("nexdatas_strategy", None)
         if strategy is None:
             strategy = attrs["nexdatas_strategy"].read()
         strategy = filewriter.first(strategy)
         dsname = "%s_%s" % (self._tparent.name, self.name)
         dsnm = ""
-        if "nexdatas_source" in attrs.names():
-            dsnm = self.get_attr_value("nexdatas_source")
-            if dsnm is None:
-                dsnm = attrs["nexdatas_source"].read()
+        dsnm = av.get("nexdatas_source", None)
+        if dsnm is None and "nexdatas_source" in attrs.names():
+            #     dsnm = self.get_attr_value("nexdatas_source")
+            #     if dsnm is None:
+            dsnm = attrs["nexdatas_source"].read()
+        if dsnm is not None:
             dsnm = getdsname(filewriter.first(dsnm))
             dsname = dsnm
-        units = ""
-        if "units" in attrs.names():
-            units = self.get_attr_value("units")
-            if units is None:
+        units = av.get("units", None)
+        if units is None:
+            if "units" in attrs.names():
                 units = attrs["units"].read()
                 print("READ UNIT", units)
+        if units is not None:
             units = filewriter.first(units)
+        else:
+            units = ""
         self.__dsname = dsname
         shape = []
         if hasattr(o, "shape"):
@@ -1813,9 +1831,10 @@ class H5RedisField(H5Field):
         if strategy in ["STEP"] and dsnm:
             # skip 2D images
             if not shape or len(shape) < 2 or FileStream is not None:
-                self.__set_step_channel_info(dsname, units, shape, strategy, o)
+                self.__set_step_channel_info(
+                    dsname, units, shape, strategy, o, av)
         else:
-            self.__set_init_channel_info(dsname, units, shape, strategy, o)
+            self.__set_init_channel_info(dsname, units, shape, strategy, o, av)
 
     def __setitem__(self, t, o):
         """ set value
