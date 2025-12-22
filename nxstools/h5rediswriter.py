@@ -2238,7 +2238,7 @@ class H5RedisAttribute(H5Attribute):
         :rtype: :obj:`any`
         """
         vl = self.get_attr_value(self.name)
-        if vl is None
+        if vl is None:
             vl = H5Field.read(self)
             if vl is not None:
                 self.set_attr_value(self.name, vl)
