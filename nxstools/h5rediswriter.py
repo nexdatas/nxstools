@@ -2171,6 +2171,8 @@ class H5RedisAttributeManager(H5AttributeManager):
         :returns: attribute object
         :rtype: :class:`H5RedisAttribute`
         """
+        if overwrite:
+            self.set_attr_value(name, None)
         return H5RedisAttribute(
             h5imp=H5AttributeManager.create(
                 self, name, dtype, shape, overwrite))
@@ -2261,6 +2263,7 @@ class H5RedisAttribute(H5Attribute):
         :param o: python object
         :type o: :obj:`any`
         """
+        self._h5object.write(o)
         vl = o
         if vl is not None:
             if self.dtype in ['string', b'string']:
@@ -2269,7 +2272,6 @@ class H5RedisAttribute(H5Attribute):
                 except Exception:
                     pass
             self.set_attr_value(self.name, vl)
-        self._h5object.write(o)
 
     def set_attr_value(self, name, value):
         """ set device parameters

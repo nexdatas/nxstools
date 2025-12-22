@@ -1941,12 +1941,12 @@ class H5CppAttribute(filewriter.FTAttribute):
            (hasattr(o, "__len__") and t == slice(0, len(o), None)):
             if self.dtype in ['string', b'string']:
                 if isinstance(o, str):
-                    self._h5object.write(unicode(o))
+                    self.write(unicode(o))
                 else:
                     dtype = npunicode
-                    self._h5object.write(np.array(o, dtype=dtype))
+                    self.write(np.array(o, dtype=dtype))
             else:
-                self._h5object.write(np.array(o, dtype=self.dtype))
+                self.write(np.array(o, dtype=self.dtype))
         elif isinstance(t, slice):
             var = self._h5object.read()
             if self.dtype not in ['string', b'string']:
@@ -1956,7 +1956,7 @@ class H5CppAttribute(filewriter.FTAttribute):
                 var[t] = np.array(o, dtype=dtype)
                 var = var.astype(dtype)
             try:
-                self._h5object.write(var)
+                self.write(var)
             except Exception:
                 dtype = npunicode
                 tvar = np.array(var, dtype=dtype)
@@ -1980,12 +1980,12 @@ class H5CppAttribute(filewriter.FTAttribute):
                 else:
                     var[t] = np.array(o, dtype=self.dtype).tolist()
                 var = var.astype(dtype)
-            self._h5object.write(var)
+            self.write(var)
         else:
             if isinstance(o, str) or isinstance(o, unicode):
-                self._h5object.write(unicode(o))
+                self.write(unicode(o))
             else:
-                self._h5object.write(np.array(o, dtype=self.dtype))
+                self.write(np.array(o, dtype=self.dtype))
 
     def __getitem__(self, t):
         """ read attribute value
