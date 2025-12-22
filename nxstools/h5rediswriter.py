@@ -1010,6 +1010,31 @@ class H5RedisGroup(H5Group):
                 raise Exception("Undefined constructor parameters")
             H5Group.__init__(self, h5object, tparent)
         self.__nxclass = nxclass
+        self.__avcache_lock = threading.Lock()
+        self.__avcache = {}
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            self.__avcache[name] = value
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            vl = self.__avcache.get(name, None)
+        return vl
 
     def open(self, name):
         """ open a file tree element
@@ -1354,6 +1379,31 @@ class H5RedisField(H5Field):
         self.__jstream = None
         self.__rstream = None
         self.__rcounter = 0
+        self.__avcache_lock = threading.Lock()
+        self.__avcache = {}
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            self.__avcache[name] = value
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            vl = self.__avcache.get(name, None)
+        return vl
 
     def append_stream(self, name, stream):
         """ scan object
@@ -1799,6 +1849,31 @@ class H5RedisLink(H5Link):
             if h5object is None:
                 raise Exception("Undefined constructor parameters")
             H5Link.__init__(self, h5object, tparent)
+        self.__avcache_lock = threading.Lock()
+        self.__avcache = {}
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            self.__avcache[name] = value
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            vl = self.__avcache.get(name, None)
+        return vl
 
 
 class H5RedisDataFilter(H5DataFilter):
@@ -2111,6 +2186,28 @@ class H5RedisAttributeManager(H5AttributeManager):
         return H5RedisAttribute(
             h5imp=H5AttributeManager.__getitem__(self, name))
 
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        if hasattr(self._tparent, "set_attr_value"):
+            return self._tparent.set_attr_value(name, value)
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_attr_value"):
+            return self._tparent.get_attr_value(name)
+
 
 class H5RedisAttribute(H5Attribute):
 
@@ -2133,3 +2230,61 @@ class H5RedisAttribute(H5Attribute):
             if h5object is None:
                 raise Exception("Undefined constructor parameters")
             H5Attribute.__init__(self, h5object, tparent)
+
+    def read(self):
+        """ read attribute value
+
+        :returns: python object
+        :rtype: :obj:`any`
+        """
+        vl = self.get_attr_value(self.name)
+        if vl is None
+            vl = H5Field.read(self)
+            if vl is not None:
+                self.set_attr_value(self.name, vl)
+        else:
+            if self.dtype in ['string', b'string']:
+                try:
+                    vl = vl.decode('UTF-8')
+                except Exception:
+                    pass
+
+        return vl
+
+    def write(self, o):
+        """ write attribute value
+
+        :param o: python object
+        :type o: :obj:`any`
+        """
+        vl = o
+        if vl is not None:
+            if self.dtype in ['string', b'string']:
+                try:
+                    vl = vl.decode('UTF-8')
+                except Exception:
+                    pass
+            self.set_attr_value(self.name, vl)
+        H5Field.write(self, o)
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        if hasattr(self._tparent, "set_attr_value"):
+            return self._tparent.set_attr_value(name, value)
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_attr_value"):
+            return self._tparent.get_attr_value(name)
