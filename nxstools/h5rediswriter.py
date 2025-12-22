@@ -1033,6 +1033,7 @@ class H5RedisGroup(H5Group):
         :rtype value: :obj:`any`
         """
         with self.__avcache_lock:
+            # print(self.__avcache)
             vl = self.__avcache.get(name, None)
         return vl
 
@@ -1260,9 +1261,13 @@ class H5RedisGroup(H5Group):
             self.set_insname(n)
         if REDIS and nxclass in ["NXentry", u'NXentry']:
             self.reset_scaninfo(n)
-        return H5RedisGroup(
+        gr = H5RedisGroup(
             h5imp=H5Group.create_group(self, n, nxclass),
             nxclass=nxclass)
+
+        # print("CREATE", "NX_class", nxclass)
+        self.set_attr_value("NX_class", nxclass)
+        return gr
 
     def create_virtual_field(self, name, layout, fillvalue=0):
         """ creates a virtual filed tres element
@@ -1760,11 +1765,12 @@ class H5RedisField(H5Field):
                             np = str(filewriter.first(attrs[vl[0]].read()))
                         if vl[2] or np:
                             self.set_scaninfo(np, [key])
-                            if isinstance(np, str):
+                            # print(key, np)
+                            if key == "title" and isinstance(np, str):
                                 macro_name = np.split(" ")[0]
-                            for mn, plot in titleplots.items():
-                                if mn in macro_name:
-                                    self.append_scaninfo(plot, ["plots"])
+                                for mn, plot in titleplots.items():
+                                    if mn in macro_name:
+                                        self.append_scaninfo(plot, ["plots"])
 
                     except Exception as e:
                         print(str(e))
@@ -1776,18 +1782,26 @@ class H5RedisField(H5Field):
         :param o: object value to write
         :type o: :obj:`any`
         """
-
         attrs = self.attributes
-        strategy = filewriter.first(attrs["nexdatas_strategy"].read())
+        strategy = self.get_attr_value("nexdatas_strategy")
+        if strategy is None:
+            strategy = attrs["nexdatas_strategy"].read()
+        strategy = filewriter.first(strategy)
         dsname = "%s_%s" % (self._tparent.name, self.name)
         dsnm = ""
         if "nexdatas_source" in attrs.names():
-            dsnm = getdsname(
-                filewriter.first(attrs["nexdatas_source"].read()))
+            dsnm = self.get_attr_value("nexdatas_source")
+            if dsnm is None:
+                dsnm = attrs["nexdatas_source"].read()
+            dsnm = getdsname(filewriter.first(dsnm))
             dsname = dsnm
         units = ""
         if "units" in attrs.names():
-            units = filewriter.first(attrs["units"].read())
+            units = self.get_attr_value("units")
+            if units is None:
+                units = attrs["units"].read()
+                print("READ UNIT", units)
+            units = filewriter.first(units)
         self.__dsname = dsname
         shape = []
         if hasattr(o, "shape"):
@@ -2242,21 +2256,18 @@ class H5RedisAttribute(H5Attribute):
         vl = None
         if H5CPP:
             vl = self.get_attr_value(self.name)
+            # print("READ", self.name, vl)
         if vl is None:
+            # print("READ", self.name, vl)
             vl = self._h5object.read()
-            if self.dtype in ['string', b'string']:
-                try:
-                    vl = vl.decode('UTF-8')
-                except Exception:
-                    pass
+            # print("READ2", self.name, vl)
             if vl is not None:
                 self.set_attr_value(self.name, vl)
-        else:
-            if self.dtype in ['string', b'string']:
-                try:
-                    vl = vl.decode('UTF-8')
-                except Exception:
-                    pass
+        if self.dtype in ['string', b'string']:
+            try:
+                vl = vl.decode('UTF-8')
+            except Exception:
+                pass
         return vl
 
     def write(self, o):
@@ -2273,6 +2284,7 @@ class H5RedisAttribute(H5Attribute):
                     vl = vl.decode('UTF-8')
                 except Exception:
                     pass
+            # print("WRITE", self.name, vl)
             self.set_attr_value(self.name, vl)
 
     def set_attr_value(self, name, value):
