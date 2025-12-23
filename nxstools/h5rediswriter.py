@@ -1010,6 +1010,32 @@ class H5RedisGroup(H5Group):
                 raise Exception("Undefined constructor parameters")
             H5Group.__init__(self, h5object, tparent)
         self.__nxclass = nxclass
+        self.__avcache_lock = threading.Lock()
+        self.__avcache = {}
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            self.__avcache[name] = value
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            # print(self.__avcache)
+            vl = self.__avcache.get(name, None)
+        return vl
 
     def open(self, name):
         """ open a file tree element
@@ -1235,9 +1261,13 @@ class H5RedisGroup(H5Group):
             self.set_insname(n)
         if REDIS and nxclass in ["NXentry", u'NXentry']:
             self.reset_scaninfo(n)
-        return H5RedisGroup(
+        gr = H5RedisGroup(
             h5imp=H5Group.create_group(self, n, nxclass),
             nxclass=nxclass)
+
+        # print("CREATE", "NX_class", nxclass)
+        self.set_attr_value("NX_class", nxclass)
+        return gr
 
     def create_virtual_field(self, name, layout, fillvalue=0):
         """ creates a virtual filed tres element
@@ -1354,6 +1384,43 @@ class H5RedisField(H5Field):
         self.__jstream = None
         self.__rstream = None
         self.__rcounter = 0
+        self.__avcache_lock = threading.Lock()
+        self.__avcache = {}
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            self.__avcache[name] = value
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            vl = self.__avcache.get(name, None)
+        return vl
+
+    def get_attrs(self):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            vl = dict(self.__avcache)
+        return vl
 
     def append_stream(self, name, stream):
         """ scan object
@@ -1511,7 +1578,7 @@ class H5RedisField(H5Field):
             h5imp=super(H5RedisField, self).attributes)
 
     def __set_step_channel_info(self, dsname, units, shape, strategy="STEP",
-                                o=None):
+                                o=None, av=None):
         """ set step channel info
 
         :param dsname: datasource name
@@ -1525,6 +1592,7 @@ class H5RedisField(H5Field):
         :param o: object value to write
         :type o: :obj:`any`
         """
+        av = av or {}
         attrs = self.attributes
         sds = {
             "name": dsname,
@@ -1541,8 +1609,8 @@ class H5RedisField(H5Field):
         anames = [at.name for at in attrs]
         for key, vl in attrdesc.items():
             if vl[0] in anames:
-                sds[key] = vl[1](
-                    filewriter.first(attrs[vl[0]].read()))
+                avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
+                sds[key] = vl[1](filewriter.first(avl))
         sds["nexus_path"] = self.path
         self.append_scaninfo(sds, ["datadesc", dsname])
         try:
@@ -1665,7 +1733,7 @@ class H5RedisField(H5Field):
             else:
                 raise
 
-    def __set_init_channel_info(self, dsname, units, shape, strategy, o):
+    def __set_init_channel_info(self, dsname, units, shape, strategy, o, av):
         """ set init channel info
 
         :param dsname: datasource name
@@ -1691,8 +1759,8 @@ class H5RedisField(H5Field):
         anames = [at.name for at in attrs]
         for key, vl in attrdesc.items():
             if vl[0] in anames:
-                ids[key] = vl[1](
-                    filewriter.first(attrs[vl[0]].read()))
+                avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
+                ids[key] = vl[1](filewriter.first(avl))
         ids["nexus_path"] = self.path
         pars = (self.get_scaninfo(["snapshot"]) or {}).keys()
         dsn = dsname
@@ -1710,11 +1778,12 @@ class H5RedisField(H5Field):
                             np = str(filewriter.first(attrs[vl[0]].read()))
                         if vl[2] or np:
                             self.set_scaninfo(np, [key])
-                            if isinstance(np, str):
+                            # print(key, np)
+                            if key == "title" and isinstance(np, str):
                                 macro_name = np.split(" ")[0]
-                            for mn, plot in titleplots.items():
-                                if mn in macro_name:
-                                    self.append_scaninfo(plot, ["plots"])
+                                for mn, plot in titleplots.items():
+                                    if mn in macro_name:
+                                        self.append_scaninfo(plot, ["plots"])
 
                     except Exception as e:
                         print(str(e))
@@ -1726,18 +1795,31 @@ class H5RedisField(H5Field):
         :param o: object value to write
         :type o: :obj:`any`
         """
-
         attrs = self.attributes
-        strategy = filewriter.first(attrs["nexdatas_strategy"].read())
+        av = self.get_attrs()
+        strategy = av.get("nexdatas_strategy", None)
+        if strategy is None:
+            strategy = attrs["nexdatas_strategy"].read()
+        strategy = filewriter.first(strategy)
         dsname = "%s_%s" % (self._tparent.name, self.name)
         dsnm = ""
-        if "nexdatas_source" in attrs.names():
-            dsnm = getdsname(
-                filewriter.first(attrs["nexdatas_source"].read()))
+        dsnm = av.get("nexdatas_source", None)
+        if dsnm is None and "nexdatas_source" in attrs.names():
+            #     dsnm = self.get_attr_value("nexdatas_source")
+            #     if dsnm is None:
+            dsnm = attrs["nexdatas_source"].read()
+        if dsnm is not None:
+            dsnm = getdsname(filewriter.first(dsnm))
             dsname = dsnm
-        units = ""
-        if "units" in attrs.names():
-            units = filewriter.first(attrs["units"].read())
+        units = av.get("units", None)
+        if units is None:
+            if "units" in attrs.names():
+                units = attrs["units"].read()
+                print("READ UNIT", units)
+        if units is not None:
+            units = filewriter.first(units)
+        else:
+            units = ""
         self.__dsname = dsname
         shape = []
         if hasattr(o, "shape"):
@@ -1749,9 +1831,10 @@ class H5RedisField(H5Field):
         if strategy in ["STEP"] and dsnm:
             # skip 2D images
             if not shape or len(shape) < 2 or FileStream is not None:
-                self.__set_step_channel_info(dsname, units, shape, strategy, o)
+                self.__set_step_channel_info(
+                    dsname, units, shape, strategy, o, av)
         else:
-            self.__set_init_channel_info(dsname, units, shape, strategy, o)
+            self.__set_init_channel_info(dsname, units, shape, strategy, o, av)
 
     def __setitem__(self, t, o):
         """ set value
@@ -1799,6 +1882,31 @@ class H5RedisLink(H5Link):
             if h5object is None:
                 raise Exception("Undefined constructor parameters")
             H5Link.__init__(self, h5object, tparent)
+        self.__avcache_lock = threading.Lock()
+        self.__avcache = {}
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            self.__avcache[name] = value
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self.__avcache_lock:
+            vl = self.__avcache.get(name, None)
+        return vl
 
 
 class H5RedisDataFilter(H5DataFilter):
@@ -2096,6 +2204,8 @@ class H5RedisAttributeManager(H5AttributeManager):
         :returns: attribute object
         :rtype: :class:`H5RedisAttribute`
         """
+        if overwrite:
+            self.set_attr_value(name, None)
         return H5RedisAttribute(
             h5imp=H5AttributeManager.create(
                 self, name, dtype, shape, overwrite))
@@ -2110,6 +2220,28 @@ class H5RedisAttributeManager(H5AttributeManager):
         """
         return H5RedisAttribute(
             h5imp=H5AttributeManager.__getitem__(self, name))
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        if hasattr(self._tparent, "set_attr_value"):
+            return self._tparent.set_attr_value(name, value)
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_attr_value"):
+            return self._tparent.get_attr_value(name)
 
 
 class H5RedisAttribute(H5Attribute):
@@ -2133,3 +2265,65 @@ class H5RedisAttribute(H5Attribute):
             if h5object is None:
                 raise Exception("Undefined constructor parameters")
             H5Attribute.__init__(self, h5object, tparent)
+
+    def read(self):
+        """ read attribute value
+
+        :returns: python object
+        :rtype: :obj:`any`
+        """
+        vl = None
+        if H5CPP:
+            vl = self.get_attr_value(self.name)
+            # print("READ", self.name, vl)
+        if vl is None:
+            # print("READ", self.name, vl)
+            vl = self._h5object.read()
+            # print("READ2", self.name, vl)
+            if vl is not None:
+                self.set_attr_value(self.name, vl)
+        if self.dtype in ['string', b'string']:
+            try:
+                vl = vl.decode('UTF-8')
+            except Exception:
+                pass
+        return vl
+
+    def write(self, o):
+        """ write attribute value
+
+        :param o: python object
+        :type o: :obj:`any`
+        """
+        self._h5object.write(o)
+        vl = o
+        if vl is not None and H5CPP:
+            if self.dtype in ['string', b'string']:
+                try:
+                    vl = vl.decode('UTF-8')
+                except Exception:
+                    pass
+            # print("WRITE", self.name, vl)
+            self.set_attr_value(self.name, vl)
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        if hasattr(self._tparent, "set_attr_value"):
+            return self._tparent.set_attr_value(name, value)
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_attr_value"):
+            return self._tparent.get_attr_value(name)
