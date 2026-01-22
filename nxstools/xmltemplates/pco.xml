@@ -50,7 +50,7 @@
             <strategy mode="FINAL"/>$datasources.$(name)_filepostfix</field>
           <field type="NX_CHAR" name="file_prefix">
             <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field>
-          <field type="NX_CHAR" name="file_last_num">
+          <field type="NX_INT64" name="file_last_num">
             <strategy mode="STEP"/>$datasources.$(name)_filestartnum_cb</field>
           <field units="Celsius" type="NX_INT16" name="cooling_temp_set">
             <strategy mode="FINAL"/>$datasources.$(name)_coolingtempset</field>

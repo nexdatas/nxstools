@@ -3,7 +3,7 @@
   <datasource type="PYEVAL" name="$(name)_filestartnum_cb">
     <result name="result">
 from nxstools.pyeval import common
-ds.result = common.filestartnum_cb(commonblock, ds.$(name)_filestartnum, ds.$(name)_nbframes, "$(name)_filestartnum")
+ds.result = common.filestartnum_cb(commonblock, int(ds.$(name)_filestartnum or 0), ds.$(name)_nbframes, "$(name)_filestartnum")
     </result>
  $datasources.$(name)_filestartnum
  $datasources.$(name)_nbframes</datasource>
