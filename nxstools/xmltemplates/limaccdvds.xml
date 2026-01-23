@@ -46,7 +46,7 @@
           <field type="NX_CHAR" name="last_image_saved">
             <strategy mode="FINAL"/>$datasources.$(name)_last_image_saved</field>
           <field type="NX_UINT" name="signal">1</field>
-          <field type="NX_CHAR" name="next_file_index_num">
+          <field type="NX_INT64" name="next_file_index_num">
             <strategy mode="STEP"/>$datasources.$(name)_filestartnum_cb</field>
           <field type="NX_CHAR" name="image_type">
             <strategy mode="FINAL"/>$datasources.$(name)_image_type</field>

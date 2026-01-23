@@ -178,6 +178,7 @@ class NXSCreateDeviceDSDBTest(
                 ['testcs_jsonsettings',
                  'testcs_selection',
                  'testcs_xmlstring',
+                 'testcs_xmlcache',
                  'testcs_variables',
                  'testcs_linkdatasources',
                  'testcs_extralinkdatasources',
@@ -211,6 +212,15 @@ class NXSCreateDeviceDSDBTest(
                     'member="attribute" hostname="%s" port="%s"'
                     ' group="testcs_"/>\n'
                     '    <record name="XMLString"/>\n'
+                    '  </datasource>\n'
+                    '</definition>\n',
+                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<definition>\n'
+                    '  <datasource type="TANGO" name="testcs_xmlcache">\n'
+                    '    <device name="%s" '
+                    'member="attribute" hostname="%s" port="%s"'
+                    ' group="testcs_"/>\n'
+                    '    <record name="XMLCache"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'

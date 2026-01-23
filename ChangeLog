@@ -1,3 +1,7 @@
+2026-01-22 Jan Kotanski <jankotan@gmail.com>
+	* ensure filestartnum is int (#850)
+	* tagged as v4.37.0
+
 2025-12-11 Jan Kotanski <jankotan@gmail.com>
 	* add caching of attribute values for h5redis writer (#848)
 	* tagged as v4.36.0
