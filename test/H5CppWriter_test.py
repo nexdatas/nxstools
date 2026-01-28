@@ -3224,7 +3224,6 @@ class H5CppWriterTest(unittest.TestCase):
 
             self.myAssertRaise(
                 Exception, attr2.create, "atintimage", "uint64", [4])
-            print("WW")
             atintimage = attr2.create("atintimage", "uint64", [4], True)
 
             self.assertTrue(isinstance(atintimage, H5CppWriter.H5CppAttribute))

@@ -565,7 +565,6 @@ class H5RedisWriterTest(unittest.TestCase):
                                         "intspec", "strspec"]))
 
             ins_op = entry.open("instrument")
-            print(type(ins_op))
             self.assertTrue(
                 isinstance(ins_op, H5RedisWriter.H5RedisGroup))
             self.assertEqual(ins_op.name, "instrument")
