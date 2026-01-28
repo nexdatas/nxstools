@@ -1556,7 +1556,7 @@ class H5RedisField(H5Field):
             elif str(type(o).__name__) == "float":
                 sds["dtype"] = "float64"
 
-        anames = [at.name for at in attrs]
+        anames = attrs._names()
         for key, vl in attrdesc.items():
             if vl[0] in anames:
                 avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
@@ -1706,7 +1706,7 @@ class H5RedisField(H5Field):
             "dtype": self.dtype
         }
 
-        anames = [at.name for at in attrs]
+        anames = attrs._names()
         for key, vl in attrdesc.items():
             if vl[0] in anames:
                 avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
@@ -1754,7 +1754,7 @@ class H5RedisField(H5Field):
         dsname = "%s_%s" % (self._tparent.name, self.name)
         dsnm = ""
         dsnm = av.get("nexdatas_source", None)
-        if dsnm is None and "nexdatas_source" in attrs.names():
+        if dsnm is None and "nexdatas_source" in attrs._names():
             #     dsnm = self.get_attr_value("nexdatas_source")
             #     if dsnm is None:
             dsnm = attrs["nexdatas_source"].read()
@@ -1763,7 +1763,7 @@ class H5RedisField(H5Field):
             dsname = dsnm
         units = av.get("units", None)
         if units is None:
-            if "units" in attrs.names():
+            if "units" in attrs._names():
                 units = attrs["units"].read()
                 # print("READ UNIT", units)
         if units is not None:
@@ -1796,7 +1796,7 @@ class H5RedisField(H5Field):
         """
         if REDIS:
             if self.__dsname is None and \
-               "nexdatas_strategy" in self.attributes.names():
+               "nexdatas_strategy" in self.attributes._names():
                 self.__set_channel_info(o)
         if REDIS and self.__dsname is not None:
             if hasattr(self.__stream, "send"):

@@ -723,7 +723,7 @@ class H5CppGroup(filewriter.FTGroup):
                     self.path += self.name
             if ":" not in self.name:
                 # print("GROUP", type(self), self.name)
-                if u"NX_class" in self.attributes.names():
+                if u"NX_class" in self.attributes._names():
                     clss = filewriter.first(
                         h5object.attributes["NX_class"]).read()
                 else:
@@ -745,7 +745,7 @@ class H5CppGroup(filewriter.FTGroup):
         with self._avcache_lock:
             self._avcache[name] = value
             if self._ancache is None:
-                names = self.attributes._names()
+                names = self.attributes.names()
                 self._ancache = set(names)
             self._ancache.add(name)
 
@@ -772,7 +772,7 @@ class H5CppGroup(filewriter.FTGroup):
             if self._ancache is not None:
                 names = self._ancache
             else:
-                names = self.attributes._names()
+                names = self.attributes.names()
                 self._ancache = set(names)
         return names
 
@@ -1122,7 +1122,7 @@ class H5CppField(filewriter.FTField):
         with self._avcache_lock:
             self._avcache[name] = value
             if self._ancache is None:
-                names = self.attributes._names()
+                names = self.attributes.names()
                 self._ancache = set(names)
             self._ancache.add(name)
 
@@ -1136,7 +1136,7 @@ class H5CppField(filewriter.FTField):
             if self._ancache is not None:
                 names = self._ancache
             else:
-                names = self.attributes._names()
+                names = self.attributes.names()
                 self._ancache = set(names)
         return names
 
@@ -1476,7 +1476,7 @@ class H5CppLink(filewriter.FTLink):
         with self._avcache_lock:
             self._avcache[name] = value
             if self._ancache is None:
-                names = self.attributes._names()
+                names = self.attributes.names()
                 self._ancache = set(names)
             self._ancache.add(name)
 
@@ -1490,7 +1490,7 @@ class H5CppLink(filewriter.FTLink):
             if self._ancache is not None:
                 names = self._ancache
             else:
-                names = self.attributes._names()
+                names = self.attributes.names()
                 self._ancache = set(names)
         return names
 
@@ -2002,7 +2002,7 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         if hasattr(self._tparent, "set_attr_value"):
             return self._tparent.set_attr_value(name, value)
 
-    def _names(self):
+    def names(self):
         """ key values
 
         :returns: attribute names
@@ -2010,7 +2010,7 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         """
         return [att.name for att in self._h5object]
 
-    def names(self):
+    def _names(self):
         """ key values
 
         :returns: attribute names
@@ -2019,7 +2019,7 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         # print("NAMESS")
         if hasattr(self._tparent, "get_attr_names"):
             return self._tparent.get_attr_names()
-        return self._names()
+        return self.names()
 
     def create(self, name, dtype, shape=None, overwrite=False):
         """ create a new attribute
@@ -2037,7 +2037,7 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         """
 
         at = None
-        names = self.names()
+        names = self._names()
         if name in names:
             if overwrite:
                 try:
@@ -2066,6 +2066,8 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         else:
             if at is None:
                 at = self._h5object.create(name, pTh[_tostr(dtype)])
+                if hasattr(self._tparent, "add_attr_name"):
+                    self._tparent.add_attr_name(name)
             # if dtype in ['string', b'string']:
             #     at.write(np.array(u"", dtype="unicode"))
             # else:

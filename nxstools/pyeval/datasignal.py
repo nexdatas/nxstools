@@ -66,13 +66,17 @@ def signalname(commonblock, detector, firstchannel,
         root = commonblock["__root__"]
         if defaultattrs:
             attrs = root.attributes
+            print(attrs._names(), attrs.names())
             at = attrs.create("default", "string", overwrite=True)
             at.write(entryname)
             at.close()
         nxentry = root.open(entryname)
+        print("ENTTRY", detector, defaultattrs)
         if defaultattrs:
             attrs = nxentry.attributes
+            print(attrs._names(), attrs.names())
             at = attrs.create("default", "string", overwrite=True)
+            print("CREATED", attrs._names(), attrs.names())
             at.write("data")
             at.close()
         nxdata = nxentry.open("data")
