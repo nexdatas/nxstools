@@ -1,3 +1,7 @@
+2026-01-28 Jan Kotanski <jankotan@gmail.com>
+	* add attribute name caching (#854)
+	* tagged as v4.38.0
+
 2026-01-22 Jan Kotanski <jankotan@gmail.com>
 	* ensure filestartnum is int (#850)
 	* tagged as v4.37.0

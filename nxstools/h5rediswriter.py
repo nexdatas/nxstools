@@ -476,6 +476,7 @@ class H5RedisFile(H5File):
         :returns: parent object
         :rtype: :class:`H5RedisGroup`
         """
+        # print("ROOT", type(self))
         return H5RedisGroup(h5imp=H5File.root(self),
                             nxclass="NXroot")
 
@@ -1010,54 +1011,59 @@ class H5RedisGroup(H5Group):
                 raise Exception("Undefined constructor parameters")
             H5Group.__init__(self, h5object, tparent)
         self.__nxclass = nxclass
-        self.__avcache_lock = threading.Lock()
-        self.__avcache = {}
 
-    def set_attr_value(self, name, value):
-        """ set device parameters
+    # def open(self, name):
+    #     """ open a file tree element
 
-        :param name: attribute name
-        :type name: :obj:`str`
-        :param value: attribute value
-        :type value: :obj:`any`
-        """
-        with self.__avcache_lock:
-            self.__avcache[name] = value
+    #     :param name: element name
+    #     :type name: :obj:`str`
+    #     :returns: file tree object
+    #     :rtype: :class:`FTObject`
+    #     """
+    #     # print("OPEN RE", name)
+    #     try:
+    #         if self._h5object.has_group(h5cpp.Path(name)):
+    #             # print("OPEN", name, type(self._tparent))
+    #             return H5RedisGroup(
+    #                 self._h5object.get_group(h5cpp.Path(name)), self)
+    #         elif self._h5object.has_dataset(h5cpp.Path(name)):
+    #             return H5RedisField(
+    #                 self._h5object.get_dataset(h5cpp.Path(name)), self)
+    #         elif self._h5object.attributes.exists(name):
+    #             return H5RedisAttribute(
+    #                 self._h5object.attributes[name], self)
+    #         else:
+    #             return H5RedisLink(
+    #                 [lk for lk in self._h5object.links
+    #                  if lk.path.name == name][0], self)
 
-    def get_attr_value(self, name):
-        """ get scan info parameters
+    #     except Exception as e:
+    #         print(str(e))
+    #         return H5RedisLink(
+    #             [lk for lk in self._h5object.links
+    #              if lk.path.name == name][0], self)
 
-        :param name: attribute name
-        :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
-        """
-        with self.__avcache_lock:
-            # print(self.__avcache)
-            vl = self.__avcache.get(name, None)
-        return vl
+    # def open(self, name):
+    #     """ open a file tree element
 
-    def open(self, name):
-        """ open a file tree element
+    #     :param name: element name
+    #     :type name: :obj:`str`
+    #     :returns: file tree object
+    #     :rtype: :class:`H5RedisLink`
+    #     """
+    #     h5obj = H5Group.open(self, name)
+    #     if isinstance(h5obj, H5Group):
+    #         nxclass = None
+    #         if u"NX_class" in [at.name for at in h5obj.attributes]:
+    #             nxclass = filewriter.first(
+    #                 h5obj.attributes["NX_class"]).read()
 
-        :param name: element name
-        :type name: :obj:`str`
-        :returns: file tree object
-        :rtype: :class:`H5RedisLink`
-        """
-        h5obj = H5Group.open(self, name)
-        if isinstance(h5obj, H5Group):
-            nxclass = None
-            if u"NX_class" in [at.name for at in h5obj.attributes]:
-                nxclass = filewriter.first(
-                    h5obj.attributes["NX_class"]).read()
-
-            return H5RedisGroup(h5imp=h5obj, nxclass=nxclass)
-        elif isinstance(h5obj, H5Field):
-            return H5RedisField(h5imp=h5obj)
-        elif isinstance(h5obj, H5Attribute):
-            return H5RedisAttribute(h5imp=h5obj)
-        return H5RedisLink(h5imp=h5obj)
+    #         return H5RedisGroup(h5imp=h5obj, nxclass=nxclass)
+    #     elif isinstance(h5obj, H5Field):
+    #         return H5RedisField(h5imp=h5obj)
+    #     elif isinstance(h5obj, H5Attribute):
+    #         return H5RedisAttribute(h5imp=h5obj)
+    #     return H5RedisLink(h5imp=h5obj)
 
     def open_link(self, name):
         """ open a file tree element as link
@@ -1275,7 +1281,7 @@ class H5RedisGroup(H5Group):
         :param name: field name
         :type name: :obj:`str`
         :param layout: virual field layout
-        :type layout: :class:`H5CppFieldLayout`
+        :type layout: :class:`H5RedisFieldLayout`
         :param fillvalue:  fill value
         :type fillvalue: :obj:`int` or :class:`np.ndarray`
         :returns: file tree field
@@ -1298,7 +1304,7 @@ class H5RedisGroup(H5Group):
         :param chunk: chunk
         :type chunk: :obj:`list` < :obj:`int` >
         :param dfilter: filter deflater
-        :type dfilter: :class:`H5CppDataFilter`
+        :type dfilter: :class:`H5RedisDataFilter`
         :returns: file tree field
         :rtype: :class:`H5RedisField`
         """
@@ -1312,7 +1318,7 @@ class H5RedisGroup(H5Group):
         """ return the attribute manager
 
         :returns: attribute manager
-        :rtype: :class:`H5CppAttributeManager`
+        :rtype: :class:`H5RedisAttributeManager`
         """
         return H5RedisAttributeManager(
             h5imp=super(H5RedisGroup, self).attributes)
@@ -1384,31 +1390,6 @@ class H5RedisField(H5Field):
         self.__jstream = None
         self.__rstream = None
         self.__rcounter = 0
-        self.__avcache_lock = threading.Lock()
-        self.__avcache = {}
-
-    def set_attr_value(self, name, value):
-        """ set device parameters
-
-        :param name: attribute name
-        :type name: :obj:`str`
-        :param value: attribute value
-        :type value: :obj:`any`
-        """
-        with self.__avcache_lock:
-            self.__avcache[name] = value
-
-    def get_attr_value(self, name):
-        """ get scan info parameters
-
-        :param name: attribute name
-        :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
-        """
-        with self.__avcache_lock:
-            vl = self.__avcache.get(name, None)
-        return vl
 
     def get_attrs(self):
         """ get scan info parameters
@@ -1418,8 +1399,8 @@ class H5RedisField(H5Field):
         :returns value: attribute value
         :rtype value: :obj:`any`
         """
-        with self.__avcache_lock:
-            vl = dict(self.__avcache)
+        with self._avcache_lock:
+            vl = dict(self._avcache)
         return vl
 
     def append_stream(self, name, stream):
@@ -1572,7 +1553,7 @@ class H5RedisField(H5Field):
         """ return the attribute manager
 
         :returns: attribute manager
-        :rtype: :class:`H5CppAttributeManager`
+        :rtype: :class:`H5RedisAttributeManager`
         """
         return H5RedisAttributeManager(
             h5imp=super(H5RedisField, self).attributes)
@@ -1815,7 +1796,7 @@ class H5RedisField(H5Field):
         if units is None:
             if "units" in attrs.names():
                 units = attrs["units"].read()
-                print("READ UNIT", units)
+                # print("READ UNIT", units)
         if units is not None:
             units = filewriter.first(units)
         else:
@@ -1882,31 +1863,6 @@ class H5RedisLink(H5Link):
             if h5object is None:
                 raise Exception("Undefined constructor parameters")
             H5Link.__init__(self, h5object, tparent)
-        self.__avcache_lock = threading.Lock()
-        self.__avcache = {}
-
-    def set_attr_value(self, name, value):
-        """ set device parameters
-
-        :param name: attribute name
-        :type name: :obj:`str`
-        :param value: attribute value
-        :type value: :obj:`any`
-        """
-        with self.__avcache_lock:
-            self.__avcache[name] = value
-
-    def get_attr_value(self, name):
-        """ get scan info parameters
-
-        :param name: attribute name
-        :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
-        """
-        with self.__avcache_lock:
-            vl = self.__avcache.get(name, None)
-        return vl
 
 
 class H5RedisDataFilter(H5DataFilter):
@@ -2204,11 +2160,12 @@ class H5RedisAttributeManager(H5AttributeManager):
         :returns: attribute object
         :rtype: :class:`H5RedisAttribute`
         """
-        if overwrite:
-            self.set_attr_value(name, None)
-        return H5RedisAttribute(
+        at = H5RedisAttribute(
             h5imp=H5AttributeManager.create(
                 self, name, dtype, shape, overwrite))
+        if overwrite:
+            self.set_attr_value(name, None)
+        return at
 
     def __getitem__(self, name):
         """ get value
@@ -2274,14 +2231,16 @@ class H5RedisAttribute(H5Attribute):
         """
         vl = None
         if H5CPP:
-            vl = self.get_attr_value(self.name)
+            if hasattr(self, "get_attr_value"):
+                vl = self.get_attr_value(self.name)
             # print("READ", self.name, vl)
         if vl is None:
             # print("READ", self.name, vl)
             vl = self._h5object.read()
             # print("READ2", self.name, vl)
             if vl is not None:
-                self.set_attr_value(self.name, vl)
+                if hasattr(self, "set_attr_value"):
+                    self.set_attr_value(self.name, vl)
         if self.dtype in ['string', b'string']:
             try:
                 vl = vl.decode('UTF-8')
@@ -2304,26 +2263,5 @@ class H5RedisAttribute(H5Attribute):
                 except Exception:
                     pass
             # print("WRITE", self.name, vl)
-            self.set_attr_value(self.name, vl)
-
-    def set_attr_value(self, name, value):
-        """ set device parameters
-
-        :param name: attribute name
-        :type name: :obj:`str`
-        :param value: attribute value
-        :type value: :obj:`any`
-        """
-        if hasattr(self._tparent, "set_attr_value"):
-            return self._tparent.set_attr_value(name, value)
-
-    def get_attr_value(self, name):
-        """ get scan info parameters
-
-        :param name: attribute name
-        :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
-        """
-        if hasattr(self._tparent, "get_attr_value"):
-            return self._tparent.get_attr_value(name)
+            if hasattr(self, "set_attr_value"):
+                self.set_attr_value(self.name, vl)
