@@ -21,6 +21,7 @@
 import math
 import os
 import sys
+import threading
 import numpy as np
 from pninexus import h5cpp
 
@@ -697,6 +698,9 @@ class H5CppGroup(filewriter.FTGroup):
         :param tparent: tree parent
         :type tparent: :obj:`FTObject`
         """
+        self._ancache = None
+        self._avcache_lock = threading.Lock()
+        self._avcache = {}
 
         filewriter.FTGroup.__init__(self, h5object, tparent)
         #: (:obj:`str`) object nexus path
@@ -718,7 +722,8 @@ class H5CppGroup(filewriter.FTGroup):
                         self.path = tparent.path + u"/"
                     self.path += self.name
             if ":" not in self.name:
-                if u"NX_class" in [at.name for at in h5object.attributes]:
+                # print("GROUP", type(self), self.name)
+                if u"NX_class" in self.attributes._names():
                     clss = filewriter.first(
                         h5object.attributes["NX_class"]).read()
                 else:
@@ -728,6 +733,68 @@ class H5CppGroup(filewriter.FTGroup):
                         clss = clss[0]
                 if clss and clss != 'NXroot':
                     self.path += u":" + str(clss)
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        with self._avcache_lock:
+            self._avcache[name] = value
+            if self._ancache is None:
+                names = self.attributes.names()
+                self._ancache = set(names)
+            self._ancache.add(name)
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self._avcache_lock:
+            # print(self._avcache)
+            vl = self._avcache.get(name, None)
+        return vl
+
+    def get_attr_names(self):
+        """ get scan info parameters
+
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None:
+                names = self._ancache
+            else:
+                names = self.attributes.names()
+                self._ancache = set(names)
+        return names
+
+    def remove_attr_names(self, name):
+        """ remove the attribute name
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None and name in self._ancache:
+                self._ancache.pop(name)
+
+    def add_attr_name(self, name):
+        """ add the attribute name
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None and name not in self._ancache:
+                self._ancache.add(name)
 
     def open(self, name):
         """ open a file tree element
@@ -739,6 +806,7 @@ class H5CppGroup(filewriter.FTGroup):
         """
         try:
             if self._h5object.has_group(h5cpp.Path(name)):
+                # print("OPEN", name, type(self._tparent))
                 return H5CppGroup(
                     self._h5object.get_group(h5cpp.Path(name)), self)
             elif self._h5object.has_dataset(h5cpp.Path(name)):
@@ -1025,6 +1093,9 @@ class H5CppField(filewriter.FTField):
         :param tparent: tree parent
         :type tparent: :obj:`FTObject`
         """
+        self._ancache = None
+        self._avcache_lock = threading.Lock()
+        self._avcache = {}
         filewriter.FTField.__init__(self, h5object, tparent)
         #: (:obj:`str`) object nexus path
         self.path = ''
@@ -1039,6 +1110,67 @@ class H5CppField(filewriter.FTField):
                     self.path = tparent.path + "/" + self.name
         #: (:obj:`bool`) bool flag
         # self.boolflag = False
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        with self._avcache_lock:
+            self._avcache[name] = value
+            if self._ancache is None:
+                names = self.attributes.names()
+                self._ancache = set(names)
+            self._ancache.add(name)
+
+    def get_attr_names(self):
+        """ get scan info parameters
+
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None:
+                names = self._ancache
+            else:
+                names = self.attributes.names()
+                self._ancache = set(names)
+        return names
+
+    def remove_attr_names(self, name):
+        """ remove the attribute
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None and name in self._ancache:
+                self._ancache.pop()
+
+    def add_attr_name(self, name):
+        """ add the attribute name
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None and name not in self._ancache:
+                self._ancache.add(name)
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self._avcache_lock:
+            vl = self._avcache.get(name, None)
+        return vl
 
     @property
     def attributes(self):
@@ -1230,52 +1362,55 @@ class H5CppField(filewriter.FTField):
         """
         # if self.boolflag:
         #     return "bool"
-        if str(self._h5object.datatype.type) == "FLOAT":
-            if self._h5object.datatype.size == 8:
+        datatype = self._h5object.datatype
+        dtype = datatype.type
+        dsize = datatype.size
+        if str(dtype) == "FLOAT":
+            if dsize == 8:
                 return "float64"
-            elif self._h5object.datatype.size == 4:
+            elif dsize == 4:
                 return "float32"
-            elif self._h5object.datatype.size == 16:
+            elif dsize == 16:
                 return "float128"
             else:
                 return "float"
-        elif str(self._h5object.datatype.type) == "INTEGER":
+        elif str(dtype) == "INTEGER":
 
-            if self._h5object.datatype.size == 8:
-                if self._h5object.datatype.is_signed():
+            if dsize == 8:
+                if datatype.is_signed():
                     return "int64"
                 else:
                     return "uint64"
-            elif self._h5object.datatype.size == 4:
-                if self._h5object.datatype.is_signed():
+            elif dsize == 4:
+                if datatype.is_signed():
                     return "int32"
                 else:
                     return "uint32"
-            elif self._h5object.datatype.size == 2:
-                if self._h5object.datatype.is_signed():
+            elif dsize == 2:
+                if datatype.is_signed():
                     return "int16"
                 else:
                     return "uint16"
-            elif self._h5object.datatype.size == 1:
-                if self._h5object.datatype.is_signed():
+            elif dsize == 1:
+                if datatype.is_signed():
                     return "int8"
                 else:
                     return "uint8"
-            elif self._h5object.datatype.size == 16:
-                if self._h5object.datatype.is_signed():
+            elif dsize == 16:
+                if datatype.is_signed():
                     return "int128"
                 else:
                     return "uint128"
             else:
                 return "int"
-        elif str(self._h5object.datatype.type) == "ENUM":
+        elif str(dtype) == "ENUM":
             if h5cpp._datatype.is_bool(
-                    h5cpp.datatype.Enum(self._h5object.datatype)):
+                    h5cpp.datatype.Enum(datatype)):
                 return "bool"
             else:
                 return "int"
 
-        return hTp[self._h5object.datatype.type]
+        return hTp[dtype]
 #
 
     @property
@@ -1315,6 +1450,9 @@ class H5CppLink(filewriter.FTLink):
         :param tparent: tree parent
         :type tparent: :obj:`FTObject`
         """
+        self._avcache_lock = threading.Lock()
+        self._avcache = {}
+        self._ancache = None
         filewriter.FTLink.__init__(self, h5object, tparent)
         #: (:obj:`str`) object nexus path
         self.path = ''
@@ -1326,6 +1464,69 @@ class H5CppLink(filewriter.FTLink):
             self.path += "/"
         self.name = h5object.path.name
         self.path += self.name
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        with self._avcache_lock:
+            self._avcache[name] = value
+            if self._ancache is None:
+                names = self.attributes.names()
+                self._ancache = set(names)
+            self._ancache.add(name)
+
+    def get_attr_names(self):
+        """ get scan info parameters
+
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None:
+                names = self._ancache
+            else:
+                names = self.attributes.names()
+                self._ancache = set(names)
+        return names
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        with self._avcache_lock:
+            vl = self._avcache.get(name, None)
+        return vl
+
+    def add_attr_name(self, name):
+        """ add the attribute name
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None and name not in self._ancache:
+                self._ancache.add(name)
+
+    def remove_attr_names(self, name):
+        """ remove the attribute
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None and name in self._ancache:
+                self._ancache.pop()
+        if hasattr(self._tparent, "remove_attr_name"):
+            self._tparent.remove_attr_name(name)
 
     @property
     def is_valid(self):
@@ -1776,6 +1977,50 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         #: (:obj:`str`) object name
         self.name = None
 
+    def remove(self, name):
+        """ remove the attribute
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        # print("remove", name)
+        try:
+            self._h5object.remove(name)
+        except Exception:
+            pass
+        if hasattr(self._tparent, "remove_attr_name"):
+            self._tparent.remove_attr_name(name)
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        if hasattr(self._tparent, "set_attr_value"):
+            return self._tparent.set_attr_value(name, value)
+
+    def names(self):
+        """ key values
+
+        :returns: attribute names
+        :rtype: :obj:`list` <:obj:`str`>
+        """
+        return [att.name for att in self._h5object]
+
+    def _names(self):
+        """ key values
+
+        :returns: attribute names
+        :rtype: :obj:`list` <:obj:`str`>
+        """
+        # print("NAMESS")
+        if hasattr(self._tparent, "get_attr_names"):
+            return self._tparent.get_attr_names()
+        return self.names()
+
     def create(self, name, dtype, shape=None, overwrite=False):
         """ create a new attribute
 
@@ -1790,8 +2035,9 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         :returns: attribute object
         :rtype: :class:`H5CppAtribute`
         """
+
         at = None
-        names = [att.name for att in self._h5object]
+        names = self._names()
         if name in names:
             if overwrite:
                 try:
@@ -1802,13 +2048,15 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
                 except Exception as e:
                     print(str(e))
                 if at is None:
-                    self._h5object.remove(name)
+                    self.remove(name)
             else:
                 raise Exception("Attribute %s exists" % name)
         shape = shape or []
         if shape:
             if at is None:
                 at = self._h5object.create(name, pTh[_tostr(dtype)], shape)
+                if hasattr(self._tparent, "add_attr_name"):
+                    self._tparent.add_attr_name(name)
             if dtype in ['string', b'string']:
                 emp = np.empty(shape, dtype="unicode")
                 emp[:] = ''
@@ -1818,10 +2066,12 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         else:
             if at is None:
                 at = self._h5object.create(name, pTh[_tostr(dtype)])
-            if dtype in ['string', b'string']:
-                at.write(np.array(u"", dtype="unicode"))
-            else:
-                at.write(np.array(0, dtype=dtype))
+                if hasattr(self._tparent, "add_attr_name"):
+                    self._tparent.add_attr_name(name)
+            # if dtype in ['string', b'string']:
+            #     at.write(np.array(u"", dtype="unicode"))
+            # else:
+            #     at.write(np.array(0, dtype=dtype))
 
         at = H5CppAttribute(at, self.parent)
         # if dtype == "bool":
@@ -1846,14 +2096,6 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         """
         return H5CppAttribute(
             self._h5object.__getitem__(name), self.parent)
-
-    def names(self):
-        """ key values
-
-        :returns: attribute names
-        :rtype: :obj:`list` <:obj:`str`>
-        """
-        return [att.name for att in self._h5object]
 
     def close(self):
         """ close attribure manager
@@ -2050,50 +2292,53 @@ class H5CppAttribute(filewriter.FTAttribute):
         """
         # if self.boolflag:
         #     return "bool"
-        if str(self._h5object.datatype.type) == "FLOAT":
-            if self._h5object.datatype.size == 8:
+        datatype = self._h5object.datatype
+        dtype = datatype.type
+        dsize = datatype.size
+        if str(dtype) == "FLOAT":
+            if dsize == 8:
                 return "float64"
-            elif self._h5object.datatype.size == 4:
+            elif dsize == 4:
                 return "float32"
-            elif self._h5object.datatype.size == 16:
+            elif dsize == 16:
                 return "float128"
             else:
                 return "float"
-        elif str(self._h5object.datatype.type) == "INTEGER":
-            if self._h5object.datatype.size == 8:
-                if self._h5object.datatype.is_signed():
+        elif str(dtype) == "INTEGER":
+            if dsize == 8:
+                if datatype.is_signed():
                     return "int64"
                 else:
                     return "uint64"
-            elif self._h5object.datatype.size == 4:
-                if self._h5object.datatype.is_signed():
+            elif dsize == 4:
+                if datatype.is_signed():
                     return "int32"
                 else:
                     return "uint32"
-            elif self._h5object.datatype.size == 2:
-                if self._h5object.datatype.is_signed():
+            elif dsize == 2:
+                if datatype.is_signed():
                     return "int16"
                 else:
                     return "uint16"
-            elif self._h5object.datatype.size == 1:
-                if self._h5object.datatype.is_signed():
+            elif dsize == 1:
+                if datatype.is_signed():
                     return "int8"
                 else:
                     return "uint8"
-            elif self._h5object.datatype.size == 16:
-                if self._h5object.datatype.is_signed():
+            elif dsize == 16:
+                if datatype.is_signed():
                     return "int128"
                 else:
                     return "uint128"
             else:
                 return "int"
-        elif str(self._h5object.datatype.type) == "ENUM":
+        elif str(dtype) == "ENUM":
             if h5cpp._datatype.is_bool(
-                    h5cpp.datatype.Enum(self._h5object.datatype)):
+                    h5cpp.datatype.Enum(datatype)):
                 return "bool"
             else:
                 return "int"
-        return hTp[self._h5object.datatype.type]
+        return hTp[dtype]
 
     @property
     def shape(self):
@@ -2114,3 +2359,25 @@ class H5CppAttribute(filewriter.FTAttribute):
         """
         self._h5object = self._tparent.h5object.attributes[self.name]
         filewriter.FTAttribute.reopen(self)
+
+    def set_attr_value(self, name, value):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param value: attribute value
+        :type value: :obj:`any`
+        """
+        if hasattr(self._tparent, "set_attr_value"):
+            return self._tparent.set_attr_value(name, value)
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_attr_value"):
+            return self._tparent.get_attr_value(name)

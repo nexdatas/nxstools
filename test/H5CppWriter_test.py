@@ -2834,7 +2834,6 @@ class H5CppWriterTest(unittest.TestCase):
             self.assertEqual(atfloatspec.h5object.name, 'atfloatspec')
             # self.assertEqual(atfloatspec.h5object.path, '/@atfloatspec')
             # self.assertEqual(atfloatspec.h5object.dtype, 'float32')
-            print("WW")
             self.assertEqual(
                 atfloatspec.h5object.dataspace.current_dimensions, (12,))
             self.assertEqual(atfloatspec.h5object.is_valid, True)

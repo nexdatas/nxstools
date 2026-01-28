@@ -1361,6 +1361,9 @@ class NXSCreatePyEvalH5CppTest(unittest.TestCase):
             endef = rt.attributes["default"][...]
             self.assertEqual(endef, entryname)
             self.assertTrue("default" in entry.attributes.names())
+            entry = rt.open(entryname)
+            self.assertTrue("default" in entry.attributes.names())
+            self.assertTrue("default" in entry.attributes._names())
             dtdef = entry.attributes["default"][...]
             self.assertEqual(dtdef, "data")
 

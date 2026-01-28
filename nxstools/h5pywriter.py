@@ -1662,6 +1662,14 @@ class H5PYAttributeManager(filewriter.FTAttributeManager):
         """
         return self._h5object.keys()
 
+    def _names(self):
+        """ key values
+
+        :returns: attribute names
+        :rtype: :obj:`list` <:obj:`str`>
+        """
+        return self.names()
+
     def reopen(self):
         """ reopen field
         """
