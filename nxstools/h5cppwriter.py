@@ -777,7 +777,7 @@ class H5CppGroup(filewriter.FTGroup):
         return names
 
     def remove_attr_names(self, name):
-        """ remove the attribute
+        """ remove the attribute name
 
         :param name: attribute name
         :type name: :obj:`str`
@@ -785,10 +785,16 @@ class H5CppGroup(filewriter.FTGroup):
         with self._avcache_lock:
             if self._ancache is not None and name in self._ancache:
                 self._ancache.pop(name)
-        try:
-            self._h5object.remove(name)
-        except Exception:
-            pass
+
+    def add_attr_name(self, name):
+        """ add the attribute name
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None and name not in self._ancache:
+                self._ancache.add(name)
 
     def open(self, name):
         """ open a file tree element
@@ -1143,12 +1149,16 @@ class H5CppField(filewriter.FTField):
         with self._avcache_lock:
             if self._ancache is not None and name in self._ancache:
                 self._ancache.pop()
-        try:
-            self._h5object.remove(name)
-        except Exception:
-            pass
-        if hasattr(self._tparent, "remove_attr_name"):
-            self._tparent.remove_attr_name(name)
+
+    def add_attr_name(self, name):
+        """ add the attribute name
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None and name not in self._ancache:
+                self._ancache.add(name)
 
     def get_attr_value(self, name):
         """ get scan info parameters
@@ -1496,6 +1506,16 @@ class H5CppLink(filewriter.FTLink):
             vl = self._avcache.get(name, None)
         return vl
 
+    def add_attr_name(self, name):
+        """ add the attribute name
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        """
+        with self._avcache_lock:
+            if self._ancache is not None and name not in self._ancache:
+                self._ancache.add(name)
+
     def remove_attr_names(self, name):
         """ remove the attribute
 
@@ -1505,10 +1525,6 @@ class H5CppLink(filewriter.FTLink):
         with self._avcache_lock:
             if self._ancache is not None and name in self._ancache:
                 self._ancache.pop()
-        try:
-            self._h5object.remove(name)
-        except Exception:
-            pass
         if hasattr(self._tparent, "remove_attr_name"):
             self._tparent.remove_attr_name(name)
 
@@ -2023,7 +2039,6 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         at = None
         names = self.names()
         if name in names:
-            # print("NAME", name , names)
             if overwrite:
                 try:
                     pass
@@ -2040,6 +2055,8 @@ class H5CppAttributeManager(filewriter.FTAttributeManager):
         if shape:
             if at is None:
                 at = self._h5object.create(name, pTh[_tostr(dtype)], shape)
+                if hasattr(self._tparent, "add_attr_name"):
+                    self._tparent.add_attr_name(name)
             if dtype in ['string', b'string']:
                 emp = np.empty(shape, dtype="unicode")
                 emp[:] = ''

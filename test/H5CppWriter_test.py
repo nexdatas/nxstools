@@ -2834,7 +2834,6 @@ class H5CppWriterTest(unittest.TestCase):
             self.assertEqual(atfloatspec.h5object.name, 'atfloatspec')
             # self.assertEqual(atfloatspec.h5object.path, '/@atfloatspec')
             # self.assertEqual(atfloatspec.h5object.dtype, 'float32')
-            print("WW")
             self.assertEqual(
                 atfloatspec.h5object.dataspace.current_dimensions, (12,))
             self.assertEqual(atfloatspec.h5object.is_valid, True)
@@ -3225,6 +3224,7 @@ class H5CppWriterTest(unittest.TestCase):
 
             self.myAssertRaise(
                 Exception, attr2.create, "atintimage", "uint64", [4])
+            print("WW")
             atintimage = attr2.create("atintimage", "uint64", [4], True)
 
             self.assertTrue(isinstance(atintimage, H5CppWriter.H5CppAttribute))

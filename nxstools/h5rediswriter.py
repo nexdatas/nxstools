@@ -1012,58 +1012,27 @@ class H5RedisGroup(H5Group):
             H5Group.__init__(self, h5object, tparent)
         self.__nxclass = nxclass
 
-    # def open(self, name):
-    #     """ open a file tree element
+    def open(self, name):
+        """ open a file tree element
 
-    #     :param name: element name
-    #     :type name: :obj:`str`
-    #     :returns: file tree object
-    #     :rtype: :class:`FTObject`
-    #     """
-    #     # print("OPEN RE", name)
-    #     try:
-    #         if self._h5object.has_group(h5cpp.Path(name)):
-    #             # print("OPEN", name, type(self._tparent))
-    #             return H5RedisGroup(
-    #                 self._h5object.get_group(h5cpp.Path(name)), self)
-    #         elif self._h5object.has_dataset(h5cpp.Path(name)):
-    #             return H5RedisField(
-    #                 self._h5object.get_dataset(h5cpp.Path(name)), self)
-    #         elif self._h5object.attributes.exists(name):
-    #             return H5RedisAttribute(
-    #                 self._h5object.attributes[name], self)
-    #         else:
-    #             return H5RedisLink(
-    #                 [lk for lk in self._h5object.links
-    #                  if lk.path.name == name][0], self)
+        :param name: element name
+        :type name: :obj:`str`
+        :returns: file tree object
+        :rtype: :class:`H5RedisLink`
+        """
+        h5obj = H5Group.open(self, name)
+        if isinstance(h5obj, H5Group):
+            nxclass = None
+            if u"NX_class" in [at.name for at in h5obj.attributes]:
+                nxclass = filewriter.first(
+                    h5obj.attributes["NX_class"]).read()
 
-    #     except Exception as e:
-    #         print(str(e))
-    #         return H5RedisLink(
-    #             [lk for lk in self._h5object.links
-    #              if lk.path.name == name][0], self)
-
-    # def open(self, name):
-    #     """ open a file tree element
-
-    #     :param name: element name
-    #     :type name: :obj:`str`
-    #     :returns: file tree object
-    #     :rtype: :class:`H5RedisLink`
-    #     """
-    #     h5obj = H5Group.open(self, name)
-    #     if isinstance(h5obj, H5Group):
-    #         nxclass = None
-    #         if u"NX_class" in [at.name for at in h5obj.attributes]:
-    #             nxclass = filewriter.first(
-    #                 h5obj.attributes["NX_class"]).read()
-
-    #         return H5RedisGroup(h5imp=h5obj, nxclass=nxclass)
-    #     elif isinstance(h5obj, H5Field):
-    #         return H5RedisField(h5imp=h5obj)
-    #     elif isinstance(h5obj, H5Attribute):
-    #         return H5RedisAttribute(h5imp=h5obj)
-    #     return H5RedisLink(h5imp=h5obj)
+            return H5RedisGroup(h5imp=h5obj, nxclass=nxclass)
+        elif isinstance(h5obj, H5Field):
+            return H5RedisField(h5imp=h5obj)
+        elif isinstance(h5obj, H5Attribute):
+            return H5RedisAttribute(h5imp=h5obj)
+        return H5RedisLink(h5imp=h5obj)
 
     def open_link(self, name):
         """ open a file tree element as link
