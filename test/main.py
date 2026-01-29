@@ -54,6 +54,8 @@ except SystemError as e:
 import unittest
 
 import NXSTools_test
+import RedisWriter_test
+
 
 if not H5PY_AVAILABLE and not H5CPP_AVAILABLE:
     raise Exception("Please install h5py or pninexus.h5cpp")
@@ -156,6 +158,7 @@ if H5CPP_AVAILABLE:
     import NXSCollectH5Cpp_test
     import NXSFileInfoH5Cpp_test
     import H5CppRedisWriter_test
+
 if H5PY_AVAILABLE and H5CPP_AVAILABLE:
     import FileWriterH5CppH5PY_test
 
@@ -308,6 +311,10 @@ def main():
         suite.addTests(
             unittest.defaultTestLoader.loadTestsFromModule(
                 NXSFileInfo_test))
+
+    suite.addTests(
+        unittest.defaultTestLoader.loadTestsFromModule(
+            RedisWriter_test))
 
     if PYTANGO_AVAILABLE:
         suite.addTests(
