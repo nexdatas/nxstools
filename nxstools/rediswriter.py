@@ -487,7 +487,8 @@ def create_file(filename, overwrite=False, redisurl=None, session=None,
     """
     fpars = {"filename": filename, "overwrite": overwrite}
     fpars.update(pars)
-    return RedisFile(fpars, redisurl=redisurl, session=session,
+    return RedisFile(fpars, filename=filename, redisurl=redisurl,
+                     session=session,
                      h5fileplugin=h5fileplugin)
 
 
@@ -658,8 +659,8 @@ class RedisFile(filewriter.FTFile):
         #: (:obj:`str`) nexus file name
         h5object = h5object or {"filename": filename}
         self.filename = filename
-        if "path" in h5object:
-            self.path = h5object["path"]
+        if "filename" in h5object:
+            self.path = h5object["filename"]
         #: (:obj:`str`) redis url
         self.__redisurl = redisurl or "redis://localhost:6380"
         self.__session = session or "test_session"
@@ -674,7 +675,7 @@ class RedisFile(filewriter.FTFile):
         self.__datastore = None
         self.__entryname = ''
         self.__insname = ''
-
+        self._file_time = unicode(RedisFile.currenttime())
         if REDIS and self.__redisurl:
             with self.global_data_store_lock:
                 # print("FILENAME", self.name)
@@ -1204,10 +1205,12 @@ class RedisFile(filewriter.FTFile):
         :returns: parent object
         :rtype: :class:`RedisGroup`
         """
-        pars = {"name": ".", "NX_class": "NXroot"}
-        # skip: file_name, file_update_time
+        pars = {"name": ".", "NX_class": "NXroot",
+                "file_name": self.filename,
+                "file_time":self._file_time}
+        # skip: file_update_time
         pars.update(self._h5object)
-        return RedisGroup(pars, self)
+        return RedisGroup(pars, self, nxclass=pars["NX_class"])
 
     def flush(self):
         """ flash the data
@@ -1237,7 +1240,7 @@ class RedisFile(filewriter.FTFile):
         """
         if "readonly" in self._h5object:
             return self._h5object["readonly"]
-        return None
+        return False
 
     def reopen(self, readonly=False, swmr=False, libver=None):
         """ reopen file
@@ -1270,11 +1273,32 @@ class RedisGroup(filewriter.FTGroup):
         self._ancache = set("NX_class")
         self._avcache_lock = threading.Lock()
         self._avcache = {}
+        self._apcache = {}
 
+        # print("CREATE GR", h5object)
         pars = {"NX_class": nxclass}
-
-        self._avcache.update(pars)
+        attrs = {"name": "NX_class", "dtype": "string", "shape": tuple()}
+        fattrs = None
+        tattrs = None
+        if "file_name" in h5object:
+            fattrs = {"name": "file_name", "dtype": "string", "shape": tuple()}
+            pars.update({"file_name":  h5object["file_name"]})
+        if "file_time" in h5object:
+            tattrs = {"name": "file_time", "dtype": "string", "shape": tuple()}
+            pars.update({"file_time":  h5object["file_time"]})
+        with self._avcache_lock:
+            self._avcache.update(pars)
+            self._apcache["NX_class"] = attrs
+            if fattrs:
+                self._apcache["file_name"] = fattrs
+            if tattrs:
+                self._apcache["file_time"] = tattrs
         pars.update(h5object)
+        # print("CREATED GR", h5object, pars,)
+        # if "attrs" in h5object:
+        #     h5object["attrs"].update(attrs)
+        # else:
+        #     h5object["attrs"] = attrs
 
         filewriter.FTGroup.__init__(self, pars, tparent)
 
@@ -1310,6 +1334,18 @@ class RedisGroup(filewriter.FTGroup):
                 if clss and clss != 'NXroot':
                     self.path += u":" + str(clss)
 
+    @property
+    def size(self):
+        """ a number of children
+
+        :return: a number of children
+        :rtype: :obj:`int`
+        """
+        return len([ch() for ch in self._tchildren
+                    if (isinstance(ch(), RedisGroup) \
+                        or isinstance(ch(), RedisField) \
+                        or isinstance(ch(), RedisLink))])
+
     def set_attr_value(self, name, value):
         """ set device parameters
 
@@ -1318,9 +1354,24 @@ class RedisGroup(filewriter.FTGroup):
         :param value: attribute value
         :type value: :obj:`any`
         """
-        with self._avcache_lock:
-            self._avcache[name] = value
-            self._ancache.add(name)
+        if name:
+            with self._avcache_lock:
+                self._avcache[name] = value
+                self._ancache.add(name)
+        # print("SET ATTR VALUE", self._avcache, self._h5object)
+
+    def set_attr_prop(self, name, prop):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param prop: attribute prop
+        :type prop: :obj:`any`
+        """
+        if name:
+            with self._avcache_lock:
+                self._apcache[name] = prop
+                self._ancache.add(name)
 
     def get_attr_value(self, name):
         """ get scan info parameters
@@ -1330,9 +1381,35 @@ class RedisGroup(filewriter.FTGroup):
         :returns value: attribute value
         :rtype value: :obj:`any`
         """
+        # print("GET ATTR VALUE", self._avcache, self._h5object)
+        if name:
+            with self._avcache_lock:
+                # print(self._avcache)
+                vl = self._avcache.get(name, None)
+            return vl
+
+    def get_attr_prop(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns: attribute prop
+        :rtype: :obj:`any`
+        """
+        if name:
+            with self._avcache_lock:
+                # print(self._avcache)
+                vl = self._apcache.get(name, None)
+            return vl
+
+    def get_attr_props(self):
+        """ get attr props
+
+        :returns: attribute properies
+        :rtype: :obj:`dict`
+        """
         with self._avcache_lock:
-            # print(self._avcache)
-            vl = self._avcache.get(name, None)
+            vl = dict(self._apcache or {})
         return vl
 
     def get_attr_names(self):
@@ -1345,15 +1422,16 @@ class RedisGroup(filewriter.FTGroup):
             names = self._ancache
         return names
 
-    def remove_attr_names(self, name):
+    def remove_attr_name(self, name):
         """ remove the attribute name
 
         :param name: attribute name
         :type name: :obj:`str`
         """
-        with self._avcache_lock:
-            if self._ancache is not None and name in self._ancache:
-                self._ancache.pop(name)
+        if name:
+            with self._avcache_lock:
+                if self._ancache is not None and name in self._ancache:
+                    self._ancache.pop(name)
 
     def add_attr_name(self, name):
         """ add the attribute name
@@ -1361,9 +1439,10 @@ class RedisGroup(filewriter.FTGroup):
         :param name: attribute name
         :type name: :obj:`str`
         """
-        with self._avcache_lock:
-            if self._ancache is not None and name not in self._ancache:
-                self._ancache.add(name)
+        if name:
+            with self._avcache_lock:
+                if self._ancache is not None and name not in self._ancache:
+                    self._ancache.add(name)
 
     def open(self, name):
         """ open a file tree element
@@ -1373,8 +1452,14 @@ class RedisGroup(filewriter.FTGroup):
         :returns: file tree object
         :rtype: :class:`FTObject`
         """
-        raise Exception("RedisGroup.open not supported")
-        return RedisLink({"name": name}, self)
+        fch = None
+        for ch in self._tchildren:
+            nch = ch()
+            if hasattr(nch, "name") and nch.name == name:
+                fch = nch
+                break
+        # print("OPEN", name, fch, fch.h5object)
+        return fch
 
     def open_link(self, name):
         """ open a file tree element as link
@@ -1384,8 +1469,11 @@ class RedisGroup(filewriter.FTGroup):
         :returns: file tree object
         :rtype: :class:`FTObject`
         """
-        raise Exception("RedisGourp.open_link not supported")
-        return RedisLink({"name": name}, self)
+        obj = self.open(name)
+        pars = dict(obj.h5object)
+        pars["name"] = name
+        return RedisLink(pars, self)
+        # raise Exception("RedisGourp.open_link not supported")
 
     def set_scan(self, scan):
         """ scan object
@@ -1586,8 +1674,9 @@ class RedisGroup(filewriter.FTGroup):
         gr = RedisGroup({"name": n, "NX_class": nxclass},
                         self, nxclass=nxclass)
 
-        # print("CREATE", "NX_class", nxclass)
-        self.set_attr_value("NX_class", nxclass)
+        # print("CREATE__GROUP", "NX_class", nxclass, n)
+        # self.set_attr_value("NX_class", nxclass)
+        # print("CREATE2__GROUP", "NX_class", nxclass, n)
         return gr
 
     def create_virtual_field(self, name, layout, fillvalue=0):
@@ -1636,21 +1725,22 @@ class RedisGroup(filewriter.FTGroup):
         """
 
         shape = tuple(shape) if shape else tuple()
-        dataspace = {"class": "Simple",
-                     "shape": shape,
-                     "maxshape": tuple([UNLIMITED] * len(shape or []))}
-        vf = {"class": "VirtualDataset",
-              "h5object": self._h5object,
-              "name": name,
-              "dtype": (type_code or "float"),
-              "dataspace": dataspace,
-              "layout": {},
-              # skip: dcpl
-              }
-        return RedisField(vf, self)
+        # dataspace = {"class": "Simple",
+        #              "shape": shape,
+        #              "maxshape": tuple([UNLIMITED] * len(shape or []))}
+        # vf = {"class": "VirtualDataset",
+        #       "h5object": self._h5object,
+        #       "name": name,
+        #       "dtype": (type_code or "float"),
+        #       "dataspace": dataspace,
+        #       "layout": {},
+        #       # skip: dcpl
+        #       }
+        # return RedisField(vf, self)
 
+        # print("CREATE", name, type_code, shape, chunk)
         if type_code in ["str", "unicode", "string"] and \
-           shape is None and chunk is None:
+           not shape and not chunk:
             dataspace = {"class": "Scalar"}
             fl = {"class": "Dataset",
                   "h5object": self._h5object,
@@ -1682,23 +1772,13 @@ class RedisGroup(filewriter.FTGroup):
             return RedisField(fl, self)
 
     @property
-    def size(self):
-        """ group size
-
-        :returns: group size
-        :rtype: :obj:`int`
-        """
-        raise Exception("RedisGroup.size not supported")
-        return 1
-
-    @property
     def attributes(self):
         """ return the attribute manager
 
         :returns: attribute manager
         :rtype: :class:`RedisAttributeManager`
         """
-        return RedisAttributeManager({"attrs": {}}, self)
+        return RedisAttributeManager({}, self)
 
     def close(self):
         """ close group
@@ -1718,11 +1798,7 @@ class RedisGroup(filewriter.FTGroup):
         :returns: existing flag
         :rtype: :obj:`bool`
         """
-        # TODO
-        raise Exception("RedisGroup.exists not supported")
-        return False
-        # return name in [
-        #     lk.path.name for lk in self._h5object.links]
+        return name in self.names()
 
     def names(self):
         """ read the child names
@@ -1730,9 +1806,8 @@ class RedisGroup(filewriter.FTGroup):
         :returns: h5 object
         :rtype: :obj:`list` <`str`>
         """
-        raise Exception("RedisGroup.names not supported")
-        return [
-            lk.path.name for lk in self._h5object.links]
+        return [ch().name for ch in self._tchildren
+                if (hasattr(ch(), "name") and ch().name)]
 
     class RedisGroupIter(object):
 
@@ -1743,7 +1818,7 @@ class RedisGroup(filewriter.FTGroup):
             :type manager: :obj:`RedisGroup`
             """
 
-            raise Exception("RedisGroupUIter.__init__ not supported")
+            # raise Exception("RedisGroupUIter.__init__ not supported")
             self.__group = group
             self.__names = group.names()
 
@@ -1753,7 +1828,7 @@ class RedisGroup(filewriter.FTGroup):
             :returns: attribute object
             :rtype: :class:`FTAtribute`
             """
-            raise Exception("RedisGroupIter.__next__ not supported")
+            # raise Exception("RedisGroupIter.__next__ not supported")
             if self.__names:
                 return self.__group.open(self.__names.pop(0))
             else:
@@ -1767,7 +1842,7 @@ class RedisGroup(filewriter.FTGroup):
             :returns: attribute iterator
             :rtype: :class:`RedisAttrIter`
             """
-            raise Exception("RedisGroupIter.__iter__ not supported")
+            # raise Exception("RedisGroupIter.__iter__ not supported")
             return self
 
     def __iter__(self):
@@ -1776,7 +1851,7 @@ class RedisGroup(filewriter.FTGroup):
         :returns: attribute iterator
         :rtype: :class:`RedisAttrIter`
         """
-        raise Exception("RedisGroup.__iter__ not supported")
+        # raise Exception("RedisGroup.__iter__ not supported")
         return self.RedisGroupIter(self)
 
     @property
@@ -1805,6 +1880,7 @@ class RedisField(filewriter.FTField):
         self._ancache = None
         self._avcache_lock = threading.Lock()
         self._avcache = {}
+        self._apcache = {}
         filewriter.FTField.__init__(self, h5object, tparent)
         #: (:obj:`str`) object nexus path
         self.path = ''
@@ -1990,11 +2066,27 @@ class RedisField(filewriter.FTField):
         :param value: attribute value
         :type value: :obj:`any`
         """
-        with self._avcache_lock:
-            self._avcache[name] = value
-            if self._ancache is None:
-                self._ancache = set(self._avcache.keys())
-            self._ancache.add(name)
+        if name:
+            with self._avcache_lock:
+                self._avcache[name] = value
+                if self._ancache is None:
+                    self._ancache = set(self._avcache.keys())
+                self._ancache.add(name)
+
+    def set_attr_prop(self, name, prop):
+        """ set attribute properies
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param prop: attribute prop
+        :type prop: :obj:`any`
+        """
+        if name:
+            with self._avcache_lock:
+                self._apcache[name] = prop
+                if self._ancache is None:
+                    self._ancache = set(self._apcache.keys())
+                self._ancache.add(name)
 
     def get_attr_names(self):
         """ get scan info parameters
@@ -2007,12 +2099,14 @@ class RedisField(filewriter.FTField):
         if ancache is not None:
             names = self._ancache
         else:
-            names = list(self._avcache.keys())
+            names = list(nm for nm in self._avcache.keys() if nm)
+            names2 = list(nm for nm in self._apcache.keys() if nm)
             with self._avcache_lock:
                 self._ancache = set(names)
+                self._ancache.update(names2)
         return names
 
-    def remove_attr_names(self, name):
+    def remove_attr_name(self, name):
         """ remove the attribute
 
         :param name: attribute name
@@ -2028,9 +2122,10 @@ class RedisField(filewriter.FTField):
         :param name: attribute name
         :type name: :obj:`str`
         """
-        with self._avcache_lock:
-            if self._ancache is not None and name not in self._ancache:
-                self._ancache.add(name)
+        if name:
+            with self._avcache_lock:
+                if self._ancache is not None and name not in self._ancache:
+                    self._ancache.add(name)
 
     def get_attr_value(self, name):
         """ get scan info parameters
@@ -2044,6 +2139,28 @@ class RedisField(filewriter.FTField):
             vl = self._avcache.get(name, None)
         return vl
 
+    def get_attr_prop(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns prop: attribute prop
+        :rtype prop: :obj:`any`
+        """
+        with self._avcache_lock:
+            vl = self._apcache.get(name, None)
+        return vl
+    
+    def get_attr_props(self):
+        """ get attr props
+
+        :returns: attribute properies
+        :rtype: :obj:`dict`
+        """
+        with self._avcache_lock:
+            vl = dict(self._apcache or {})
+        return vl
+
     @property
     def attributes(self):
         """ return the attribute manager
@@ -2051,7 +2168,7 @@ class RedisField(filewriter.FTField):
         :returns: attribute manager
         :rtype: :class:`RedisAttributeManager`
         """
-        return RedisAttributeManager({"attrs": {}}, self)
+        return RedisAttributeManager({}, self)
 
     def __set_step_channel_info(self, dsname, units, shape, strategy="STEP",
                                 o=None, av=None):
@@ -2469,9 +2586,13 @@ class RedisField(filewriter.FTField):
         :returns: field shape
         :rtype: :obj:`list` < :obj:`int` >
         """
+        # print(self._h5object)
+        if "dataspace" in self._h5object \
+                and "shape" in self._h5object["dataspace"]:
+            return tuple(self._h5object["dataspace"]["shape"])
         if "shape" in self._h5object:
-            return self._h5object["shape"]
-        return (1,)
+            return tuple(self._h5object["shape"])
+        return tuple()
 
     @property
     def size(self):
@@ -2505,18 +2626,18 @@ class RedisLink(filewriter.FTLink):
         """
         self._avcache_lock = threading.Lock()
         self._avcache = {}
+        self._apcache = {}
         self._ancache = None
         filewriter.FTLink.__init__(self, h5object, tparent)
         #: (:obj:`str`) object nexus path
         self.path = ''
         #: (:obj:`str`) object name
-        self.name = None
+        self.name = h5object["name"] if "name" in h5object else None
         if tparent and tparent.path:
             self.path = tparent.path
         if not self.path.endswith("/"):
             self.path += "/"
         #    self.name = h5object.path.name
-        self.name = ""
         self.path += self.name
 
     def set_attr_value(self, name, value):
@@ -2527,12 +2648,28 @@ class RedisLink(filewriter.FTLink):
         :param value: attribute value
         :type value: :obj:`any`
         """
-        with self._avcache_lock:
-            self._avcache[name] = value
-            if self._ancache is None:
-                names = self.attributes.names()
-                self._ancache = set(names)
-            self._ancache.add(name)
+        if name:
+            with self._avcache_lock:
+                self._avcache[name] = value
+                if self._ancache is None:
+                    self._ancache = set(self._avcache.keys())
+                    self._ancache = set(names)
+                self._ancache.add(name)
+
+    def set_attr_prop(self, name, prop):
+        """ set device parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param prop: attribute prop
+        :type prop: :obj:`any`
+        """
+        if name:
+            with self._avcache_lock:
+                self._apcache[name] = prop
+                if self._ancache is None:
+                    self._ancache = set(self._apcache.keys())
+                self._ancache.add(name)
 
     def get_attr_names(self):
         """ get scan info parameters
@@ -2541,11 +2678,15 @@ class RedisLink(filewriter.FTLink):
         :rtype value: :obj:`any`
         """
         with self._avcache_lock:
-            if self._ancache is not None:
-                names = self._ancache
-            else:
-                names = self.attributes.names()
+            ancache = self._ancache
+        if ancache is not None:
+            names = self._ancache
+        else:
+            names = list(nm for nm in self._avcache.keys() if nm)
+            names2 = list(nm for nm in self._apcache.keys() if nm)
+            with self._avcache_lock:
                 self._ancache = set(names)
+                self._ancache.update(names2)
         return names
 
     def get_attr_value(self, name):
@@ -2556,8 +2697,32 @@ class RedisLink(filewriter.FTLink):
         :returns value: attribute value
         :rtype value: :obj:`any`
         """
+        if name:
+            with self._avcache_lock:
+                vl = self._avcache.get(name, None)
+            return vl
+
+    def get_attr_prop(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns prop: attribute prop
+        :rtype prop: :obj:`any`
+        """
+        if name:
+            with self._avcache_lock:
+                vl = self._apcache.get(name, None)
+            return vl
+
+    def get_attr_props(self):
+        """ get attr props
+
+        :returns: attribute properies
+        :rtype: :obj:`dict`
+        """
         with self._avcache_lock:
-            vl = self._avcache.get(name, None)
+            vl = dict(self._apcache or {})
         return vl
 
     def add_attr_name(self, name):
@@ -2566,11 +2731,12 @@ class RedisLink(filewriter.FTLink):
         :param name: attribute name
         :type name: :obj:`str`
         """
-        with self._avcache_lock:
-            if self._ancache is not None and name not in self._ancache:
-                self._ancache.add(name)
+        if name:
+            with self._avcache_lock:
+                if self._ancache is not None and name not in self._ancache:
+                    self._ancache.add(name)
 
-    def remove_attr_names(self, name):
+    def remove_attr_name(self, name):
         """ remove the attribute
 
         :param name: attribute name
@@ -2627,10 +2793,13 @@ class RedisLink(filewriter.FTLink):
         :returns: target path
         :rtype: :obj:`str`
         """
-        if "target" in self._h5object:
-            return self._h5object["target"]
         fpath = ""
         opath = ""
+        if "target" in self._h5object:
+            if ":/" in self._h5object["target"]:
+                return self._h5object["target"]
+            else:
+                opath = self._h5object["target"]
         if "file_path" in self._h5object:
             fpath = self._h5object["file_path"]
         if "object_path" in self._h5object:
@@ -3205,7 +3374,9 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
         :param tparent: tree parent
         :type tparent: :obj:`FTObject`
         """
-        h5object = h5object or {"attrs": {}}
+        h5object = h5object or {}
+        if hasattr(tparent, "get_attr_props"):
+            h5object = dict(tparent.get_attr_props())
         filewriter.FTAttributeManager.__init__(self, h5object, tparent)
         #: (:obj:`str`) object nexus path
         self.path = ''
@@ -3232,6 +3403,48 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
         """
         if hasattr(self._tparent, "set_attr_value"):
             return self._tparent.set_attr_value(name, value)
+
+    def set_attr_prop(self, name, prop):
+        """ set attribute properties
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :param prop: attribute properties
+        :type prop: :obj:`dict`
+        """
+        if hasattr(self._tparent, "set_attr_prop"):
+            return self._tparent.set_attr_prop(name, prop)
+
+    def get_attr_value(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns value: attribute value
+        :rtype value: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_attr_value"):
+            return self._tparent.get_attr_value(name)
+
+    def get_attr_prop(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns prop: attribute prop
+        :rtype prop: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_attr_prop"):
+            return self._tparent.get_attr_prop(name)
+
+    def get_attr_props(self):
+        """ get attribute properties
+
+        :returns: attribute properites
+        :rtype: :obj:`dict`
+        """
+        if hasattr(self._tparent, "get_attr_props"):
+            return self._tparent.get_attr_props()
 
     def names(self):
         """ key values
@@ -3265,16 +3478,21 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
         :returns: attribute object
         :rtype: :class:`RedisAtribute`
         """
-
         at = None
         names = self._names()
+        value = None
+        shape = tuple(shape) if shape else shape
         if name in names:
             if overwrite:
                 try:
-                    pass
-                    if str(self[name].dtype) == _tostr(dtype) \
-                       and self[name].shape == shape:
-                        at = self._h5object[name]
+                    prop = dict(self.get_attr_prop(name))
+                    if "shape" not in prop:
+                        prop["shape"] = tuple()
+                    if "dtype" not in prop:
+                        prop["dtype"] = "float"
+                    if str(prop["dtype"]) == _tostr(dtype) \
+                       and prop["shape"] == shape:
+                        at = prop
                 except Exception as e:
                     print(str(e))
                 if at is None:
@@ -3287,25 +3505,29 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
                 at = {"name": name, "dtype": dtype, "shape": shape}
                 if hasattr(self._tparent, "add_attr_name"):
                     self._tparent.add_attr_name(name)
-            # if dtype in ['string', b'string']:
-            #     emp = np.empty(shape, dtype="unicode")
-            #     emp[:] = ''
-            #     at.write(emp)
-            # else:
-            #     at.write(np.zeros(shape, dtype=dtype))
+            if dtype in ['string', b'string']:
+                emp = np.empty(shape, dtype="unicode")
+                emp[:] = ''
+                value = emp
+            else:
+                value = np.zeros(shape, dtype=dtype)
         else:
             if at is None:
                 at = {"name": name, "dtype": dtype}
                 if hasattr(self._tparent, "add_attr_name"):
                     self._tparent.add_attr_name(name)
-            # if dtype in ['string', b'string']:
-            #     at.write(np.array(u"", dtype="unicode"))
-            # else:
-            #     at.write(np.array(0, dtype=dtype))
+            if dtype in ['string', b'string']:
+                value = np.array(u"", dtype="unicode")
+            else:
+                value = np.array(0, dtype=dtype)
 
+        # print("set prop", name, at)
+        if "name" not in at:
+            at["name"] = name
+        self.set_attr_prop(name, at)
         atr = RedisAttribute(at, self.parent)
-        if overwrite:
-            self.set_attr_value(name, None)
+        # if overwrite:
+        self.set_attr_value(name, value)
         # if dtype == "bool":
         #     at.boolflag = True
         return atr
@@ -3316,7 +3538,7 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
         :returns: number of attributes
         :rtype: :obj:`int`
         """
-        return len(self._h5object["attrs"].keys())
+        return len(self.get_attr_props().keys())
 
     def __getitem__(self, name):
         """ get value
@@ -3326,8 +3548,13 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
         :returns: attribute object
         :rtype: :class:`FTAtribute`
         """
-        return RedisAttribute(
-            self._h5object["attrs"][name], self.parent)
+        if isinstance(name, int):
+            pro = self.get_attr_props()
+            prop = pro[list(pro.keys())[name]]
+            return RedisAttribute(prop, self.parent)
+        else:
+            return RedisAttribute(
+                self.get_attr_prop(name), self.parent)
 
     def close(self):
         """ close attribure manager
@@ -3434,12 +3661,22 @@ class RedisAttribute(filewriter.FTAttribute):
                 self.write(np.array(o, dtype=self.dtype))
         elif isinstance(t, slice):
             var = self.read()
+            print("VAR1", self.name, var ,t)
+            print("VAR2", self.name, o)
             if self.dtype not in ['string', b'string']:
+                print("VA_1", self.name, np.array(o, dtype=nptype(self.dtype)))
                 var[t] = np.array(o, dtype=nptype(self.dtype))
+                print("VA_2", self.name, var[t])
             else:
                 dtype = npunicode
-                var[t] = np.array(o, dtype=dtype)
+                print("VB_1", self.name, np.array(o, dtype=dtype), t)
+                print("VB_1a", self.name, var[t], type(var))
+                tmp = np.array(o, dtype=dtype)
+                var[t] = tmp
+                print("VB_2", self.name, var[t])
                 var = var.astype(dtype)
+                print("VB_3", self.name, var)
+            print("VAR3", self.name, var)
             try:
                 self.write(var)
             except Exception:
@@ -3481,6 +3718,8 @@ class RedisAttribute(filewriter.FTAttribute):
         :rtype: :obj:`any`
         """
         rv = self.read()
+        if t is Ellipsis:
+            return rv
         v = rv[t]
         # if hasattr(v, "shape") and hasattr(v, "reshape"):
         #     shape = [sh for sh in v.shape if sh != 1]
@@ -3546,7 +3785,7 @@ class RedisAttribute(filewriter.FTAttribute):
         :returns: attribute shape
         :rtype: :obj:`list` < :obj:`int` >
         """
-        return self._h5object["shape"] \
+        return tuple(self._h5object["shape"]) \
             if "shape" in self._h5object else ()
 
     def reopen(self):
@@ -3575,3 +3814,14 @@ class RedisAttribute(filewriter.FTAttribute):
         """
         if hasattr(self._tparent, "get_attr_value"):
             return self._tparent.get_attr_value(name)
+
+    def get_attr_prop(self, name):
+        """ get scan info parameters
+
+        :param name: attribute name
+        :type name: :obj:`str`
+        :returns prop: attribute prop
+        :rtype prop: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_attr_prop"):
+            return self._tparent.get_attr_prop(name)
