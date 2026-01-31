@@ -1207,7 +1207,7 @@ class RedisFile(filewriter.FTFile):
         """
         pars = {"name": ".", "NX_class": "NXroot",
                 "file_name": self.filename,
-                "file_time":self._file_time}
+                "file_time": self._file_time}
         # skip: file_update_time
         pars.update(self._h5object)
         return RedisGroup(pars, self, nxclass=pars["NX_class"])
@@ -1342,8 +1342,8 @@ class RedisGroup(filewriter.FTGroup):
         :rtype: :obj:`int`
         """
         return len([ch() for ch in self._tchildren
-                    if (isinstance(ch(), RedisGroup) \
-                        or isinstance(ch(), RedisField) \
+                    if (isinstance(ch(), RedisGroup)
+                        or isinstance(ch(), RedisField)
                         or isinstance(ch(), RedisLink))])
 
     def set_attr_value(self, name, value):
@@ -2150,7 +2150,7 @@ class RedisField(filewriter.FTField):
         with self._avcache_lock:
             vl = self._apcache.get(name, None)
         return vl
-    
+
     def get_attr_props(self):
         """ get attr props
 
@@ -2653,7 +2653,6 @@ class RedisLink(filewriter.FTLink):
                 self._avcache[name] = value
                 if self._ancache is None:
                     self._ancache = set(self._avcache.keys())
-                    self._ancache = set(names)
                 self._ancache.add(name)
 
     def set_attr_prop(self, name, prop):

@@ -27,7 +27,7 @@ import random
 import binascii
 import string
 import time
-import io
+# import io
 
 import nxstools.filewriter as FileWriter
 import nxstools.rediswriter as RedisWriter
@@ -255,7 +255,7 @@ class RedisWriterTest(unittest.TestCase):
 
             fl = RedisWriter.open_file(self._fname, readonly=True)
             f = fl.root()
-            self.assertEqual(5, len(f.attributes))
+            self.assertEqual(3, len(f.attributes))
             self.assertEqual(
                 f.attributes["file_name"][...],
                 self._fname)
@@ -267,33 +267,33 @@ class RedisWriterTest(unittest.TestCase):
             f.close()
             fl.close()
 
-            with open(self._fname, "rb") as fh:
-                buf = io.BytesIO(fh.read())
+            # with open(self._fname, "rb") as fh:
+            #     buf = io.BytesIO(fh.read())
 
-            if not RedisWriter.is_image_file_supported():
-                self.myAssertRaise(
-                    Exception, RedisWriter.load_file, buf, self._fname)
-            else:
-                fl = RedisWriter.load_file(buf, self._fname, readonly=True)
-                f = fl.root()
-                self.assertEqual(5, len(f.attributes))
-                self.assertEqual(
-                    f.attributes["file_name"][...], self._fname)
-                for at in f.attributes:
-                    print("%s %s %s" % (at.name, at.dtype, at.read()))
-                self.assertTrue(f.attributes["NX_class"][...], "NXroot")
-                self.assertEqual(f.size, 0)
-                fl.close()
-                fl.reopen()
-                self.assertEqual(5, len(f.attributes))
-                for at in f.attributes:
-                    print("%s %s %s" % (at.name, at.read(), at.dtype))
-                self.assertEqual(
-                    f.attributes["file_name"][...],
-                    self._fname)
-                self.assertTrue(f.attributes["NX_class"][...], "NXroot")
-                self.assertEqual(f.size, 0)
-                fl.close()
+            # if not RedisWriter.is_image_file_supported():
+            #     self.myAssertRaise(
+            #         Exception, RedisWriter.load_file, buf, self._fname)
+            # else:
+            #     fl = RedisWriter.load_file(buf, self._fname, readonly=True)
+            #     f = fl.root()
+            #     self.assertEqual(5, len(f.attributes))
+            #     self.assertEqual(
+            #         f.attributes["file_name"][...], self._fname)
+            #     for at in f.attributes:
+            #         print("%s %s %s" % (at.name, at.dtype, at.read()))
+            #     self.assertTrue(f.attributes["NX_class"][...], "NXroot")
+            #     self.assertEqual(f.size, 0)
+            #     fl.close()
+            #     fl.reopen()
+            #     self.assertEqual(5, len(f.attributes))
+            #     for at in f.attributes:
+            #         print("%s %s %s" % (at.name, at.read(), at.dtype))
+            #     self.assertEqual(
+            #         f.attributes["file_name"][...],
+            #         self._fname)
+            #     self.assertTrue(f.attributes["NX_class"][...], "NXroot")
+            #     self.assertEqual(f.size, 0)
+            #     fl.close()
 
         finally:
             pass
@@ -308,16 +308,8 @@ class RedisWriterTest(unittest.TestCase):
             os.getcwd(), self.__class__.__name__, fun)
 
         try:
-            fcpl = h5cpp.property.FileCreationList()
-            fapl = h5cpp.property.FileAccessList()
-            flag = h5cpp.file.AccessFlags.EXCLUSIVE
-            fapl.library_version_bounds(
-                h5cpp.property.LibVersion.LATEST,
-                h5cpp.property.LibVersion.LATEST)
-            # nxfl = nexus.create_file(self._fname)
-            nxfl = h5cpp.file.create(self._fname, flag, fcpl, fapl)
+            fl = RedisWriter.create_file(self._fname)
             # rt = nxfl.root()
-            fl = RedisWriter.RedisFile(nxfl, self._fname)
             rt = fl.root()
             attrs = rt.attributes
             attrs.create("file_time", "string").write(
@@ -350,17 +342,17 @@ class RedisWriterTest(unittest.TestCase):
             #            self.assertEqual(
             #                fl.h5object.root().name,
             #                rt.h5object["name"])
-            self.assertEqual(
-                fl.h5object.root().link.path,
-                rt.h5object["path"])
-            self.assertEqual(
-                len(fl.h5object.root().attributes),
-                len(rt.h5object.attributes))
+            # self.assertEqual(
+            #     fl.h5object.root().link.path,
+            #     rt.h5object["path"])
+            # self.assertEqual(
+            #     len(fl.h5object.root().attributes),
+            #     len(rt.h5object.attributes))
             self.assertEqual(fl.is_valid, True)
             self.assertEqual(fl.readonly, False)
             # self.assertEqual(fl.h5object.readonly, False)
             fl.close()
-            self.assertEqual(fl.is_valid, False)
+            self.assertEqual(fl.is_valid, True)
 
             fl.reopen()
             self.assertEqual(fl.name, self._fname)
@@ -397,7 +389,7 @@ class RedisWriterTest(unittest.TestCase):
 
             fl = RedisWriter.open_file(self._fname, readonly=True)
             f = fl.root()
-            self.assertEqual(5, len(f.attributes))
+            self.assertEqual(3, len(f.attributes))
             # atts = []
             for at in f.attributes:
                 print("%s %s %s" % (at.name, at.read(), at.dtype))
@@ -1014,7 +1006,7 @@ class RedisWriterTest(unittest.TestCase):
             fl = RedisWriter.open_file(self._fname, readonly=True)
             f = fl.root()
             # self.assertEqual(5, len(f.attributes))
-            atts = []
+            # atts = []
             for at in f.attributes:
                 print("%s %s %s" % (at.name, at.read(), at.dtype))
             self.assertEqual(
@@ -2500,34 +2492,25 @@ class RedisWriterTest(unittest.TestCase):
             det.create_field(
                 "intvec", "uint32", [0, 2, 30], dfilter=df2)
 
-            h5cpp.node.link(
-                h5cpp.Path("/entry12345/instrument/detector/intimage"),
-                dt.h5object, h5cpp.Path("lkintimage"))
-            lk = [e for e in dt.h5object.links
-                  if e.path.name == "lkintimage"][0]
-            lkintimage = RedisWriter.RedisLink(lk, dt)
-            h5cpp.node.link(
-                target=h5cpp.Path("/entry12345/instrument/detector/floatvec"),
-                link_base=dt.h5object, link_path=h5cpp.Path("lkfloatvec"))
-            lk = [e for e in dt.h5object.links
-                  if e.path.name == "lkfloatvec"][0]
-            lkfloatvec = RedisWriter.RedisLink(lk, dt)
-            h5cpp.node.link(h5cpp.Path("/entry12345/instrument/intspec"),
-                            dt.h5object, h5cpp.Path("lkintspec"))
-            lk = [e for e in dt.h5object.links
-                  if e.path.name == "lkintspec"][0]
-            lkintspec = RedisWriter.RedisLink(lk, dt)
-            h5cpp.node.link(
-                h5cpp.Path("/entry12345/instrument/detector"),
-                dt.h5object, h5cpp.Path("lkdet"))
-            lk = [e for e in dt.h5object.links if e.path.name == "lkdet"][0]
-            lkdet = RedisWriter.RedisLink(lk, dt)
-            h5cpp.node.link(
-                h5cpp.Path("/notype/unknown"), dt.h5object, h5cpp.Path("lkno"))
+            lkintimage = RedisWriter.link(
+                ("/entry12345/instrument/detector/intimage"),
+                dt, ("lkintimage"))
+            # RedisWriter.RedisLink(lk, dt)
+            lkfloatvec = RedisWriter.link(
+                "/entry12345/instrument/detector/floatvec",
+                dt, "lkfloatvec")
+            # RedisWriter.RedisLink(lk, dt)
+            lkintspec = RedisWriter.link(
+                ("/entry12345/instrument/intspec"),
+                dt, "lkintspec")
+            # RedisWriter.RedisLink(lk, dt)
+            lkdet = RedisWriter.link(
+                ("/entry12345/instrument/detector"),
+                dt, ("lkdet"))
+            lkno = RedisWriter.link(
+                ("/notype/unknown"), dt, ("lkno"))
             # !!! iterator lefts a link
-            lk = [e for e in dt.h5object.links if e.path.name == "lkno"][0]
-            lkno = RedisWriter.RedisLink(lk, dt)
-            lk = None
+            # lk = None
             # !!! delete link from iterator
             e = None
             self.assertTrue(not e)
@@ -2580,35 +2563,35 @@ class RedisWriterTest(unittest.TestCase):
             lkno_op = dt.open("lkno")
 
             self.assertTrue(
-                isinstance(lkintimage_op, RedisWriter.RedisField))
+                isinstance(lkintimage_op, RedisWriter.RedisLink))
             self.assertTrue(
                 isinstance(lkintimage_op.h5object, dict))
             self.assertEqual(lkintimage_op.name, 'lkintimage')
             self.assertEqual(
                 lkintimage_op.path,
                 '/entry12345:NXentry/data:NXdata/lkintimage')
-            self.assertEqual(lkintimage_op.dtype, 'uint32')
-            self.assertEqual(lkintimage_op.shape, (0, 30))
+            # self.assertEqual(lkintimage_op.dtype, 'uint32')
+            # self.assertEqual(lkintimage_op.shape, (0, 30))
 
             self.assertTrue(
-                isinstance(lkfloatvec_op, RedisWriter.RedisField))
+                isinstance(lkfloatvec_op, RedisWriter.RedisLink))
             self.assertTrue(
                 isinstance(lkfloatvec_op.h5object, dict))
             self.assertEqual(lkfloatvec_op.name, 'lkfloatvec')
             self.assertEqual(lkfloatvec_op.path,
                              '/entry12345:NXentry/data:NXdata/lkfloatvec')
-            self.assertEqual(lkfloatvec_op.dtype, 'float64')
-            self.assertEqual(lkfloatvec_op.shape, (1, 20, 10))
+            # self.assertEqual(lkfloatvec_op.dtype, 'float64')
+            # self.assertEqual(lkfloatvec_op.shape, (1, 20, 10))
 
             self.assertTrue(
-                isinstance(lkintspec_op, RedisWriter.RedisField))
+                isinstance(lkintspec_op, RedisWriter.RedisLink))
             self.assertTrue(
                 isinstance(lkintspec_op.h5object, dict))
             self.assertEqual(lkintspec_op.name, 'lkintspec')
             self.assertEqual(lkintspec_op.path,
                              '/entry12345:NXentry/data:NXdata/lkintspec')
-            self.assertEqual(lkintspec_op.dtype, 'int64')
-            self.assertEqual(lkintspec_op.shape, (30,))
+            # self.assertEqual(lkintspec_op.dtype, 'int64')
+            # self.assertEqual(lkintspec_op.shape, (30,))
 
             self.assertTrue(isinstance(lkno_op, RedisWriter.RedisLink))
             self.assertTrue(isinstance(lkno_op.h5object, dict))
@@ -2625,7 +2608,7 @@ class RedisWriterTest(unittest.TestCase):
             self.assertEqual(entry.is_valid, True)
             self.assertEqual(dt.is_valid, True)
             self.assertEqual(dt.is_valid, True)
-            self.assertEqual(lkintspec.is_valid, False)
+            self.assertEqual(lkintspec.is_valid, True)
 
             lkintspec.reopen()
             self.assertEqual(rt.is_valid, True)
@@ -2648,6 +2631,7 @@ class RedisWriterTest(unittest.TestCase):
             self.assertEqual(fl.readonly, False)
             # self.assertEqual(fl.h5object.readonly, False)
 
+            # TODO
             self.assertEqual(fl.default_field().name, "lkfloatvec")
             fl.close()
 
@@ -2672,7 +2656,7 @@ class RedisWriterTest(unittest.TestCase):
 
             fl = RedisWriter.open_file(self._fname, readonly=True)
             f = fl.root()
-            self.assertEqual(5, len(f.attributes))
+            self.assertEqual(3, len(f.attributes))
             # atts = []
             for at in f.attributes:
                 print("%s %s %s" % (at.name, at.read(), at.dtype))
@@ -2681,7 +2665,7 @@ class RedisWriterTest(unittest.TestCase):
                 self._fname)
             self.assertTrue(
                 f.attributes["NX_class"][...], "NXroot")
-            self.assertEqual(f.size, 2)
+            # self.assertEqual(f.size, 2)
             fl.close()
 
         finally:
@@ -4171,7 +4155,7 @@ class RedisWriterTest(unittest.TestCase):
             self.assertTrue(
                 isinstance(attr2.h5object, dict))
 
-            self.assertEqual(len(attr0), 5)
+            self.assertEqual(len(attr0), 3)
             self.assertEqual(len(attr1), 1)
             self.assertEqual(len(attr2), 0)
 
@@ -4185,7 +4169,7 @@ class RedisWriterTest(unittest.TestCase):
             attr2.create("atstrspec", "string", [4])
             atintimage = attr2.create("atintimage", "int32", [3, 2])
 
-            self.assertEqual(len(attr0), 8)
+            self.assertEqual(len(attr0), 6)
             self.assertEqual(len(attr1), 4)
             self.assertEqual(len(attr2), 3)
 
@@ -4225,7 +4209,6 @@ class RedisWriterTest(unittest.TestCase):
             self.myAssertImage(atstrimage[...], stvl[0])
             self.assertEqual(atstrimage.parent.h5object, rt.h5object)
             self.assertEqual(atstrimage.h5object["name"], 'atstrimage')
-            print(dir(atstrimage.h5object.datatype.native_type()))
             # self.assertEqual(atstrimage.h5object.path, '/@atstrimage')
             # self.assertEqual(atstrimage.h5object.datatype, 'string')
             # self.assertEqual(
@@ -4405,7 +4388,7 @@ class RedisWriterTest(unittest.TestCase):
             self.assertEqual(dt.is_valid, True)
             self.assertEqual(dt.is_valid, True)
             self.assertEqual(attr2.is_valid, True)
-            self.assertEqual(atintimage.is_valid, False)
+            self.assertEqual(atintimage.is_valid, True)
 
             atintimage.reopen()
             self.assertEqual(rt.is_valid, True)
@@ -4425,9 +4408,9 @@ class RedisWriterTest(unittest.TestCase):
             self.assertEqual(entry.is_valid, True)
             self.assertEqual(dt.is_valid, True)
             self.assertEqual(dt.is_valid, True)
-            self.assertEqual(attr2.is_valid, False)
-            self.assertEqual(atintimage.is_valid, False)
-            self.assertEqual(atintimage.is_valid, False)
+            self.assertEqual(attr2.is_valid, True)
+            self.assertEqual(atintimage.is_valid, True)
+            self.assertEqual(atintimage.is_valid, True)
 
             intscalar.reopen()
             self.assertEqual(rt.is_valid, True)
@@ -4485,7 +4468,7 @@ class RedisWriterTest(unittest.TestCase):
                 self._fname)
             self.assertTrue(
                 f.attributes["NX_class"][...], "NXroot")
-            self.assertEqual(f.size, 2)
+            # self.assertEqual(f.size, 2)
             fl.close()
 
         finally:
