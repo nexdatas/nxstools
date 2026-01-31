@@ -3661,22 +3661,13 @@ class RedisAttribute(filewriter.FTAttribute):
                 self.write(np.array(o, dtype=self.dtype))
         elif isinstance(t, slice):
             var = self.read()
-            print("VAR1", self.name, var ,t)
-            print("VAR2", self.name, o)
             if self.dtype not in ['string', b'string']:
-                print("VA_1", self.name, np.array(o, dtype=nptype(self.dtype)))
                 var[t] = np.array(o, dtype=nptype(self.dtype))
-                print("VA_2", self.name, var[t])
             else:
                 dtype = npunicode
-                print("VB_1", self.name, np.array(o, dtype=dtype), t)
-                print("VB_1a", self.name, var[t], type(var))
-                tmp = np.array(o, dtype=dtype)
-                var[t] = tmp
-                print("VB_2", self.name, var[t])
+                var = np.array(var, dtype="object")
+                var[t] = np.array(o, dtype="object")
                 var = var.astype(dtype)
-                print("VB_3", self.name, var)
-            print("VAR3", self.name, var)
             try:
                 self.write(var)
             except Exception:
