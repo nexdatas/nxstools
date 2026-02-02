@@ -36,7 +36,7 @@ from .nxsfileparser import (getdsname, getdssource,
 
 UNLIMITED = 18446744073709551615
 
-MAXSIZE = 1000
+MAXSIZE = 100
 
 PLUGINS = {}
 
