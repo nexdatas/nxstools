@@ -2499,7 +2499,6 @@ class RedisField(filewriter.FTField):
         :param o: h5 object
         :type o: :obj:`any`
         """
-        print("SET", self.name, t, o)
         if REDIS:
             if self.__dsname is None and \
                "nexdatas_strategy" in self.attributes._names():
@@ -2516,7 +2515,8 @@ class RedisField(filewriter.FTField):
                 jo = {"stored": True, "frame": self.__rcounter}
                 self.__rstream.send(jo)
                 self.__rcounter += 1
-        # print("SET", self.name, t, type(t))
+        if isinstance(o, list):
+            o = np.array(o)
         if self.shape == (1,) and t == 0:
             self._h5object["value"] = o
         elif t is Ellipsis or t is tuple():
@@ -2582,7 +2582,12 @@ class RedisField(filewriter.FTField):
                     self._h5object["value"] = np.array(
                         [self._h5object["value"]])
                 if isinstance(self._h5object["value"], np.ndarray):
-                    self._h5object["value"].resize(shape)
+                    val = self._h5object["value"]
+                    self._h5object["value"] = \
+                        np.zeros(shape=shape, dtype=val.dtype)
+                    slices = tuple([slice(None, dim, None)
+                                    for dim in val.shape])
+                    self._h5object["value"][slices] = val
 
     def read(self):
         """ read the field value
@@ -2652,7 +2657,9 @@ class RedisField(filewriter.FTField):
             return v
         v = self._h5object["value"] \
             if "value" in self._h5object else None
-        v= v[sslice]
+        if isinstance(v, list):
+            v = np.array(v)
+        v = v[sslice]
         # if hasattr(v, "shape") and hasattr(v, "reshape"):
         #     shape = [sh for sh in v.shape if sh != 1]
         #     if shape != list(v.shape):
