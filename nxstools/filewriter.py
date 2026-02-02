@@ -640,6 +640,14 @@ class FTGroup(FTObject):
         """
 
     @property
+    def size(self):
+        """ group size
+
+        :returns: group size
+        :rtype: :obj:`int`
+        """
+
+    @property
     def attributes(self):
         """ return the attribute manager
 
