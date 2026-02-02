@@ -1,3 +1,7 @@
+2026-02-02 Jan Kotanski <jankotan@gmail.com>
+	* add rediswriter (#857)
+	* tagged as v4.39.0
+
 2026-01-28 Jan Kotanski <jankotan@gmail.com>
 	* add attribute name caching (#854)
 	* tagged as v4.38.0

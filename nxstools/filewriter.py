@@ -375,7 +375,7 @@ class FTObject(object):
         #: (:obj:`FTObject`) tree parent
         self._tparent = tparent
         #: (:obj:`list` < :obj:`FTObject` > ) weak references of children
-        self.__tchildren = []
+        self._tchildren = []
         if tparent:
             tparent.append(self)
 
@@ -385,7 +385,7 @@ class FTObject(object):
         :param tparent: tree parent
         :type tparent: :obj:`FTObject`
         """
-        self.__tchildren.append(weakref.ref(child))
+        self._tchildren.append(weakref.ref(child))
 
     def __del__(self):
         """ removes weakref in parent object
@@ -396,22 +396,22 @@ class FTObject(object):
     def reload(self):
         """ reload a list of valid children
         """
-        if self.__tchildren:
-            self.__tchildren = [
-                kd for kd in self.__tchildren if kd() is not None]
+        if self._tchildren:
+            self._tchildren = [
+                kd for kd in self._tchildren if kd() is not None]
 
     def close(self):
         """ close element
         """
-        for ch in self.__tchildren:
+        for ch in self._tchildren:
             if ch() is not None:
                 ch().close()
 
     def _reopen(self):
         """ reopen elements and children
         """
-        self.__tchildren = [ch for ch in self.__tchildren if ch() is not None]
-        for ch in self.__tchildren:
+        self._tchildren = [ch for ch in self._tchildren if ch() is not None]
+        for ch in self._tchildren:
             ch().reopen()
 
     @property
