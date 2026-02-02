@@ -36,6 +36,7 @@ from .nxsfileparser import (getdsname, getdssource,
 
 UNLIMITED = 18446744073709551615
 
+MAXSIZE = 1000
 
 PLUGINS = {}
 
@@ -2519,6 +2520,8 @@ class RedisField(filewriter.FTField):
             o = np.array(o)
         if self.shape == (1,) and t == 0:
             self._h5object["value"] = o
+        elif self.size > MAXSIZE:
+            self._h5object["value"] = None
         elif t is Ellipsis or t is tuple():
             self._h5object["value"] = o
         else:
@@ -2575,6 +2578,8 @@ class RedisField(filewriter.FTField):
                     shape[dim] += ext
                     dtspace["shape"] = tuple(shape)
         if "value" in self._h5object:
+            if self.size > MAXSIZE:
+                self._h5object["value"] = None
             if shape:
                 if isinstance(self._h5object["value"], list):
                     self._h5object["value"] = np.array(self._h5object["value"])
@@ -2634,6 +2639,8 @@ class RedisField(filewriter.FTField):
                 if "value" in self._h5object:
                     return self._h5object["value"]
 
+        if self.size > MAXSIZE:
+            return None
         sslice = _selection2slice(t, self.shape)
         # print("SEL", sslice, t, self.shape)
         if sslice in [None, tuple(), Ellipsis]:

@@ -176,6 +176,7 @@ class RedisWriterTest(unittest.TestCase):
         self._fname = '%s/%s%s.h5' % (
             os.getcwd(), self.__class__.__name__, fun)
 
+        RedisWriter.MAXSIZE = 200
         try:
             fl = RedisWriter.create_file(self._fname)
             fl.close()
@@ -245,6 +246,7 @@ class RedisWriterTest(unittest.TestCase):
     def test_default_loadfile(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        RedisWriter.MAXSIZE = 200
         self._fname = '%s/%s%s.h5' % (os.getcwd(),
                                       self.__class__.__name__, fun)
         try:
@@ -304,6 +306,7 @@ class RedisWriterTest(unittest.TestCase):
     def test_h5cppfile(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        RedisWriter.MAXSIZE = 200
         self._fname = '%s/%s%s.h5' % (
             os.getcwd(), self.__class__.__name__, fun)
 
@@ -410,6 +413,7 @@ class RedisWriterTest(unittest.TestCase):
     def test_h5cppgroup(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        RedisWriter.MAXSIZE = 200
         self._fname = '%s/%s%s.h5' % (
             os.getcwd(), self.__class__.__name__, fun)
 
@@ -1026,6 +1030,7 @@ class RedisWriterTest(unittest.TestCase):
     def test_h5cppfield_scalar(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        RedisWriter.MAXSIZE = 200
         self._fname = '%s/%s%s.h5' % (
             os.getcwd(), self.__class__.__name__, fun)
 
@@ -1315,6 +1320,7 @@ class RedisWriterTest(unittest.TestCase):
     # \brief It tests default settings
     def test_h5cppfield_spectrum(self):
         fun = sys._getframe().f_code.co_name
+        RedisWriter.MAXSIZE = 100
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
         self._fname = '%s/%s%s.h5' % (
             os.getcwd(), self.__class__.__name__, fun)
@@ -1905,6 +1911,7 @@ class RedisWriterTest(unittest.TestCase):
         self._fname = '%s/%s%s.h5' % (os.getcwd(),
                                       self.__class__.__name__, fun)
 
+        RedisWriter.MAXSIZE = 2000
         try:
             # overwrite = False
             fl = RedisWriter.create_file(self._fname)
@@ -4025,6 +4032,7 @@ class RedisWriterTest(unittest.TestCase):
         self._fname = '%s/%s%s.h5' % (os.getcwd(), self.__class__.__name__,
                                       fun)
 
+        RedisWriter.MAXSIZE = 2000
         try:
             # overwrite = False
             fl = RedisWriter.create_file(self._fname)
@@ -4411,6 +4419,7 @@ class RedisWriterTest(unittest.TestCase):
     def test_h5cpp_vitualfield_image_concatinate(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        RedisWriter.MAXSIZE = 2000
         if not RedisWriter.is_vds_supported():
             print("Skip the test: VDS not supported")
             return
@@ -4438,8 +4447,8 @@ class RedisWriterTest(unittest.TestCase):
                    for j in range(10)] for n in range(10)]
             intimage[...] = vv
             rw = intimage.read()
-            print(rw)
-            print("RW", type(rw))
+            # print(rw)
+            # print("RW", type(rw), rw.shape)
             for i in range(10):
                 self.myAssertImage(rw[i], vv[i])
             intimage.close()
@@ -4518,6 +4527,7 @@ class RedisWriterTest(unittest.TestCase):
     def test_h5cpp_vitualfield_image_concatinate_lazy(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        RedisWriter.MAXSIZE = 2000
         if not RedisWriter.is_vds_supported():
             print("Skip the test: VDS not supported")
             return
@@ -4629,6 +4639,7 @@ class RedisWriterTest(unittest.TestCase):
     def test_h5cpp_vitualfield_image_interleaving(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        RedisWriter.MAXSIZE = 2000
         if not RedisWriter.is_vds_supported():
             print("Skip the test: VDS not supported")
             return
@@ -4734,6 +4745,7 @@ class RedisWriterTest(unittest.TestCase):
     def test_h5cpp_vitualfield_image_gap(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        RedisWriter.MAXSIZE = 2000
         if not RedisWriter.is_vds_supported():
             self.myAssertRaise(
                 Exception, RedisWriter.virtual_field_layout, [100])
@@ -4825,6 +4837,7 @@ class RedisWriterTest(unittest.TestCase):
     def test_h5cpp_vitualfield_image_unlimited(self):
         fun = sys._getframe().f_code.co_name
         print("Run: %s.%s() " % (self.__class__.__name__, fun))
+        RedisWriter.MAXSIZE = 2000
         if not RedisWriter.is_vds_supported():
             print("Skip the test: unlimited VDS not supported")
             return
