@@ -208,6 +208,67 @@ def unlimited_selection(sel, shape):
         return None
 
 
+def _selection2slice(t, shape):
+    """ converts selection to slice(s)
+
+    :param t: slice tuple
+    :type t: :obj:`tuple`
+    :return shape: field shape
+    :type shape: :obj:`list` < :obj:`int` >
+    :returns: tuple of slices
+    :rtype: :obj:`tuple`<>
+    """
+    if isinstance(t, filewriter.FTHyperslab):
+        offset = list(t.offset or [])
+        block = list(t.block or [])
+        count = list(t.count or [])
+        stride = list(t.stride or [])
+        slices = []
+        for dm, sz in enumerate(shape):
+            if len(offset) > dm:
+                if offset[dm] is None:
+                    offset[dm] = 0
+            else:
+                offset.append(0)
+            if len(block) > dm:
+                if block[dm] is None:
+                    block[dm] = 1
+            else:
+                block.append(1)
+            if len(count) > dm:
+                if count[dm] is None:
+                    count[dm] = sz
+            else:
+                count.append(sz)
+            if len(stride) > dm:
+                if stride[dm] is None:
+                    stride[dm] = 1
+            else:
+                block.append(1)
+            if len(stride) > dm:
+                if stride[dm] is None:
+                    stride[dm] = 1
+            else:
+                stride.append(1)
+            if block[dm] == 1 and count[dm] == 1 and stride[dm] == 1:
+                slices.append(offset[dm])
+            elif stride[dm] == 1:
+                slices.append(slice(
+                    offset[dm], offset[dm] + block[dm] * count[dm], None))
+            elif stride[dm] != 1 and block[dm] == 1:
+                slices.append(slice(offset[dm],
+                                    offset[dm] + count[dm] * stride[dm],
+                                    stride[dm]))
+            elif stride[dm] != 1 and count[dm] == 1:
+                slices.append(slice(offset[dm],
+                                    offset[dm] + block[dm] * stride[dm],
+                                    stride[dm]))
+            else:
+                slices.append(Ellipsis)
+        return tuple(slices)
+    return t
+
+
 def _slice2selection(t, shape):
     """ converts slice(s) to selection
 
@@ -1691,16 +1752,17 @@ class RedisGroup(filewriter.FTGroup):
         """
         if not is_vds_supported():
             raise Exception("VDS not supported")
-        shape = layout["shape"] if "shape" in layout else [1]
+        # shape = layout["shape"] if "shape" in layout else [1]
+        shape = layout.shape or [1]
         dataspace = {"class": "Simple",
                      "shape": tuple(shape),
                      "maxshape": tuple([UNLIMITED] * len(shape))}
         vf = {"class": "VirtualDataset",
               "h5object": self._h5object,
               "name": name,
-              "dtype": layout["datatype"] if "datatype" in layout else "float",
+              "dtype": _tostr(layout.dtype),
               "dataspace": dataspace,
-              "layout": dict(layout or {}),
+              "layout": dict(layout.h5object or {}),
               "fillvalue": fillvalue,
               # skip: dcpl
               }
@@ -2437,6 +2499,7 @@ class RedisField(filewriter.FTField):
         :param o: h5 object
         :type o: :obj:`any`
         """
+        print("SET", self.name, t, o)
         if REDIS:
             if self.__dsname is None and \
                "nexdatas_strategy" in self.attributes._names():
@@ -2453,13 +2516,24 @@ class RedisField(filewriter.FTField):
                 jo = {"stored": True, "frame": self.__rcounter}
                 self.__rstream.send(jo)
                 self.__rcounter += 1
+        # print("SET", self.name, t, type(t))
         if self.shape == (1,) and t == 0:
             self._h5object["value"] = o
-        selection = _slice2selection(t, self.shape)
-        if selection is None:
+        elif t is Ellipsis or t is tuple():
             self._h5object["value"] = o
         else:
-            raise Exception("RedisField.__setitem__ not supported")
+            sslice = _selection2slice(t, self.shape)
+            if sslice is None:
+                self._h5object["value"] = o
+            else:
+                if self.dtype in ['string', b'string']:
+                    var = self._h5object["value"]
+                    var = np.array(var, dtype="object")
+                    var[sslice] = np.array(o, dtype="object")
+                    # var = var.astype(dtype)
+                    self._h5object["value"] = var
+                else:
+                    self._h5object["value"][sslice] = o
 
     def close(self):
         """ close field
@@ -2487,11 +2561,28 @@ class RedisField(filewriter.FTField):
         :param dim: size of the grow
         :type dim: :obj:`int`
         """
+        shape = None
         if "shape" in self._h5object:
             shape = list(self._h5object["shape"])
             if dim < len(shape):
                 shape[dim] += ext
                 self._h5object["shape"] = tuple(shape)
+        if "dataspace" in self._h5object:
+            dtspace = self._h5object["dataspace"]
+            if "shape" in dtspace:
+                shape = list(dtspace["shape"])
+                if dim < len(shape):
+                    shape[dim] += ext
+                    dtspace["shape"] = tuple(shape)
+        if "value" in self._h5object:
+            if shape:
+                if isinstance(self._h5object["value"], list):
+                    self._h5object["value"] = np.array(self._h5object["value"])
+                elif not isinstance(self._h5object["value"], np.ndarray):
+                    self._h5object["value"] = np.array(
+                        [self._h5object["value"]])
+                if isinstance(self._h5object["value"], np.ndarray):
+                    self._h5object["value"].resize(shape)
 
     def read(self):
         """ read the field value
@@ -2500,6 +2591,8 @@ class RedisField(filewriter.FTField):
         :rtype: :obj:`any`
         """
         if "value" in self._h5object:
+            if isinstance(self._h5object["value"], list):
+                return list(self._h5object["value"])
             return self._h5object["value"]
         return None
 
@@ -2509,9 +2602,7 @@ class RedisField(filewriter.FTField):
         :param o: h5 object
         :type o: :obj:`any`
         """
-        if len(self.shape or []) < 2:
-            self._h5object["value"] = o
-        raise Exception("RedisField.write not supported")
+        self[...] = o
 
     def __getitem__(self, t):
         """ get value
@@ -2521,6 +2612,7 @@ class RedisField(filewriter.FTField):
         :returns: h5 object
         :rtype: :obj:`any`
         """
+        # print("GET", self.name, self.shape, t)
         if self.shape == (1,) and t == 0:
             if self.dtype in ['string', b'string']:
                 # workaround for bug: h5cpp #355
@@ -2532,12 +2624,14 @@ class RedisField(filewriter.FTField):
                 else:
                     if "value" in self._h5object:
                         return self._h5object["value"]
+
             else:
                 if "value" in self._h5object:
                     return self._h5object["value"]
 
-        selection = _slice2selection(t, self.shape)
-        if selection is None:
+        sslice = _selection2slice(t, self.shape)
+        # print("SEL", sslice, t, self.shape)
+        if sslice in [None, tuple(), Ellipsis]:
             if self.dtype in ['string', b'string']:
                 # workaround for bug: h5cpp #355
                 if self.size == 0:
@@ -2556,8 +2650,47 @@ class RedisField(filewriter.FTField):
                 if "value" in self._h5object:
                     return self._h5object["value"]
             return v
-        raise Exception("RedisField.__getitem__ not supported")
-        return
+        v = self._h5object["value"] \
+            if "value" in self._h5object else None
+        v= v[sslice]
+        # if hasattr(v, "shape") and hasattr(v, "reshape"):
+        #     shape = [sh for sh in v.shape if sh != 1]
+        #     if shape != list(v.shape):
+        #         v.reshape(shape)
+
+        # print("VAL", v)
+        if hasattr(v, "shape"):
+            shape = v.shape
+            if len(shape) == 3 and shape[2] == 1:
+                #: problem with old numpy
+                # v.reshape(shape[:2])
+                v = v[:, :, 0]
+                shape = v.shape
+            if len(shape) == 3 and shape[1] == 1:
+                # v.reshape([shape[0], shape[2]])
+                v = v[:, 0, :]
+                shape = v.shape
+            if len(shape) == 3 and shape[0] == 1:
+                # v.reshape([shape[1], shape[2]])
+                v = v[0, :, :]
+                shape = v.shape
+            if len(shape) == 2 and shape[1] == 1:
+                # v.reshape([shape[0]]]
+                v = v[0, :]
+                shape = v.shape
+            if len(shape) == 2 and shape[0] == 1:
+                # v.reshape([shape[1]])
+                v = v[:, 0]
+                shape = v.shape
+            if len(shape) == 1 and shape[0] == 1:
+                v = v[0]
+        # print("VAL2", v)
+        if self.dtype in ['string', b'string']:
+            try:
+                v = v.decode('UTF-8')
+            except Exception:
+                pass
+        return v
 
     @property
     def is_valid(self):
@@ -2566,7 +2699,7 @@ class RedisField(filewriter.FTField):
         :returns: valid flag
         :rtype: :obj:`bool`
         """
-        return False
+        return True
 
     @property
     def dtype(self):
@@ -3627,7 +3760,6 @@ class RedisAttribute(filewriter.FTAttribute):
         :param o: python object
         :type o: :obj:`any`
         """
-        # self._h5object.write(o)
         vl = o
         if vl is not None:
             # if self.dtype in ['string', b'string']:
