@@ -1,3 +1,7 @@
+2026-02-03 Jan Kotanski <jankotan@gmail.com>
+	* add checks if 'value' exists in h5object for rediswriter (#860)
+	* tagged as v4.39.1
+
 2026-02-02 Jan Kotanski <jankotan@gmail.com>
 	* add rediswriter (#857)
 	* tagged as v4.39.0

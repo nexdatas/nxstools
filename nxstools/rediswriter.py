@@ -2536,7 +2536,13 @@ class RedisField(filewriter.FTField):
                     # var = var.astype(dtype)
                     self._h5object["value"] = var
                 else:
-                    self._h5object["value"][sslice] = o
+                    if "value" in self._h5object:
+                        try:
+                            self._h5object["value"][sslice] = o
+                        except Exception:
+                            self._h5object["value"] = o
+                    else:
+                        self._h5object["value"] = o
 
     def close(self):
         """ close field
