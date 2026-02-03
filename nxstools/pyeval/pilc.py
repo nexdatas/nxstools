@@ -107,7 +107,9 @@ def triggermode_cb(commonblock, name, triggermode,
         if hasattr(root, "currentfileid") and hasattr(root, "stepsperfile"):
             spf = root.stepsperfile
             cfid = root.currentfileid
-        if root.h5object.__class__.__name__ == "File":
+        if type(root).__name__ == "RedisGroup":
+            import nxstools.rediswriter as nxw
+        elif root.h5object.__class__.__name__ == "File":
             import nxstools.h5pywriter as nxw
         else:
             import nxstools.h5cppwriter as nxw
