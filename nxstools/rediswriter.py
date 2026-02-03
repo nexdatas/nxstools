@@ -1520,7 +1520,6 @@ class RedisGroup(filewriter.FTGroup):
             if hasattr(nch, "name") and nch.name == name:
                 fch = nch
                 break
-        # print("OPEN", name, fch, fch.h5object)
         return fch
 
     def open_link(self, name):
@@ -1870,7 +1869,9 @@ class RedisGroup(filewriter.FTGroup):
         :rtype: :obj:`list` <`str`>
         """
         return [ch().name for ch in self._tchildren
-                if (hasattr(ch(), "name") and ch().name)]
+                if (hasattr(ch(), "name") and ch().name
+                    and type(ch()).__name__
+                    not in ["RedisAttribute"])]
 
     class RedisGroupIter(object):
 
@@ -2536,7 +2537,13 @@ class RedisField(filewriter.FTField):
                     # var = var.astype(dtype)
                     self._h5object["value"] = var
                 else:
-                    self._h5object["value"][sslice] = o
+                    if "value" in self._h5object:
+                        try:
+                            self._h5object["value"][sslice] = o
+                        except Exception:
+                            self._h5object["value"] = o
+                    else:
+                        self._h5object["value"] = o
 
     def close(self):
         """ close field
