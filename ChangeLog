@@ -1,3 +1,7 @@
+2026-02-06 Jan Kotanski <jankotan@gmail.com>
+	* catch reshaping error in RedisWriter (#863)
+	* tagged as v4.39.2
+
 2026-02-03 Jan Kotanski <jankotan@gmail.com>
 	* add checks if 'value' exists in h5object for rediswriter (#860)
 	* fix RedisGroup names() (#860)
