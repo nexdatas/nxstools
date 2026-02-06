@@ -2599,7 +2599,10 @@ class RedisField(filewriter.FTField):
                         np.zeros(shape=shape, dtype=val.dtype)
                     slices = tuple([slice(None, dim, None)
                                     for dim in val.shape])
-                    self._h5object["value"][slices] = val
+                    try:
+                        self._h5object["value"][slices] = val
+                    except Exception:
+                        self._h5object["value"] = val
 
     def read(self):
         """ read the field value
