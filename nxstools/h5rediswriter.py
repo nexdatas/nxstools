@@ -2169,6 +2169,28 @@ class H5RedisAttributeManager(H5AttributeManager):
         if hasattr(self._tparent, "get_attr_value"):
             return self._tparent.get_attr_value(name)
 
+    def append_scaninfo(self, value, keys=None, direct=False):
+        """ append scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "append_scaninfo"):
+            return self._tparent.append_scaninfo(value, keys, direct)
+
+    def get_scaninfo(self, keys=None, direct=False):
+        """ get scan info parameters
+
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        :returns value: scan parameter value
+        :rtype value: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_scaninfo"):
+            return self._tparent.get_scaninfo(keys, direct)
+
 
 class H5RedisAttribute(H5Attribute):
 
@@ -2185,6 +2207,11 @@ class H5RedisAttribute(H5Attribute):
         :param h5imp: h5 implementation attribute
         :type h5imp: :class:`filewriter.FTAttribute`
         """
+        #: (:obj:`str`) datasource name
+        self._dsname = None
+        #: (:obj:`str`) strategy mode
+        self._strategy = None
+
         if h5imp is not None:
             H5Attribute.__init__(self, h5imp.h5object, h5imp._tparent)
         else:
@@ -2234,3 +2261,55 @@ class H5RedisAttribute(H5Attribute):
             # print("WRITE", self.name, vl)
             if hasattr(self, "set_attr_value"):
                 self.set_attr_value(self.name, vl)
+        if vl is not None and self._dsname and self._strategy:
+            self.__set_attr_channel_info(
+                self._dsname, self.shape, self._strategy, vl)
+
+    def __set_attr_channel_info(self, dsname, shape, strategy, o):
+        """ set init channel info
+
+        :param dsname: datasource name
+        :type dsname: :obj:`str`
+        :param shape: datasource shape
+        :type shape: :obj:`list` <:obj:`int`>
+        :param strategy: datasource strategy i.e. INIT or FINAL
+        :type strategy: :obj:`str`
+        :param o: object value to write
+        :type o: :obj:`any`
+        """
+        ids = {
+            "name": dsname,
+            "label": dsname,
+            "value": o,
+            "strategy": strategy,
+            "dtype": self.dtype
+        }
+
+        ids["nexus_path"] = self.path
+        pars = (self.get_scaninfo(["snapshot"]) or {}).keys()
+        dsn = dsname
+        while dsn in pars:
+            dsn = dsn + "_"
+        self.append_scaninfo(ids, ["snapshot", dsn])
+
+    def append_scaninfo(self, value, keys=None, direct=False):
+        """ append scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "append_scaninfo"):
+            return self._tparent.append_scaninfo(value, keys, direct)
+
+    def get_scaninfo(self, keys=None, direct=False):
+        """ get scan info parameters
+
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        :returns value: scan parameter value
+        :rtype value: :obj:`any`
+        """
+        if hasattr(self._tparent, "get_scaninfo"):
+            return self._tparent.get_scaninfo(keys, direct)
