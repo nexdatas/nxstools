@@ -1,3 +1,7 @@
+2026-02-10 Jan Kotanski <jankotan@gmail.com>
+	* change utf8 to utf-8 in xml (#869)
+	* tagged as v4.41.0
+
 2026-02-09 Jan Kotanski <jankotan@gmail.com>
 	* store attributes with datasources in blissdata snapshot (#866)
 	* tagged as v4.40.0
