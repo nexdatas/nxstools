@@ -163,7 +163,7 @@ def _tostr(text):
     if isinstance(text, str):
         return text
     elif sys.version_info > (3,):
-        return str(text, "utf8")
+        return str(text, "utf-8")
     else:
         return str(text)
 

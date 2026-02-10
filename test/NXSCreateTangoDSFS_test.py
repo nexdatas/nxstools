@@ -202,7 +202,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute" '
@@ -210,7 +210,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute" '
@@ -218,7 +218,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute" '
@@ -235,7 +235,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute"'
@@ -243,7 +243,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute"'
@@ -251,7 +251,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute"'
@@ -267,7 +267,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                 ['test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot02">\n'
                     '    <device name="test/vm/02" member="attribute"'
@@ -275,7 +275,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot03">\n'
                     '    <device name="test/vm/03" member="attribute"'
@@ -333,7 +333,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute" '
@@ -341,7 +341,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute" '
@@ -349,7 +349,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute" '
@@ -367,7 +367,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute"'
@@ -375,7 +375,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute"'
@@ -383,7 +383,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute"'
@@ -400,7 +400,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                 ['test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot02">\n'
                     '    <device name="test/vm/02" member="attribute"'
@@ -408,7 +408,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot03">\n'
                     '    <device name="test/vm/03" member="attribute"'
@@ -466,7 +466,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute" '
@@ -474,7 +474,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute" '
@@ -482,7 +482,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute" '
@@ -500,7 +500,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute"'
@@ -508,7 +508,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute"'
@@ -516,7 +516,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute"'
@@ -534,7 +534,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                 ['test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot02">\n'
                     '    <device name="test/vm/02" member="attribute"'
@@ -542,7 +542,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Voltage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot03">\n'
                     '    <device name="test/vm/03" member="attribute"'
@@ -600,7 +600,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device name="test/motor/01" member="command" '
@@ -608,7 +608,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device name="test/motor/02" member="command" '
@@ -616,7 +616,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device name="test/motor/03" member="command" '
@@ -635,7 +635,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="test/motor/01" member="command"'
@@ -643,7 +643,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="test/motor/02" member="command"'
@@ -651,7 +651,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="test/motor/03" member="command"'
@@ -709,7 +709,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device name="test/motor/01" member="property" '
@@ -717,7 +717,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device name="test/motor/02" member="property" '
@@ -725,7 +725,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device name="test/motor/03" member="property" '
@@ -744,7 +744,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="test/motor/01" member="property"'
@@ -752,7 +752,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="test/motor/02" member="property"'
@@ -760,7 +760,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="test/motor/03" member="property"'
@@ -818,7 +818,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute" '
@@ -826,7 +826,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute" '
@@ -834,7 +834,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute" '
@@ -853,7 +853,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute"'
@@ -861,7 +861,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute"'
@@ -869,7 +869,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute"'
@@ -927,7 +927,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute" '
@@ -935,7 +935,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute" '
@@ -943,7 +943,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute" '
@@ -964,7 +964,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute"'
@@ -972,7 +972,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute"'
@@ -980,7 +980,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute"'
@@ -1048,7 +1048,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute" '
@@ -1056,7 +1056,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute" '
@@ -1064,7 +1064,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute" '
@@ -1085,7 +1085,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'myexp_mot02',
                  'myexp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="myexp_mot01">\n'
                     '    <device name="test/motor/01" member="attribute"'
@@ -1093,7 +1093,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="myexp_mot02">\n'
                     '    <device name="test/motor/02" member="attribute"'
@@ -1101,7 +1101,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="myexp_mot03">\n'
                     '    <device name="test/motor/03" member="attribute"'
@@ -1169,7 +1169,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device name="test/motor/01" '
@@ -1178,7 +1178,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device name="test/motor/02" '
@@ -1187,7 +1187,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device name="test/motor/03" '
@@ -1206,7 +1206,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="test/motor/01" '
@@ -1215,7 +1215,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="test/motor/02" '
@@ -1224,7 +1224,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="test/motor/03" '
@@ -1243,7 +1243,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                 ['test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot02">\n'
                     '    <device name="test/vm/02" '
@@ -1252,7 +1252,7 @@ class NXSCreateTangoDSFSTest(unittest.TestCase):
                     '    <record name="Voltage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot03">\n'
                     '    <device name="test/vm/03" '

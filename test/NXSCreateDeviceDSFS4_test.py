@@ -282,7 +282,7 @@ class NXSCreateDeviceDSFS4Test(unittest.TestCase):
                  'testcs_stepdatasources',
                  'testcs_canfaildatasources'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testcs_jsonsettings"'
                     '>\n'
@@ -292,7 +292,7 @@ class NXSCreateDeviceDSFS4Test(unittest.TestCase):
                     '    <record name="JSONSettings"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testcs_selection">\n'
                     '    <device name="%s" '
@@ -301,7 +301,7 @@ class NXSCreateDeviceDSFS4Test(unittest.TestCase):
                     '    <record name="Selection"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testcs_xmlstring">\n'
                     '    <device name="%s" '
@@ -310,7 +310,7 @@ class NXSCreateDeviceDSFS4Test(unittest.TestCase):
                     '    <record name="XMLString"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testcs_variables">\n'
                     '    <device name="%s" '
@@ -319,7 +319,7 @@ class NXSCreateDeviceDSFS4Test(unittest.TestCase):
                     '    <record name="Variables"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testcs_linkdatasources"'
                     '>\n'
@@ -329,7 +329,7 @@ class NXSCreateDeviceDSFS4Test(unittest.TestCase):
                     '    <record name="LinkDataSources"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" '
                     'name="testcs_extralinkdatasources"'
@@ -340,7 +340,7 @@ class NXSCreateDeviceDSFS4Test(unittest.TestCase):
                     '    <record name="ExtraLinkDataSources"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testcs_version">\n'
                     '    <device name="%s" '
@@ -349,7 +349,7 @@ class NXSCreateDeviceDSFS4Test(unittest.TestCase):
                     '    <record name="Version"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testcs_stepdatasources"'
                     '>\n'
@@ -359,7 +359,7 @@ class NXSCreateDeviceDSFS4Test(unittest.TestCase):
                     '    <record name="STEPDataSources"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO"'
                     ' name="testcs_canfaildatasources"'

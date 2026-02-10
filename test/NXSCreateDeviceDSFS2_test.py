@@ -80,7 +80,7 @@ class NXSCreateDeviceDSFS2Test(
                  'tst_tcounts',
                  'tst_tfilename'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tdata">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -88,7 +88,7 @@ class NXSCreateDeviceDSFS2Test(
                     '    <record name="TData"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tcounts">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -96,7 +96,7 @@ class NXSCreateDeviceDSFS2Test(
                     '    <record name="TCounts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tfilename">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -114,7 +114,7 @@ class NXSCreateDeviceDSFS2Test(
                  't2_testpe_filedir',
                  't2_testpe_data'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_fileprefix">\n'
                     '    <device name="test/pe/1" '
@@ -123,7 +123,7 @@ class NXSCreateDeviceDSFS2Test(
                     '    <record name="FilePrefix"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_filedir">\n'
                     '    <device name="test/pe/1" '
@@ -132,7 +132,7 @@ class NXSCreateDeviceDSFS2Test(
                     '    <record name="FileDir"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_data">\n'
                     '    <device name="test/pe/1" '
@@ -150,7 +150,7 @@ class NXSCreateDeviceDSFS2Test(
                 ['my_test_lmb_lastimage',
                  'my_test_lmb_filename'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_lastimage">\n'
                     '    <device name="test/lambda/1" '
@@ -159,7 +159,7 @@ class NXSCreateDeviceDSFS2Test(
                     '    <record name="LastImage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_filename">\n'
                     '    <device name="test/lambda/1" '
@@ -218,7 +218,7 @@ class NXSCreateDeviceDSFS2Test(
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -226,7 +226,7 @@ class NXSCreateDeviceDSFS2Test(
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -234,7 +234,7 @@ class NXSCreateDeviceDSFS2Test(
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -253,7 +253,7 @@ class NXSCreateDeviceDSFS2Test(
                 ['test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="mot02">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -261,7 +261,7 @@ class NXSCreateDeviceDSFS2Test(
                     '    <record name="Voltage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="mot03">\n'
                     '    <device hostname="%s" member="attribute"'

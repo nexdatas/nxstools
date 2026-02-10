@@ -44,7 +44,7 @@ def _tostr(text):
     else:
         if sys.version_info > (3,) and \
            (isinstance(text, bytes) or isinstance(text, unicode)):
-            return str(text, "utf8")
+            return str(text, "utf-8")
         else:
             return str(text)
 
@@ -746,10 +746,10 @@ class XMLFile(object):
         else:
             xmls = _tostr(
                 lxml.etree.tostring(
-                    node, encoding='utf8',
+                    node, encoding='utf-8',
                     method='xml', pretty_print=True))
         if not xmls.startswith("<?xml"):
-            xmls = "<?xml version='1.0' encoding='utf8'?>\n" + xmls
+            xmls = "<?xml version='1.0' encoding='utf-8'?>\n" + xmls
         return xmls
 
     def setDependencies(self, components, entry=None):

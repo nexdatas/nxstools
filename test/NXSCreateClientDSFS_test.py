@@ -219,7 +219,7 @@ For more help:
             [
                 ('nxscreate clientds starttimetest %s' % self.flags).split(),
                 'starttimetest',
-                """<?xml version='1.0' encoding='utf8'?>
+                """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="starttimetest">
     <record name="starttimetest"/>
@@ -230,7 +230,7 @@ For more help:
             [
                 ('nxscreate clientds endtimetest %s' % self.flags).split(),
                 'endtimetest',
-                """<?xml version='1.0' encoding='utf8'?>
+                """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="endtimetest">
     <record name="endtimetest"/>
@@ -241,7 +241,7 @@ For more help:
             [
                 ('nxscreate clientds wwwtest %s' % self.flags).split(),
                 'wwwtest',
-                """<?xml version='1.0' encoding='utf8'?>
+                """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="wwwtest">
     <record name="wwwtest"/>
@@ -252,7 +252,7 @@ For more help:
             [
                 ('nxscreate clientds abstest %s' % self.flags).split(),
                 'abstest',
-                """<?xml version='1.0' encoding='utf8'?>
+                """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="abstest">
     <record name="abstest"/>
@@ -295,21 +295,21 @@ For more help:
                  'test_exp_c02',
                  'test_exp_c03'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_c01">
     <record name="test_exp_c01"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_c02">
     <record name="test_exp_c02"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_c03">
     <record name="test_exp_c03"/>
@@ -324,14 +324,14 @@ For more help:
                 ['test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_mot02">
     <record name="test_exp_mot02"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_mot03">
     <record name="test_exp_mot03"/>
@@ -346,14 +346,14 @@ For more help:
                 ['test_exp_vfc02',
                  'test_exp_vfc03'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vfc02">
     <record name="test_exp_vfc02"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vfc03">
     <record name="test_exp_vfc03"/>
@@ -405,21 +405,21 @@ For more help:
                  'test_exp_cc4',
                  'test_exp_cc5'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_cc3">
     <record name="test_exp_cc3"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_cc4">
     <record name="test_exp_cc4"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_cc5">
     <record name="test_exp_cc5"/>
@@ -435,14 +435,14 @@ For more help:
                 ['test_exp_dd3',
                  'test_exp_dd4'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_dd3">
     <record name="test_exp_dd3"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_dd4">
     <record name="test_exp_dd4"/>
@@ -494,21 +494,21 @@ For more help:
                  'test_exp_vc04',
                  'test_exp_vc05'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc03">
     <record name="testcounter03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc04">
     <record name="testcounter04"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc05">
     <record name="testcounter05"/>
@@ -525,14 +525,14 @@ For more help:
                 ['test_exp_d03',
                  'test_exp_d04'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_d03">
     <record name="testdec03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_d04">
     <record name="testdec04"/>
@@ -584,21 +584,21 @@ For more help:
                  'test_exp_vc04',
                  'test_exp_vc05'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc03">
     <record name="testcounter03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc04">
     <record name="testcounter04"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc05">
     <record name="testcounter05"/>
@@ -617,14 +617,14 @@ For more help:
                 ['test_exp_d03',
                  'test_exp_d04'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_d03">
     <record name="testdec03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_d04">
     <record name="testdec04"/>
@@ -684,21 +684,21 @@ For more help:
                  'test_exp_vc04',
                  'test_exp_vc05'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc03">
     <record name="testcounter03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc04">
     <record name="testcounter04"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc05">
     <record name="testcounter05"/>
@@ -709,21 +709,21 @@ For more help:
                 ('nxscreate clientds -v test2counter -o -s test_exp_vc '
                  ' -f3 -l5 %s' % self.flags).split(),
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc03">
     <record name="test2counter03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc04">
     <record name="test2counter04"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_vc05">
     <record name="test2counter05"/>
@@ -740,14 +740,14 @@ For more help:
                 ['test_exp_d03',
                  'test_exp_d04'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_d03">
     <record name="testdec03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_d04">
     <record name="testdec04"/>
@@ -760,14 +760,14 @@ For more help:
                  '--first 3 --last 4 %s'
                  % self.flags).split(),
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_d03">
     <record name="test2dec03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="test_exp_d04">
     <record name="test2dec04"/>

@@ -136,7 +136,7 @@ class NXSCreatePoolDSFS2Test(
                 'test_tst_exp_pc01',
             ],
             [
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <datasource type="TANGO" name="tst_exp_mot01">\n'
                 '    <device name="motor/oms/10" '
@@ -145,7 +145,7 @@ class NXSCreatePoolDSFS2Test(
                 '    <record name="Position"/>\n'
                 '  </datasource>\n'
                 '</definition>\n',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <datasource type="TANGO" name="tst_exp_mot02">\n'
                 '    <device name="pmotor/oms/20" '
@@ -155,7 +155,7 @@ class NXSCreatePoolDSFS2Test(
                 '  </datasource>\n'
                 '</definition>\n',
 
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <datasource type="TANGO" name="tst_exp_c01">\n'
                 '    <device name="p00/counter/10" '
@@ -164,7 +164,7 @@ class NXSCreatePoolDSFS2Test(
                 '    <record name="Counts"/>\n'
                 '  </datasource>\n'
                 '</definition>\n',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <datasource type="TANGO" name="tst_exp_adc01">\n'
                 '    <device name="p00/adc/10" '
@@ -173,7 +173,7 @@ class NXSCreatePoolDSFS2Test(
                 '    <record name="Value"/>\n'
                 '  </datasource>\n'
                 '</definition>\n',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <datasource type="TANGO" name="tst_exp_mca01">\n'
                 '    <device name="p00/mca/10" '
@@ -182,7 +182,7 @@ class NXSCreatePoolDSFS2Test(
                 '    <record name="Value"/>\n'
                 '  </datasource>\n'
                 '</definition>\n',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <datasource type="TANGO" name="tst_exp_det01">\n'
                 '    <device name="p00/det/10" '
@@ -191,7 +191,7 @@ class NXSCreatePoolDSFS2Test(
                 '    <record name="Data"/>\n'
                 '  </datasource>\n'
                 '</definition>\n',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <datasource type="TANGO" name="tst_exp_pc01">\n'
                 '    <device name="p00/pcounter/10" '

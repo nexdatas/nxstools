@@ -202,7 +202,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'tcounts',
                  'tfilename'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tdata">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -210,7 +210,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="TData"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tcounts">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -218,7 +218,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="TCounts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tfilename">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -236,7 +236,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'testpe_filedir',
                  'testpe_data'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_fileprefix">\n'
                     '    <device name="test/pe/1" '
@@ -245,7 +245,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FilePrefix"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_filedir">\n'
                     '    <device name="test/pe/1" '
@@ -254,7 +254,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FileDir"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_data">\n'
                     '    <device name="test/pe/1" '
@@ -272,7 +272,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                 ['test_lmb_lastimage',
                  'test_lmb_filename'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_lastimage">\n'
                     '    <device name="test/lambda/1" '
@@ -281,7 +281,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="LastImage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_filename">\n'
                     '    <device name="test/lambda/1" '
@@ -340,7 +340,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'testpe_filedir',
                  'testpe_data'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_fileprefix">\n'
                     '    <device name="test/pe/1" '
@@ -349,7 +349,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FilePrefix"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_filedir">\n'
                     '    <device name="test/pe/1" '
@@ -358,7 +358,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FileDir"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_data">\n'
                     '    <device name="test/pe/1" '
@@ -379,7 +379,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                 ['test_lmb_lastimage',
                  'test_lmb_filename'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_lastimage">\n'
                     '    <device name="test/lambda/1" '
@@ -388,7 +388,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="LastImage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_filename">\n'
                     '    <device name="test/lambda/1" '
@@ -457,7 +457,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'test2pe_filedir',
                  'test2pe_data'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test2pe_fileprefix">\n'
                     '    <device name="test/pe/1" '
@@ -466,7 +466,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FilePrefix"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test2pe_filedir">\n'
                     '    <device name="test/pe/1" '
@@ -475,7 +475,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FileDir"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test2pe_data">\n'
                     '    <device name="test/pe/1" '
@@ -496,7 +496,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                 ['test_lmb_lastimage',
                  'test_lmb_filename'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_lastimage">\n'
                     '    <device name="test/lambda/1" '
@@ -505,7 +505,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="LastImage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_filename">\n'
                     '    <device name="test/lambda/1" '
@@ -573,7 +573,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'tcounts',
                  'tfilename'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tdata">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -581,7 +581,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="TData"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tcounts">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -589,7 +589,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="TCounts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tfilename">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -607,7 +607,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'testpe_filedir',
                  'testpe_data'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_fileprefix">\n'
                     '    <device name="test/pe/1" '
@@ -616,7 +616,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FilePrefix"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_filedir">\n'
                     '    <device name="test/pe/1" '
@@ -625,7 +625,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FileDir"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_data">\n'
                     '    <device name="test/pe/1" '
@@ -643,7 +643,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                 ['test_lmb_lastimage',
                  'test_lmb_filename'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_lastimage">\n'
                     '    <device name="test/lambda/1" '
@@ -652,7 +652,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="LastImage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_lmb_filename">\n'
                     '    <device name="test/lambda/1" '
@@ -710,7 +710,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'tcounts',
                  'tfilename'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tdata">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -718,7 +718,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="TData"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tcounts">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -726,7 +726,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="TCounts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="tfilename">\n'
                     '    <device name="test/pilatus/01" member="attribute" '
@@ -744,7 +744,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'testpe_filedir',
                  'testpe_data'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_fileprefix">\n'
                     '    <device name="test/pe/1" '
@@ -753,7 +753,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FilePrefix"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_filedir">\n'
                     '    <device name="test/pe/1" '
@@ -762,7 +762,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="FileDir"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="testpe_data">\n'
                     '    <device name="test/pe/1" '
@@ -821,7 +821,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device hostname="haso0000" member="attribute" '
@@ -829,7 +829,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device hostname="haso0000" member="attribute" '
@@ -837,7 +837,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device hostname="haso0000" member="attribute" '
@@ -856,7 +856,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device hostname="myhost" member="attribute"'
@@ -864,7 +864,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device hostname="myhost" member="attribute"'
@@ -872,7 +872,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device hostname="myhost" member="attribute"'
@@ -930,7 +930,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device hostname="%s" member="attribute" '
@@ -938,7 +938,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device hostname="%s" member="attribute" '
@@ -946,7 +946,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device hostname="%s" member="attribute" '
@@ -967,7 +967,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -975,7 +975,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -983,7 +983,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -1051,7 +1051,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device hostname="%s" member="attribute" '
@@ -1059,7 +1059,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device hostname="%s" member="attribute" '
@@ -1067,7 +1067,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device hostname="%s" member="attribute" '
@@ -1088,7 +1088,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'myexp_mot02',
                  'myexp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="myexp_mot01">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -1096,7 +1096,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="myexp_mot02">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -1104,7 +1104,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="myexp_mot03">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -1172,7 +1172,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'exp_mot02',
                  'exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot01">\n'
                     '    <device group="__CLIENT__" hostname="%s" '
@@ -1181,7 +1181,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot02">\n'
                     '    <device group="__CLIENT__" hostname="%s" '
@@ -1190,7 +1190,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="exp_mot03">\n'
                     '    <device group="__CLIENT__" hostname="%s" '
@@ -1209,7 +1209,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device group="__CLIENT__" hostname="%s" '
@@ -1218,7 +1218,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device group="__CLIENT__" hostname="%s" '
@@ -1227,7 +1227,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device group="__CLIENT__" hostname="%s" '
@@ -1246,7 +1246,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                 ['test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot02">\n'
                     '    <device group="__CLIENT__" hostname="%s" '
@@ -1255,7 +1255,7 @@ class NXSCreateDeviceDSFSTest(unittest.TestCase):
                     '    <record name="Voltage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="test_exp_mot03">\n'
                     '    <device group="__CLIENT__" hostname="%s" '

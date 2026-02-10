@@ -76,7 +76,7 @@ class NXSCreateOnlineCPFS2Test(
         fname = '%s/%s%s.xml' % (
             os.getcwd(), self.__class__.__name__, fun)
 
-        xml = """<?xml version='1.0' encoding='utf8'?>
+        xml = """<?xml version='1.0' encoding='utf-8'?>
 <hw>
 <device>
  <name>myeigerdectris</name>
@@ -198,7 +198,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    </group>\n'
                      '  </group>\n'
                      '</definition>\n'],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_autosummationenabled"'
@@ -209,7 +209,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="AutoSummationEnabled"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_bitdepth"'
@@ -220,7 +220,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="BitDepth"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_counttime"'
@@ -244,7 +244,7 @@ class NXSCreateOnlineCPFS2Test(
                      '  $datasources.myeigerdectris_description\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_description"'
@@ -255,7 +255,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="Description"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_energythreshold"'
@@ -266,7 +266,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="EnergyThreshold"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_flatfieldenabled"'
@@ -277,7 +277,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="FlatFieldEnabled"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_frametime"'
@@ -288,7 +288,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="FrameTime"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_humidity"'
@@ -310,7 +310,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    $datasources.myeigerdectris_nbimages\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_nbtriggers"'
@@ -321,7 +321,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="NbTriggers"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_photonenergy"'
@@ -332,7 +332,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="PhotonEnergy"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" '
                      'name="myeigerdectris_ratecorrectionenabled"'
@@ -343,7 +343,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="RateCorrectionEnabled"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_readouttime"'
@@ -369,7 +369,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    $datasources.myeigerdectris_nbimages\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_temperature"'
@@ -405,7 +405,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    $datasources.myeigerdectris_nbimages\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_triggermode"'
@@ -416,7 +416,7 @@ class NXSCreateOnlineCPFS2Test(
                      '    <record name="TriggerMode"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="myeigerdectris_wavelength"'

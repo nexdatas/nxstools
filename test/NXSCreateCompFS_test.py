@@ -201,7 +201,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
             [
                 ('nxscreate comp starttimetest %s' % self.flags).split(),
                 'starttimetest',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <group name="$var.entryname#\'scan\'$var.serialno" '
                 'type="NXentry">\n'
@@ -218,7 +218,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
             [
                 ('nxscreate comp endtimetest %s' % self.flags).split(),
                 'endtimetest',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <group name="$var.entryname#\'scan\'$var.serialno" '
                 'type="NXentry">\n'
@@ -235,7 +235,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
             [
                 ('nxscreate comp wwwtest %s' % self.flags).split(),
                 'wwwtest',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <group name="$var.entryname#\'scan\'$var.serialno" '
                 'type="NXentry">\n'
@@ -252,7 +252,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
             [
                 ('nxscreate comp abstest %s' % self.flags).split(),
                 'abstest',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>\n'
                 '  <group name="$var.entryname#\'scan\'$var.serialno" '
                 'type="NXentry">\n'
@@ -298,7 +298,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ('nxscreate comp starttimetest -e lmbd %s'
                  % self.flags).split(),
                 'starttimetest',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>'
                 '<group name="$var.entryname#\'scan\'$var.serialno" '
                 'type="NXentry">'
@@ -314,7 +314,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ('nxscreate comp endtimetest %s --depends exp_c01,exp_c02'
                  % self.flags).split(),
                 'endtimetest',
-                '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                 '<definition>'
                 '<group name="$var.entryname#\'scan\'$var.serialno" '
                 'type="NXentry">'
@@ -362,7 +362,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -374,7 +374,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -386,7 +386,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -408,7 +408,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -420,7 +420,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -432,7 +432,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -453,7 +453,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -465,7 +465,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -526,7 +526,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -538,7 +538,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -550,7 +550,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -572,7 +572,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -584,7 +584,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -596,7 +596,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -617,7 +617,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -629,7 +629,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -691,7 +691,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -703,7 +703,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -715,7 +715,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -738,7 +738,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -750,7 +750,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -821,7 +821,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -833,7 +833,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -845,7 +845,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -868,7 +868,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -880,7 +880,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -951,7 +951,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -964,7 +964,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -977,7 +977,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -998,7 +998,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1011,7 +1011,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1076,7 +1076,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testsis3302_1_roi02',
                  'testsis3302_1_roi03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
@@ -1091,7 +1091,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
@@ -1106,7 +1106,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
@@ -1131,7 +1131,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
@@ -1144,7 +1144,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
@@ -1207,7 +1207,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1219,7 +1219,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1231,7 +1231,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1253,7 +1253,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1265,7 +1265,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1277,7 +1277,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1299,7 +1299,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1311,7 +1311,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1323,7 +1323,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1343,7 +1343,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1355,7 +1355,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1417,7 +1417,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1430,7 +1430,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1442,7 +1442,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1462,7 +1462,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1474,7 +1474,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1537,7 +1537,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor2',
                  'testmotor3'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1549,7 +1549,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1561,7 +1561,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1581,7 +1581,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm2',
                  'testvm3'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1593,7 +1593,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1657,7 +1657,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1674,7 +1674,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1691,7 +1691,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1717,7 +1717,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1734,7 +1734,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1803,7 +1803,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1820,7 +1820,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1837,7 +1837,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1863,7 +1863,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1880,7 +1880,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1947,7 +1947,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1964,7 +1964,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -1981,7 +1981,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2005,7 +2005,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2022,7 +2022,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2089,7 +2089,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2106,7 +2106,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2123,7 +2123,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2147,7 +2147,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2164,7 +2164,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2231,7 +2231,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2243,7 +2243,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2255,7 +2255,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2277,7 +2277,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2290,7 +2290,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2303,7 +2303,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2326,7 +2326,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                  'testmotor02',
                  'testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2339,7 +2339,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2352,7 +2352,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2373,7 +2373,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                 ['testvm02',
                  'testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -2386,7 +2386,7 @@ class NXSCreateCompFSTest(unittest.TestCase):
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
