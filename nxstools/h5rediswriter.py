@@ -31,6 +31,7 @@ import datetime
 from . import filewriter
 from .redisutils import REDIS, getDataStore
 from .nxsfileparser import (getdsname, getdssource,
+                            tolist,
                             # getdstype
                             )
 
@@ -100,8 +101,8 @@ attrdesc = {
     "unit": ["units", str],
     "depends_on": ["depends_on", str],
     "trans_type": ["transformation_type", str],
-    "trans_vector": ["vector", str],
-    "trans_offset": ["offset", str],
+    "trans_vector": ["vector", tolist],
+    "trans_offset": ["offset", tolist],
     # "source_name": ["nexdatas_source", getdsname],
     # "source_type": ["nexdatas_source", getdstype],
     "source": ["nexdatas_source", getdssource],
