@@ -669,7 +669,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '    </group>\n'
                      '  </group>\n'
                      '</definition>\n'],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_delaytime">\n'
                      '    <device name="p09/pilatus/exp.01" '
@@ -692,7 +692,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="mypilatus_exposureperiod"'
@@ -704,7 +704,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_exposuretime"'
                      '>\n'
@@ -715,7 +715,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_filedir"'
                      '>\n'
@@ -726,7 +726,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_filepostfix"'
                      '>\n'
@@ -737,7 +737,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_fileprefix"'
                      '>\n'
@@ -765,7 +765,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_filestartnum"'
                      '>\n'
@@ -790,7 +790,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      ' $datasources.mypilatus_mxparameters</datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  '
                      '<datasource type="TANGO" name="mypilatus_mxparameters"'
@@ -800,7 +800,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      ' port="10000" group="mypilatus_"/>\n'
                      '    <record name="MXparameters"/>\n'
                      '  </datasource>\n</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="mypilatus_lastimagetaken"'
@@ -812,7 +812,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_nbexposures"'
                      '>\n'
@@ -823,7 +823,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_nbframes"'
                      '>\n'
@@ -988,7 +988,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '    </group>\n'
                      '  </group>\n'
                      '</definition>\n'],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_delaytime">\n'
                      '    <device name="p09/pilatus/exp.01" '
@@ -1011,7 +1011,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="mypilatus_exposureperiod"'
@@ -1023,7 +1023,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_exposuretime"'
                      '>\n'
@@ -1034,7 +1034,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_filedir"'
                      '>\n'
@@ -1045,7 +1045,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_filepostfix"'
                      '>\n'
@@ -1056,7 +1056,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_fileprefix"'
                      '>\n'
@@ -1084,7 +1084,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_filestartnum"'
                      '>\n'
@@ -1109,7 +1109,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      ' $datasources.mypilatus_mxparameters</datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  '
                      '<datasource type="TANGO" name="mypilatus_mxparameters"'
@@ -1119,7 +1119,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      ' port="10000" group="mypilatus_"/>\n'
                      '    <record name="MXparameters"/>\n'
                      '  </datasource>\n</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="mypilatus_lastimagetaken"'
@@ -1131,7 +1131,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_nbexposures"'
                      '>\n'
@@ -1142,7 +1142,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mypilatus_nbframes"'
                      '>\n'
@@ -1372,7 +1372,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '    </group>\n'
                      '  </group>\n'
                      '</definition>\n'],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_compressionrate"'
                      '>\n'
@@ -1383,7 +1383,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_configfilepath"'
                      '>\n'
@@ -1394,7 +1394,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_delaytime"'
                      '>\n'
@@ -1405,7 +1405,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_depth"'
                      '>\n'
@@ -1416,7 +1416,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" '
                      'name="mylmbd_distortioncorrection"'
@@ -1428,7 +1428,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="mylmbd_energythreshold"'
@@ -1463,7 +1463,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      ' $datasources.mylmbd_filepostfix</datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_filepostfix"'
                      '>\n'
@@ -1474,7 +1474,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_filepreext"'
                      '>\n'
@@ -1485,7 +1485,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_fileprefix"'
                      '>\n'
@@ -1496,7 +1496,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_filestartnum"'
                      '>\n'
@@ -1507,7 +1507,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_framenumbers"'
                      '>\n'
@@ -1518,7 +1518,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_framesperfile"'
                      '>\n'
@@ -1529,7 +1529,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_height"'
                      '>\n'
@@ -1540,7 +1540,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" '
                      'name="mylmbd_latestimagenumber"'
@@ -1552,7 +1552,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_layout"'
                      '>\n'
@@ -1563,7 +1563,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_liveframeno"'
                      '>\n'
@@ -1574,7 +1574,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="mylmbd_livelastimagedata"'
@@ -1586,7 +1586,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_livemode"'
                      '>\n'
@@ -1609,7 +1609,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      ' $datasources.mylmbd_saveallimages</datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="mylmbd_operatingmode"'
@@ -1621,7 +1621,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_saveallimages"'
                      '>\n'
@@ -1632,7 +1632,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_savefilename"'
                      '>\n'
@@ -1643,7 +1643,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_savefilepath"'
                      '>\n'
@@ -1654,7 +1654,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_shuttertime"'
                      '>\n'
@@ -1665,7 +1665,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_shuttertimemax"'
                      '>\n'
@@ -1676,7 +1676,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_shuttertimemin"'
                      '>\n'
@@ -1687,7 +1687,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_threadno"'
                      '>\n'
@@ -1698,7 +1698,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_totallossframes"'
                      '>\n'
@@ -1709,7 +1709,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_triggermode"'
                      '>\n'
@@ -1720,7 +1720,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mylmbd_width"'
                      '>\n'
@@ -1826,7 +1826,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </group>\n'
                      '</definition>\n'
                      ''],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="MyMarccd_frameshift">\n'
                      '    <device name="p09/mard/exp.01" '
@@ -1852,7 +1852,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      ' $datasources.MyMarccd_savingprefix</datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="MyMarccd_savingdirectory"'
@@ -1864,7 +1864,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="MyMarccd_savingpostfix"'
                      '>\n'
@@ -1875,7 +1875,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="MyMarccd_savingprefix"'
                      '>\n'
@@ -1983,7 +1983,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </group>\n'
                      '</definition>\n'
                      ''],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="MyMarccd_frameshift">\n'
                      '    <device name="p09/mard/exp.01" '
@@ -2009,7 +2009,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      ' $datasources.MyMarccd_savingprefix</datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO"'
                      ' name="MyMarccd_savingdirectory"'
@@ -2021,7 +2021,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="MyMarccd_savingpostfix"'
                      '>\n'
@@ -2032,7 +2032,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="MyMarccd_savingprefix"'
                      '>\n'
@@ -2156,7 +2156,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </group>\n'
                      '</definition>\n'
                      ''],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_countsroi">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2165,7 +2165,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '    <record name="CountsRoI"/>\n'
                      '  </datasource>\n'
                      '</definition>\n' % (self.host, self.port),
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_icr">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2175,7 +2175,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_ocr">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2185,7 +2185,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_roiend">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2194,7 +2194,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '    <record name="RoIEnd"/>\n'
                      '  </datasource>\n'
                      '</definition>\n' % (self.host, self.port),
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_roistart">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2390,7 +2390,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </group>\n'
                      '</definition>\n'
                      ''],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_countsroi">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2399,7 +2399,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '    <record name="CountsRoI"/>\n'
                      '  </datasource>\n'
                      '</definition>\n' % (self.host, self.port),
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_icr">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2409,7 +2409,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_ocr">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2419,7 +2419,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>\n'
                      '',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_roiend">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2428,7 +2428,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '    <record name="RoIEnd"/>\n'
                      '  </datasource>\n'
                      '</definition>\n' % (self.host, self.port),
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="mymcaxia_roistart">\n'
                      '    <device name="p09/mcaxia/exp.01" '
@@ -2652,7 +2652,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '    </group>\n'
                      '  </group>\n'
                      '</definition>\n'],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="testmymca_data">\n'
                      '    <device name="p09/mymca/exp.01" '
@@ -2661,7 +2661,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      '    <record name="Data"/>\n'
                      '  </datasource>\n'
                      '</definition>\n',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="TANGO" name="testmymca_mode">\n'
                      '    <device name="p09/mymca/exp.01" '

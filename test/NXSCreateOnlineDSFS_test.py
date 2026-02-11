@@ -254,7 +254,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="p09/motor/exp.01"'
@@ -263,7 +263,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="p09/motor/exp.02"'
@@ -272,7 +272,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="p09/motor/exp.03"'
@@ -378,7 +378,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                  'amptek_roi3',
                  'amptek_roi4'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="amptek_roi1">\n'
                     '    <device name="p03/amptekpx5/exp.01"'
@@ -387,7 +387,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="CountsRoI1"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="amptek_roi2">\n'
                     '    <device name="p03/amptekpx5/exp.01"'
@@ -396,7 +396,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="CountsRoI2"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="amptek_roi3">\n'
                     '    <device name="p03/amptekpx5/exp.01"'
@@ -405,7 +405,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="CountsRoI3"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="amptek_roi4">\n'
                     '    <device name="p03/amptekpx5/exp.01"'
@@ -510,7 +510,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                  'my_oh1_mot02',
                  'my_oh1_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_oh1_mot01">\n'
                     '    <device name="p09/motor/oh1.01"'
@@ -518,7 +518,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'port="10000"/>\n    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_oh1_mot02">\n'
                     '    <device name="p09/motor/oh1.02"'
@@ -526,7 +526,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'port="10000"/>\n    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_oh1_mot03">\n'
                     '    <device name="p09/motor/oh1.03"'
@@ -543,7 +543,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                  'my_oh1_mot02',
                  'my_oh1_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_oh1_mot01">\n'
                     '    <device name="p09/motor/oh1.01"'
@@ -551,7 +551,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'port="10000"/>\n    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_oh1_mot02">\n'
                     '    <device name="p09/motor/oh1.02"'
@@ -559,7 +559,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'port="10000"/>\n    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_oh1_mot03">\n'
                     '    <device name="p09/motor/oh1.03"'
@@ -663,7 +663,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="p09/motor/exp.01"'
@@ -672,7 +672,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot02">\n'
                     '    <device name="p09/motor/exp.02"'
@@ -681,7 +681,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot03">\n'
                     '    <device name="p09/motor/exp.03"'
@@ -786,7 +786,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                  'my_exp_Mot02',
                  'My_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="p09/Motor/exp.01" '
@@ -795,7 +795,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'group="__CLIENT__"/>\n    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_Mot02">\n'
                     '    <device name="P09/motor/exp.02"'
@@ -804,7 +804,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'group="__CLIENT__"/>\n    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="My_exp_mot03">\n'
                     '    <device name="P09/motor/exp.03"'
@@ -822,7 +822,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                  'my_exp_Mot02',
                  'My_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_mot01">\n'
                     '    <device name="p09/Motor/exp.01"'
@@ -831,7 +831,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'group="__CLIENT__"/>\n    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_exp_Mot02">\n'
                     '    <device name="P09/motor/exp.02"'
@@ -840,7 +840,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'group="__CLIENT__"/>\n    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="My_exp_mot03">\n'
                     '    <device name="P09/motor/exp.03"'
@@ -1037,7 +1037,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'my_smaract',
                 ],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_abs">\n'
                     '    <device name="p09/absorbercontroller/mag.01"'
@@ -1046,7 +1046,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my2_abs">\n'
                     '    <device name="p09/absorbercontroller/mag.01"'
@@ -1055,7 +1055,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_tango_motor">\n'
                     '    <device name="p09/motor/mot.01" member="attribute"'
@@ -1063,7 +1063,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_kohzu">\n'
                     '    <device name="p09/kohzu/mot.01"'
@@ -1072,7 +1072,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_smchydra">\n'
                     '    <device name="p09/smchydra/mot.01"'
@@ -1081,7 +1081,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_lom">\n'
                     '    <device name="p09/lom/mot.01"'
@@ -1090,7 +1090,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_oms58">\n'
                     '    <device name="p09/oms58/mot.01"'
@@ -1099,7 +1099,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_e6c">\n'
                     '    <device name="p09/e6c/mot.01"'
@@ -1108,7 +1108,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_omsmaxv">\n'
                     '    <device name="p09/omsmaxv/mot.01"'
@@ -1117,7 +1117,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_spk">\n'
                     '    <device name="p09/spk/mot.01"'
@@ -1126,7 +1126,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_pie710">\n'
                     '    <device name="p09/pie710/mot.01"'
@@ -1135,7 +1135,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_pie712">\n'
                     '    <device name="p09/pie712/mot.01"'
@@ -1144,7 +1144,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_e6c_p09_eh2">\n'
                     '    <device name="p09/e6c_p09_eh2/mot.01"'
@@ -1153,7 +1153,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Position"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_smaract">\n'
                     '    <device name="p09/smaract/mot.01"'
@@ -1351,7 +1351,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     'my_test_vfcadc',
                 ],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource'
                     ' type="TANGO" name="my_test_counter_tango">\n'
@@ -1361,7 +1361,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '/>\n    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_v260">\n'
                     '    <device name="mytest/v260/ct" member="attribute"'
@@ -1370,7 +1370,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_dgg2">\n'
                     '    <device name="mytest/dgg2/ct" member="attribute"'
@@ -1379,7 +1379,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     '/>\n    <record name="SampleTime"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_mca_8701">\n'
                     '    <device name="mytest/mca_8701/ct" member="attribute"'
@@ -1387,7 +1387,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO"'
                     ' name="my_test_mca_sis3302new">\n'
@@ -1397,7 +1397,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_mca_sis3302">\n'
                     '    <device name="mytest/mca_sis3302/ct"'
@@ -1406,7 +1406,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_sis3610">\n'
                     '    <device name="mytest/sis3610/ct" member="attribute"'
@@ -1414,7 +1414,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Value"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_vdot32in">\n'
                     '    <device name="mytest/vdot32in/ct" member="attribute"'
@@ -1422,7 +1422,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Value"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_sis3820">\n'
                     '    <device name="mytest/sis3820/ct" member="attribute"'
@@ -1430,7 +1430,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_tip551">\n'
                     '    <device name="mytest/tip551/ct" member="attribute"'
@@ -1438,7 +1438,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Voltage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_tip850dac">\n'
                     '    <device name="mytest/tip850dac/ct" member="attribute"'
@@ -1446,7 +1446,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Voltage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_tip830">\n'
                     '    <device name="mytest/tip830/ct" member="attribute"'
@@ -1454,7 +1454,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Counts"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_tip850adc">\n'
                     '    <device name="mytest/tip850adc/ct" member="attribute"'
@@ -1462,7 +1462,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
                     ' group="__CLIENT__"/>\n    <record name="Value"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                     '<definition>\n'
                     '  <datasource type="TANGO" name="my_test_vfcadc">\n'
                     '    <device name="mytest/vfcadc/ct" member="attribute"'
@@ -1533,7 +1533,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
               '</hw>\n'
 
         dsout = \
-            '<?xml version=\'1.0\' encoding=\'utf8\'?>\n' \
+            '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n' \
             '<definition>\n' \
             '  <datasource name="%s"' \
             ' type="TANGO">\n' \
@@ -1622,7 +1622,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
               '</hw>\n'
 
         dsout = \
-            '<?xml version=\'1.0\' encoding=\'utf8\'?>\n' \
+            '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n' \
             '<definition>\n' \
             '  <datasource type="TANGO" name="%s">\n' \
             '    <device name="%s" member="attribute" hostname="%s"' \
@@ -1741,7 +1741,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
               '</hw>\n'
 
         dsout = \
-            '<?xml version=\'1.0\' encoding=\'utf8\'?>\n' \
+            '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n' \
             '<definition>\n' \
             '  <datasource type="TANGO" name="%s">\n' \
             '    <device name="%s" member="attribute"' \
@@ -1863,7 +1863,7 @@ class NXSCreateOnlineDSFSTest(unittest.TestCase):
               '</hw>\n'
 
         dsout = \
-            '<?xml version=\'1.0\' encoding=\'utf8\'?>\n' \
+            '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n' \
             '<definition>\n' \
             '  <datasource type="TANGO" name="%s">\n' \
             '    <device name="%s" member="attribute"' \

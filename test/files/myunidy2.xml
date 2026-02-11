@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <group name="$var.entryname#'scan'$var.serialno" type="NXentry">
     <group name="sample" type="NXsample">

@@ -80,21 +80,21 @@ class NXSCreateClientDSFS2Test(
                  'test_exp_vc04',
                  'test_exp_vc05'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="exp_vc03">
     <record name="exp_vc03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="exp_vc04">
     <record name="exp_vc04"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="exp_vc05">
     <record name="exp_vc05"/>
@@ -111,14 +111,14 @@ class NXSCreateClientDSFS2Test(
                 ['test_exp_dd03',
                  'test_exp_dd04'],
                 [
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="dd03">
     <record name="dd03"/>
   </datasource>
 </definition>
 """,
-                    """<?xml version='1.0' encoding='utf8'?>
+                    """<?xml version='1.0' encoding='utf-8'?>
 <definition>
   <datasource type="CLIENT" name="dd04">
     <record name="dd04"/>

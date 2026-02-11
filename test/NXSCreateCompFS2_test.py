@@ -81,7 +81,8 @@ class NXSCreateCompFS2Test(
                  'my_testmotor02',
                  'my_testmotor03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -93,7 +94,8 @@ class NXSCreateCompFS2Test(
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -105,7 +107,8 @@ class NXSCreateCompFS2Test(
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -125,7 +128,8 @@ class NXSCreateCompFS2Test(
                 ['test_exp_testvm02',
                  'test_exp_testvm03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -137,7 +141,8 @@ class NXSCreateCompFS2Test(
                     '    </group>\n'
                     '  </group>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n<definition>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    '<definition>\n'
                     '  <group name="$var.entryname#\'scan\'$var.serialno"'
                     ' type="NXentry">\n'
                     '    <group name="instrument" type="NXinstrument">\n'
@@ -199,7 +204,8 @@ class NXSCreateCompFS2Test(
                  'my_exp_mot02',
                  'my_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    ''
                     '<definition>\n'
                     '  <datasource name="exp_mot01" type="TANGO">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -207,7 +213,8 @@ class NXSCreateCompFS2Test(
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    ''
                     '<definition>\n'
                     '  <datasource name="exp_mot02" type="TANGO">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -215,7 +222,8 @@ class NXSCreateCompFS2Test(
                     '    <record name="Data"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    ''
                     '<definition>\n'
                     '  <datasource name="exp_mot03" type="TANGO">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -233,7 +241,8 @@ class NXSCreateCompFS2Test(
                 ['test_exp_mot02',
                  'test_exp_mot03'],
                 [
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    ''
                     '<definition>\n'
                     '  <datasource name="mot02" type="TANGO">\n'
                     '    <device hostname="%s" member="attribute"'
@@ -241,7 +250,8 @@ class NXSCreateCompFS2Test(
                     '    <record name="Voltage"/>\n'
                     '  </datasource>\n'
                     '</definition>\n',
-                    '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                    ''
                     '<definition>\n'
                     '  <datasource name="mot03" type="TANGO">\n'
                     '    <device hostname="%s" member="attribute"'

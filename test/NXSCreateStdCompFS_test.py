@@ -555,7 +555,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                     ['absorber1_foil', 'absorber1_thickness']
                 ],
                 [
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno"'
                      ' type="NXentry">\n'
@@ -571,7 +571,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '    </group>\n'
                      '  </group>\n'
                      '</definition>'],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="absorber1_foil" type="PYEVAL">\n'
                      '    <result name="result">\n'
@@ -582,7 +582,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '\n    </result>\n'
                      ' $datasources.mot01</datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="absorber1_thickness"'
                      ' type="PYEVAL">\n'
@@ -723,7 +723,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                     []
                 ],
                 [
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno" '
                      'type="NXentry">\n'
@@ -755,7 +755,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                     []
                 ],
                 [
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'myentry\'$var.serialno" '
                      'type="NXentry">\n'
@@ -877,14 +877,14 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      'beamtime_filename']
                 ],
                 [
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno"'
                      ' type="NXentry" />\n'
                      '  $components.defaultinstrument\n'
                      '  $components.defaultsample\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno"'
                      ' type="NXentry">\n'
@@ -956,7 +956,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '</field>\n'
                      '  </group>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno"'
                      ' type="NXentry">\n'
@@ -971,13 +971,13 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '    </group>\n'
                      '  </group>\n'
                      '</definition>'],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="title" type="CLIENT">\n'
                      '    <record name="title" />\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="start_time" type="CLIENT">\n'
                      '    <record name="start_time" />\n'
@@ -986,7 +986,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '</doc>\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="sample_name" type="CLIENT">\n'
                      '    <record name="sample_name" />\n'
@@ -994,7 +994,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      'Data source providing the name of the sample.</doc>\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="nexdatas_version" type="PYEVAL">\n'
                      '    <result name="result">\n'
@@ -1003,7 +1003,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '    </result>\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource '
                      'name="nexdatas_configuration" type="TANGO">\n'
@@ -1013,7 +1013,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>' %
                      (self.host, self.device, self.port),
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="end_time" type="CLIENT">\n'
                      '    <record name="end_time" />\n'
@@ -1022,19 +1022,19 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      'the experiment is finished.</doc>\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="chemical_formula" type="CLIENT">\n'
                      '    <record name="chemical_formula" />\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="beamtime_id" type="CLIENT">\n'
                      '    <record name="beamtime_id" />\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="PYEVAL" name="beamtime_filename">\n'
                      '    <result name="result">\n'
@@ -1055,14 +1055,14 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      'beamtime_filename']
                 ],
                 [
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno"'
                      ' type="NXentry" />\n'
                      '  $components.defaultinstrument\n'
                      '  $components.defaultsample\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno"'
                      ' type="NXentry">\n'
@@ -1134,7 +1134,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '</field>\n'
                      '  </group>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno"'
                      ' type="NXentry">\n'
@@ -1149,13 +1149,13 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '    </group>\n'
                      '  </group>\n'
                      '</definition>'],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="title" type="CLIENT">\n'
                      '    <record name="title" />\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="start_time" type="CLIENT">\n'
                      '    <record name="start_time" />\n'
@@ -1164,7 +1164,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '</doc>\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="sample_name" type="CLIENT">\n'
                      '    <record name="sample_name" />\n'
@@ -1172,7 +1172,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      'Data source providing the name of the sample.</doc>\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="nexdatas_version" type="PYEVAL">\n'
                      '    <result name="result">\n'
@@ -1181,7 +1181,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '    </result>\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource '
                      'name="nexdatas_configuration" type="TANGO">\n'
@@ -1191,7 +1191,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '  </datasource>\n'
                      '</definition>' %
                      (self.host, self.device, self.port),
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="end_time" type="CLIENT">\n'
                      '    <record name="end_time" />\n'
@@ -1200,19 +1200,19 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      'the experiment is finished.</doc>\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="chemical_formula" type="CLIENT">\n'
                      '    <record name="chemical_formula" />\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="beamtime_id" type="CLIENT">\n'
                      '    <record name="beamtime_id" />\n'
                      '  </datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource type="PYEVAL" name="beamtime_filename">\n'
                      '    <result name="result">\n'
@@ -1240,7 +1240,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                     []
                 ],
                 [
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno" '
                      'type="NXentry">\n'

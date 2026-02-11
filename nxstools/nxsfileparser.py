@@ -33,6 +33,22 @@ from lxml.etree import XMLParser
 from nxstools.nxsparser import ParserTools
 
 
+def tolist(value):
+    """ convert value to list
+
+    param value: array value
+    type value: :obj:`any`
+    returns: array value
+    rtype: :obj:`list`
+    """
+    if isinstance(value, list):
+        return value
+    elif hasattr(value, "tolist"):
+        return value.tolist()
+    else:
+        return list(value)
+
+
 class numpyEncoder(json.JSONEncoder):
     """ numpy json encoder with list
     """

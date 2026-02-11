@@ -81,7 +81,7 @@ class NXSCreateStdCompFS2Test(
                     []
                 ],
                 [
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno" '
                      'type="NXentry">\n'
@@ -111,7 +111,7 @@ class NXSCreateStdCompFS2Test(
                     []
                 ],
                 [
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno" '
                      'type="NXentry">\n'
@@ -152,7 +152,7 @@ class NXSCreateStdCompFS2Test(
                     ['tst_absorber1_foil', 'tst_absorber1_thickness']
                 ],
                 [
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <group name="$var.entryname#\'scan\'$var.serialno"'
                      ' type="NXentry">\n'
@@ -168,7 +168,7 @@ class NXSCreateStdCompFS2Test(
                      '    </group>\n'
                      '  </group>\n'
                      '</definition>'],
-                    ['<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                    ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="absorber1_foil" type="PYEVAL">\n'
                      '    <result name="result">\n'
@@ -179,7 +179,7 @@ class NXSCreateStdCompFS2Test(
                      '\n    </result>\n'
                      ' $datasources.mot01</datasource>\n'
                      '</definition>',
-                     '<?xml version=\'1.0\' encoding=\'utf8\'?>\n'
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
                      '<definition>\n'
                      '  <datasource name="absorber1_thickness"'
                      ' type="PYEVAL">\n'
