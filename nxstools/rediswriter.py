@@ -2255,6 +2255,7 @@ class RedisField(filewriter.FTField):
         sds = {
             "name": dsname,
             "label": dsname,
+            "shape": shape,
             "strategy": strategy,
             "dtype": self.dtype
         }
@@ -3842,6 +3843,7 @@ class RedisAttribute(filewriter.FTAttribute):
             "name": dsname,
             "label": dsname,
             "value": o,
+            "shape": shape,
             "strategy": strategy,
             "dtype": self.dtype
         }

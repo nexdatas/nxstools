@@ -1548,6 +1548,7 @@ class H5RedisField(H5Field):
         sds = {
             "name": dsname,
             "label": dsname,
+            "shape": shape,
             "strategy": strategy,
             "dtype": self.dtype
         }
@@ -1703,6 +1704,7 @@ class H5RedisField(H5Field):
             "name": dsname,
             "label": dsname,
             "value": o,
+            "shape": shape,
             "strategy": strategy,
             "dtype": self.dtype
         }
