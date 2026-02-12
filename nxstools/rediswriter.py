@@ -2271,7 +2271,6 @@ class RedisField(filewriter.FTField):
                 avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
                 sds[key] = vl[1](filewriter.first(avl))
         sds["nexus_path"] = self.path
-        self.append_scaninfo(sds, ["datadesc", dsname])
         try:
             if self.dtype not in ['string', b'string']:
                 mgchannels = self.get_scaninfo(
@@ -2321,6 +2320,7 @@ class RedisField(filewriter.FTField):
                             dsname,
                             encoder,
                             info={"unit": units})
+                    sds["stream"] = "stream"
                     self.append_stream(dsname, self.__stream)
                     if not shape:
                         # plot_type = 1
@@ -2373,6 +2373,7 @@ class RedisField(filewriter.FTField):
                         file_mode="single")
                     self.__rstream = self.scan_command(
                         "create_stream", sdef)
+                    sds["stream"] = "h5file_detector"
                     self.__rcounter = 0
                 self.append_stream(dsname, self.__rstream)
             else:
@@ -2386,11 +2387,13 @@ class RedisField(filewriter.FTField):
                         "create_stream",
                         dsname, JsonStreamEncoder())
                 self.append_stream(dsname, self.__jstream)
+                sds["stream"] = "stream"
         except RuntimeError as e:
             if "already exists" in str(e):
                 print(str(e))
             else:
                 raise
+        self.set_scaninfo(sds, ["datadesc", dsname])
 
     def __set_init_channel_info(self, dsname, units, shape, strategy, o, av):
         """ set init channel info
@@ -2411,6 +2414,7 @@ class RedisField(filewriter.FTField):
             "name": dsname,
             "label": dsname,
             "value": o,
+            "shape": shape,
             "strategy": strategy,
             "dtype": self.dtype
         }
@@ -2425,7 +2429,7 @@ class RedisField(filewriter.FTField):
         dsn = dsname
         while dsn in pars:
             dsn = dsn + "_"
-        self.append_scaninfo(ids, ["snapshot", dsn])
+        self.set_scaninfo(ids, ["snapshot", dsn])
         if self.name in ["program_name"]:
             for key, vl in progattrdesc.items():
                 if vl[0] in anames:
@@ -2483,6 +2487,10 @@ class RedisField(filewriter.FTField):
         shape = []
         if hasattr(o, "shape"):
             shape = o.shape
+        elif isinstance(o, list) and len(o) > 1:
+            shape = [len(o)]
+            if isinstance(o[0], list):
+                shape.append(len(o[0]))
         # print("SETITEM", self, self.name, self.shape,
         #       self.attributes.names(),
         #        self.__dsname, strategy, self.dtype,
@@ -3067,16 +3075,18 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                     print("VMAP ERROR", vmap, str(e))
 
                 dsname = plugin_def["name"]
+                shape = plugin_def["shape"]
                 sds = {
                     "name": dsname,
                     "label": dsname,
                     "strategy": strategy,
+                    "shape": shape,
+                    "stream": vmap["plugin"],
                     "dtype": plugin_def["dtype"]
                 }
-                shape = plugin_def["shape"]
 
                 sds["nexus_path"] = self._tparent.path
-                self.append_scaninfo(sds, ["datadesc", dsname])
+                self.set_scaninfo(sds, ["datadesc", dsname])
                 mgchannels = self.get_scaninfo(
                     ["measurement_group_channels"])
                 device_type = "other_channels"
@@ -3163,6 +3173,17 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         """
         if hasattr(self._tparent, "append_scaninfo"):
             return self._tparent.append_scaninfo(value, keys, direct)
+
+    def set_scaninfo(self, value, keys=None, direct=False):
+        """ set scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "set_scaninfo"):
+            return self._tparent.set_scaninfo(value, keys, direct)
 
     def get_scaninfo(self, keys=None, direct=False):
         """ get scan info parameters
@@ -3562,6 +3583,17 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
         if hasattr(self._tparent, "append_scaninfo"):
             return self._tparent.append_scaninfo(value, keys, direct)
 
+    def set_scaninfo(self, value, keys=None, direct=False):
+        """ set scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "set_scaninfo"):
+            return self._tparent.set_scaninfo(value, keys, direct)
+
     def get_scaninfo(self, keys=None, direct=False):
         """ get scan info parameters
 
@@ -3853,7 +3885,7 @@ class RedisAttribute(filewriter.FTAttribute):
         dsn = dsname
         while dsn in pars:
             dsn = dsn + "_"
-        self.append_scaninfo(ids, ["snapshot", dsn])
+        self.set_scaninfo(ids, ["snapshot", dsn])
 
     def append_scaninfo(self, value, keys=None, direct=False):
         """ append scan info parameters
@@ -3865,6 +3897,17 @@ class RedisAttribute(filewriter.FTAttribute):
         """
         if hasattr(self._tparent, "append_scaninfo"):
             return self._tparent.append_scaninfo(value, keys, direct)
+
+    def set_scaninfo(self, value, keys=None, direct=False):
+        """ set scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "set_scaninfo"):
+            return self._tparent.set_scaninfo(value, keys, direct)
 
     def get_scaninfo(self, keys=None, direct=False):
         """ get scan info parameters
