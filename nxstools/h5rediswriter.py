@@ -1564,7 +1564,6 @@ class H5RedisField(H5Field):
                 avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
                 sds[key] = vl[1](filewriter.first(avl))
         sds["nexus_path"] = self.path
-        self.set_scaninfo(sds, ["datadesc", dsname])
         try:
             if self.dtype not in ['string', b'string']:
                 mgchannels = self.get_scaninfo(
@@ -1614,6 +1613,7 @@ class H5RedisField(H5Field):
                             dsname,
                             encoder,
                             info={"unit": units})
+                    sds["stream"] = "stream"
                     self.append_stream(dsname, self.__stream)
                     if not shape:
                         # plot_type = 1
@@ -1666,6 +1666,7 @@ class H5RedisField(H5Field):
                         file_mode="single")
                     self.__rstream = self.scan_command(
                         "create_stream", sdef)
+                    sds["stream"] = "h5file_detector"
                     self.__rcounter = 0
                 self.append_stream(dsname, self.__rstream)
             else:
@@ -1679,11 +1680,13 @@ class H5RedisField(H5Field):
                         "create_stream",
                         dsname, JsonStreamEncoder())
                 self.append_stream(dsname, self.__jstream)
+                sds["stream"] = "stream"
         except RuntimeError as e:
             if "already exists" in str(e):
                 print(str(e))
             else:
                 raise
+        self.set_scaninfo(sds, ["datadesc", dsname])
 
     def __set_init_channel_info(self, dsname, units, shape, strategy, o, av):
         """ set init channel info
@@ -1777,6 +1780,10 @@ class H5RedisField(H5Field):
         shape = []
         if hasattr(o, "shape"):
             shape = o.shape
+        elif isinstance(o, list) and len(o) > 1:
+            shape = [len(o)]
+            if isinstance(o[0], list):
+                shape.append(len(o[0]))
         # print("SETITEM", self, self.name, self.shape,
         #       self.attributes.names(),
         #        self.__dsname, strategy, self.dtype,
@@ -1933,13 +1940,15 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
                     print("VMAP ERROR", vmap, str(e))
 
                 dsname = plugin_def["name"]
+                shape = plugin_def["shape"]
                 sds = {
                     "name": dsname,
                     "label": dsname,
+                    "shape": shape,
                     "strategy": strategy,
+                    "stream": vmap["plugin"],
                     "dtype": plugin_def["dtype"]
                 }
-                shape = plugin_def["shape"]
 
                 sds["nexus_path"] = self._tparent.path
                 self.set_scaninfo(sds, ["datadesc", dsname])
@@ -2310,6 +2319,7 @@ class H5RedisAttribute(H5Attribute):
             "name": dsname,
             "label": dsname,
             "value": o,
+            "shape": shape,
             "strategy": strategy,
             "dtype": self.dtype
         }
