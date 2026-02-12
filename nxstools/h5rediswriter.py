@@ -1564,7 +1564,7 @@ class H5RedisField(H5Field):
                 avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
                 sds[key] = vl[1](filewriter.first(avl))
         sds["nexus_path"] = self.path
-        self.append_scaninfo(sds, ["datadesc", dsname])
+        self.set_scaninfo(sds, ["datadesc", dsname])
         try:
             if self.dtype not in ['string', b'string']:
                 mgchannels = self.get_scaninfo(
@@ -1719,7 +1719,7 @@ class H5RedisField(H5Field):
         dsn = dsname
         while dsn in pars:
             dsn = dsn + "_"
-        self.append_scaninfo(ids, ["snapshot", dsn])
+        self.set_scaninfo(ids, ["snapshot", dsn])
         if self.name in ["program_name"]:
             for key, vl in progattrdesc.items():
                 if vl[0] in anames:
@@ -1942,7 +1942,7 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
                 shape = plugin_def["shape"]
 
                 sds["nexus_path"] = self._tparent.path
-                self.append_scaninfo(sds, ["datadesc", dsname])
+                self.set_scaninfo(sds, ["datadesc", dsname])
                 mgchannels = self.get_scaninfo(
                     ["measurement_group_channels"])
                 device_type = "other_channels"
@@ -2293,7 +2293,7 @@ class H5RedisAttribute(H5Attribute):
         dsn = dsname
         while dsn in pars:
             dsn = dsn + "_"
-        self.append_scaninfo(ids, ["snapshot", dsn])
+        self.set_scaninfo(ids, ["snapshot", dsn])
 
     def append_scaninfo(self, value, keys=None, direct=False):
         """ append scan info parameters

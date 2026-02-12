@@ -1,4 +1,8 @@
 2026-02-12 Jan Kotanski <jankotan@gmail.com>
+	* make snapshot and datadesc compatible with ALBA schema(#875)
+	* tagged as v4.42.1
+
+2026-02-12 Jan Kotanski <jankotan@gmail.com>
 	* add shape to snapshot and datadesc (#872)
 	* tagged as v4.42.0
 
