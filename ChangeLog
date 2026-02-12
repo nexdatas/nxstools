@@ -1,3 +1,7 @@
+2026-02-12 Jan Kotanski <jankotan@gmail.com>
+	* add shape to snapshot and datadesc (#872)
+	* tagged as v4.42.0
+
 2026-02-10 Jan Kotanski <jankotan@gmail.com>
 	* change utf8 to utf-8 in xml (#869)
 	* store vector and offset as list in blissdata (#869)
