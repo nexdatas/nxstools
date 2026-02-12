@@ -2030,6 +2030,19 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
         if hasattr(self._tparent, "append_scaninfo"):
             return self._tparent.append_scaninfo(value, keys, direct)
 
+    def set_scaninfo(self, value, keys=None, direct=False):
+        """ set scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter keys
+        :type key: :obj:`list` <:obj:`str`>
+        :param direct: scan info direct flag
+        :type direct: :obj:`any`
+        """
+        if hasattr(self._tparent, "set_scaninfo"):
+            return self._tparent.set_scaninfo(value, keys, direct)
+
     def get_scaninfo(self, keys=None, direct=False):
         """ get scan info parameters
 
@@ -2183,6 +2196,19 @@ class H5RedisAttributeManager(H5AttributeManager):
         if hasattr(self._tparent, "append_scaninfo"):
             return self._tparent.append_scaninfo(value, keys, direct)
 
+    def set_scaninfo(self, value, keys=None, direct=False):
+        """ set scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter keys
+        :type key: :obj:`list` <:obj:`str`>
+        :param direct: scan info direct flag
+        :type direct: :obj:`any`
+        """
+        if hasattr(self._tparent, "set_scaninfo"):
+            return self._tparent.set_scaninfo(value, keys, direct)
+
     def get_scaninfo(self, keys=None, direct=False):
         """ get scan info parameters
 
@@ -2305,6 +2331,19 @@ class H5RedisAttribute(H5Attribute):
         """
         if hasattr(self._tparent, "append_scaninfo"):
             return self._tparent.append_scaninfo(value, keys, direct)
+
+    def set_scaninfo(self, value, keys=None, direct=False):
+        """ set scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter keys
+        :type key: :obj:`list` <:obj:`str`>
+        :param direct: scan info direct flag
+        :type direct: :obj:`any`
+        """
+        if hasattr(self._tparent, "set_scaninfo"):
+            return self._tparent.set_scaninfo(value, keys, direct)
 
     def get_scaninfo(self, keys=None, direct=False):
         """ get scan info parameters

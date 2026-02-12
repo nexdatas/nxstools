@@ -3164,6 +3164,17 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         if hasattr(self._tparent, "append_scaninfo"):
             return self._tparent.append_scaninfo(value, keys, direct)
 
+    def set_scaninfo(self, value, keys=None, direct=False):
+        """ set scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "set_scaninfo"):
+            return self._tparent.set_scaninfo(value, keys, direct)
+
     def get_scaninfo(self, keys=None, direct=False):
         """ get scan info parameters
 
@@ -3562,6 +3573,17 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
         if hasattr(self._tparent, "append_scaninfo"):
             return self._tparent.append_scaninfo(value, keys, direct)
 
+    def set_scaninfo(self, value, keys=None, direct=False):
+        """ set scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "set_scaninfo"):
+            return self._tparent.set_scaninfo(value, keys, direct)
+
     def get_scaninfo(self, keys=None, direct=False):
         """ get scan info parameters
 
@@ -3865,6 +3887,17 @@ class RedisAttribute(filewriter.FTAttribute):
         """
         if hasattr(self._tparent, "append_scaninfo"):
             return self._tparent.append_scaninfo(value, keys, direct)
+
+    def set_scaninfo(self, value, keys=None, direct=False):
+        """ set scan info parameters
+
+        :param value: scan parameter value
+        :type value: :obj:`any`
+        :param keys: scan parameter value
+        :type key: :obj:`list` <:obj:`str`>
+        """
+        if hasattr(self._tparent, "set_scaninfo"):
+            return self._tparent.set_scaninfo(value, keys, direct)
 
     def get_scaninfo(self, keys=None, direct=False):
         """ get scan info parameters
