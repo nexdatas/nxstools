@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>nxstools package &#8212; NXSTools 4.37.0 documentation</title>
+    <title>nxstools package &#8212; NXSTools 4.43.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.37</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.43</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -271,11 +271,13 @@
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute</span></code></a><ul>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.close"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.close()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.dtype"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.dtype</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.get_attr_value"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.get_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.is_valid"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.is_valid</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.name"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.name</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.path"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.path</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.read"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.read()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.reopen"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.reopen()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.set_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.shape"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.shape</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttribute.write"><code class="docutils literal notranslate"><span class="pre">H5CppAttribute.write()</span></code></a></li>
 </ul>
@@ -287,22 +289,29 @@
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttributeManager.name"><code class="docutils literal notranslate"><span class="pre">H5CppAttributeManager.name</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttributeManager.names"><code class="docutils literal notranslate"><span class="pre">H5CppAttributeManager.names()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttributeManager.path"><code class="docutils literal notranslate"><span class="pre">H5CppAttributeManager.path</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttributeManager.remove"><code class="docutils literal notranslate"><span class="pre">H5CppAttributeManager.remove()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttributeManager.reopen"><code class="docutils literal notranslate"><span class="pre">H5CppAttributeManager.reopen()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppAttributeManager.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5CppAttributeManager.set_attr_value()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppDataFilter"><code class="docutils literal notranslate"><span class="pre">H5CppDataFilter</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppDeflate"><code class="docutils literal notranslate"><span class="pre">H5CppDeflate</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField"><code class="docutils literal notranslate"><span class="pre">H5CppField</span></code></a><ul>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.add_attr_name"><code class="docutils literal notranslate"><span class="pre">H5CppField.add_attr_name()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.attributes"><code class="docutils literal notranslate"><span class="pre">H5CppField.attributes</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.close"><code class="docutils literal notranslate"><span class="pre">H5CppField.close()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.dtype"><code class="docutils literal notranslate"><span class="pre">H5CppField.dtype</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.get_attr_names"><code class="docutils literal notranslate"><span class="pre">H5CppField.get_attr_names()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.get_attr_value"><code class="docutils literal notranslate"><span class="pre">H5CppField.get_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.grow"><code class="docutils literal notranslate"><span class="pre">H5CppField.grow()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.is_valid"><code class="docutils literal notranslate"><span class="pre">H5CppField.is_valid</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.name"><code class="docutils literal notranslate"><span class="pre">H5CppField.name</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.path"><code class="docutils literal notranslate"><span class="pre">H5CppField.path</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.read"><code class="docutils literal notranslate"><span class="pre">H5CppField.read()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.refresh"><code class="docutils literal notranslate"><span class="pre">H5CppField.refresh()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.remove_attr_names"><code class="docutils literal notranslate"><span class="pre">H5CppField.remove_attr_names()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.reopen"><code class="docutils literal notranslate"><span class="pre">H5CppField.reopen()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5CppField.set_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.shape"><code class="docutils literal notranslate"><span class="pre">H5CppField.shape</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.size"><code class="docutils literal notranslate"><span class="pre">H5CppField.size</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppField.write"><code class="docutils literal notranslate"><span class="pre">H5CppField.write()</span></code></a></li>
@@ -324,30 +333,40 @@
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.H5CppGroupIter.next"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.H5CppGroupIter.next()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.add_attr_name"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.add_attr_name()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.attributes"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.attributes</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.close"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.close()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.create_field"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.create_field()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.create_group"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.create_group()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.create_virtual_field"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.create_virtual_field()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.exists"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.exists()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.get_attr_names"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.get_attr_names()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.get_attr_value"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.get_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.is_valid"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.is_valid</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.name"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.name</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.names"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.names()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.open"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.open()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.open_link"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.open_link()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.path"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.path</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.remove_attr_names"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.remove_attr_names()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.reopen"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.reopen()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.set_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppGroup.size"><code class="docutils literal notranslate"><span class="pre">H5CppGroup.size</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink"><code class="docutils literal notranslate"><span class="pre">H5CppLink</span></code></a><ul>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.add_attr_name"><code class="docutils literal notranslate"><span class="pre">H5CppLink.add_attr_name()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.close"><code class="docutils literal notranslate"><span class="pre">H5CppLink.close()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.get_attr_names"><code class="docutils literal notranslate"><span class="pre">H5CppLink.get_attr_names()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.get_attr_value"><code class="docutils literal notranslate"><span class="pre">H5CppLink.get_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.getfilename"><code class="docutils literal notranslate"><span class="pre">H5CppLink.getfilename()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.is_valid"><code class="docutils literal notranslate"><span class="pre">H5CppLink.is_valid</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.name"><code class="docutils literal notranslate"><span class="pre">H5CppLink.name</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.path"><code class="docutils literal notranslate"><span class="pre">H5CppLink.path</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.refresh"><code class="docutils literal notranslate"><span class="pre">H5CppLink.refresh()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.remove_attr_names"><code class="docutils literal notranslate"><span class="pre">H5CppLink.remove_attr_names()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.reopen"><code class="docutils literal notranslate"><span class="pre">H5CppLink.reopen()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5CppLink.set_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5cppwriter.H5CppLink.target_path"><code class="docutils literal notranslate"><span class="pre">H5CppLink.target_path</span></code></a></li>
 </ul>
 </li>
@@ -504,16 +523,20 @@
 </li>
 <li><a class="reference internal" href="#module-nxstools.h5rediswriter">nxstools.h5rediswriter module</a><ul>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttribute"><code class="docutils literal notranslate"><span class="pre">H5RedisAttribute</span></code></a><ul>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttribute.get_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisAttribute.get_attr_value()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttribute.append_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisAttribute.append_scaninfo()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttribute.get_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisAttribute.get_scaninfo()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttribute.read"><code class="docutils literal notranslate"><span class="pre">H5RedisAttribute.read()</span></code></a></li>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttribute.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisAttribute.set_attr_value()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttribute.set_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisAttribute.set_scaninfo()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttribute.write"><code class="docutils literal notranslate"><span class="pre">H5RedisAttribute.write()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttributeManager"><code class="docutils literal notranslate"><span class="pre">H5RedisAttributeManager</span></code></a><ul>
+<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttributeManager.append_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisAttributeManager.append_scaninfo()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttributeManager.create"><code class="docutils literal notranslate"><span class="pre">H5RedisAttributeManager.create()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttributeManager.get_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisAttributeManager.get_attr_value()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttributeManager.get_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisAttributeManager.get_scaninfo()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttributeManager.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisAttributeManager.set_attr_value()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttributeManager.set_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisAttributeManager.set_scaninfo()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisDataFilter"><code class="docutils literal notranslate"><span class="pre">H5RedisDataFilter</span></code></a></li>
@@ -523,7 +546,6 @@
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.append_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisField.append_scaninfo()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.append_stream"><code class="docutils literal notranslate"><span class="pre">H5RedisField.append_stream()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.attributes"><code class="docutils literal notranslate"><span class="pre">H5RedisField.attributes</span></code></a></li>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.get_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisField.get_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.get_attrs"><code class="docutils literal notranslate"><span class="pre">H5RedisField.get_attrs()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.get_channels"><code class="docutils literal notranslate"><span class="pre">H5RedisField.get_channels()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.get_devices"><code class="docutils literal notranslate"><span class="pre">H5RedisField.get_devices()</span></code></a></li>
@@ -531,7 +553,6 @@
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.scan_command"><code class="docutils literal notranslate"><span class="pre">H5RedisField.scan_command()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.scan_getattr"><code class="docutils literal notranslate"><span class="pre">H5RedisField.scan_getattr()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.scan_setattr"><code class="docutils literal notranslate"><span class="pre">H5RedisField.scan_setattr()</span></code></a></li>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisField.set_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.set_channels"><code class="docutils literal notranslate"><span class="pre">H5RedisField.set_channels()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.set_devices"><code class="docutils literal notranslate"><span class="pre">H5RedisField.set_devices()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField.set_scan"><code class="docutils literal notranslate"><span class="pre">H5RedisField.set_scan()</span></code></a></li>
@@ -575,7 +596,6 @@
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.create_field"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.create_field()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.create_group"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.create_group()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.create_virtual_field"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.create_virtual_field()</span></code></a></li>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.get_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.get_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.get_channels"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.get_channels()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.get_devices"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.get_devices()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.get_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.get_scaninfo()</span></code></a></li>
@@ -585,7 +605,6 @@
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.scan_command"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.scan_command()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.scan_getattr"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.scan_getattr()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.scan_setattr"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.scan_setattr()</span></code></a></li>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.set_attr_value()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.set_channels"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.set_channels()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.set_devices"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.set_devices()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.set_entryname"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.set_entryname()</span></code></a></li>
@@ -594,11 +613,7 @@
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisGroup.set_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisGroup.set_scaninfo()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisLink"><code class="docutils literal notranslate"><span class="pre">H5RedisLink</span></code></a><ul>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisLink.get_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisLink.get_attr_value()</span></code></a></li>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisLink.set_attr_value"><code class="docutils literal notranslate"><span class="pre">H5RedisLink.set_attr_value()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisLink"><code class="docutils literal notranslate"><span class="pre">H5RedisLink</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisTargetFieldView"><code class="docutils literal notranslate"><span class="pre">H5RedisTargetFieldView</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisVirtualFieldLayout"><code class="docutils literal notranslate"><span class="pre">H5RedisVirtualFieldLayout</span></code></a><ul>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.append_devices"><code class="docutils literal notranslate"><span class="pre">H5RedisVirtualFieldLayout.append_devices()</span></code></a></li>
@@ -608,6 +623,7 @@
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.get_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisVirtualFieldLayout.get_scaninfo()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.scan_command"><code class="docutils literal notranslate"><span class="pre">H5RedisVirtualFieldLayout.scan_command()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.set_channels"><code class="docutils literal notranslate"><span class="pre">H5RedisVirtualFieldLayout.set_channels()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.set_scaninfo"><code class="docutils literal notranslate"><span class="pre">H5RedisVirtualFieldLayout.set_scaninfo()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.create_file"><code class="docutils literal notranslate"><span class="pre">create_file()</span></code></a></li>
@@ -1353,6 +1369,7 @@
 <li><a class="reference internal" href="#nxstools.nxsfileparser.numpyEncoderNull.encode"><code class="docutils literal notranslate"><span class="pre">numpyEncoderNull.encode()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#nxstools.nxsfileparser.tolist"><code class="docutils literal notranslate"><span class="pre">tolist()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-nxstools.nxsparser">nxstools.nxsparser module</a><ul>
@@ -2758,6 +2775,23 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppAttribute.get_attr_value">
+<span class="sig-name descname"><span class="pre">get_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppAttribute.get_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppAttribute.get_attr_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+<dt class="field-even">Returns value<span class="colon">:</span></dt>
+<dd class="field-even"><p>attribute value</p>
+</dd>
+<dt class="field-odd">Rtype value<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppAttribute.is_valid">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#nxstools.h5cppwriter.H5CppAttribute.is_valid" title="Permalink to this definition">¶</a></dt>
@@ -2802,6 +2836,20 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppAttribute.reopen">
 <span class="sig-name descname"><span class="pre">reopen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppAttribute.reopen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppAttribute.reopen" title="Permalink to this definition">¶</a></dt>
 <dd><p>reopen attribute</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppAttribute.set_attr_value">
+<span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppAttribute.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppAttribute.set_attr_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>set device parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -2914,9 +2962,34 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppAttributeManager.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppAttributeManager.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppAttributeManager.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove the attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppAttributeManager.reopen">
 <span class="sig-name descname"><span class="pre">reopen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppAttributeManager.reopen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppAttributeManager.reopen" title="Permalink to this definition">¶</a></dt>
 <dd><p>reopen field</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppAttributeManager.set_attr_value">
+<span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppAttributeManager.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppAttributeManager.set_attr_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>set device parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -2967,6 +3040,17 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppField.add_attr_name">
+<span class="sig-name descname"><span class="pre">add_attr_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppField.add_attr_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppField.add_attr_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>add the attribute name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppField.attributes">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attributes</span></span><a class="headerlink" href="#nxstools.h5cppwriter.H5CppField.attributes" title="Permalink to this definition">¶</a></dt>
@@ -2997,6 +3081,37 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppField.get_attr_names">
+<span class="sig-name descname"><span class="pre">get_attr_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppField.get_attr_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppField.get_attr_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns value<span class="colon">:</span></dt>
+<dd class="field-odd"><p>attribute value</p>
+</dd>
+<dt class="field-even">Rtype value<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppField.get_attr_value">
+<span class="sig-name descname"><span class="pre">get_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppField.get_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppField.get_attr_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+<dt class="field-even">Returns value<span class="colon">:</span></dt>
+<dd class="field-even"><p>attribute value</p>
+</dd>
+<dt class="field-odd">Rtype value<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -3070,9 +3185,34 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppField.remove_attr_names">
+<span class="sig-name descname"><span class="pre">remove_attr_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppField.remove_attr_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppField.remove_attr_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove the attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppField.reopen">
 <span class="sig-name descname"><span class="pre">reopen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppField.reopen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppField.reopen" title="Permalink to this definition">¶</a></dt>
 <dd><p>reopen field</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppField.set_attr_value">
+<span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppField.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppField.set_attr_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>set device parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -3253,6 +3393,17 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppGroup.add_attr_name">
+<span class="sig-name descname"><span class="pre">add_attr_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppGroup.add_attr_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppGroup.add_attr_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>add the attribute name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppGroup.attributes">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attributes</span></span><a class="headerlink" href="#nxstools.h5cppwriter.H5CppGroup.attributes" title="Permalink to this definition">¶</a></dt>
@@ -3348,6 +3499,37 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppGroup.get_attr_names">
+<span class="sig-name descname"><span class="pre">get_attr_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppGroup.get_attr_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppGroup.get_attr_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns value<span class="colon">:</span></dt>
+<dd class="field-odd"><p>attribute value</p>
+</dd>
+<dt class="field-even">Rtype value<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppGroup.get_attr_value">
+<span class="sig-name descname"><span class="pre">get_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppGroup.get_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppGroup.get_attr_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+<dt class="field-even">Returns value<span class="colon">:</span></dt>
+<dd class="field-even"><p>attribute value</p>
+</dd>
+<dt class="field-odd">Rtype value<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppGroup.is_valid">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#nxstools.h5cppwriter.H5CppGroup.is_valid" title="Permalink to this definition">¶</a></dt>
@@ -3423,9 +3605,34 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppGroup.remove_attr_names">
+<span class="sig-name descname"><span class="pre">remove_attr_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppGroup.remove_attr_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppGroup.remove_attr_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove the attribute name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppGroup.reopen">
 <span class="sig-name descname"><span class="pre">reopen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppGroup.reopen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppGroup.reopen" title="Permalink to this definition">¶</a></dt>
 <dd><p>reopen group</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppGroup.set_attr_value">
+<span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppGroup.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppGroup.set_attr_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>set device parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -3459,9 +3666,51 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppLink.add_attr_name">
+<span class="sig-name descname"><span class="pre">add_attr_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppLink.add_attr_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppLink.add_attr_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>add the attribute name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppLink.close">
 <span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppLink.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppLink.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>close group</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppLink.get_attr_names">
+<span class="sig-name descname"><span class="pre">get_attr_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppLink.get_attr_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppLink.get_attr_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns value<span class="colon">:</span></dt>
+<dd class="field-odd"><p>attribute value</p>
+</dd>
+<dt class="field-even">Rtype value<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppLink.get_attr_value">
+<span class="sig-name descname"><span class="pre">get_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppLink.get_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppLink.get_attr_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+<dt class="field-even">Returns value<span class="colon">:</span></dt>
+<dd class="field-even"><p>attribute value</p>
+</dd>
+<dt class="field-odd">Rtype value<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -3522,9 +3771,34 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppLink.remove_attr_names">
+<span class="sig-name descname"><span class="pre">remove_attr_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppLink.remove_attr_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppLink.remove_attr_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove the attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppLink.reopen">
 <span class="sig-name descname"><span class="pre">reopen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppLink.reopen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppLink.reopen" title="Permalink to this definition">¶</a></dt>
 <dd><p>reopen field</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5cppwriter.H5CppLink.set_attr_value">
+<span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5cppwriter.html#H5CppLink.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5cppwriter.H5CppLink.set_attr_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>set device parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -5320,15 +5594,29 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttribute.get_attr_value">
-<span class="sig-name descname"><span class="pre">get_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttribute.get_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttribute.get_attr_value" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttribute.append_scaninfo">
+<span class="sig-name descname"><span class="pre">append_scaninfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttribute.append_scaninfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttribute.append_scaninfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>append scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – scan parameter value</p></li>
+<li><p><strong>keys</strong> – scan parameter value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttribute.get_scaninfo">
+<span class="sig-name descname"><span class="pre">get_scaninfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttribute.get_scaninfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttribute.get_scaninfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>get scan info parameters</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
+<dd class="field-odd"><p><strong>keys</strong> – scan parameter value</p>
 </dd>
 <dt class="field-even">Returns value<span class="colon">:</span></dt>
-<dd class="field-even"><p>attribute value</p>
+<dd class="field-even"><p>scan parameter value</p>
 </dd>
 <dt class="field-odd">Rtype value<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
@@ -5351,14 +5639,15 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttribute.set_attr_value">
-<span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttribute.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttribute.set_attr_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>set device parameters</p>
+<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttribute.set_scaninfo">
+<span class="sig-name descname"><span class="pre">set_scaninfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttribute.set_scaninfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttribute.set_scaninfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>set scan info parameters</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
-<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – scan parameter value</p></li>
+<li><p><strong>keys</strong> – scan parameter keys</p></li>
+<li><p><strong>direct</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – scan info direct flag</p></li>
 </ul>
 </dd>
 </dl>
@@ -5392,6 +5681,20 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttributeManager.append_scaninfo">
+<span class="sig-name descname"><span class="pre">append_scaninfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttributeManager.append_scaninfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttributeManager.append_scaninfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>append scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – scan parameter value</p></li>
+<li><p><strong>keys</strong> – scan parameter value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttributeManager.create">
 <span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttributeManager.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttributeManager.create" title="Permalink to this definition">¶</a></dt>
@@ -5432,6 +5735,23 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttributeManager.get_scaninfo">
+<span class="sig-name descname"><span class="pre">get_scaninfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttributeManager.get_scaninfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttributeManager.get_scaninfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>keys</strong> – scan parameter value</p>
+</dd>
+<dt class="field-even">Returns value<span class="colon">:</span></dt>
+<dd class="field-even"><p>scan parameter value</p>
+</dd>
+<dt class="field-odd">Rtype value<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttributeManager.set_attr_value">
 <span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttributeManager.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttributeManager.set_attr_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>set device parameters</p>
@@ -5440,6 +5760,21 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
 <li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisAttributeManager.set_scaninfo">
+<span class="sig-name descname"><span class="pre">set_scaninfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisAttributeManager.set_scaninfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisAttributeManager.set_scaninfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>set scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – scan parameter value</p></li>
+<li><p><strong>keys</strong> – scan parameter keys</p></li>
+<li><p><strong>direct</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – scan info direct flag</p></li>
 </ul>
 </dd>
 </dl>
@@ -5547,24 +5882,7 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 <dd class="field-odd"><p>attribute manager</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">H5CppAttributeManager</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisField.get_attr_value">
-<span class="sig-name descname"><span class="pre">get_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisField.get_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisField.get_attr_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>get scan info parameters</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
-</dd>
-<dt class="field-even">Returns value<span class="colon">:</span></dt>
-<dd class="field-even"><p>attribute value</p>
-</dd>
-<dt class="field-odd">Rtype value<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttributeManager" title="nxstools.h5rediswriter.H5RedisAttributeManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">H5RedisAttributeManager</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -5684,20 +6002,6 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>attr</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – scan attr</p></li>
 <li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – scan attr value</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisField.set_attr_value">
-<span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisField.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisField.set_attr_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>set device parameters</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
-<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
 </ul>
 </dd>
 </dl>
@@ -6156,7 +6460,7 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 <dd class="field-odd"><p>attribute manager</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">H5CppAttributeManager</span></code></p>
+<dd class="field-even"><p><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisAttributeManager" title="nxstools.h5rediswriter.H5RedisAttributeManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">H5RedisAttributeManager</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -6172,7 +6476,7 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 <li><p><strong>type_code</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – nexus field type</p></li>
 <li><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> &lt; <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a> &gt;) – shape</p></li>
 <li><p><strong>chunk</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> &lt; <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a> &gt;) – chunk</p></li>
-<li><p><strong>dfilter</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">H5CppDataFilter</span></code>) – filter deflater</p></li>
+<li><p><strong>dfilter</strong> (<a class="reference internal" href="#nxstools.h5rediswriter.H5RedisDataFilter" title="nxstools.h5rediswriter.H5RedisDataFilter"><code class="xref py py-class docutils literal notranslate"><span class="pre">H5RedisDataFilter</span></code></a>) – filter deflater</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -6212,7 +6516,7 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – field name</p></li>
-<li><p><strong>layout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">H5CppFieldLayout</span></code>) – virual field layout</p></li>
+<li><p><strong>layout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">H5RedisFieldLayout</span></code>) – virual field layout</p></li>
 <li><p><strong>fillvalue</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#int" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a> or <code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – fill value</p></li>
 </ul>
 </dd>
@@ -6221,23 +6525,6 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisField" title="nxstools.h5rediswriter.H5RedisField"><code class="xref py py-class docutils literal notranslate"><span class="pre">H5RedisField</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisGroup.get_attr_value">
-<span class="sig-name descname"><span class="pre">get_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisGroup.get_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisGroup.get_attr_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>get scan info parameters</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
-</dd>
-<dt class="field-even">Returns value<span class="colon">:</span></dt>
-<dd class="field-even"><p>attribute value</p>
-</dd>
-<dt class="field-odd">Rtype value<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -6394,20 +6681,6 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisGroup.set_attr_value">
-<span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisGroup.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisGroup.set_attr_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>set device parameters</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
-<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisGroup.set_channels">
 <span class="sig-name descname"><span class="pre">set_channels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisGroup.set_channels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisGroup.set_channels" title="Permalink to this definition">¶</a></dt>
 <dd><p>set device parameters</p>
@@ -6502,37 +6775,6 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 </ul>
 </dd>
 </dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisLink.get_attr_value">
-<span class="sig-name descname"><span class="pre">get_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisLink.get_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisLink.get_attr_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>get scan info parameters</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p>
-</dd>
-<dt class="field-even">Returns value<span class="colon">:</span></dt>
-<dd class="field-even"><p>attribute value</p>
-</dd>
-<dt class="field-odd">Rtype value<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisLink.set_attr_value">
-<span class="sig-name descname"><span class="pre">set_attr_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisLink.set_attr_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisLink.set_attr_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>set device parameters</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – attribute name</p></li>
-<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – attribute value</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -6675,6 +6917,21 @@ or <code class="xref py py-mod docutils literal notranslate"><span class="pre">H
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – device parameter value</p></li>
 <li><p><strong>keys</strong> – device parameter keys</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nxstools.h5rediswriter.H5RedisVirtualFieldLayout.set_scaninfo">
+<span class="sig-name descname"><span class="pre">set_scaninfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#H5RedisVirtualFieldLayout.set_scaninfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.set_scaninfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>set scan info parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – scan parameter value</p></li>
+<li><p><strong>keys</strong> – scan parameter keys</p></li>
+<li><p><strong>direct</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>) – scan info direct flag</p></li>
 </ul>
 </dd>
 </dl>
@@ -12480,6 +12737,16 @@ version of the object or raise a <code class="docutils literal notranslate"><spa
 </div>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nxstools.nxsfileparser.tolist">
+<span class="sig-prename descclassname"><span class="pre">nxstools.nxsfileparser.</span></span><span class="sig-name descname"><span class="pre">tolist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/nxsfileparser.html#tolist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.nxsfileparser.tolist" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert value to list</p>
+<p>param value: array value
+type value: <a class="reference external" href="https://docs.python.org/2.7/library/functions.html#any" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">any</span></code></a>
+returns: array value
+rtype: <a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a></p>
 </dd></dl>
 
 </section>

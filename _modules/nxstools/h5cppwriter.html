@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.h5cppwriter &#8212; NXSTools 4.37.0 documentation</title>
+    <title>nxstools.h5cppwriter &#8212; NXSTools 4.43.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.37</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.43</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -208,6 +208,7 @@
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pninexus</span> <span class="kn">import</span> <span class="n">h5cpp</span>
 
@@ -258,7 +259,7 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">text</span>
     <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 
@@ -884,6 +885,9 @@
 <span class="sd">        :param tparent: tree parent</span>
 <span class="sd">        :type tparent: :obj:`FTObject`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="n">filewriter</span><span class="o">.</span><span class="n">FTGroup</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">,</span> <span class="n">tparent</span><span class="p">)</span>
         <span class="c1">#: (:obj:`str`) object nexus path</span>
@@ -905,7 +909,8 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">tparent</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="sa">u</span><span class="s2">&quot;/&quot;</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
             <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
-                <span class="k">if</span> <span class="sa">u</span><span class="s2">&quot;NX_class&quot;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">at</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">h5object</span><span class="o">.</span><span class="n">attributes</span><span class="p">]:</span>
+                <span class="c1"># print(&quot;GROUP&quot;, type(self), self.name)</span>
+                <span class="k">if</span> <span class="sa">u</span><span class="s2">&quot;NX_class&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">_names</span><span class="p">():</span>
                     <span class="n">clss</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span>
                         <span class="n">h5object</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;NX_class&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -915,6 +920,68 @@
                         <span class="n">clss</span> <span class="o">=</span> <span class="n">clss</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">clss</span> <span class="ow">and</span> <span class="n">clss</span> <span class="o">!=</span> <span class="s1">&#39;NXroot&#39;</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+=</span> <span class="sa">u</span><span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">clss</span><span class="p">)</span>
+
+<div class="viewcode-block" id="H5CppGroup.set_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppGroup.set_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :param value: attribute value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppGroup.get_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppGroup.get_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :returns value: attribute value</span>
+<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="c1"># print(self._avcache)</span>
+            <span class="n">vl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vl</span></div>
+
+<div class="viewcode-block" id="H5CppGroup.get_attr_names"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppGroup.get_attr_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
+
+<span class="sd">        :returns value: attribute value</span>
+<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">names</span></div>
+
+<div class="viewcode-block" id="H5CppGroup.remove_attr_names"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppGroup.remove_attr_names">[docs]</a>    <span class="k">def</span> <span class="nf">remove_attr_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; remove the attribute name</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppGroup.add_attr_name"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppGroup.add_attr_name">[docs]</a>    <span class="k">def</span> <span class="nf">add_attr_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; add the attribute name</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="H5CppGroup.open"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppGroup.open">[docs]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; open a file tree element</span>
@@ -926,6 +993,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">has_group</span><span class="p">(</span><span class="n">h5cpp</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">name</span><span class="p">)):</span>
+                <span class="c1"># print(&quot;OPEN&quot;, name, type(self._tparent))</span>
                 <span class="k">return</span> <span class="n">H5CppGroup</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">get_group</span><span class="p">(</span><span class="n">h5cpp</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">name</span><span class="p">)),</span> <span class="bp">self</span><span class="p">)</span>
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">has_dataset</span><span class="p">(</span><span class="n">h5cpp</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">name</span><span class="p">)):</span>
@@ -1212,6 +1280,9 @@
 <span class="sd">        :param tparent: tree parent</span>
 <span class="sd">        :type tparent: :obj:`FTObject`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">filewriter</span><span class="o">.</span><span class="n">FTField</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">,</span> <span class="n">tparent</span><span class="p">)</span>
         <span class="c1">#: (:obj:`str`) object nexus path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -1226,6 +1297,67 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">tparent</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
         <span class="c1">#: (:obj:`bool`) bool flag</span>
         <span class="c1"># self.boolflag = False</span>
+
+<div class="viewcode-block" id="H5CppField.set_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppField.set_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :param value: attribute value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppField.get_attr_names"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppField.get_attr_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
+
+<span class="sd">        :returns value: attribute value</span>
+<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">names</span></div>
+
+<div class="viewcode-block" id="H5CppField.remove_attr_names"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppField.remove_attr_names">[docs]</a>    <span class="k">def</span> <span class="nf">remove_attr_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; remove the attribute</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="H5CppField.add_attr_name"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppField.add_attr_name">[docs]</a>    <span class="k">def</span> <span class="nf">add_attr_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; add the attribute name</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppField.get_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppField.get_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :returns value: attribute value</span>
+<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="n">vl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vl</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1417,52 +1549,55 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># if self.boolflag:</span>
         <span class="c1">#     return &quot;bool&quot;</span>
-        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;FLOAT&quot;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="n">datatype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">datatype</span><span class="o">.</span><span class="n">type</span>
+        <span class="n">dsize</span> <span class="o">=</span> <span class="n">datatype</span><span class="o">.</span><span class="n">size</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;FLOAT&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;float64&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;float32&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;float128&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;float&quot;</span>
-        <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">:</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int64&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint64&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int32&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint32&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int16&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint16&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int8&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint8&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int128&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint128&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;int&quot;</span>
-        <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;ENUM&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;ENUM&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">h5cpp</span><span class="o">.</span><span class="n">_datatype</span><span class="o">.</span><span class="n">is_bool</span><span class="p">(</span>
-                    <span class="n">h5cpp</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="p">)):</span>
+                    <span class="n">h5cpp</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="n">datatype</span><span class="p">)):</span>
                 <span class="k">return</span> <span class="s2">&quot;bool&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;int&quot;</span>
 
-        <span class="k">return</span> <span class="n">hTp</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">type</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">hTp</span><span class="p">[</span><span class="n">dtype</span><span class="p">]</span>
 <span class="c1">#</span>
 
     <span class="nd">@property</span>
@@ -1502,6 +1637,9 @@
 <span class="sd">        :param tparent: tree parent</span>
 <span class="sd">        :type tparent: :obj:`FTObject`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">filewriter</span><span class="o">.</span><span class="n">FTLink</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">,</span> <span class="n">tparent</span><span class="p">)</span>
         <span class="c1">#: (:obj:`str`) object nexus path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -1513,6 +1651,69 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">h5object</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+<div class="viewcode-block" id="H5CppLink.set_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppLink.set_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :param value: attribute value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppLink.get_attr_names"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppLink.get_attr_names">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
+
+<span class="sd">        :returns value: attribute value</span>
+<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">names</span></div>
+
+<div class="viewcode-block" id="H5CppLink.get_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppLink.get_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :returns value: attribute value</span>
+<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="n">vl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vl</span></div>
+
+<div class="viewcode-block" id="H5CppLink.add_attr_name"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppLink.add_attr_name">[docs]</a>    <span class="k">def</span> <span class="nf">add_attr_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; add the attribute name</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppLink.remove_attr_names"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppLink.remove_attr_names">[docs]</a>    <span class="k">def</span> <span class="nf">remove_attr_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; remove the attribute</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ancache</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;remove_attr_name&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">remove_attr_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1963,6 +2164,50 @@
         <span class="c1">#: (:obj:`str`) object name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
 
+<div class="viewcode-block" id="H5CppAttributeManager.remove"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppAttributeManager.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; remove the attribute</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># print(&quot;remove&quot;, name)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;remove_attr_name&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">remove_attr_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppAttributeManager.set_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppAttributeManager.set_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :param value: attribute value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;set_attr_value&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">set_attr_value</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppAttributeManager.names"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppAttributeManager.names">[docs]</a>    <span class="k">def</span> <span class="nf">names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; key values</span>
+
+<span class="sd">        :returns: attribute names</span>
+<span class="sd">        :rtype: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">att</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="p">]</span></div>
+
+    <span class="k">def</span> <span class="nf">_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; key values</span>
+
+<span class="sd">        :returns: attribute names</span>
+<span class="sd">        :rtype: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># print(&quot;NAMESS&quot;)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_attr_names&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_attr_names</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">names</span><span class="p">()</span>
+
 <div class="viewcode-block" id="H5CppAttributeManager.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppAttributeManager.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; create a new attribute</span>
 
@@ -1977,8 +2222,9 @@
 <span class="sd">        :returns: attribute object</span>
 <span class="sd">        :rtype: :class:`H5CppAtribute`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">at</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">att</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="p">]</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
@@ -1989,13 +2235,15 @@
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                     <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
                 <span class="k">if</span> <span class="n">at</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Attribute </span><span class="si">%s</span><span class="s2"> exists&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span> <span class="ow">or</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="n">shape</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">at</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">at</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pTh</span><span class="p">[</span><span class="n">_tostr</span><span class="p">(</span><span class="n">dtype</span><span class="p">)],</span> <span class="n">shape</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;add_attr_name&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">add_attr_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;string&#39;</span><span class="p">]:</span>
                 <span class="n">emp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;unicode&quot;</span><span class="p">)</span>
                 <span class="n">emp</span><span class="p">[:]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
@@ -2005,10 +2253,12 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">at</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">at</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pTh</span><span class="p">[</span><span class="n">_tostr</span><span class="p">(</span><span class="n">dtype</span><span class="p">)])</span>
-            <span class="k">if</span> <span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;string&#39;</span><span class="p">]:</span>
-                <span class="n">at</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="sa">u</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;unicode&quot;</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">at</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;add_attr_name&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">add_attr_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="c1"># if dtype in [&#39;string&#39;, b&#39;string&#39;]:</span>
+            <span class="c1">#     at.write(np.array(u&quot;&quot;, dtype=&quot;unicode&quot;))</span>
+            <span class="c1"># else:</span>
+            <span class="c1">#     at.write(np.array(0, dtype=dtype))</span>
 
         <span class="n">at</span> <span class="o">=</span> <span class="n">H5CppAttribute</span><span class="p">(</span><span class="n">at</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
         <span class="c1"># if dtype == &quot;bool&quot;:</span>
@@ -2033,14 +2283,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">H5CppAttribute</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
-
-<div class="viewcode-block" id="H5CppAttributeManager.names"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppAttributeManager.names">[docs]</a>    <span class="k">def</span> <span class="nf">names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; key values</span>
-
-<span class="sd">        :returns: attribute names</span>
-<span class="sd">        :rtype: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">att</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">att</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="H5CppAttributeManager.close"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppAttributeManager.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; close attribure manager</span>
@@ -2237,50 +2479,53 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># if self.boolflag:</span>
         <span class="c1">#     return &quot;bool&quot;</span>
-        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;FLOAT&quot;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="n">datatype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">datatype</span><span class="o">.</span><span class="n">type</span>
+        <span class="n">dsize</span> <span class="o">=</span> <span class="n">datatype</span><span class="o">.</span><span class="n">size</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;FLOAT&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;float64&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;float32&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;float128&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;float&quot;</span>
-        <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+        <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;INTEGER&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int64&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint64&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int32&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint32&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int16&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint16&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int8&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint8&quot;</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
+            <span class="k">elif</span> <span class="n">dsize</span> <span class="o">==</span> <span class="mi">16</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">datatype</span><span class="o">.</span><span class="n">is_signed</span><span class="p">():</span>
                     <span class="k">return</span> <span class="s2">&quot;int128&quot;</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">return</span> <span class="s2">&quot;uint128&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;int&quot;</span>
-        <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;ENUM&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;ENUM&quot;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">h5cpp</span><span class="o">.</span><span class="n">_datatype</span><span class="o">.</span><span class="n">is_bool</span><span class="p">(</span>
-                    <span class="n">h5cpp</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="p">)):</span>
+                    <span class="n">h5cpp</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">Enum</span><span class="p">(</span><span class="n">datatype</span><span class="p">)):</span>
                 <span class="k">return</span> <span class="s2">&quot;bool&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="s2">&quot;int&quot;</span>
-        <span class="k">return</span> <span class="n">hTp</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">datatype</span><span class="o">.</span><span class="n">type</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">hTp</span><span class="p">[</span><span class="n">dtype</span><span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2300,7 +2545,29 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; reopen attribute</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">h5object</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-        <span class="n">filewriter</span><span class="o">.</span><span class="n">FTAttribute</span><span class="o">.</span><span class="n">reopen</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+        <span class="n">filewriter</span><span class="o">.</span><span class="n">FTAttribute</span><span class="o">.</span><span class="n">reopen</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppAttribute.set_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppAttribute.set_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :param value: attribute value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;set_attr_value&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">set_attr_value</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppAttribute.get_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppAttribute.get_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
+
+<span class="sd">        :param name: attribute name</span>
+<span class="sd">        :type name: :obj:`str`</span>
+<span class="sd">        :returns value: attribute value</span>
+<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_attr_value&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_attr_value</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div></div>
 </pre></div>
 
     </div>

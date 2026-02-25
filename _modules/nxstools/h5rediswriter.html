@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.h5rediswriter &#8212; NXSTools 4.37.0 documentation</title>
+    <title>nxstools.h5rediswriter &#8212; NXSTools 4.43.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.37</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.43</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -218,6 +218,7 @@
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">filewriter</span>
 <span class="kn">from</span> <span class="nn">.redisutils</span> <span class="kn">import</span> <span class="n">REDIS</span><span class="p">,</span> <span class="n">getDataStore</span>
 <span class="kn">from</span> <span class="nn">.nxsfileparser</span> <span class="kn">import</span> <span class="p">(</span><span class="n">getdsname</span><span class="p">,</span> <span class="n">getdssource</span><span class="p">,</span>
+                            <span class="n">tolist</span><span class="p">,</span>
                             <span class="c1"># getdstype</span>
                             <span class="p">)</span>
 
@@ -287,8 +288,8 @@
     <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="s2">&quot;depends_on&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;depends_on&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="s2">&quot;trans_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;transformation_type&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-    <span class="s2">&quot;trans_vector&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
-    <span class="s2">&quot;trans_offset&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="s2">&quot;trans_vector&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="n">tolist</span><span class="p">],</span>
+    <span class="s2">&quot;trans_offset&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span> <span class="n">tolist</span><span class="p">],</span>
     <span class="c1"># &quot;source_name&quot;: [&quot;nexdatas_source&quot;, getdsname],</span>
     <span class="c1"># &quot;source_type&quot;: [&quot;nexdatas_source&quot;, getdstype],</span>
     <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="n">getdssource</span><span class="p">],</span>
@@ -350,7 +351,7 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">text</span>
     <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 
@@ -663,6 +664,7 @@
 <span class="sd">        :returns: parent object</span>
 <span class="sd">        :rtype: :class:`H5RedisGroup`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># print(&quot;ROOT&quot;, type(self))</span>
         <span class="k">return</span> <span class="n">H5RedisGroup</span><span class="p">(</span><span class="n">h5imp</span><span class="o">=</span><span class="n">H5File</span><span class="o">.</span><span class="n">root</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
                             <span class="n">nxclass</span><span class="o">=</span><span class="s2">&quot;NXroot&quot;</span><span class="p">)</span></div>
 
@@ -1197,32 +1199,6 @@
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Undefined constructor parameters&quot;</span><span class="p">)</span>
             <span class="n">H5Group</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">,</span> <span class="n">tparent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__nxclass</span> <span class="o">=</span> <span class="n">nxclass</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span> <span class="o">=</span> <span class="p">{}</span>
-
-<div class="viewcode-block" id="H5RedisGroup.set_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisGroup.set_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
-
-<span class="sd">        :param name: attribute name</span>
-<span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :param value: attribute value</span>
-<span class="sd">        :type value: :obj:`any`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
-
-<div class="viewcode-block" id="H5RedisGroup.get_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisGroup.get_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
-
-<span class="sd">        :param name: attribute name</span>
-<span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :returns value: attribute value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span><span class="p">:</span>
-            <span class="c1"># print(self.__avcache)</span>
-            <span class="n">vl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">vl</span></div>
 
 <div class="viewcode-block" id="H5RedisGroup.open"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisGroup.open">[docs]</a>    <span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; open a file tree element</span>
@@ -1462,7 +1438,7 @@
 <span class="sd">        :param name: field name</span>
 <span class="sd">        :type name: :obj:`str`</span>
 <span class="sd">        :param layout: virual field layout</span>
-<span class="sd">        :type layout: :class:`H5CppFieldLayout`</span>
+<span class="sd">        :type layout: :class:`H5RedisFieldLayout`</span>
 <span class="sd">        :param fillvalue:  fill value</span>
 <span class="sd">        :type fillvalue: :obj:`int` or :class:`np.ndarray`</span>
 <span class="sd">        :returns: file tree field</span>
@@ -1485,7 +1461,7 @@
 <span class="sd">        :param chunk: chunk</span>
 <span class="sd">        :type chunk: :obj:`list` &lt; :obj:`int` &gt;</span>
 <span class="sd">        :param dfilter: filter deflater</span>
-<span class="sd">        :type dfilter: :class:`H5CppDataFilter`</span>
+<span class="sd">        :type dfilter: :class:`H5RedisDataFilter`</span>
 <span class="sd">        :returns: file tree field</span>
 <span class="sd">        :rtype: :class:`H5RedisField`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1499,7 +1475,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; return the attribute manager</span>
 
 <span class="sd">        :returns: attribute manager</span>
-<span class="sd">        :rtype: :class:`H5CppAttributeManager`</span>
+<span class="sd">        :rtype: :class:`H5RedisAttributeManager`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">H5RedisAttributeManager</span><span class="p">(</span>
             <span class="n">h5imp</span><span class="o">=</span><span class="nb">super</span><span class="p">(</span><span class="n">H5RedisGroup</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span>
@@ -1571,31 +1547,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__jstream</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__rcounter</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span> <span class="o">=</span> <span class="p">{}</span>
-
-<div class="viewcode-block" id="H5RedisField.set_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisField.set_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
-
-<span class="sd">        :param name: attribute name</span>
-<span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :param value: attribute value</span>
-<span class="sd">        :type value: :obj:`any`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
-
-<div class="viewcode-block" id="H5RedisField.get_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisField.get_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
-
-<span class="sd">        :param name: attribute name</span>
-<span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :returns value: attribute value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span><span class="p">:</span>
-            <span class="n">vl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">vl</span></div>
 
 <div class="viewcode-block" id="H5RedisField.get_attrs"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisField.get_attrs">[docs]</a>    <span class="k">def</span> <span class="nf">get_attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
@@ -1605,8 +1556,8 @@
 <span class="sd">        :returns value: attribute value</span>
 <span class="sd">        :rtype value: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span><span class="p">:</span>
-            <span class="n">vl</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
+            <span class="n">vl</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">vl</span></div>
 
 <div class="viewcode-block" id="H5RedisField.append_stream"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisField.append_stream">[docs]</a>    <span class="k">def</span> <span class="nf">append_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">stream</span><span class="p">):</span>
@@ -1759,7 +1710,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; return the attribute manager</span>
 
 <span class="sd">        :returns: attribute manager</span>
-<span class="sd">        :rtype: :class:`H5CppAttributeManager`</span>
+<span class="sd">        :rtype: :class:`H5RedisAttributeManager`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">H5RedisAttributeManager</span><span class="p">(</span>
             <span class="n">h5imp</span><span class="o">=</span><span class="nb">super</span><span class="p">(</span><span class="n">H5RedisField</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">attributes</span><span class="p">)</span>
@@ -1784,6 +1735,7 @@
         <span class="n">sds</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
             <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
+            <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">shape</span><span class="p">,</span>
             <span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="n">strategy</span><span class="p">,</span>
             <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span>
         <span class="p">}</span>
@@ -1793,13 +1745,12 @@
             <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">o</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;float&quot;</span><span class="p">:</span>
                 <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float64&quot;</span>
 
-        <span class="n">anames</span> <span class="o">=</span> <span class="p">[</span><span class="n">at</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">]</span>
+        <span class="n">anames</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">_names</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="n">attrdesc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
                 <span class="n">avl</span> <span class="o">=</span> <span class="n">av</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">av</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
                 <span class="n">sds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span><span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">avl</span><span class="p">))</span>
         <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">append_scaninfo</span><span class="p">(</span><span class="n">sds</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;datadesc&quot;</span><span class="p">,</span> <span class="n">dsname</span><span class="p">])</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;string&#39;</span><span class="p">]:</span>
                 <span class="n">mgchannels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span>
@@ -1849,6 +1800,7 @@
                             <span class="n">dsname</span><span class="p">,</span>
                             <span class="n">encoder</span><span class="p">,</span>
                             <span class="n">info</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="n">units</span><span class="p">})</span>
+                    <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;stream&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;stream&quot;</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">dsname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__stream</span><span class="p">)</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">shape</span><span class="p">:</span>
                         <span class="c1"># plot_type = 1</span>
@@ -1901,6 +1853,7 @@
                         <span class="n">file_mode</span><span class="o">=</span><span class="s2">&quot;single&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
                         <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span> <span class="n">sdef</span><span class="p">)</span>
+                    <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;stream&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;h5file_detector&quot;</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__rcounter</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">dsname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1914,11 +1867,13 @@
                         <span class="s2">&quot;create_stream&quot;</span><span class="p">,</span>
                         <span class="n">dsname</span><span class="p">,</span> <span class="n">JsonStreamEncoder</span><span class="p">())</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">dsname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__jstream</span><span class="p">)</span>
+                <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;stream&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;stream&quot;</span>
         <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">if</span> <span class="s2">&quot;already exists&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
                 <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">sds</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;datadesc&quot;</span><span class="p">,</span> <span class="n">dsname</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__set_init_channel_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dsname</span><span class="p">,</span> <span class="n">units</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">av</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; set init channel info</span>
@@ -1939,11 +1894,12 @@
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
             <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
             <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">o</span><span class="p">,</span>
+            <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">shape</span><span class="p">,</span>
             <span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="n">strategy</span><span class="p">,</span>
             <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span>
         <span class="p">}</span>
 
-        <span class="n">anames</span> <span class="o">=</span> <span class="p">[</span><span class="n">at</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">]</span>
+        <span class="n">anames</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">_names</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="n">attrdesc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
                 <span class="n">avl</span> <span class="o">=</span> <span class="n">av</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">av</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -1953,7 +1909,7 @@
         <span class="n">dsn</span> <span class="o">=</span> <span class="n">dsname</span>
         <span class="k">while</span> <span class="n">dsn</span> <span class="ow">in</span> <span class="n">pars</span><span class="p">:</span>
             <span class="n">dsn</span> <span class="o">=</span> <span class="n">dsn</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">append_scaninfo</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;snapshot&quot;</span><span class="p">,</span> <span class="n">dsn</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;snapshot&quot;</span><span class="p">,</span> <span class="n">dsn</span><span class="p">])</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;program_name&quot;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="n">progattrdesc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
@@ -1991,7 +1947,7 @@
         <span class="n">dsname</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
         <span class="n">dsnm</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">dsnm</span> <span class="o">=</span> <span class="n">av</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">dsnm</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;nexdatas_source&quot;</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">names</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">dsnm</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;nexdatas_source&quot;</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">_names</span><span class="p">():</span>
             <span class="c1">#     dsnm = self.get_attr_value(&quot;nexdatas_source&quot;)</span>
             <span class="c1">#     if dsnm is None:</span>
             <span class="n">dsnm</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -2000,9 +1956,9 @@
             <span class="n">dsname</span> <span class="o">=</span> <span class="n">dsnm</span>
         <span class="n">units</span> <span class="o">=</span> <span class="n">av</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;units&quot;</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">names</span><span class="p">():</span>
+            <span class="k">if</span> <span class="s2">&quot;units&quot;</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">_names</span><span class="p">():</span>
                 <span class="n">units</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;READ UNIT&quot;</span><span class="p">,</span> <span class="n">units</span><span class="p">)</span>
+                <span class="c1"># print(&quot;READ UNIT&quot;, units)</span>
         <span class="k">if</span> <span class="n">units</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">units</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -2011,6 +1967,10 @@
         <span class="n">shape</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">):</span>
             <span class="n">shape</span> <span class="o">=</span> <span class="n">o</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">o</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="c1"># print(&quot;SETITEM&quot;, self, self.name, self.shape,</span>
         <span class="c1">#       self.attributes.names(),</span>
         <span class="c1">#        self.__dsname, strategy, self.dtype,</span>
@@ -2033,7 +1993,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">REDIS</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dsname</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> \
-               <span class="s2">&quot;nexdatas_strategy&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">names</span><span class="p">():</span>
+               <span class="s2">&quot;nexdatas_strategy&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">_names</span><span class="p">():</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">__set_channel_info</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">REDIS</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dsname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__stream</span><span class="p">,</span> <span class="s2">&quot;send&quot;</span><span class="p">):</span>
@@ -2068,32 +2028,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">h5object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Undefined constructor parameters&quot;</span><span class="p">)</span>
-            <span class="n">H5Link</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">,</span> <span class="n">tparent</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span> <span class="o">=</span> <span class="p">{}</span>
-
-<div class="viewcode-block" id="H5RedisLink.set_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisLink.set_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
-
-<span class="sd">        :param name: attribute name</span>
-<span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :param value: attribute value</span>
-<span class="sd">        :type value: :obj:`any`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
-
-<div class="viewcode-block" id="H5RedisLink.get_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisLink.get_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
-
-<span class="sd">        :param name: attribute name</span>
-<span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :returns value: attribute value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache_lock</span><span class="p">:</span>
-            <span class="n">vl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__avcache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">vl</span></div></div>
+            <span class="n">H5Link</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5object</span><span class="p">,</span> <span class="n">tparent</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="H5RedisDataFilter"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisDataFilter">[docs]</a><span class="k">class</span> <span class="nc">H5RedisDataFilter</span><span class="p">(</span><span class="n">H5DataFilter</span><span class="p">):</span>
@@ -2192,16 +2127,18 @@
                     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;VMAP ERROR&quot;</span><span class="p">,</span> <span class="n">vmap</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
 
                 <span class="n">dsname</span> <span class="o">=</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">shape</span> <span class="o">=</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span>
                 <span class="n">sds</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
                     <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
+                    <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">shape</span><span class="p">,</span>
                     <span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="n">strategy</span><span class="p">,</span>
+                    <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="n">vmap</span><span class="p">[</span><span class="s2">&quot;plugin&quot;</span><span class="p">],</span>
                     <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span>
                 <span class="p">}</span>
-                <span class="n">shape</span> <span class="o">=</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span>
 
                 <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">path</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">append_scaninfo</span><span class="p">(</span><span class="n">sds</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;datadesc&quot;</span><span class="p">,</span> <span class="n">dsname</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">sds</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;datadesc&quot;</span><span class="p">,</span> <span class="n">dsname</span><span class="p">])</span>
                 <span class="n">mgchannels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span>
                     <span class="p">[</span><span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">])</span>
                 <span class="n">device_type</span> <span class="o">=</span> <span class="s2">&quot;other_channels&quot;</span>
@@ -2288,6 +2225,19 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;append_scaninfo&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">append_scaninfo</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisVirtualFieldLayout.set_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.set_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">set_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set scan info parameters</span>
+
+<span class="sd">        :param value: scan parameter value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        :param keys: scan parameter keys</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        :param direct: scan info direct flag</span>
+<span class="sd">        :type direct: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;set_scaninfo&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="H5RedisVirtualFieldLayout.get_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.get_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">get_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
@@ -2391,11 +2341,12 @@
 <span class="sd">        :returns: attribute object</span>
 <span class="sd">        :rtype: :class:`H5RedisAttribute`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">at</span> <span class="o">=</span> <span class="n">H5RedisAttribute</span><span class="p">(</span>
+            <span class="n">h5imp</span><span class="o">=</span><span class="n">H5AttributeManager</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_attr_value</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">H5RedisAttribute</span><span class="p">(</span>
-            <span class="n">h5imp</span><span class="o">=</span><span class="n">H5AttributeManager</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-                <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">at</span></div>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; get value</span>
@@ -2428,7 +2379,42 @@
 <span class="sd">        :rtype value: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_attr_value&quot;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_attr_value</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div></div>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_attr_value</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisAttributeManager.append_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisAttributeManager.append_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">append_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; append scan info parameters</span>
+
+<span class="sd">        :param value: scan parameter value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        :param keys: scan parameter value</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;append_scaninfo&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">append_scaninfo</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisAttributeManager.set_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisAttributeManager.set_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">set_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set scan info parameters</span>
+
+<span class="sd">        :param value: scan parameter value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        :param keys: scan parameter keys</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        :param direct: scan info direct flag</span>
+<span class="sd">        :type direct: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;set_scaninfo&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisAttributeManager.get_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisAttributeManager.get_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">get_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
+
+<span class="sd">        :param keys: scan parameter value</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        :returns value: scan parameter value</span>
+<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_scaninfo&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="H5RedisAttribute"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisAttribute">[docs]</a><span class="k">class</span> <span class="nc">H5RedisAttribute</span><span class="p">(</span><span class="n">H5Attribute</span><span class="p">):</span>
@@ -2446,6 +2432,11 @@
 <span class="sd">        :param h5imp: h5 implementation attribute</span>
 <span class="sd">        :type h5imp: :class:`filewriter.FTAttribute`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#: (:obj:`str`) datasource name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dsname</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1">#: (:obj:`str`) strategy mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span> <span class="o">=</span> <span class="kc">None</span>
+
         <span class="k">if</span> <span class="n">h5imp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">H5Attribute</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">h5imp</span><span class="o">.</span><span class="n">h5object</span><span class="p">,</span> <span class="n">h5imp</span><span class="o">.</span><span class="n">_tparent</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -2461,14 +2452,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">vl</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">H5CPP</span><span class="p">:</span>
-            <span class="n">vl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;get_attr_value&quot;</span><span class="p">):</span>
+                <span class="n">vl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
             <span class="c1"># print(&quot;READ&quot;, self.name, vl)</span>
         <span class="k">if</span> <span class="n">vl</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="c1"># print(&quot;READ&quot;, self.name, vl)</span>
             <span class="n">vl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="c1"># print(&quot;READ2&quot;, self.name, vl)</span>
             <span class="k">if</span> <span class="n">vl</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">vl</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;set_attr_value&quot;</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">vl</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;string&#39;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">vl</span> <span class="o">=</span> <span class="n">vl</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
@@ -2491,29 +2484,74 @@
                 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                     <span class="k">pass</span>
             <span class="c1"># print(&quot;WRITE&quot;, self.name, vl)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">vl</span><span class="p">)</span></div>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;set_attr_value&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">vl</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vl</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dsname</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__set_attr_channel_info</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_dsname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_strategy</span><span class="p">,</span> <span class="n">vl</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="H5RedisAttribute.set_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisAttribute.set_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">set_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; set device parameters</span>
+    <span class="k">def</span> <span class="nf">__set_attr_channel_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dsname</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set init channel info</span>
 
-<span class="sd">        :param name: attribute name</span>
-<span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :param value: attribute value</span>
-<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        :param dsname: datasource name</span>
+<span class="sd">        :type dsname: :obj:`str`</span>
+<span class="sd">        :param shape: datasource shape</span>
+<span class="sd">        :type shape: :obj:`list` &lt;:obj:`int`&gt;</span>
+<span class="sd">        :param strategy: datasource strategy i.e. INIT or FINAL</span>
+<span class="sd">        :type strategy: :obj:`str`</span>
+<span class="sd">        :param o: object value to write</span>
+<span class="sd">        :type o: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;set_attr_value&quot;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">set_attr_value</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">dsname</span><span class="p">,</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">o</span><span class="p">,</span>
+            <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">shape</span><span class="p">,</span>
+            <span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="n">strategy</span><span class="p">,</span>
+            <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="p">}</span>
 
-<div class="viewcode-block" id="H5RedisAttribute.get_attr_value"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisAttribute.get_attr_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">ids</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
+        <span class="n">pars</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">([</span><span class="s2">&quot;snapshot&quot;</span><span class="p">])</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="n">dsn</span> <span class="o">=</span> <span class="n">dsname</span>
+        <span class="k">while</span> <span class="n">dsn</span> <span class="ow">in</span> <span class="n">pars</span><span class="p">:</span>
+            <span class="n">dsn</span> <span class="o">=</span> <span class="n">dsn</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;snapshot&quot;</span><span class="p">,</span> <span class="n">dsn</span><span class="p">])</span>
+
+<div class="viewcode-block" id="H5RedisAttribute.append_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisAttribute.append_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">append_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; append scan info parameters</span>
+
+<span class="sd">        :param value: scan parameter value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        :param keys: scan parameter value</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;append_scaninfo&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">append_scaninfo</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisAttribute.set_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisAttribute.set_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">set_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; set scan info parameters</span>
+
+<span class="sd">        :param value: scan parameter value</span>
+<span class="sd">        :type value: :obj:`any`</span>
+<span class="sd">        :param keys: scan parameter keys</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        :param direct: scan info direct flag</span>
+<span class="sd">        :type direct: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;set_scaninfo&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisAttribute.get_scaninfo"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisAttribute.get_scaninfo">[docs]</a>    <span class="k">def</span> <span class="nf">get_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; get scan info parameters</span>
 
-<span class="sd">        :param name: attribute name</span>
-<span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :returns value: attribute value</span>
+<span class="sd">        :param keys: scan parameter value</span>
+<span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        :returns value: scan parameter value</span>
 <span class="sd">        :rtype value: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_attr_value&quot;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_attr_value</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div></div>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_scaninfo&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div></div>
 </pre></div>
 
     </div>
