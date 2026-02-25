@@ -1,6 +1,8 @@
 <?xml version='1.0'?>
 <definition>
+  <attribute type="NX_CHAR" name="default">$var.entryname#'$(__entryname__)'$var.serialno</attribute>
   <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
+    <attribute type="NX_CHAR" name="default">data</attribute>
     <group type="NXdata" name="data">
           <attribute type="NX_CHAR" name="signal">
             <strategy mode="FINAL"/>$datasources.$(signal)

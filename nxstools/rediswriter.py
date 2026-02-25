@@ -587,8 +587,10 @@ def get_links(parent):
     :returns: link object
     :rtype: :obj: `list` <:class:`RedisLink`>
     """
-    lks = parent.h5object.links
-    links = [RedisLink(e, parent) for e in lks]
+    links = [ch() for ch in parent._tchildren
+             if (hasattr(ch(), "name") and ch().name
+                 and type(ch()).__name__
+                 not in ["RedisAttribute"])]
     return links
 
 

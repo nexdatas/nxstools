@@ -64,17 +64,7 @@ def signalname(commonblock, detector, firstchannel,
         timers = [ch for ch in str(timers).split(" ") if ch]
         mgchannels = [ch for ch in str(mgchannels).split(" ") if ch]
         root = commonblock["__root__"]
-        if defaultattrs:
-            attrs = root.attributes
-            at = attrs.create("default", "string", overwrite=True)
-            at.write(entryname)
-            at.close()
         nxentry = root.open(entryname)
-        if defaultattrs:
-            attrs = nxentry.attributes
-            at = attrs.create("default", "string", overwrite=True)
-            at.write("data")
-            at.close()
         nxdata = nxentry.open("data")
         writer = root.parent.writer
         links = writer.get_links(nxdata)
@@ -85,7 +75,7 @@ def signalname(commonblock, detector, firstchannel,
                 sarsg = mssar.mssarenv(msenv, sardanasignal)
             except Exception:
                 pass
-        if sarsg and sarsg in names:
+        if sarsg and (sarsg in names or not names):
             result = str(sarsg)
         elif detector in names:
             result = str(detector)
@@ -169,22 +159,28 @@ def axesnames(commonblock, detector, firstchannel,
                     stepdss.insert(0, scanaxis)
         if signal != detector:
             dt = nxdata.open(signal)
-            dtshape = dt.shape
-            if len(dtshape) > 0 and dtshape[0] > 0:
-                if stepdss and stepdss[0] in names:
-                    ax = nxdata.open(stepdss[0])
-                    if len(ax.shape) == 1 and ax.shape[0] == dtshape[0]:
-                        result = [stepdss[0]]
-            if result and len(dtshape) > 1 and dtshape[1] > 0:
-                if len(stepdss) > 1 and stepdss[1] in names:
-                    ax = nxdata.open(stepdss[1])
-                    if len(ax.shape) == 1 and ax.shape[0] == dtshape[1]:
-                        result.append(stepdss[1])
-            if result:
-                while len(dtshape) > len(result):
-                    result.append(".")
+            dtshape = None
+            if hasattr(dt, "shape"):
+                dtshape = dt.shape
+            if dtshape:
+                if len(dtshape) > 0 and dtshape[0] > 0:
+                    if stepdss and stepdss[0] in names:
+                        ax = nxdata.open(stepdss[0])
+                        if len(ax.shape) == 1 and ax.shape[0] == dtshape[0]:
+                            result = [stepdss[0]]
+                if result and len(dtshape) > 1 and dtshape[1] > 0:
+                    if len(stepdss) > 1 and stepdss[1] in names:
+                        ax = nxdata.open(stepdss[1])
+                        if len(ax.shape) == 1 and ax.shape[0] == dtshape[1]:
+                            result.append(stepdss[1])
+                if result:
+                    while len(dtshape) > len(result):
+                        result.append(".")
+            else:
+                result = [stepdss[0]]
+
     except Exception as e:
-        result = str(e)
+        result = [str(e)]
     if not result:
         result = ["."]
     return result
