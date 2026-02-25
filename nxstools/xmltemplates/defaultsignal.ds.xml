@@ -3,7 +3,7 @@
   <datasource type="PYEVAL" name="defaultsignal">
     <result name="result">
 from nxstools.pyeval import datasignal
-ds.result = datasignal.signalname(commonblock, "$var.detector", "$var.firstchannel", "$var.timers", "$var.mgchannels", "$var.entryname#'$(__entryname__)'$var.serialno", True, $(nchannelstoskip), ds.$(msenv), "$(sardanasignal)")
+ds.result = datasignal.signalname(commonblock, "$var.detector", "$var.firstchannel", "$var.timers", "$var.mgchannels", "$var.entryname#'$(__entryname__)'$var.serialno", False, $(nchannelstoskip), ds.$(msenv), "$(sardanasignal)")
 </result>
 $datasources.$(msenv)
   </datasource>

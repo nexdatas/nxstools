@@ -64,7 +64,17 @@ def signalname(commonblock, detector, firstchannel,
         timers = [ch for ch in str(timers).split(" ") if ch]
         mgchannels = [ch for ch in str(mgchannels).split(" ") if ch]
         root = commonblock["__root__"]
+        if defaultattrs:
+            attrs = root.attributes
+            at = attrs.create("default", "string", overwrite=True)
+            at.write(entryname)
+            at.close()
         nxentry = root.open(entryname)
+        if defaultattrs:
+            attrs = nxentry.attributes
+            at = attrs.create("default", "string", overwrite=True)
+            at.write("data")
+            at.close()
         nxdata = nxentry.open("data")
         writer = root.parent.writer
         links = writer.get_links(nxdata)
