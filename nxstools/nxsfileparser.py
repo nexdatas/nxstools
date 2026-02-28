@@ -152,9 +152,12 @@ def getdsname(xmlstring):
     """
 
     if sys.version_info > (3,):
-        node = et.fromstring(
-            bytes(xmlstring, "UTF-8"),
-            parser=XMLParser(collect_ids=False))
+        try:
+            node = et.fromstring(
+                bytes(xmlstring, "UTF-8"),
+                parser=XMLParser(collect_ids=False))
+        except Exception:
+            return xmlstring
     else:
         node = et.fromstring(
             xmlstring,
@@ -177,9 +180,12 @@ def getdstype(xmlstring):
     """
 
     if sys.version_info > (3,):
-        node = et.fromstring(
-            bytes(xmlstring, "UTF-8"),
-            parser=XMLParser(collect_ids=False))
+        try:
+            node = et.fromstring(
+                bytes(xmlstring, "UTF-8"),
+                parser=XMLParser(collect_ids=False))
+        except Exception:
+            return ""
     else:
         node = et.fromstring(
             xmlstring,
@@ -202,9 +208,12 @@ def getdssource(xmlstring):
     """
 
     if sys.version_info > (3,):
-        node = et.fromstring(
-            bytes(xmlstring, "UTF-8"),
-            parser=XMLParser(collect_ids=False))
+        try:
+            node = et.fromstring(
+                bytes(xmlstring, "UTF-8"),
+                parser=XMLParser(collect_ids=False))
+        except Exception:
+            return ""
     else:
         node = et.fromstring(
             xmlstring,
