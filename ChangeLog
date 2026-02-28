@@ -1,3 +1,7 @@
+2026-02-28 Jan Kotanski <jankotan@gmail.com>
+	* fix error in nxsfileparser when nexdatas_source is not xml (#882)
+	* tagged as v4.44.0
+
 2026-02-25 Jan Kotanski <jankotan@gmail.com>
 	* set default attributes via xml (#877)
 	* fix get_links for rediswriter (#877)
