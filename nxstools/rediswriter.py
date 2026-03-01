@@ -83,6 +83,7 @@ attrdesc = {
     # "source_name": ["nexdatas_source", getdsname],
     # "source_type": ["nexdatas_source", getdstype],
     "source": ["nexdatas_source", getdssource],
+    "nexdatas_source": ["nexdatas_source", str],
     # "strategy": ["nexdatas_strategy", str],
 }
 
