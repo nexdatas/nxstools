@@ -474,7 +474,6 @@ def get_links(parent):
     :param parent: parent object
     :type parent: :class:`FTObject`
     :returns: list of link objects
-    :returns: link object
     :rtype: :obj: `list` <:class:`H5CppLink`>
     """
     lks = parent.h5object.links
