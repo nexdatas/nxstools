@@ -567,8 +567,8 @@ class H5RedisFile(H5File):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         with self.__scan_lock:
             dinfo = self.__devices
@@ -608,8 +608,8 @@ class H5RedisFile(H5File):
 
         :param keys: channel parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: channel parameter value
-        :rtype value: :obj:`any`
+        :returns: channel parameter value
+        :rtype: :obj:`any`
         """
         with self.__scan_lock:
             dinfo = self.__channels
@@ -764,8 +764,8 @@ class H5RedisFile(H5File):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         :param direct: scan info direct flag
         :type direct: :obj:`any`
         """
@@ -1111,8 +1111,8 @@ class H5RedisGroup(H5Group):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_devices"):
             return self._tparent.get_devices(keys)
@@ -1133,8 +1133,8 @@ class H5RedisGroup(H5Group):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_channels"):
             return self._tparent.get_channels(keys)
@@ -1166,8 +1166,8 @@ class H5RedisGroup(H5Group):
 
         :param keys: scan parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         :param direct: scan info direct flag
         :type direct: :obj:`any`
         """
@@ -1367,8 +1367,8 @@ class H5RedisField(H5Field):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             vl = dict(self._avcache)
@@ -1421,8 +1421,8 @@ class H5RedisField(H5Field):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_devices"):
             return self._tparent.get_devices(keys)
@@ -1443,8 +1443,8 @@ class H5RedisField(H5Field):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_channels"):
             return self._tparent.get_channels(keys)
@@ -1465,8 +1465,8 @@ class H5RedisField(H5Field):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_scaninfo"):
             return self._tparent.get_scaninfo(keys, direct)
@@ -2058,8 +2058,8 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_scaninfo"):
             return self._tparent.get_scaninfo(keys, direct)
@@ -2189,8 +2189,8 @@ class H5RedisAttributeManager(H5AttributeManager):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_attr_value"):
             return self._tparent.get_attr_value(name)
@@ -2224,8 +2224,8 @@ class H5RedisAttributeManager(H5AttributeManager):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_scaninfo"):
             return self._tparent.get_scaninfo(keys, direct)
@@ -2361,8 +2361,8 @@ class H5RedisAttribute(H5Attribute):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_scaninfo"):
             return self._tparent.get_scaninfo(keys, direct)

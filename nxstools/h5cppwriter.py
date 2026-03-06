@@ -753,8 +753,8 @@ class H5CppGroup(filewriter.FTGroup):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             # print(self._avcache)
@@ -764,8 +764,8 @@ class H5CppGroup(filewriter.FTGroup):
     def get_attr_names(self):
         """ get scan info parameters
 
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             if self._ancache is not None:
@@ -1128,8 +1128,8 @@ class H5CppField(filewriter.FTField):
     def get_attr_names(self):
         """ get scan info parameters
 
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             if self._ancache is not None:
@@ -1164,8 +1164,8 @@ class H5CppField(filewriter.FTField):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             vl = self._avcache.get(name, None)
@@ -1482,8 +1482,8 @@ class H5CppLink(filewriter.FTLink):
     def get_attr_names(self):
         """ get scan info parameters
 
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             if self._ancache is not None:
@@ -1498,8 +1498,8 @@ class H5CppLink(filewriter.FTLink):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             vl = self._avcache.get(name, None)
@@ -2375,8 +2375,8 @@ class H5CppAttribute(filewriter.FTAttribute):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_attr_value"):
             return self._tparent.get_attr_value(name)

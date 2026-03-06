@@ -845,8 +845,8 @@ class RedisFile(filewriter.FTFile):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         with self.__scan_lock:
             dinfo = self.__devices
@@ -886,8 +886,8 @@ class RedisFile(filewriter.FTFile):
 
         :param keys: channel parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: channel parameter value
-        :rtype value: :obj:`any`
+        :returns: channel parameter value
+        :rtype: :obj:`any`
         """
         with self.__scan_lock:
             dinfo = self.__channels
@@ -1044,8 +1044,8 @@ class RedisFile(filewriter.FTFile):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         :param direct: scan info direct flag
         :type direct: :obj:`any`
         """
@@ -1444,8 +1444,8 @@ class RedisGroup(filewriter.FTGroup):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         # print("GET ATTR VALUE", self._avcache, self._h5object)
         if name:
@@ -1481,8 +1481,8 @@ class RedisGroup(filewriter.FTGroup):
     def get_attr_names(self):
         """ get scan info parameters
 
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             names = self._ancache
@@ -1605,8 +1605,8 @@ class RedisGroup(filewriter.FTGroup):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_devices"):
             return self._tparent.get_devices(keys)
@@ -1627,8 +1627,8 @@ class RedisGroup(filewriter.FTGroup):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_channels"):
             return self._tparent.get_channels(keys)
@@ -1660,8 +1660,8 @@ class RedisGroup(filewriter.FTGroup):
 
         :param keys: scan parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         :param direct: scan info direct flag
         :type direct: :obj:`any`
         """
@@ -1974,8 +1974,8 @@ class RedisField(filewriter.FTField):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             vl = dict(self._avcache)
@@ -2028,8 +2028,8 @@ class RedisField(filewriter.FTField):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_devices"):
             return self._tparent.get_devices(keys)
@@ -2050,8 +2050,8 @@ class RedisField(filewriter.FTField):
 
         :param keys: device parameter keys
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: device parameter value
-        :rtype value: :obj:`any`
+        :returns: device parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_channels"):
             return self._tparent.get_channels(keys)
@@ -2072,8 +2072,8 @@ class RedisField(filewriter.FTField):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_scaninfo"):
             return self._tparent.get_scaninfo(keys, direct)
@@ -2159,8 +2159,8 @@ class RedisField(filewriter.FTField):
     def get_attr_names(self):
         """ get scan info parameters
 
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             ancache = self._ancache
@@ -2200,8 +2200,8 @@ class RedisField(filewriter.FTField):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             vl = self._avcache.get(name, None)
@@ -2843,8 +2843,8 @@ class RedisLink(filewriter.FTLink):
     def get_attr_names(self):
         """ get scan info parameters
 
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         with self._avcache_lock:
             ancache = self._ancache
@@ -2863,8 +2863,8 @@ class RedisLink(filewriter.FTLink):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         if name:
             with self._avcache_lock:
@@ -3193,8 +3193,8 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_scaninfo"):
             return self._tparent.get_scaninfo(keys, direct)
@@ -3602,8 +3602,8 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_scaninfo"):
             return self._tparent.get_scaninfo(keys, direct)
@@ -3635,8 +3635,8 @@ class RedisAttributeManager(filewriter.FTAttributeManager):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_attr_value"):
             return self._tparent.get_attr_value(name)
@@ -3917,8 +3917,8 @@ class RedisAttribute(filewriter.FTAttribute):
 
         :param keys: scan parameter value
         :type key: :obj:`list` <:obj:`str`>
-        :returns value: scan parameter value
-        :rtype value: :obj:`any`
+        :returns: scan parameter value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_scaninfo"):
             return self._tparent.get_scaninfo(keys, direct)
@@ -4083,8 +4083,8 @@ class RedisAttribute(filewriter.FTAttribute):
 
         :param name: attribute name
         :type name: :obj:`str`
-        :returns value: attribute value
-        :rtype value: :obj:`any`
+        :returns: attribute value
+        :rtype: :obj:`any`
         """
         if hasattr(self._tparent, "get_attr_value"):
             return self._tparent.get_attr_value(name)
