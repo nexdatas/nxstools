@@ -754,8 +754,8 @@
 
 <span class="sd">        :param keys: device parameter keys</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: device parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: device parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__scan_lock</span><span class="p">:</span>
             <span class="n">dinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__devices</span>
@@ -795,8 +795,8 @@
 
 <span class="sd">        :param keys: channel parameter keys</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: channel parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: channel parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__scan_lock</span><span class="p">:</span>
             <span class="n">dinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__channels</span>
@@ -951,8 +951,8 @@
 
 <span class="sd">        :param keys: scan parameter value</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: scan parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: scan parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        :param direct: scan info direct flag</span>
 <span class="sd">        :type direct: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1298,8 +1298,8 @@
 
 <span class="sd">        :param keys: device parameter keys</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: device parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: device parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_devices&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_devices</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span></div>
@@ -1320,8 +1320,8 @@
 
 <span class="sd">        :param keys: device parameter keys</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: device parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: device parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_channels&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_channels</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span></div>
@@ -1353,8 +1353,8 @@
 
 <span class="sd">        :param keys: scan parameter keys</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: scan parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: scan parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        :param direct: scan info direct flag</span>
 <span class="sd">        :type direct: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1554,8 +1554,8 @@
 
 <span class="sd">        :param name: attribute name</span>
 <span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :returns value: attribute value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: attribute value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_avcache_lock</span><span class="p">:</span>
             <span class="n">vl</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_avcache</span><span class="p">)</span>
@@ -1608,8 +1608,8 @@
 
 <span class="sd">        :param keys: device parameter keys</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: device parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: device parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_devices&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_devices</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span></div>
@@ -1630,8 +1630,8 @@
 
 <span class="sd">        :param keys: device parameter keys</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: device parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: device parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_channels&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_channels</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span></div>
@@ -1652,8 +1652,8 @@
 
 <span class="sd">        :param keys: scan parameter value</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: scan parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: scan parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_scaninfo&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
@@ -2245,8 +2245,8 @@
 
 <span class="sd">        :param keys: scan parameter value</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: scan parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: scan parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_scaninfo&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div>
@@ -2376,8 +2376,8 @@
 
 <span class="sd">        :param name: attribute name</span>
 <span class="sd">        :type name: :obj:`str`</span>
-<span class="sd">        :returns value: attribute value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: attribute value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_attr_value&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_attr_value</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
@@ -2411,8 +2411,8 @@
 
 <span class="sd">        :param keys: scan parameter value</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: scan parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: scan parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_scaninfo&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div></div>
@@ -2548,8 +2548,8 @@
 
 <span class="sd">        :param keys: scan parameter value</span>
 <span class="sd">        :type key: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">        :returns value: scan parameter value</span>
-<span class="sd">        :rtype value: :obj:`any`</span>
+<span class="sd">        :returns: scan parameter value</span>
+<span class="sd">        :rtype: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;get_scaninfo&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">direct</span><span class="p">)</span></div></div>
