@@ -20,6 +20,7 @@
 """  pyeval helper functions for limaccd """
 
 import os
+import json
 
 
 def postrun(commonblock,
@@ -218,3 +219,166 @@ def postrun(commonblock,
                         * acq_nb_frames * spf
         result += str(filestartnum) + ":" + str(filelastnumber)
     return result
+
+
+def vmap(commonblock,
+         saving_next_number,
+         saving_directory,
+         saving_suffix,
+         acq_nb_frames,
+         saving_index_format,
+         saving_prefix,
+         saving_next_number_str,
+         hostname,
+         device,
+         name=None,
+         saving_format=None,
+         saving_frame_per_file=None,
+         image_height=None,
+         image_width=None,
+         image_type=None,
+         acq_trigger_mode=None,
+         acq_mode='SINGLE',
+         filename=None,
+         entryname=None,
+         insname=None,
+         acq_modes="",
+         field_path="/entry_0000/measurement/data"
+         ):
+    """ code for postrun datasource
+
+    :param commonblock: commonblock of nxswriter
+    :type commonblock: :obj:`dict`<:obj:`str`, `any`>
+    :param saving_next_number: saving next number
+    :type saving_next_number: :obj:`int`
+    :param saving_directory: saving directory
+    :type saving_directory: :obj:`str`
+    :param saving_suffix: saving suffix
+    :type saving_suffix: :obj:`str`
+    :param acq_nb_frames: number of frames acquired
+    :type acq_nb_frames: :obj:`str`
+    :param saving_index_format: saving index format
+    :type saving_index_format: :obj:`str`
+    :param saving_prefix: saving prefix
+    :type saving_prefix: :obj:`str`
+    :param saving_next_number_str: datasource string name
+    :type saving_next_number_str: :obj:`str`
+    :param hostname: tango host name
+    :type hostname: :obj:`str`
+    :param device: tango device name
+    :type device: :obj:`str`
+    :param name: component name
+    :type name: :obj:`str`
+    :param saving_format: saving format
+    :type saving_format: :obj:`str`
+    :param saving_frame_per_file: saving frame per file
+    :type saving_frame_per_file: :obj:`str`
+    :param image_height: image height
+    :type image_height: :obj:`int`
+    :param image_width: image width
+    :type image_width: :obj:`int`
+    :param image_type: image type
+    :type image_type: :obj:`int`
+    :param acq_mode: acquisition mode
+    :type acq_mode: :obj:`str`
+    :param acq_trigger_mode: acquisition trigger mode
+    :type acq_trigger_mode: :obj:`str`
+    :param filename: file name
+    :type filename: :obj:`str`
+    :param entryname: entry name
+    :type entryname: :obj:`str`
+    :param insname: instrument name
+    :type insname: :obj:`str`
+    :param acq_modes: acquisition modes
+    :type acq_modes: :obj:`str`
+    :param field_path: nexus field path
+    :type field_path: :obj:`str`
+    :returns: name of saved file
+    :rtype: :obj:`str`
+    """
+    step = commonblock["__counter__"] - 1
+    filedir = (saving_directory).replace("\\", "/")
+    # amodes = acq_modes.split(",")
+    if len(filedir) > 1 and filedir[1] == ":":
+        filedir = "/data" + filedir[2:]
+    if filedir and filedir[-1] == "/":
+        filedir = filedir[:-1]
+    if acq_mode == "SINGLE" and \
+            acq_trigger_mode in [
+                "INTERNAL_TRIGGER",
+                "EXTERNAL_TRIGGER",
+                "INTERNAL_TRIGGER_MULTI",
+                "EXTERNAL_TRIGGER_MULTI"] and \
+            saving_format == "HDF5":
+        # filelastnumber = saving_next_number - 1
+        # nbfiles = (acq_nb_frames + saving_frame_per_file - 1) \
+        #     // saving_frame_per_file
+        # filestartnum = filelastnumber - nbfiles + 1
+
+        path = ""
+        sfname = []
+        # if not filename:
+        #     if root._tparent is not None:
+        #         filename = root._tparent.filename
+        basepath = ""
+        if filename:
+            sfname = (filename).split("/")
+            path = sfname[-1].split(".")[0] + "/"
+            basepath = "/".join(os.path.abspath(filename).split("/")[:-1])
+        if filedir and filedir.startswith(basepath):
+            path = filedir[len(basepath) + 1:]
+        else:
+            path += '%s' % (name)
+        path += '/%s' % (saving_prefix)
+
+        shape = [image_height, image_width]
+        l2nt = {
+            "bpp8": "uint8", "bpp8s": "int8",
+            "bpp16": "uint16", "bpp16s": "int16",
+            "bpp32": "uint32", "bpp32s": "int32",
+            "bpp32f": "float",
+        }
+        dtype = l2nt.get(image_type.lower(), "int32")
+
+        fnamepattern = "%s%s%s" % (path, saving_index_format, saving_suffix)
+
+        meta = {}
+        try:
+            detfn = fnamepattern % step
+        except Exception:
+            detfn = fnamepattern
+        target = "%s:/%s" % (detfn, field_path)
+        shape
+        if step == 0:
+            meta = {
+                "plugin": "lima",
+                "plugin_def": {
+                    "name": name,
+                    "dtype": dtype,
+                    "shape": shape,
+                    "server_url": '%s/%s' % (hostname, device),
+                    "buffer_max_number": 100000,
+                    "frames_per_acquisition": acq_nb_frames,
+                    "acquisition_offset": 0,
+                    "saving": {
+                        "file_offset": 0,
+                        "frames_per_file": saving_frame_per_file,
+                        "file_format": "hdf5",
+                        "file_path": fnamepattern,
+                        "data_path": field_path,
+                    },
+                }
+            }
+
+        vmap = {"target": target, "key":
+                [[step * acq_nb_frames, (step + 1) * acq_nb_frames],
+                 None, None],
+                "dtype": dtype,
+                "shape": [acq_nb_frames, shape[0], shape[1]],
+                "plugin_stream": {
+                    "last_index": (step + 1) * acq_nb_frames,
+                    "last_index_saved": (step + 1) * acq_nb_frames}
+                }
+        if meta:
+            vmap.update(meta)
+        return json.dumps(vmap)

@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_xpixelsize">
+    <result name="result">
+from nxstools.pyeval import common
+ds.result = common.get_element(ds.$(name)_camera_pixelsize, 1)
+</result>
+  $datasources.$(name)_camera_pixelsize
+  </datasource>
+</definition>
