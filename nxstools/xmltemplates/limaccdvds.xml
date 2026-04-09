@@ -24,14 +24,9 @@
           <field units="s" type="NX_FLOAT64" name="acq_expo_time">
             <strategy mode="FINAL"/>$datasources.$(name)_acq_expo_time</field>
           <field type="NX_UINT64" name="acq_nb_frames">
-          <strategy mode="FINAL"/>$datasources.$(name)_acq_nb_frames</field>
-	  <vds name="data" type="NX_UINT32">
-	    <dimensions rank="2" />
-	    <map>
-	      $datasources.$(name)_datamap
-	      <strategy mode="STEP"/>
-	    </map>
-	  </vds>
+            <strategy mode="FINAL"/>$datasources.$(name)_acq_nb_frames</field>
+          <field type="NX_CHAR" name="postrun">$datasources.$(name)_postrun<strategy mode="FINAL"/>
+          </field>
           <field type="NX_CHAR" name="saving_mode">
             <strategy mode="FINAL"/>$datasources.$(name)_saving_mode</field>
           <field type="NX_CHAR" name="acc_time_mode">

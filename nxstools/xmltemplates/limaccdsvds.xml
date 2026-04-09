@@ -10,6 +10,13 @@
         <field type="NX_CHAR" name="layout">area</field>
         <field type="NX_CHAR" name="description">$datasources.$(name)_description<strategy mode="INIT"/>
         </field>
+	<vds name="data" type="NX_UINT32">
+	  <dimensions rank="3" />
+	  <map>
+	    $datasources.$(name)_datamap
+	    <strategy mode="STEP"/>
+	  </map>
+	</vds>
         <group type="NXcollection" name="collection">
           <field units="s" type="NX_FLOAT64" name="latency_time">
             <strategy mode="FINAL"/>$datasources.$(name)_latency_time</field>
@@ -25,8 +32,6 @@
             <strategy mode="FINAL"/>$datasources.$(name)_acq_expo_time</field>
           <field type="NX_UINT64" name="acq_nb_frames">
             <strategy mode="FINAL"/>$datasources.$(name)_acq_nb_frames</field>
-          <field type="NX_CHAR" name="postrun">$datasources.$(name)_postrun<strategy mode="FINAL"/>
-          </field>
           <field type="NX_CHAR" name="saving_mode">
             <strategy mode="FINAL"/>$datasources.$(name)_saving_mode</field>
           <field type="NX_CHAR" name="acc_time_mode">

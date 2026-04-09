@@ -229,9 +229,9 @@ def vmap(commonblock,
          saving_index_format,
          saving_prefix,
          saving_next_number_str,
+         name,
          hostname,
          device,
-         name=None,
          saving_format=None,
          saving_frame_per_file=None,
          image_height=None,
@@ -310,16 +310,24 @@ def vmap(commonblock,
                 "INTERNAL_TRIGGER_MULTI",
                 "EXTERNAL_TRIGGER_MULTI"] and \
             saving_format == "HDF5":
-        # filelastnumber = saving_next_number - 1
-        # nbfiles = (acq_nb_frames + saving_frame_per_file - 1) \
-        #     // saving_frame_per_file
-        # filestartnum = filelastnumber - nbfiles + 1
+
+        if "__root__" in commonblock.keys():
+            root = commonblock["__root__"]
+            if type(root).__name__ == "RedisGroup":
+                import nxstools.rediswriter as nxw
+            elif root.h5object.__class__.__name__ == "File":
+                import nxstools.h5pywriter as nxw
+            else:
+                import nxstools.h5cppwriter as nxw
+        else:
+            raise Exception("Writer cannot be found")
 
         path = ""
         sfname = []
-        # if not filename:
-        #     if root._tparent is not None:
-        #         filename = root._tparent.filename
+        if not filename:
+            if root._tparent is not None:
+                filename = root._tparent.filename
+
         basepath = ""
         if filename:
             sfname = (filename).split("/")
@@ -341,6 +349,11 @@ def vmap(commonblock,
         dtype = l2nt.get(image_type.lower(), "int32")
 
         fnamepattern = "%s%s%s" % (path, saving_index_format, saving_suffix)
+        if basepath:
+            afnamepattern = "%s/%s%s%s" % (basepath, path,
+                                           saving_index_format, saving_suffix)
+        else:
+            afnamepattern = fnamepattern
 
         meta = {}
         try:
@@ -364,7 +377,7 @@ def vmap(commonblock,
                         "file_offset": 0,
                         "frames_per_file": saving_frame_per_file,
                         "file_format": "hdf5",
-                        "file_path": fnamepattern,
+                        "file_path": afnamepattern,
                         "data_path": field_path,
                     },
                 }
