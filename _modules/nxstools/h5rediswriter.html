@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.h5rediswriter &#8212; NXSTools 4.45.1 documentation</title>
+    <title>nxstools.h5rediswriter &#8212; NXSTools 4.46.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.45</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.46</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -271,6 +271,13 @@
     <span class="n">PLUGINS</span><span class="p">[</span><span class="s2">&quot;h5file_detector&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">FileStream</span>
 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
     <span class="n">FileStream</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">LimaStream</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">blissdata.streams.lima.stream</span> <span class="kn">import</span> <span class="n">LimaStream</span>
+    <span class="n">PLUGINS</span><span class="p">[</span><span class="s2">&quot;lima&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">LimaStream</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="n">LimaStream</span> <span class="o">=</span> <span class="kc">None</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">blissdata.schemas.scan_info</span> <span class="kn">import</span> <span class="p">(</span>
