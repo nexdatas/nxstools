@@ -85,6 +85,13 @@ try:
 except Exception:
     FileStream = None
 
+LimaStream = None
+try:
+    from blissdata.streams.lima.stream import LimaStream
+    PLUGINS["lima"] = LimaStream
+except Exception:
+    LimaStream = None
+
 try:
     from blissdata.schemas.scan_info import (
         ScanInfoDict,

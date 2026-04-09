@@ -1,3 +1,7 @@
+2026-03-09 Jan Kotanski <jankotan@gmail.com>
+	* add support for limaccdsvds (#888)
+	* tagged as v4.46.0
+
 2026-03-05 Jan Kotanski <jankotan@gmail.com>
 	* update link path for pointdet (#888)
 	* tagged as v4.45.1
