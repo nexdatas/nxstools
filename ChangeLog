@@ -1,5 +1,6 @@
 2026-03-09 Jan Kotanski <jankotan@gmail.com>
-	* add fieldanem to Virtual Field Layout (#894)
+	* add fieldname to Virtual Field Layout (#894)
+	* fix link targets in xml templates (#894)
 	* tagged as v4.47.0
 
 2026-03-09 Jan Kotanski <jankotan@gmail.com>
