@@ -1,3 +1,7 @@
+2026-03-10 Jan Kotanski <jankotan@gmail.com>
+	* resolve plugin inteference for vds (#897)
+	* tagged as v4.47.1
+
 2026-03-09 Jan Kotanski <jankotan@gmail.com>
 	* add fieldname to Virtual Field Layout (#894)
 	* fix link targets in xml templates (#894)

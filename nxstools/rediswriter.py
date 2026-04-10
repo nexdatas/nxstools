@@ -2507,7 +2507,10 @@ class RedisField(filewriter.FTField):
         #       type(o), str(t), units)
         if strategy in ["STEP"] and dsnm:
             # skip 2D images
-            if not shape or len(shape) < 2 or FileStream is not None:
+            flclass = self._h5object.get("class", None)
+            if not shape or len(shape) < 2 \
+                    or (FileStream is not None
+                        and flclass not in ["VirtualDataset"]):
                 self.__set_step_channel_info(
                     dsname, units, shape, strategy, o, av)
         else:
