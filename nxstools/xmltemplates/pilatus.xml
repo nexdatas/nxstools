@@ -38,7 +38,7 @@
       </group>
     </group>
     <group type="NXdata" name="data">
-      <link target="$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data" name="$(name)"/>
+      <link target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data" name="$(name)"/>
     </group>
   </group>
 </definition>

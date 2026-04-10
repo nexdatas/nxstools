@@ -3095,7 +3095,9 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                     "dtype": plugin_def["dtype"]
                 }
 
-                sds["nexus_path"] = self._tparent.path
+                self.fieldname = self.fieldname or "data"
+                sds["nexus_path"] = "%s/%s" % (
+                    self._tparent.path, self.fieldname)
                 self.set_scaninfo(sds, ["datadesc", dsname])
                 mgchannels = self.get_scaninfo(
                     ["measurement_group_channels"])

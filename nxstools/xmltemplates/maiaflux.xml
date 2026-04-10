@@ -15,7 +15,7 @@
             <strategy mode="FINAL"/>$datasources.$(unit)</field>
             <field units="Hz/V" type="NX_FLOAT64" name="vfc_factor">
             <strategy mode="INIT"/>$datasources.$(vfcfactor)</field>
-	    <link target="$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(keithleydevice)/gain" name="keithley_gain"/>
+	    <link target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(keithleydevice)/gain" name="keithley_gain"/>
           </group>
         </group>
       </group>
