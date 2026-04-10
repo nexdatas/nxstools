@@ -793,6 +793,8 @@ class FTVirtualFieldLayout(FTObject):
         :type h5object: :obj:`any`
         """
         FTObject.__init__(self, h5object, tparent)
+        #: (:obj:`str`) virtual dataset field name
+        self.fieldname = ""
 
     def __setitem__(self, key, source):
         """ add target field view to layout
