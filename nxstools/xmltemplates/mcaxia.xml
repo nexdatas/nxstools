@@ -21,10 +21,10 @@
       </group>
     </group>
     <group type="NXdata" name="data">
-      <link target="$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data" name="$(name)"/>
-      <link target="$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/collection/countsroi" name="$(name)_countsroi"/>
-      <link target="$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/collection/icr" name="$(name)_icr"/>
-      <link target="$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/collection/ocr" name="$(name)_ocr"/>
+      <link target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data" name="$(name)"/>
+      <link target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/collection/countsroi" name="$(name)_countsroi"/>
+      <link target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/collection/icr" name="$(name)_icr"/>
+      <link target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/collection/ocr" name="$(name)_ocr"/>
     </group>
   </group>
 </definition>
