@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.h5rediswriter &#8212; NXSTools 4.46.0 documentation</title>
+    <title>nxstools.h5rediswriter &#8212; NXSTools 4.47.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.46</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.47</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -2145,7 +2145,9 @@
                     <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span>
                 <span class="p">}</span>
 
-                <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">path</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fieldname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldname</span> <span class="ow">or</span> <span class="s2">&quot;data&quot;</span>
+                <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldname</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">sds</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;datadesc&quot;</span><span class="p">,</span> <span class="n">dsname</span><span class="p">])</span>
                 <span class="n">mgchannels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">(</span>
                     <span class="p">[</span><span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">])</span>
