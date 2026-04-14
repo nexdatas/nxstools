@@ -349,43 +349,54 @@ def vmap(commonblock,
         else:
             afnamepattern = fnamepattern
 
-        meta = {}
-        try:
-            detfn = fnamepattern % step
-        except Exception:
-            detfn = fnamepattern
-        target = "%s:/%s" % (detfn, field_path)
-        shape
-        if step == 0:
-            meta = {
-                "plugin": "lima",
-                "plugin_def": {
-                    "name": name,
-                    "dtype": dtype,
-                    "shape": shape,
-                    "server_url": '%s/%s' % (hostname, device),
-                    "buffer_max_number": 100000,
-                    "frames_per_acquisition": acq_nb_frames,
-                    "acquisition_offset": 0,
-                    "saving": {
-                        "file_offset": 0,
-                        "frames_per_file": saving_frame_per_file,
-                        "file_format": "hdf5",
-                        "file_path": afnamepattern,
-                        "data_path": field_path,
-                    },
-                }
-            }
+        nbfiles = (acq_nb_frames + saving_frame_per_file - 1) \
+            // saving_frame_per_file
+        filestartnum = step * nbfiles
+        filelastnumber = filestartnum + nbfiles - 1
+        vmaps = []
+        for nbf in range(filestartnum, filelastnumber + 1):
+            rnbf = nbf - filestartnum
+            meta = {}
+            try:
+                detfn = fnamepattern % nbf
+            except Exception:
+                detfn = fnamepattern
+            target = "%s:/%s" % (detfn, field_path)
 
-        vmap = {"target": target, "key":
-                [[step * acq_nb_frames, (step + 1) * acq_nb_frames],
-                 None, None],
-                "dtype": dtype,
-                "shape": [acq_nb_frames, shape[0], shape[1]],
-                "plugin_stream": {
-                    "last_index": (step + 1) * acq_nb_frames,
-                    "last_index_saved": (step + 1) * acq_nb_frames}
+            if step == 0 and rnbf == 0:
+                meta = {
+                    "plugin": "lima",
+                    "plugin_def": {
+                        "name": name,
+                        "dtype": dtype,
+                        "shape": shape,
+                        "server_url": '%s/%s' % (hostname, device),
+                        "buffer_max_number": 100000,
+                        "frames_per_acquisition": acq_nb_frames,
+                        "acquisition_offset": 0,
+                        "saving": {
+                            "file_offset": 0,
+                            "frames_per_file": saving_frame_per_file,
+                            "file_format": "hdf5",
+                            "file_path": afnamepattern,
+                            "data_path": field_path,
+                        },
+                    }
                 }
-        if meta:
-            vmap.update(meta)
-        return json.dumps(vmap)
+
+            vmap = {"target": target, "key":
+                    [[step * acq_nb_frames, (step + 1) * acq_nb_frames],
+                     None, None],
+                    "dtype": dtype,
+                    "shape": [acq_nb_frames, shape[0], shape[1]],
+                    }
+            if nbf == filelastnumber:
+                vmap["plugin_stream"] = {
+                    "last_index": (step + 1) * acq_nb_frames,
+                    "last_index_saved": (step + 1) * acq_nb_frames
+                }
+
+            if meta:
+                vmap.update(meta)
+            vmaps.append(vmap)
+        return json.dumps(vmaps)
