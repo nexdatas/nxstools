@@ -356,6 +356,12 @@ def vmap(commonblock,
         vmaps = []
         for nbf in range(filestartnum, filelastnumber + 1):
             rnbf = nbf - filestartnum
+            off = saving_frame_per_file * rnbf
+            if rnbf + 1 == nbfiles:
+                nb = acq_nb_frames - off
+            else:
+                nb = saving_frame_per_file
+
             meta = {}
             try:
                 detfn = fnamepattern % nbf
@@ -385,15 +391,15 @@ def vmap(commonblock,
                 }
 
             vmap = {"target": target, "key":
-                    [[step * acq_nb_frames, (step + 1) * acq_nb_frames],
+                    [[off, off + nb],
                      None, None],
                     "dtype": dtype,
-                    "shape": [acq_nb_frames, shape[0], shape[1]],
+                    "shape": [nb, shape[0], shape[1]],
                     }
             if nbf == filelastnumber:
                 vmap["plugin_stream"] = {
-                    "last_index": (step + 1) * acq_nb_frames,
-                    "last_index_saved": (step + 1) * acq_nb_frames
+                    "last_index": (step + 1) * acq_nb_frames - 1,
+                    "last_index_saved": (step + 1) * acq_nb_frames -1
                 }
 
             if meta:
