@@ -178,7 +178,7 @@ def unlimited_selection(sel, shape):
     :returns: if hyperslab is unlimited list
     :rtype: :obj:`list` <:obj:`bool`>
     """
-    res = None
+    res = []
     if isinstance(sel, tuple):
         res = []
         for sl in sel:
@@ -191,7 +191,7 @@ def unlimited_selection(sel, shape):
 
     elif hasattr(sel, "count"):
         res = []
-        for ct in sel.count():
+        for ct in sel.count:
             res.append(True if ct in [unlimited()] else False)
     elif isinstance(sel, slice):
         res = [True if sel.stop in [unlimited()] else False]
@@ -212,8 +212,8 @@ def unlimited_selection(sel, shape):
             if res[si]:
                 count[si] = UNLIMITED
         # print("Hyperslab1 %s %s %s %s" % (offset, block, count, stride))
-        return {"offset": offset, "block": block, "count": count,
-                "stride": stride}
+        return filewriter.FTHyperslab(
+            offset=offset, block=block, count=count, stride=stride)
     else:
         return None
 
@@ -318,9 +318,7 @@ def _slice2selection(t, shape):
             else:
                 stride.append(1)
         # print("Hyperslab2 %s %s %s %s" % (offset, block, count, stride))
-        # return h5cpp.dataspace.Hyperslab(
-        #     offset=offset, block=block, count=count, stride=stride)
-        return None
+        return filewriter.FTHyperslab(offset, block, count, stride)
 
     elif isinstance(t, slice):
         start = t.start or 0
@@ -330,25 +328,23 @@ def _slice2selection(t, shape):
         if stop < 0:
             stop == shape[0] + stop
         if t.step in [None, 1]:
-            return None
-            # return h5cpp.dataspace.Hyperslab(
-            #     offset=(start,), block=((stop - start),))
+            return filewriter.FTHyperslab(
+                offset=[start], block=[stop - start],
+                count=[1], stride=[stop - start])
         else:
-            return None
-            # return h5cpp.dataspace.Hyperslab(
-            #     offset=(start,),
-            #     count=int(math.ceil((stop - start) / float(t.step))),
-            #     stride=(t.step,))
+            return filewriter.FTHyperslab(
+                offset=[start],
+                count=[int(math.ceil((stop - start) / float(t.step)))],
+                stride=[t.step], block=[1])
     elif isinstance(t, (int, long)) and shape and len(shape) > 1:
         offset = [0] * len(shape)
         offset[0] = t
-        return None
-        # return h5cpp.dataspace.Hyperslab(
-        #     offset=tuple(offset), block=tuple(shape))
+        return filewriter.FTHyperslab(
+            offset=offset, block=shape,
+            stride=shape, count=[1] * len(shape))
     elif isinstance(t, (int, long)):
-        return None
-        # return h5cpp.dataspace.Hyperslab(
-        #     offset=(t,), block=(1,))
+        return filewriter.FTHyperslab(offset=[t], block=[1],
+                                      count=[1], stride=[1])
     elif isinstance(t, (list, tuple)):
         offset = []
         block = []
@@ -376,7 +372,7 @@ def _slice2selection(t, shape):
                     offset.append(start)
                     block.append(stop - start)
                     count.append(1)
-                    stride.append(1)
+                    stride.append(stop - start)
                 else:
                     offset.append(start)
                     block.append(1)
@@ -390,14 +386,12 @@ def _slice2selection(t, shape):
                     offset.append(0)
                     block.append(shape[it])
                     count.append(1)
-                    stride.append(1)
+                    stride.append(shape[it])
                     if jt < esize - 1:
                         it += 1
         # print("Hyperslab3 %s %s %s %s" % (offset, block, count, stride))
         if len(offset):
-            return None
-            # return h5cpp.dataspace.Hyperslab(
-            #     offset=offset, block=block, count=count, stride=stride)
+            return filewriter.FTHyperslab(offset, block, count, stride)
 
 
 # pTh = {
@@ -1261,6 +1255,12 @@ class RedisFile(filewriter.FTFile):
                 ["snapshot"], direct=True) or {})
             pars.update(lpars)
             self.set_scaninfo(pars, ["snapshot"])
+
+            lpars = (self.get_scaninfo(["datadesc"]) or {})
+            pars = (self.get_scaninfo(
+                ["datadesc"], direct=True) or {})
+            pars.update(lpars)
+            self.set_scaninfo(pars, ["datadesc"])
 
             self.set_scaninfo(
                 datetime.datetime.now().astimezone().isoformat(),
@@ -2507,10 +2507,7 @@ class RedisField(filewriter.FTField):
         #       type(o), str(t), units)
         if strategy in ["STEP"] and dsnm:
             # skip 2D images
-            flclass = self._h5object.get("class", None)
-            if not shape or len(shape) < 2 \
-                    or (FileStream is not None
-                        and flclass not in ["VirtualDataset"]):
+            if not shape or len(shape) < 2 or FileStream is not None:
                 self.__set_step_channel_info(
                     dsname, units, shape, strategy, o, av)
         else:
@@ -3045,6 +3042,8 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         self.shape = shape
         # : (:obj:`str`): data type
         self.dtype = dtype
+        # : (:obj:`str`): datasource name
+        self.dsname = None
         #: (:obj:`list` < :obj:`int` >) maximal shape
         self.maxshape = maxshape
         #: (:obj:`list` <:obj:`dict` >) vmap list
@@ -3061,6 +3060,8 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :type strategy: :obj:`str`
         """
         self.__vmaps.append(vmap)
+        if "dsname" in vmap:
+            self.dsname = vmap["dsname"]
         # print("APEEND", vmap, strategy)
         plugin_stream = None
         if strategy in ["STEP"]:
@@ -3482,7 +3483,7 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             selection = _slice2selection(key, shape)
             lview = {"class": "View",
                      "dataspace": lds,
-                     "selection": selection}
+                     "selection": vars(selection)}
         else:
             lview = {"class": "View",
                      "dataspace": lds}
@@ -3492,13 +3493,13 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             srcsel = _slice2selection(sourcekey, source.shape)
             eview = {"class": "View",
                      "dataspace": sds,
-                     "selection": srcsel}
+                     "selection": vars(srcsel)}
         elif selection is not None:
             usel = unlimited_selection(selection, shape)
             if usel is not None:
                 eview = {"class": "View",
                          "dataspace": sds,
-                         "selection": usel}
+                         "selection": vars(usel)}
             else:
                 eview = {"class": "View",
                          "dataspace": sds}
@@ -3517,6 +3518,9 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             self._h5object["vmaps"].append(vdm)
         else:
             self._h5object["vmaps"] = [vdm]
+        if self.dsname:
+            self.append_scaninfo(
+                vdm, ["datadesc", self.dsname, "__vmap__"])
 
 
 class RedisTargetFieldView(filewriter.FTTargetFieldView):

@@ -496,15 +496,16 @@ class ParserTools(object):
         :returns: list of datasource descriptions
         :rtype: :obj:`list` < :obj:`dict` <:obj:`str`, `any`> >
         """
-        tagname = "field"
+        tagnames = ["field", "vds", "map"]
         indom = _parseString(xmlc)
         nodes = []
-        if indom.tag == tagname:
+        if indom.tag in tagnames:
             nodes.append(indom)
-        nodes.extend(indom.findall(".//%s" % tagname))
+        for tagname in tagnames:
+            nodes.extend(indom.findall(".//%s" % tagname))
         taglist = []
         for nd in nodes:
-            if nd.tag == tagname:
+            if nd.tag in tagnames:
                 nxtype = cls.__getAttr(nd, "type")
                 units = cls.__getAttr(nd, "units")
                 value = cls._getPureText(nd) or None

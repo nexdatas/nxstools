@@ -68,7 +68,7 @@ def postrun(commonblock,
     :param saving_format: saving format
     :type saving_format: :obj:`str`
     :param saving_frame_per_file: saving frame per file
-    :type saving_frame_per_file: :obj:`str`
+    :type saving_frame_per_file: :obj:`int`
     :param image_height: image height
     :type image_height: :obj:`int`
     :param image_width: image width
@@ -261,7 +261,7 @@ def vmap(commonblock,
     :type saving_index_format: :obj:`str`
     :param saving_prefix: saving prefix
     :type saving_prefix: :obj:`str`
-    :param saving_next_number_str: datasource string name
+    :param saving_next_number_str: saving next number
     :type saving_next_number_str: :obj:`str`
     :param hostname: tango host name
     :type hostname: :obj:`str`
@@ -272,7 +272,7 @@ def vmap(commonblock,
     :param saving_format: saving format
     :type saving_format: :obj:`str`
     :param saving_frame_per_file: saving frame per file
-    :type saving_frame_per_file: :obj:`str`
+    :type saving_frame_per_file: :obj:`int`
     :param image_height: image height
     :type image_height: :obj:`int`
     :param image_width: image width
@@ -353,15 +353,17 @@ def vmap(commonblock,
             // saving_frame_per_file
         filestartnum = step * nbfiles
         filelastnumber = filestartnum + nbfiles - 1
+
         vmaps = []
         for nbf in range(filestartnum, filelastnumber + 1):
             rnbf = nbf - filestartnum
             off = saving_frame_per_file * rnbf
+            floff = off + step * acq_nb_frames
             if rnbf + 1 == nbfiles:
                 nb = acq_nb_frames - off
             else:
                 nb = saving_frame_per_file
-
+            floff = off + step * acq_nb_frames
             meta = {}
             try:
                 detfn = fnamepattern % nbf
@@ -391,15 +393,16 @@ def vmap(commonblock,
                 }
 
             vmap = {"target": target, "key":
-                    [[off, off + nb],
+                    [[floff, floff + nb],
                      None, None],
                     "dtype": dtype,
                     "shape": [nb, shape[0], shape[1]],
+                    "dsname": name,
                     }
             if nbf == filelastnumber:
                 vmap["plugin_stream"] = {
                     "last_index": (step + 1) * acq_nb_frames - 1,
-                    "last_index_saved": (step + 1) * acq_nb_frames -1
+                    "last_index_saved": (step + 1) * acq_nb_frames - 1
                 }
 
             if meta:

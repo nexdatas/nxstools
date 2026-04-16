@@ -1,4 +1,8 @@
 2026-03-10 Jan Kotanski <jankotan@gmail.com>
+	* add support for limaccdsvds with rediswriter (#900)
+	* tagged as v4.48.0
+
+2026-03-10 Jan Kotanski <jankotan@gmail.com>
 	* resolve plugin inteference for vds (#897)
 	* tagged as v4.47.1
 

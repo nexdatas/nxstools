@@ -107,6 +107,7 @@ def vmap(commonblock, name, fieldname,
         }
 
     vmap = {"target": target, "key": step, "shape": [1, shape[0]],
+            "dsname": "%s_%s" % (name, fieldname),
             "plugin_stream": {"frame": step, "stored": True}}
     if meta:
         vmap.update(meta)

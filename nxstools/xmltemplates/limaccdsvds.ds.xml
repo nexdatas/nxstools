@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <definition>
-  <datasource type="PYEVAL" name="$(name)_postrun">
+  <datasource type="PYEVAL" name="$(name)">
     <result name="result">
 from nxstools.pyeval import limaccd
 ds.result = limaccd.vmap(commonblock, ds.$(name)_saving_next_number, ds.$(name)_saving_directory, ds.$(name)_saving_suffix, ds.$(name)_acq_nb_frames, ds.$(name)_saving_index_format, ds.$(name)_saving_prefix, "$(name)_saving_next_number", "$(name)", "$(hostname)", "$(device)", ds.$(name)_saving_format, ds.$(name)_saving_frame_per_file, ds.$(name)_image_height, ds.$(name)_image_width, ds.$(name)_image_type, ds.$(name)_acq_trigger_mode, ds.$(name)_acq_mode, "$var.filename", "$var.entryname#'$(__entryname__)'$var.serialno", "$(__insname__)", "$var.acq_modes")
