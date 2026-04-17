@@ -1845,7 +1845,7 @@ moduleTemplateFiles = {
                  'limaccd_description.ds.xml',
                  'limaccd_filestartnum_cb.ds.xml'],
     'limaccdsvds': ['limaccdsvds.xml',
-                    'limaccdsvds_datamap.ds.xml',
+                    'limaccdsvds.ds.xml',
                     'limaccdsvds_xpixelsize.ds.xml',
                     'limaccdsvds_ypixelsize.ds.xml',
                     'limaccdsvds_description.ds.xml',

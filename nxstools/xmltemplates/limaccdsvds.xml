@@ -13,7 +13,7 @@
 	<vds name="data" type="NX_UINT32">
 	  <dimensions rank="3" />
 	  <map>
-	    $datasources.$(name)_datamap
+	    $datasources.$(name)
 	    <strategy mode="STEP"/>
 	  </map>
 	</vds>

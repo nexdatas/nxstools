@@ -68,7 +68,7 @@ def postrun(commonblock,
     :param saving_format: saving format
     :type saving_format: :obj:`str`
     :param saving_frame_per_file: saving frame per file
-    :type saving_frame_per_file: :obj:`str`
+    :type saving_frame_per_file: :obj:`int`
     :param image_height: image height
     :type image_height: :obj:`int`
     :param image_width: image width
@@ -261,7 +261,7 @@ def vmap(commonblock,
     :type saving_index_format: :obj:`str`
     :param saving_prefix: saving prefix
     :type saving_prefix: :obj:`str`
-    :param saving_next_number_str: datasource string name
+    :param saving_next_number_str: saving next number
     :type saving_next_number_str: :obj:`str`
     :param hostname: tango host name
     :type hostname: :obj:`str`
@@ -272,7 +272,7 @@ def vmap(commonblock,
     :param saving_format: saving format
     :type saving_format: :obj:`str`
     :param saving_frame_per_file: saving frame per file
-    :type saving_frame_per_file: :obj:`str`
+    :type saving_frame_per_file: :obj:`int`
     :param image_height: image height
     :type image_height: :obj:`int`
     :param image_width: image width
@@ -349,43 +349,63 @@ def vmap(commonblock,
         else:
             afnamepattern = fnamepattern
 
-        meta = {}
-        try:
-            detfn = fnamepattern % step
-        except Exception:
-            detfn = fnamepattern
-        target = "%s:/%s" % (detfn, field_path)
-        shape
-        if step == 0:
-            meta = {
-                "plugin": "lima",
-                "plugin_def": {
-                    "name": name,
-                    "dtype": dtype,
-                    "shape": shape,
-                    "server_url": '%s/%s' % (hostname, device),
-                    "buffer_max_number": 100000,
-                    "frames_per_acquisition": acq_nb_frames,
-                    "acquisition_offset": 0,
-                    "saving": {
-                        "file_offset": 0,
-                        "frames_per_file": saving_frame_per_file,
-                        "file_format": "hdf5",
-                        "file_path": afnamepattern,
-                        "data_path": field_path,
-                    },
-                }
-            }
+        nbfiles = (acq_nb_frames + saving_frame_per_file - 1) \
+            // saving_frame_per_file
+        filestartnum = step * nbfiles
+        filelastnumber = filestartnum + nbfiles - 1
 
-        vmap = {"target": target, "key":
-                [[step * acq_nb_frames, (step + 1) * acq_nb_frames],
-                 None, None],
-                "dtype": dtype,
-                "shape": [acq_nb_frames, shape[0], shape[1]],
-                "plugin_stream": {
-                    "last_index": (step + 1) * acq_nb_frames,
-                    "last_index_saved": (step + 1) * acq_nb_frames}
+        vmaps = []
+        for nbf in range(filestartnum, filelastnumber + 1):
+            rnbf = nbf - filestartnum
+            off = saving_frame_per_file * rnbf
+            floff = off + step * acq_nb_frames
+            if rnbf + 1 == nbfiles:
+                nb = acq_nb_frames - off
+            else:
+                nb = saving_frame_per_file
+            floff = off + step * acq_nb_frames
+            meta = {}
+            try:
+                detfn = fnamepattern % nbf
+            except Exception:
+                detfn = fnamepattern
+            target = "%s:/%s" % (detfn, field_path)
+
+            if step == 0 and rnbf == 0:
+                meta = {
+                    "plugin": "lima",
+                    "plugin_def": {
+                        "name": name,
+                        "dtype": dtype,
+                        "shape": shape,
+                        "server_url": '%s/%s' % (hostname, device),
+                        "buffer_max_number": 100000,
+                        "frames_per_acquisition": acq_nb_frames,
+                        "acquisition_offset": 0,
+                        "saving": {
+                            "file_offset": 0,
+                            "frames_per_file": saving_frame_per_file,
+                            "file_format": "hdf5",
+                            "file_path": afnamepattern,
+                            "data_path": field_path,
+                        },
+                    }
                 }
-        if meta:
-            vmap.update(meta)
-        return json.dumps(vmap)
+
+            vmap = {"target": target, "key":
+                    [[floff, floff + nb],
+                     None, None],
+                    "dtype": dtype,
+                    "shape": [nb, shape[0], shape[1]],
+                    "dsname": name,
+                    }
+            if nbf == filelastnumber:
+                vmap["plugin_stream"] = {
+                    "last_index": (step + 1) * acq_nb_frames - 1,
+                    "last_index_saved": (step + 1) * acq_nb_frames - 1
+                }
+
+            if meta:
+                vmap.update(meta)
+            vmaps.append(vmap)
+        return json.dumps(vmaps)
