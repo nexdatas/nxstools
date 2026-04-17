@@ -3402,6 +3402,9 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                 counter += 1
             # print("KEY", key, sourcekey, sourceshape, eshape)
             self.add(key, ef, sourcekey, sourceshape)
+        if self.dsname:
+            self.set_scaninfo(
+                self.shape, ["datadesc", self.dsname, "__vmaps_shape__"])
 
     @classmethod
     def find_shape(cls, key, eshape=None, change_unlimited=True):
@@ -3520,7 +3523,7 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             self._h5object["vmaps"] = [vdm]
         if self.dsname:
             self.append_scaninfo(
-                vdm, ["datadesc", self.dsname, "__vmap__"])
+                vdm, ["datadesc", self.dsname, "__vmaps__"])
 
 
 class RedisTargetFieldView(filewriter.FTTargetFieldView):
