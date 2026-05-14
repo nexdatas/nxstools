@@ -1,4 +1,8 @@
 2026-03-10 Jan Kotanski <jankotan@gmail.com>
+	* read acquisition_offset for lima stream from redis DB (#903)
+	* tagged as v4.49.0
+
+2026-03-10 Jan Kotanski <jankotan@gmail.com>
 	* add support for limaccdsvds with rediswriter (#900)
 	* tagged as v4.48.0
 

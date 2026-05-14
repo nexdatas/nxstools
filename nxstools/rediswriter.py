@@ -65,9 +65,11 @@ except Exception:
 LimaStream = None
 try:
     from blissdata.streams.lima.stream import LimaStream
+    from blissdata.lima.client import acquisition_on_server
     PLUGINS["lima"] = LimaStream
 except Exception:
     LimaStream = None
+    acquisition_on_server = None
 
 try:
     from blissdata.schemas.scan_info import (
@@ -771,6 +773,17 @@ class RedisFile(filewriter.FTFile):
         """
         with self.__scan_lock:
             self.__streams[name] = stream
+
+    def acquisition_on_server(self, server_url):
+        """ scan object
+
+        :param server_url: server url
+        :typeserver_url: :obj:`str`
+        :returns: acquisition offset
+        :rtype: :obj:`int`
+        """
+        if acquisition_on_server is not None:
+            return acquisition_on_server(self.__datastore, server_url)
 
     def set_scan(self, scan):
         """ scan object
@@ -1567,6 +1580,17 @@ class RedisGroup(filewriter.FTGroup):
         if hasattr(self._tparent, "append_stream"):
             return self._tparent.append_stream(name, stream)
 
+    def acquisition_on_server(self, server_url):
+        """ scan object
+
+        :param server_url: server url
+        :typeserver_url: :obj:`str`
+        :returns: acquisition offset
+        :rtype: :obj:`int`
+        """
+        if hasattr(self._tparent, "acquisition_on_server"):
+            return self._tparent.acquisition_on_server(server_url)
+
     def set_entryname(self, entryname):
         """ set entry name
 
@@ -1998,6 +2022,17 @@ class RedisField(filewriter.FTField):
         """
         if hasattr(self._tparent, "append_stream"):
             return self._tparent.append_stream(name, stream)
+
+    def acquisition_on_server(self, server_url):
+        """ scan object
+
+        :param server_url: server url
+        :typeserver_url: :obj:`str`
+        :returns: acquisition offset
+        :rtype: :obj:`int`
+        """
+        if hasattr(self._tparent, "acquisition_on_server"):
+            return self._tparent.acquisition_on_server(server_url)
 
     def set_scan(self, scan):
         """ scan object
@@ -3079,6 +3114,18 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                 plugin = PLUGINS[vmap["plugin"]]
                 plugin_def = vmap["plugin_def"]
                 try:
+                    if "acquisition_offset" in plugin_def and \
+                            not plugin_def["acquisition_offset"]:
+                        if "server_url" in plugin_def and \
+                                not plugin_def["server_url"]:
+                            acq_off = self.acquisition_on_server(
+                                plugin_def["server_url"])
+                            if acq_off is not None:
+                                plugin_def["acquisition_offset"] = acq_off
+                except Exception as e:
+                    print("Cannot read acquisition_on_server for",
+                          vmap, str(e))
+                try:
                     sdef = plugin.make_definition(**plugin_def)
                     # print("create", plugin_def)
                     self.__rstream = self.scan_command(
@@ -3163,6 +3210,17 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         """
         if hasattr(self._tparent, "append_stream"):
             return self._tparent.append_stream(name, stream)
+
+    def acquisition_on_server(self, server_url):
+        """ scan object
+
+        :param server_url: server url
+        :typeserver_url: :obj:`str`
+        :returns: acquisition offset
+        :rtype: :obj:`int`
+        """
+        if hasattr(self._tparent, "acquisition_on_server"):
+            return self._tparent.acquisition_on_server(server_url)
 
     def scan_command(self, command, *args, **kwargs):
         """ set scan attribute
