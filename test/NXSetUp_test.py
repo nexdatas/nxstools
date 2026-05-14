@@ -391,7 +391,9 @@ For more help:
         vl, er, et = self.runtestexcept(['nxsetup'], SystemExit)
         h1 = "".join(self.helpinfo.split()).replace(
             "optionalarguments:", "options:")
-        h2 = "".join(vl.split()).replace("optionalarguments:", "options:")
+        h2 = "".join(vl.split()).replace(
+            "optionalarguments:", "options:").replace(
+                "usage:python3", "usage:")
         if len(h2) > len(h1):
             self.assertEqual(h2[:len(h1)], h1)
         else:
@@ -409,7 +411,9 @@ For more help:
             vl, er, et = self.runtestexcept(['nxsetup', hl], SystemExit)
             h1 = "".join(self.helpinfo.split()).replace(
                 "optionalarguments:", "options:")
-            h2 = "".join(vl.split()).replace("optionalarguments:", "options:")
+            h2 = "".join(vl.split()).replace(
+                "optionalarguments:", "options:").replace(
+                    "usage:python3", "usage:")
             if len(h2) > len(h1):
                 self.assertEqual(h2[:len(h1)], h1)
             else:

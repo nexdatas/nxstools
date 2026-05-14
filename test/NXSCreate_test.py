@@ -183,7 +183,9 @@ For more help:
         self.assertEqual(
             "".join(self.helpinfo.split()).replace(
                 "optionalarguments:", "options:"),
-            "".join(vl.split()).replace("optionalarguments:", "options:"))
+            "".join(vl.split()).replace(
+                "optionalarguments:", "options:").replace(
+                    "usage:python3", "usage:"))
         self.assertEqual(self.helperror, er)
 
     # comp_available tesQt
@@ -211,7 +213,9 @@ For more help:
             self.assertEqual(
                 "".join(self.helpinfo.split()).replace(
                     "optionalarguments:", "options:"),
-                "".join(vl.split()).replace("optionalarguments:", "options:"))
+                "".join(vl.split()).replace(
+                    "optionalarguments:", "options:").replace(
+                        "usage:python3", "usage:"))
             self.assertEqual('', er)
 
 
