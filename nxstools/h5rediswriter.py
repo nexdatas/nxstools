@@ -1976,7 +1976,7 @@ class H5RedisVirtualFieldLayout(H5VirtualFieldLayout):
                     if "acquisition_offset" in plugin_def and \
                             not plugin_def["acquisition_offset"]:
                         if "server_url" in plugin_def and \
-                                not plugin_def["server_url"]:
+                                plugin_def["server_url"]:
                             acq_off = self.acquisition_on_server(
                                 plugin_def["server_url"])
                             if acq_off is not None:
