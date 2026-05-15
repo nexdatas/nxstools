@@ -329,7 +329,8 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      "lambda", "lambda2m",
                      "lambdavds",
                      "lambdavdsnm",
-                     "limaccd", "limaccds", "limaccdsvds",
+                     "limaccd", "limaccdovds", "limaccds",
+                     "limaccdsvds",
                      "limaccdvds",
                      "marccd", "mca_xia", "minipix",
                      "mythen", "mythen2", "pco", "pco4000", "pcoedge",
@@ -400,6 +401,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
             'lambda2m',             #
             'lambdavds',            #
             'lambdavdsnm',          #
+            "limaccdovds",
             'limaccds',             #
             "limaccdsvds",
             'limaccdvds',           #
@@ -454,7 +456,8 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                              "eigerdectrismesh",
                              "lambda", "lambda2m",
                              "lambdavds", "lambdavdsnm",
-                             "limaccd", "limaccds", "limaccdsvds",
+                             "limaccd", "limaccdovds", "limaccds",
+                             "limaccdsvds",
                              "limaccdvds",
                              "marccd", "mca_xia", "minipix",
                              "mythen", "mythen2", "pco", "pco4000", "pcoedge",
@@ -535,7 +538,9 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                  "eiger9m32vds", "eigerdectris", "eigerdectrismesh",
                  "lambda", "lambda2m",
                  "lambdavds", "lambdavdsnm",
-                 "limaccd", "limaccds", "limaccdsvds",
+                 "limaccd",
+                 "limaccdovds",
+                 "limaccds", "limaccdsvds",
                  "limaccdvds",
                  "marccd", "mca_xia", "minipix",
                  "mythen", "mythen2", "pco", "pco4000", "pcoedge",

@@ -1,5 +1,6 @@
 2026-03-10 Jan Kotanski <jankotan@gmail.com>
-	* read acquisition_offset for lima stream from redis DB (#903)
+	* create limaccdsvds pattern  form saving_directory (#906)
+	* read acquisition_offset for lima stream from redis DB (#904)
 	* tagged as v4.49.0
 
 2026-03-10 Jan Kotanski <jankotan@gmail.com>

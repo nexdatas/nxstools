@@ -43,7 +43,7 @@ def postrun(commonblock,
             entryname=None,
             insname=None,
             acq_modes="",
-            field_path="/entry_0000/measurement/data"
+            field_path="/entry_0000/measurement/data",
             ):
     """ code for postrun datasource
 
@@ -89,6 +89,8 @@ def postrun(commonblock,
     :type acq_modes: :obj:`str`
     :param field_path: nexus field path
     :type field_path: :obj:`str`
+    :param orig_file_pattern: create bliss file pattern from saving_directory
+    :type orig_file_pattern: :obj:`bool`
     :returns: name of saved file
     :rtype: :obj:`str`
     """
@@ -243,7 +245,8 @@ def vmap(commonblock,
          entryname=None,
          insname=None,
          acq_modes="",
-         field_path="/entry_0000/measurement/data"
+         field_path="/entry_0000/measurement/data",
+         orig_file_pattern=True,
          ):
     """ code for postrun datasource
 
@@ -303,6 +306,7 @@ def vmap(commonblock,
         filedir = "/data" + filedir[2:]
     if filedir and filedir[-1] == "/":
         filedir = filedir[:-1]
+    afiledir = filedir
     if acq_mode == "SINGLE" and \
             acq_trigger_mode in [
                 "INTERNAL_TRIGGER",
@@ -343,7 +347,10 @@ def vmap(commonblock,
         dtype = l2nt.get(image_type.lower(), "int32")
 
         fnamepattern = "%s%s%s" % (path, saving_index_format, saving_suffix)
-        if basepath:
+        if orig_file_pattern:
+            afnamepattern = "%s/%s%s%s" % (afiledir, saving_prefix,
+                                           saving_index_format, saving_suffix)
+        elif basepath:
             afnamepattern = "%s/%s%s%s" % (basepath, path,
                                            saving_index_format, saving_suffix)
         else:
