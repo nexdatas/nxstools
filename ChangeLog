@@ -1,4 +1,8 @@
-2026-03-10 Jan Kotanski <jankotan@gmail.com>
+2026-03-15 Jan Kotanski <jankotan@gmail.com>
+	* fix typo in read acquisition_offset for lima stream (#909)
+	* tagged as v4.49.1
+
+2026-03-15 Jan Kotanski <jankotan@gmail.com>
 	* create limaccdsvds pattern  form saving_directory (#906)
 	* read acquisition_offset for lima stream from redis DB (#904)
 	* tagged as v4.49.0
