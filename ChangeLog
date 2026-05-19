@@ -1,4 +1,8 @@
 2026-03-15 Jan Kotanski <jankotan@gmail.com>
+	* add limaccdevds for continue scans and blissdata streaming (#912)
+	* tagged as v4.50.0
+
+2026-03-15 Jan Kotanski <jankotan@gmail.com>
 	* fix typo in read acquisition_offset for lima stream (#909)
 	* tagged as v4.49.1
 

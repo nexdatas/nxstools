@@ -89,8 +89,6 @@ def postrun(commonblock,
     :type acq_modes: :obj:`str`
     :param field_path: nexus field path
     :type field_path: :obj:`str`
-    :param orig_file_pattern: create bliss file pattern from saving_directory
-    :type orig_file_pattern: :obj:`bool`
     :returns: name of saved file
     :rtype: :obj:`str`
     """
@@ -296,6 +294,8 @@ def vmap(commonblock,
     :type acq_modes: :obj:`str`
     :param field_path: nexus field path
     :type field_path: :obj:`str`
+    :param orig_file_pattern: create bliss file pattern from saving_directory
+    :type orig_file_pattern: :obj:`bool`
     :returns: name of saved file
     :rtype: :obj:`str`
     """
@@ -415,4 +415,165 @@ def vmap(commonblock,
             if meta:
                 vmap.update(meta)
             vmaps.append(vmap)
+        return json.dumps(vmaps)
+
+
+def event(commonblock,
+          saving_directory,
+          saving_suffix,
+          acq_nb_frames,
+          saving_index_format,
+          saving_prefix,
+          last_image_saved,
+          name,
+          hostname,
+          device,
+          saving_format=None,
+          saving_frame_per_file=None,
+          image_height=None,
+          image_width=None,
+          image_type=None,
+          acq_trigger_mode=None,
+          acq_mode='SINGLE',
+          filename=None,
+          field_path="/entry_0000/measurement/data",
+          orig_file_pattern=True
+          ):
+    """ code for postrun datasource
+
+    :param commonblock: commonblock of nxswriter
+    :type commonblock: :obj:`dict`<:obj:`str`, `any`>
+    :param saving_directory: saving directory
+    :type saving_directory: :obj:`str`
+    :param saving_suffix: saving suffix
+    :type saving_suffix: :obj:`str`
+    :param acq_nb_frames: number of frames acquired
+    :type acq_nb_frames: :obj:`str`
+    :param saving_index_format: saving index format
+    :type saving_index_format: :obj:`str`
+    :param saving_prefix: saving prefix
+    :type saving_prefix: :obj:`str`
+    :param last_image_saved: last image saved
+    :type last_image_saved: :obj:`int`
+    :param name: component name
+    :type name: :obj:`str`
+    :param hostname: tango host name
+    :type hostname: :obj:`str`
+    :param device: tango device name
+    :type device: :obj:`str`
+    :param saving_format: saving format
+    :type saving_format: :obj:`str`
+    :param saving_frame_per_file: saving frame per file
+    :type saving_frame_per_file: :obj:`int`
+    :param image_height: image height
+    :type image_height: :obj:`int`
+    :param image_width: image width
+    :type image_width: :obj:`int`
+    :param image_type: image type
+    :type image_type: :obj:`int`
+    :param acq_trigger_mode: acquisition trigger mode
+    :type acq_trigger_mode: :obj:`str`
+    :param acq_mode: acquisition mode
+    :type acq_mode: :obj:`str`
+    :param filename: file name
+    :type filename: :obj:`str`
+    :param field_path: nexus field path
+    :type field_path: :obj:`str`
+    :param orig_file_pattern: create bliss file pattern from saving_directory
+    :type orig_file_pattern: :obj:`bool`
+    :returns: name of saved file
+    :rtype: :obj:`str`
+    """
+    step = commonblock["__counter__"] - 1
+    vmaps = []
+    meta = {}
+    if acq_mode == "SINGLE" and \
+       acq_trigger_mode in [
+           "INTERNAL_TRIGGER",
+           "EXTERNAL_TRIGGER",
+           "INTERNAL_TRIGGER_MULTI",
+           "EXTERNAL_TRIGGER_MULTI"] and \
+       saving_format == "HDF5":
+        if step == 0:
+            filedir = (saving_directory).replace("\\", "/")
+            if len(filedir) > 1 and filedir[1] == ":":
+                filedir = "/data" + filedir[2:]
+            if filedir and filedir[-1] == "/":
+                filedir = filedir[:-1]
+            afiledir = filedir
+
+            if "__root__" in commonblock.keys():
+                root = commonblock["__root__"]
+            else:
+                raise Exception("Writer cannot be found")
+
+            path = ""
+            sfname = []
+            if not filename:
+                if root._tparent is not None:
+                    filename = root._tparent.filename
+
+            basepath = ""
+            if filename:
+                sfname = (filename).split("/")
+                path = sfname[-1].split(".")[0] + "/"
+                basepath = "/".join(os.path.abspath(filename).split("/")[:-1])
+            if filedir and filedir.startswith(basepath):
+                path = filedir[len(basepath) + 1:]
+            else:
+                path += '%s' % (name)
+            path += '/%s' % (saving_prefix)
+
+            shape = [image_height, image_width]
+            l2nt = {
+                "bpp8": "uint8", "bpp8s": "int8",
+                "bpp16": "uint16", "bpp16s": "int16",
+                "bpp32": "uint32", "bpp32s": "int32",
+                "bpp32f": "float",
+            }
+            dtype = l2nt.get(image_type.lower(), "int32")
+
+            fnamepattern = "%s%s%s" % (
+                path, saving_index_format, saving_suffix)
+            if orig_file_pattern:
+                afnamepattern = "%s/%s%s%s" % (
+                    afiledir, saving_prefix,
+                    saving_index_format, saving_suffix)
+            elif basepath:
+                afnamepattern = "%s/%s%s%s" % (
+                    basepath, path,
+                    saving_index_format, saving_suffix)
+            else:
+                afnamepattern = fnamepattern
+
+            meta = {
+                "plugin": "lima",
+                "plugin_def": {
+                    "name": name,
+                    "dtype": dtype,
+                    "shape": shape,
+                    "server_url": '%s/%s' % (hostname, device),
+                    "buffer_max_number": 100000,
+                    "frames_per_acquisition": acq_nb_frames,
+                    "acquisition_offset": 0,
+                    "saving": {
+                        "file_offset": 0,
+                        "frames_per_file": saving_frame_per_file,
+                        "file_format": "hdf5",
+                        "file_path": afnamepattern,
+                        "data_path": field_path,
+                    },
+                }
+            }
+
+        vmap = {
+        }
+        vmap["plugin_stream"] = {
+            "last_index": last_image_saved,
+            "last_index_saved": last_image_saved
+        }
+
+        if meta:
+            vmap.update(meta)
+        vmaps.append(vmap)
         return json.dumps(vmaps)

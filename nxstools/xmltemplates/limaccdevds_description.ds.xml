@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_description">
+    <result name="result">
+from nxstools.pyeval import common
+common.blockitem_rm(commonblock, ["$(name)_saving_next_number"])
+ds.result = str(ds.$(name)_camera_type) + " (" + str(ds.$(name)_camera_model) + ")"
+</result>
+  $datasources.$(name)_camera_type
+  $datasources.$(name)_camera_model
+  </datasource>
+</definition>

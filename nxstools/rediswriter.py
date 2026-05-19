@@ -3094,7 +3094,10 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :param strategy: datasource strategy i.e. INIT or FINAL
         :type strategy: :obj:`str`
         """
-        self.__vmaps.append(vmap)
+        vkeys = [ky for ky in vmap.keys()
+                 if not ky.startswith("plugin")] if vmap else []
+        if vkeys:
+            self.__vmaps.append(vmap)
         if "dsname" in vmap:
             self.dsname = vmap["dsname"]
         # print("APEEND", vmap, strategy)
