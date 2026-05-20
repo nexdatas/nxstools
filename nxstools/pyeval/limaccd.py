@@ -546,6 +546,30 @@ def event(commonblock,
             else:
                 afnamepattern = fnamepattern
 
+            nbfiles = (acq_nb_frames + saving_frame_per_file - 1) \
+                // saving_frame_per_file
+
+            for nbf in range(nbfiles):
+                off = saving_frame_per_file * nbf
+                if nbf + 1 == nbfiles:
+                    nb = acq_nb_frames - off
+                else:
+                    nb = saving_frame_per_file
+                try:
+                    detfn = fnamepattern % nbf
+                except Exception:
+                    detfn = fnamepattern
+                target = "%s:/%s" % (detfn, field_path)
+                tvmap = {
+                    "target": target, "key":
+                    [[off, off + nb],
+                     None, None],
+                    "dtype": dtype,
+                    "shape": [nb, shape[0], shape[1]],
+                    "dsname": name,
+                }
+                vmaps.append(tvmap)
+
             meta = {
                 "plugin": "lima",
                 "plugin_def": {
@@ -566,14 +590,15 @@ def event(commonblock,
                 }
             }
 
-        vmap = {
-        }
+        vmap = {}
         vmap["plugin_stream"] = {
             "last_index": last_image_saved,
             "last_index_saved": last_image_saved
         }
-
         if meta:
             vmap.update(meta)
-        vmaps.append(vmap)
+        if vmaps:
+            vmaps[0].update(vmap)
+        else:
+            vmaps.append(vmap)
         return json.dumps(vmaps)

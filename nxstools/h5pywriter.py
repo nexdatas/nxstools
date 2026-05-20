@@ -1449,7 +1449,10 @@ class H5PYVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         :param strategy: datasource strategy i.e. INIT or FINAL
         :type strategy: :obj:`str`
         """
-        self.__vmaps.append(vmap)
+        vkeys = [ky for ky in vmap.keys()
+                 if not ky.startswith("plugin")] if vmap else []
+        if vkeys:
+            self.__vmaps.append(vmap)
 
     def __setitem__(self, key, source):
         """ add target field to layout
