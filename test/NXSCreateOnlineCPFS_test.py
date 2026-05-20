@@ -329,7 +329,8 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      "lambda", "lambda2m",
                      "lambdavds",
                      "lambdavdsnm",
-                     "limaccd", "limaccdovds", "limaccds",
+                     "limaccd", "limaccdevds",
+                     "limaccdovds", "limaccds",
                      "limaccdsvds",
                      "limaccdvds",
                      "marccd", "mca_xia", "minipix",
@@ -401,6 +402,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
             'lambda2m',             #
             'lambdavds',            #
             'lambdavdsnm',          #
+            "limaccdevds",
             "limaccdovds",
             'limaccds',             #
             "limaccdsvds",
@@ -456,7 +458,8 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                              "eigerdectrismesh",
                              "lambda", "lambda2m",
                              "lambdavds", "lambdavdsnm",
-                             "limaccd", "limaccdovds", "limaccds",
+                             "limaccd", "limaccdevds",
+                             "limaccdovds", "limaccds",
                              "limaccdsvds",
                              "limaccdvds",
                              "marccd", "mca_xia", "minipix",
@@ -539,6 +542,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                  "lambda", "lambda2m",
                  "lambdavds", "lambdavdsnm",
                  "limaccd",
+                 "limaccdevds",
                  "limaccdovds",
                  "limaccds", "limaccdsvds",
                  "limaccdvds",
