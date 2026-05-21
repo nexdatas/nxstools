@@ -1217,6 +1217,71 @@ class RedisFile(filewriter.FTFile):
             # print("SCAN", measurement, number)
             # print("NAMES", self.names())
 
+    def add_plot(self):
+        title = self.get_scaninfo(["title"]) or ""
+        st = title.split()
+
+        # default
+        mot_x = "exp_dmy01"
+        mot_y = "exp_dmy02"
+        start_x = 0
+        stop_x = 3
+        nx = 4
+        start_y = 0
+        stop_y = 4
+        ny = 5
+        signal = "exp_c01"
+
+        if st[0] == "mesh":
+            try:
+                mot_x = st[1]
+                start_x = float(st[2])
+                stop_x = float(st[3])
+                nx = int(st[4]) + 1
+            except Exception as e:
+                print(str(e))
+            try:
+                mot_y = st[5]
+                start_y = float(st[6])
+                stop_y = float(st[7])
+                ny = int(st[8]) + 1
+            except Exception as e:
+                print(str(e))
+
+        # find singal channel
+        channels = self.get_scaninfo(["channels"])
+        for nm, ch in reversed(channels.items()):
+            if ch["device"] == "mg_channels":
+                signal = nm
+                break
+
+        for axis_channel, axisid, npoints, start, stop in [
+                (mot_x, 0, nx, start_x, stop_x),
+                (mot_y, 1, ny, start_y, stop_y),
+        ]:
+            self.set_scaninfo(
+                "forth", ["channels", axis_channel, "axis_kind"])
+            self.set_scaninfo(
+                axisid, ["channels", axis_channel, "axis_id"])
+            self.set_scaninfo(
+                npoints, ["channels", axis_channel, "axis_points"])
+            self.set_scaninfo(
+                start, ["channels", axis_channel, "start"])
+            self.set_scaninfo(
+                stop, ["channels", axis_channel, "stop"])
+
+        # Also fix the plot descriptor to include channel bindings
+        plot = {
+            "kind": "scatter-plot",
+            "items": [{
+                "kind":  "scatter",
+                "x":     mot_x,
+                "y":     mot_y,
+                "value": signal,
+            }]
+        }
+        self.append_scaninfo(plot, ["plots"])
+
     def start(self):
         """ start scan
 
@@ -1237,6 +1302,8 @@ class RedisFile(filewriter.FTFile):
                 master={})
             self.set_scaninfo(acq_chain, ["acquisition_chain"])
             self.set_scaninfo(self.get_channels(), ["channels"])
+
+            self.add_plot()
 
             info = self.scan_getattr("info")
             sinfo = self.get_scaninfo()
@@ -2487,11 +2554,11 @@ class RedisField(filewriter.FTField):
                         if vl[2] or np:
                             self.set_scaninfo(np, [key])
                             # print(key, np)
-                            if key == "title" and isinstance(np, str):
-                                macro_name = np.split(" ")[0]
-                                for mn, plot in titleplots.items():
-                                    if mn in macro_name:
-                                        self.append_scaninfo(plot, ["plots"])
+                            # if key == "title" and isinstance(np, str):
+                            #     macro_name = np.split(" ")[0]
+                            #     for mn, plot in titleplots.items():
+                            #         if mn in macro_name:
+                            #             self.append_scaninfo(plot, ["plots"])
 
                     except Exception as e:
                         print(str(e))
