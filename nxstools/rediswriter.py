@@ -1232,7 +1232,7 @@ class RedisFile(filewriter.FTFile):
         ny = 5
         signal = "exp_c01"
 
-        if st[0] == "mesh":
+        if st[0] in ["mesh", "mesh_repeat", "meshct"]:
             try:
                 mot_x = st[1]
                 start_x = float(st[2])
@@ -1248,39 +1248,39 @@ class RedisFile(filewriter.FTFile):
             except Exception as e:
                 print(str(e))
 
-        # find singal channel
-        channels = self.get_scaninfo(["channels"])
-        for nm, ch in reversed(channels.items()):
-            if ch["device"] == "mg_channels":
-                signal = nm
-                break
+            # find singal channel
+            channels = self.get_scaninfo(["channels"])
+            for nm, ch in reversed(channels.items()):
+                if ch["device"] == "mg_channels":
+                    signal = nm
+                    break
 
-        for axis_channel, axisid, npoints, start, stop in [
-                (mot_x, 0, nx, start_x, stop_x),
-                (mot_y, 1, ny, start_y, stop_y),
-        ]:
-            self.set_scaninfo(
-                "forth", ["channels", axis_channel, "axis_kind"])
-            self.set_scaninfo(
-                axisid, ["channels", axis_channel, "axis_id"])
-            self.set_scaninfo(
-                npoints, ["channels", axis_channel, "axis_points"])
-            self.set_scaninfo(
-                start, ["channels", axis_channel, "start"])
-            self.set_scaninfo(
-                stop, ["channels", axis_channel, "stop"])
+            for axis_channel, axisid, npoints, start, stop in [
+                    (mot_x, 0, nx, start_x, stop_x),
+                    (mot_y, 1, ny, start_y, stop_y),
+            ]:
+                self.set_scaninfo(
+                    "forth", ["channels", axis_channel, "axis_kind"])
+                self.set_scaninfo(
+                    axisid, ["channels", axis_channel, "axis_id"])
+                self.set_scaninfo(
+                    npoints, ["channels", axis_channel, "axis_points"])
+                self.set_scaninfo(
+                    start, ["channels", axis_channel, "start"])
+                self.set_scaninfo(
+                    stop, ["channels", axis_channel, "stop"])
 
-        # Also fix the plot descriptor to include channel bindings
-        plot = {
-            "kind": "scatter-plot",
-            "items": [{
-                "kind":  "scatter",
-                "x":     mot_x,
-                "y":     mot_y,
-                "value": signal,
-            }]
-        }
-        self.append_scaninfo(plot, ["plots"])
+            # Also fix the plot descriptor to include channel bindings
+            plot = {
+                "kind": "scatter-plot",
+                "items": [{
+                    "kind":  "scatter",
+                    "x":     mot_x,
+                    "y":     mot_y,
+                    "value": signal,
+                }]
+            }
+            self.append_scaninfo(plot, ["plots"])
 
     def start(self):
         """ start scan
