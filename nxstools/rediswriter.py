@@ -1248,7 +1248,7 @@ class RedisFile(filewriter.FTFile):
             except Exception as e:
                 print(str(e))
 
-            # find singal channel
+            # find signal channel
             channels = self.get_scaninfo(["channels"])
             for nm, ch in reversed(channels.items()):
                 if ch["device"] == "mg_channels":
