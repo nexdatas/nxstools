@@ -1,4 +1,8 @@
 2026-03-15 Jan Kotanski <jankotan@gmail.com>
+	* add support for displaying mesh scans (#916)
+	* tagged as v4.51.0
+
+2026-03-15 Jan Kotanski <jankotan@gmail.com>
 	* add support for vds in limaccdevds (#915)
 	* tagged as v4.50.1
 
