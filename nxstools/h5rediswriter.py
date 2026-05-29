@@ -29,7 +29,7 @@ import getpass
 import datetime
 
 from . import filewriter
-from .redisutils import REDIS, getDataStore
+from .redisutils import REDIS, getDataStore, build_acq_chain
 from .nxsfileparser import (getdsname, getdssource,
                             tolist,
                             # getdstype
@@ -138,6 +138,11 @@ progattrdesc = {
         "measurement_group_channels", splitstr, True],
     "title": ["scan_command", str, False],
     "beamtime_id": ["beamtime_id", str, False],
+    # Sardana's reference moveables (the scanned motor names). Captured
+    # only when the program datasource exposes a "ref_moveables" attribute;
+    # used to put the moved motor on the X-axis (acquisition_chain master)
+    # independently of the macro name. See build_acq_chain in redisutils.
+    "reference_moveables": ["ref_moveables", splitstr, False],
 }
 
 titleplots = {
@@ -691,6 +696,7 @@ class H5RedisFile(H5File):
             "datadesc": {},
             "snapshot": {},
             "measurement_group_channels": [],
+            "reference_moveables": [],
             "beamtime_id": "",
             "scan_meta_categories": [
                 "snapshot",
@@ -1013,21 +1019,20 @@ class H5RedisFile(H5File):
 
         """
         if REDIS:
-            acq_chain = {}
             devices = self.get_devices()
             for n, dd in devices.items():
                 if "channels" in dd:
                     dd["channels"] = list(sorted(dd["channels"]))
             self.set_scaninfo(devices, ["devices"])
-            acq_chain["axis"] = ChainDict(
-                top_master="time",
-                devices=list(devices.keys()),
-                scalars=[],
-                spectra=[],
-                images=[],
-                master={})
+            channels = self.get_channels()
+            acq_chain = build_acq_chain(
+                devices,
+                title=self.get_scaninfo(["title"]),
+                channels=channels,
+                ref_moveables=self.get_scaninfo(["reference_moveables"]),
+            )
             self.set_scaninfo(acq_chain, ["acquisition_chain"])
-            self.set_scaninfo(self.get_channels(), ["channels"])
+            self.set_scaninfo(channels, ["channels"])
 
             self.add_plot()
 
