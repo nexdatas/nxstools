@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="CLIENT" name="end_reason">
+    <record name="end_reason"/>
+    <doc>The scan end reason (e.g. SUCCESS, USER_ABORT, FAILURE) provided by the client after the experiment is finished.</doc>
+  </datasource>
+</definition>
