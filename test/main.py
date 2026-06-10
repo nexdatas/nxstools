@@ -55,6 +55,7 @@ import unittest
 
 import NXSTools_test
 import RedisWriter_test
+import RedisUtils_test
 
 
 if not H5PY_AVAILABLE and not H5CPP_AVAILABLE:
@@ -315,6 +316,9 @@ def main():
     suite.addTests(
         unittest.defaultTestLoader.loadTestsFromModule(
             RedisWriter_test))
+    suite.addTests(
+        unittest.defaultTestLoader.loadTestsFromModule(
+            RedisUtils_test))
 
     if PYTANGO_AVAILABLE:
         suite.addTests(
