@@ -1303,6 +1303,7 @@ class RedisFile(filewriter.FTFile):
 
             self.set_scaninfo(
                 datetime.datetime.now().astimezone().isoformat(),
+                ['end_time'], direct=True)
             end_reason = "SUCCESS"
             ereason = (self.get_scaninfo(["snapshot"]) or {}).get("end_reason")
             if isinstance(ereason, dict):
