@@ -195,7 +195,9 @@ def _classify_channels(channels, motor_set):
         Y-series.
       * *time_channels* -- ``"time"`` device channels, used as the X-axis
         fallback for a motorless scan.
-      * *spectra* -- 1D (MCA) channels, which feed a ``1d-plot``.
+      * *spectra* -- 1D (MCA) channels. :func:`build_plots` does not act on
+        these (flint infers their ``1d-plot`` from the acquisition_chain),
+        but they are returned for completeness.
 
     2D (image) channels are skipped here -- the plot consumer builds image
     plots from the device descriptions itself.
@@ -268,13 +270,24 @@ def build_plots(title=None, channels=None, ref_moveables=None):
 
       * mesh macros (see :data:`MESH_MACROS`) with two resolved motors ->
         a ``scatter-plot`` with the two scanned motors as x/y and the first
-        non-time counter as value, plus ``axis_*`` metadata on both motors.
+        non-time counter as value, plus ``axis_*`` metadata on both motors,
+        *and* a counters ``curve-plot`` with the time channel on x. The
+        curve-plot is needed even for a mesh: with an explicit ``plots`` key
+        flint suppresses its own inferred counter curve-plot, so the Curve
+        widget would otherwise stay empty / never update.
       * any other motor scan (ascan/dscan/aNscan/dNscan ...) -> a
         ``curve-plot`` with the first scanned motor on x and one curve per
         counter.
       * a motorless scan (ct/timescan) -> the same curve-plot with the time
         channel on x.
-      * 1D (MCA/spectra) channels -> an additional ``1d-plot``.
+
+    1D (MCA/spectra) channels are deliberately *not* given an explicit
+    ``1d-plot`` here. Flint always infers a ``1d-plot`` for the spectra
+    listed in the acquisition_chain (see :func:`build_acq_chain`), giving
+    each its own index x-axis. Emitting an explicit ``1d-plot`` instead
+    routes flint through ``_read_1d_plot``, which raises on a descriptor
+    that has no vector ``x`` (and a scalar motor/time ``x`` then breaks its
+    live_onedim viewer) -- so we leave the spectra to inference.
 
     *channels* is the ``scan_info['channels']`` dict; *title* (the Sardana
     ``macro_command``) and *ref_moveables* resolve the scanned motor(s)
@@ -292,7 +305,9 @@ def build_plots(title=None, channels=None, ref_moveables=None):
         motors = motors_from_title(title, channels)
     motor_set = set(motors)
 
-    counters, time_channels, spectra = _classify_channels(channels, motor_set)
+    # spectra are intentionally unused: flint infers their 1d-plot from the
+    # acquisition_chain (see the docstring), so we never emit one here.
+    counters, time_channels, _spectra = _classify_channels(channels, motor_set)
 
     parts = (title or "").split()
     macro = parts[0] if parts else ""
@@ -300,33 +315,42 @@ def build_plots(title=None, channels=None, ref_moveables=None):
     plots = []
     channel_meta = {}
 
-    if macro in MESH_MACROS and len(motors) >= 2:
+    is_mesh = macro in MESH_MACROS
+
+    # X-axis for the counters curve-plot. A mesh sweeps two motors, so no
+    # single motor is a meaningful x -- use the time channel (and fall back
+    # to flint's index axis if there is none). Any other motor scan uses the
+    # first scanned motor; a motorless scan (ct/timescan) uses the time
+    # channel.
+    if is_mesh:
+        xaxis = time_channels[0] if time_channels else None
+    elif motors:
+        xaxis = motors[0]
+    elif time_channels:
+        xaxis = time_channels[0]
+    else:
+        xaxis = None
+
+    # A mesh gets a scatter-plot (the primary 2D view), built first so it
+    # stays plots[0]. The counters curve-plot below is emitted for *every*
+    # scan kind, mesh included: with an explicit ``plots`` key flint
+    # suppresses its inferred counter curve-plot, so without our own
+    # curve-plot the mesh's Curve widget stays empty / never updates.
+    if is_mesh and len(motors) >= 2:
         item = {"kind": "scatter", "x": motors[0], "y": motors[1]}
         value = _first_value_counter(counters, channels)
         if value is not None:
             item["value"] = value
         plots.append({"kind": "scatter-plot", "items": [item]})
         channel_meta = _mesh_axis_meta(parts)
-    else:
-        if motors:
-            xaxis = motors[0]
-        elif time_channels:
-            xaxis = time_channels[0]
-        else:
-            xaxis = None
-        items = []
-        for counter in counters:
-            item = {"kind": "curve", "y": counter}
-            if xaxis is not None:
-                item["x"] = xaxis
-            items.append(item)
-        plots.append({"kind": "curve-plot", "items": items})
 
-    if spectra:
-        plots.append({
-            "kind": "1d-plot",
-            "items": [{"kind": "curve", "y": name} for name in spectra],
-        })
+    items = []
+    for counter in counters:
+        item = {"kind": "curve", "y": counter}
+        if xaxis is not None:
+            item["x"] = xaxis
+        items.append(item)
+    plots.append({"kind": "curve-plot", "items": items})
 
     return {"plots": plots, "channel_meta": channel_meta}
 

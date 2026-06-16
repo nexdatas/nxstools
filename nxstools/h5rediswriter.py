@@ -954,8 +954,9 @@ class H5RedisFile(H5File):
         """ build the scan_info ``plots`` descriptors for the scan kind
 
         A curve-plot (motor or time on x, one curve per counter) is created
-        for step/count scans, a scatter-plot for mesh scans, and a 1d-plot
-        for any MCA/spectra channels. See :func:`redisutils.build_plots`.
+        for every scan kind; mesh scans additionally get a scatter-plot.
+        MCA/spectra channels get no explicit plot -- flint infers their
+        1d-plot from the acquisition_chain. See :func:`redisutils.build_plots`.
         """
         result = build_plots(
             title=self.get_scaninfo(["title"]),

@@ -108,9 +108,16 @@ class RedisUtilsTest(unittest.TestCase):
         }
         result = redisutils.build_plots(
             title="mesh mx 0 1 4 my 0 2 5 0.1", channels=channels)
+        # the scatter-plot stays plots[0]; a counters curve-plot accompanies
+        # it (flint suppresses its inferred curve-plot when a plots key is
+        # present, so the mesh Curve widget needs ours to update). No time
+        # channel here, so the curve has no x (flint uses its index axis).
         self.assertEqual(result["plots"], [
             {"kind": "scatter-plot", "items": [
                 {"kind": "scatter", "x": "mx", "y": "my", "value": "exp_c01"},
+            ]},
+            {"kind": "curve-plot", "items": [
+                {"kind": "curve", "y": "exp_c01"},
             ]},
         ])
         self.assertEqual(result["channel_meta"], {
@@ -119,6 +126,23 @@ class RedisUtilsTest(unittest.TestCase):
             "my": {"axis_kind": "forth", "axis_id": 1,
                    "axis_points": 6, "start": 0.0, "stop": 2.0},
         })
+
+    def test_mesh_curve_plot_uses_time_axis(self):
+        # a mesh sweeps two motors, so the accompanying counters curve-plot
+        # uses the time channel on x, not a single motor
+        channels = {
+            "mx": scalar(),
+            "my": scalar(),
+            "exp_c01": scalar(),
+            "timestamp": scalar(device="time", unit="s"),
+        }
+        result = redisutils.build_plots(
+            title="mesh mx 0 1 4 my 0 2 5 0.1", channels=channels)
+        self.assertEqual(result["plots"][0]["kind"], "scatter-plot")
+        self.assertEqual(result["plots"][1], {
+            "kind": "curve-plot", "items": [
+                {"kind": "curve", "y": "exp_c01", "x": "timestamp"},
+            ]})
 
     def test_scatter_value_skips_time_unit(self):
         # a counter whose unit is seconds is a poor default value
@@ -133,7 +157,10 @@ class RedisUtilsTest(unittest.TestCase):
         self.assertEqual(
             result["plots"][0]["items"][0]["value"], "exp_c01")
 
-    def test_spectra_add_1d_plot(self):
+    def test_spectra_left_to_flint_inference(self):
+        # 1D (MCA/spectra) channels get no explicit 1d-plot: flint infers it
+        # from the acquisition_chain spectra. An explicit 1d-plot would crash
+        # flint's _read_1d_plot. Only the counters curve-plot is emitted.
         channels = {
             "exp_mot01": scalar(),
             "exp_c01": scalar(),
@@ -144,9 +171,6 @@ class RedisUtilsTest(unittest.TestCase):
         self.assertEqual(result["plots"], [
             {"kind": "curve-plot", "items": [
                 {"kind": "curve", "y": "exp_c01", "x": "exp_mot01"},
-            ]},
-            {"kind": "1d-plot", "items": [
-                {"kind": "curve", "y": "mca01"},
             ]},
         ])
 
