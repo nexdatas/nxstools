@@ -116,31 +116,6 @@ def motors_from_title(title, channels=None):
 
 
 def build_acq_chain(devices, title=None, channels=None, ref_moveables=None):
-    """Build a blissdata ``acquisition_chain`` dict for a Sardana scan.
-
-    *devices* is the nxstools device-bucket dict (``"time"``,
-    ``"mg_channels"``, ``"other_channels"``, ``"mca"``, ``"image"``).
-    Each value has a ``channels`` list.
-
-    The scanned motor(s) land in ``master.scalars`` (so they become the
-    X-axis for downstream plot consumers like daiquiri) and are excluded
-    from ``scalars`` (so they don't double up as a Y-series). The motor
-    list is resolved in this order:
-
-      1. *ref_moveables* -- Sardana's ``ref_moveables`` scan-environment
-         entry, the reference moveables of *any* macro (set from the
-         moveable ``is_reference`` flag, not from the macro name). This is
-         robust to new/custom macros with different parameter layouts, so
-         it is preferred whenever the deployment forwards it to the writer.
-      2. Otherwise the motor(s) parsed from *title* (the Sardana
-         ``macro_command``) via :func:`motors_from_title` -- a best-effort
-         fallback for the known step/mesh macros.
-
-    *channels* is the recorded channel-name dict; when given, motors not
-    among the recorded channels are dropped. If no motor can be identified
-    -- ``ct``, an unrecognised macro with no ``ref_moveables`` --
-    ``master.scalars`` falls back to the time channels.
-    """
     if ChainDict is None:
         return {}
 
@@ -263,36 +238,6 @@ def _first_value_counter(counters, channels):
 def build_plots(title=None, channels=None, ref_moveables=None):
     """Build blissdata ``scan_info['plots']`` descriptors for a Sardana scan.
 
-    Mirrors how BLISS/Flint assigns a default plot per scan kind, but binds
-    the Y-series explicitly: the nxstools deployment ships an empty
-    ``display_extra.plotselect``, with which flint would leave an X-only
-    curve empty (it never auto-picks the Y counters in that case).
-
-      * mesh macros (see :data:`MESH_MACROS`) with two resolved motors ->
-        a ``scatter-plot`` with the two scanned motors as x/y and the first
-        non-time counter as value, plus ``axis_*`` metadata on both motors,
-        *and* a counters ``curve-plot`` with the time channel on x. The
-        curve-plot is needed even for a mesh: with an explicit ``plots`` key
-        flint suppresses its own inferred counter curve-plot, so the Curve
-        widget would otherwise stay empty / never update.
-      * any other motor scan (ascan/dscan/aNscan/dNscan ...) -> a
-        ``curve-plot`` with the first scanned motor on x and one curve per
-        counter.
-      * a motorless scan (ct/timescan) -> the same curve-plot with the time
-        channel on x.
-
-    1D (MCA/spectra) channels are deliberately *not* given an explicit
-    ``1d-plot`` here. Flint always infers a ``1d-plot`` for the spectra
-    listed in the acquisition_chain (see :func:`build_acq_chain`), giving
-    each its own index x-axis. Emitting an explicit ``1d-plot`` instead
-    routes flint through ``_read_1d_plot``, which raises on a descriptor
-    that has no vector ``x`` (and a scalar motor/time ``x`` then breaks its
-    live_onedim viewer) -- so we leave the spectra to inference.
-
-    *channels* is the ``scan_info['channels']`` dict; *title* (the Sardana
-    ``macro_command``) and *ref_moveables* resolve the scanned motor(s)
-    exactly as in :func:`build_acq_chain`.
-
     Returns ``{"plots": [...], "channel_meta": {name: {...}}}`` where
     ``channel_meta`` holds scatter axis metadata to merge into the channels.
     This function is independent of the optional blissdata import so it can
@@ -317,11 +262,6 @@ def build_plots(title=None, channels=None, ref_moveables=None):
 
     is_mesh = macro in MESH_MACROS
 
-    # X-axis for the counters curve-plot. A mesh sweeps two motors, so no
-    # single motor is a meaningful x -- use the time channel (and fall back
-    # to flint's index axis if there is none). Any other motor scan uses the
-    # first scanned motor; a motorless scan (ct/timescan) uses the time
-    # channel.
     if is_mesh:
         xaxis = time_channels[0] if time_channels else None
     elif motors:
@@ -331,11 +271,6 @@ def build_plots(title=None, channels=None, ref_moveables=None):
     else:
         xaxis = None
 
-    # A mesh gets a scatter-plot (the primary 2D view), built first so it
-    # stays plots[0]. The counters curve-plot below is emitted for *every*
-    # scan kind, mesh included: with an explicit ``plots`` key flint
-    # suppresses its inferred counter curve-plot, so without our own
-    # curve-plot the mesh's Curve widget stays empty / never updates.
     if is_mesh and len(motors) >= 2:
         item = {"kind": "scatter", "x": motors[0], "y": motors[1]}
         value = _first_value_counter(counters, channels)
