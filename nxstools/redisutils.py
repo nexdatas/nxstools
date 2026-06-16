@@ -116,31 +116,6 @@ def motors_from_title(title, channels=None):
 
 
 def build_acq_chain(devices, title=None, channels=None, ref_moveables=None):
-    """Build a blissdata ``acquisition_chain`` dict for a Sardana scan.
-
-    *devices* is the nxstools device-bucket dict (``"time"``,
-    ``"mg_channels"``, ``"other_channels"``, ``"mca"``, ``"image"``).
-    Each value has a ``channels`` list.
-
-    The scanned motor(s) land in ``master.scalars`` (so they become the
-    X-axis for downstream plot consumers like daiquiri) and are excluded
-    from ``scalars`` (so they don't double up as a Y-series). The motor
-    list is resolved in this order:
-
-      1. *ref_moveables* -- Sardana's ``ref_moveables`` scan-environment
-         entry, the reference moveables of *any* macro (set from the
-         moveable ``is_reference`` flag, not from the macro name). This is
-         robust to new/custom macros with different parameter layouts, so
-         it is preferred whenever the deployment forwards it to the writer.
-      2. Otherwise the motor(s) parsed from *title* (the Sardana
-         ``macro_command``) via :func:`motors_from_title` -- a best-effort
-         fallback for the known step/mesh macros.
-
-    *channels* is the recorded channel-name dict; when given, motors not
-    among the recorded channels are dropped. If no motor can be identified
-    -- ``ct``, an unrecognised macro with no ``ref_moveables`` --
-    ``master.scalars`` falls back to the time channels.
-    """
     if ChainDict is None:
         return {}
 
@@ -195,7 +170,9 @@ def _classify_channels(channels, motor_set):
         Y-series.
       * *time_channels* -- ``"time"`` device channels, used as the X-axis
         fallback for a motorless scan.
-      * *spectra* -- 1D (MCA) channels, which feed a ``1d-plot``.
+      * *spectra* -- 1D (MCA) channels. :func:`build_plots` does not act on
+        these (flint infers their ``1d-plot`` from the acquisition_chain),
+        but they are returned for completeness.
 
     2D (image) channels are skipped here -- the plot consumer builds image
     plots from the device descriptions itself.
@@ -261,25 +238,6 @@ def _first_value_counter(counters, channels):
 def build_plots(title=None, channels=None, ref_moveables=None):
     """Build blissdata ``scan_info['plots']`` descriptors for a Sardana scan.
 
-    Mirrors how BLISS/Flint assigns a default plot per scan kind, but binds
-    the Y-series explicitly: the nxstools deployment ships an empty
-    ``display_extra.plotselect``, with which flint would leave an X-only
-    curve empty (it never auto-picks the Y counters in that case).
-
-      * mesh macros (see :data:`MESH_MACROS`) with two resolved motors ->
-        a ``scatter-plot`` with the two scanned motors as x/y and the first
-        non-time counter as value, plus ``axis_*`` metadata on both motors.
-      * any other motor scan (ascan/dscan/aNscan/dNscan ...) -> a
-        ``curve-plot`` with the first scanned motor on x and one curve per
-        counter.
-      * a motorless scan (ct/timescan) -> the same curve-plot with the time
-        channel on x.
-      * 1D (MCA/spectra) channels -> an additional ``1d-plot``.
-
-    *channels* is the ``scan_info['channels']`` dict; *title* (the Sardana
-    ``macro_command``) and *ref_moveables* resolve the scanned motor(s)
-    exactly as in :func:`build_acq_chain`.
-
     Returns ``{"plots": [...], "channel_meta": {name: {...}}}`` where
     ``channel_meta`` holds scatter axis metadata to merge into the channels.
     This function is independent of the optional blissdata import so it can
@@ -292,7 +250,9 @@ def build_plots(title=None, channels=None, ref_moveables=None):
         motors = motors_from_title(title, channels)
     motor_set = set(motors)
 
-    counters, time_channels, spectra = _classify_channels(channels, motor_set)
+    # spectra are intentionally unused: flint infers their 1d-plot from the
+    # acquisition_chain (see the docstring), so we never emit one here.
+    counters, time_channels, _spectra = _classify_channels(channels, motor_set)
 
     parts = (title or "").split()
     macro = parts[0] if parts else ""
@@ -300,33 +260,32 @@ def build_plots(title=None, channels=None, ref_moveables=None):
     plots = []
     channel_meta = {}
 
-    if macro in MESH_MACROS and len(motors) >= 2:
+    is_mesh = macro in MESH_MACROS
+
+    if is_mesh:
+        xaxis = time_channels[0] if time_channels else None
+    elif motors:
+        xaxis = motors[0]
+    elif time_channels:
+        xaxis = time_channels[0]
+    else:
+        xaxis = None
+
+    if is_mesh and len(motors) >= 2:
         item = {"kind": "scatter", "x": motors[0], "y": motors[1]}
         value = _first_value_counter(counters, channels)
         if value is not None:
             item["value"] = value
         plots.append({"kind": "scatter-plot", "items": [item]})
         channel_meta = _mesh_axis_meta(parts)
-    else:
-        if motors:
-            xaxis = motors[0]
-        elif time_channels:
-            xaxis = time_channels[0]
-        else:
-            xaxis = None
-        items = []
-        for counter in counters:
-            item = {"kind": "curve", "y": counter}
-            if xaxis is not None:
-                item["x"] = xaxis
-            items.append(item)
-        plots.append({"kind": "curve-plot", "items": items})
 
-    if spectra:
-        plots.append({
-            "kind": "1d-plot",
-            "items": [{"kind": "curve", "y": name} for name in spectra],
-        })
+    items = []
+    for counter in counters:
+        item = {"kind": "curve", "y": counter}
+        if xaxis is not None:
+            item["x"] = xaxis
+        items.append(item)
+    plots.append({"kind": "curve-plot", "items": items})
 
     return {"plots": plots, "channel_meta": channel_meta}
 
