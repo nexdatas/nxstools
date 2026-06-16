@@ -1,3 +1,7 @@
+2026-06-16 Jan Kotanski <jankotan@gmail.com>
+	* fix scan plots for redis writer from Udai (#927)
+	* tagged as v4.52.1
+
 2026-06-11 Jan Kotanski <jankotan@gmail.com>
 	* added new ploting method from Udai (#924)
 	* Populate acquisition_chain with scanned motors for Sardana scans from Udai(#919)
