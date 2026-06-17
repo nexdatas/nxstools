@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.redisutils &#8212; NXSTools 4.43.1 documentation</title>
+    <title>nxstools.redisutils &#8212; NXSTools 4.52.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.43</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.52</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -212,9 +212,269 @@
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
     <span class="kn">from</span> <span class="nn">blissdata.redis_engine.identities</span> <span class="kn">import</span> <span class="n">_UninitializedRedis</span>
     <span class="kn">from</span> <span class="nn">blissdata.redis_engine.store</span> <span class="kn">import</span> <span class="n">DataStore</span>
+    <span class="kn">from</span> <span class="nn">blissdata.schemas.scan_info</span> <span class="kn">import</span> <span class="n">ChainDict</span>
 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Redis or blissdata cannot be imported: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
     <span class="n">REDIS</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">ChainDict</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<span class="c1"># Position of the moved-motor argument(s) inside a Sardana macro_command,</span>
+<span class="c1"># counting from 0 for the macro name itself. Covers the standard Sardana</span>
+<span class="c1"># step scans, their continuous (``*ct``) variants -- which take the same</span>
+<span class="c1"># leading motor/start/stop arguments and only append extra timing args at</span>
+<span class="c1"># the end, so the motor positions are unchanged -- plus the common mesh</span>
+<span class="c1"># variants seen at DESY beamlines. This is only the best-effort fallback;</span>
+<span class="c1"># when the deployment forwards Sardana&#39;s ``ref_moveables`` to the writer</span>
+<span class="c1"># that is used instead and this table is irrelevant (see build_acq_chain).</span>
+<span class="n">SARDANA_MOTOR_POSITIONS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ascan&quot;</span><span class="p">:</span>       <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;dscan&quot;</span><span class="p">:</span>       <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;ascanct&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;dscanct&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;a2scan&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="s2">&quot;d2scan&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="s2">&quot;a2scanct&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="s2">&quot;d2scanct&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="s2">&quot;a3scan&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s2">&quot;d3scan&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s2">&quot;a3scanct&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s2">&quot;d3scanct&quot;</span><span class="p">:</span>    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s2">&quot;a3scan_repeat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s2">&quot;d3scan_repeat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s2">&quot;a4scan&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+    <span class="s2">&quot;d4scan&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+    <span class="s2">&quot;ascan_repeat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;dscan_repeat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="s2">&quot;a2scan_repeat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+    <span class="s2">&quot;mesh&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s2">&quot;dmesh&quot;</span><span class="p">:</span>       <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s2">&quot;dmesh_repeat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s2">&quot;meshct&quot;</span><span class="p">:</span>      <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+    <span class="s2">&quot;mesh_repeat&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+<span class="p">}</span>
+
+
+<span class="c1"># Bookkeeping channels that are never meaningful plot Y-series; kept out of</span>
+<span class="c1"># the acquisition_chain &quot;scalars&quot; list so they don&#39;t render as spurious</span>
+<span class="c1"># curves. (The sardana-redis recorder skips point_nb entirely; the</span>
+<span class="c1"># NXSDataWriter path records it, so we filter it here.)</span>
+<span class="n">NON_COUNTER_CHANNELS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;point_nb&quot;</span><span class="p">}</span>
+
+
+<span class="c1"># Sardana macros that perform a 2D raster scan -- they are rendered as a</span>
+<span class="c1"># blissdata &quot;scatter-plot&quot; instead of the default &quot;curve-plot&quot;. Covers the</span>
+<span class="c1"># absolute/relative mesh, their continuous (``*ct``) and ``*_repeat``</span>
+<span class="c1"># variants seen at DESY beamlines. Any motor scan that is not in this set</span>
+<span class="c1"># falls back to a curve-plot (see build_plots).</span>
+<span class="n">MESH_MACROS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;mesh&quot;</span><span class="p">,</span> <span class="s2">&quot;amesh&quot;</span><span class="p">,</span> <span class="s2">&quot;dmesh&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;meshct&quot;</span><span class="p">,</span> <span class="s2">&quot;ameshct&quot;</span><span class="p">,</span> <span class="s2">&quot;dmeshct&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mesh_repeat&quot;</span><span class="p">,</span> <span class="s2">&quot;amesh_repeat&quot;</span><span class="p">,</span> <span class="s2">&quot;dmesh_repeat&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="motors_from_title"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.motors_from_title">[docs]</a><span class="k">def</span> <span class="nf">motors_from_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return moved-motor channel names parsed from a Sardana macro_command.</span>
+
+<span class="sd">    Recognises the macros listed in :data:`SARDANA_MOTOR_POSITIONS`. When</span>
+<span class="sd">    *channels* is provided, only motors that are also recorded channels</span>
+<span class="sd">    are kept (so a typo in the macro can&#39;t push a non-existent channel</span>
+<span class="sd">    into the acquisition chain). Returns ``[]`` for an unrecognised or</span>
+<span class="sd">    motorless macro (e.g. ``ct``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">positions</span> <span class="o">=</span> <span class="n">SARDANA_MOTOR_POSITIONS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">positions</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">motors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">positions</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">channels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">motors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">motors</span></div>
+
+
+<div class="viewcode-block" id="build_acq_chain"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.build_acq_chain">[docs]</a><span class="k">def</span> <span class="nf">build_acq_chain</span><span class="p">(</span><span class="n">devices</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ChainDict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">ref_moveables</span><span class="p">:</span>
+        <span class="n">motors</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">ref_moveables</span>
+            <span class="k">if</span> <span class="n">channels</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">channels</span>
+        <span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">motors</span> <span class="o">=</span> <span class="n">motors_from_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+    <span class="n">motor_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">motors</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_channels</span><span class="p">(</span><span class="n">bucket_names</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">dname</span><span class="p">,</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">devices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">dname</span> <span class="ow">in</span> <span class="n">bucket_names</span><span class="p">:</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">dd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;channels&quot;</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[])</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="n">counters</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">ch</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">_channels</span><span class="p">((</span><span class="s2">&quot;mg_channels&quot;</span><span class="p">,</span> <span class="s2">&quot;other_channels&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">ch</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">motor_set</span> <span class="ow">and</span> <span class="n">ch</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">NON_COUNTER_CHANNELS</span>
+    <span class="p">]</span>
+    <span class="n">spectra</span> <span class="o">=</span> <span class="n">_channels</span><span class="p">((</span><span class="s2">&quot;mca&quot;</span><span class="p">,))</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">_channels</span><span class="p">((</span><span class="s2">&quot;image&quot;</span><span class="p">,))</span>
+    <span class="n">time_channels</span> <span class="o">=</span> <span class="n">_channels</span><span class="p">((</span><span class="s2">&quot;time&quot;</span><span class="p">,))</span>
+    <span class="n">master_scalars</span> <span class="o">=</span> <span class="n">motors</span> <span class="k">if</span> <span class="n">motors</span> <span class="k">else</span> <span class="n">time_channels</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;axis&quot;</span><span class="p">:</span> <span class="n">ChainDict</span><span class="p">(</span>
+            <span class="n">top_master</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span>
+            <span class="n">devices</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">devices</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+            <span class="n">scalars</span><span class="o">=</span><span class="n">counters</span><span class="p">,</span>
+            <span class="n">spectra</span><span class="o">=</span><span class="n">spectra</span><span class="p">,</span>
+            <span class="n">images</span><span class="o">=</span><span class="n">images</span><span class="p">,</span>
+            <span class="n">master</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;scalars&quot;</span><span class="p">:</span> <span class="n">master_scalars</span><span class="p">,</span>
+                <span class="s2">&quot;spectra&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">&quot;images&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+    <span class="p">}</span></div>
+
+
+<span class="k">def</span> <span class="nf">_classify_channels</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="n">motor_set</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Split the scan_info channel dict into plot-relevant buckets.</span>
+
+<span class="sd">    Returns ``(counters, time_channels, spectra)`` lists of channel names:</span>
+
+<span class="sd">      * *counters* -- scalar channels (``dim`` 0) that are neither a scanned</span>
+<span class="sd">        motor nor a bookkeeping channel; they become the curve/scatter</span>
+<span class="sd">        Y-series.</span>
+<span class="sd">      * *time_channels* -- ``&quot;time&quot;`` device channels, used as the X-axis</span>
+<span class="sd">        fallback for a motorless scan.</span>
+<span class="sd">      * *spectra* -- 1D (MCA) channels. :func:`build_plots` does not act on</span>
+<span class="sd">        these (flint infers their ``1d-plot`` from the acquisition_chain),</span>
+<span class="sd">        but they are returned for completeness.</span>
+
+<span class="sd">    2D (image) channels are skipped here -- the plot consumer builds image</span>
+<span class="sd">    plots from the device descriptions itself.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">counters</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">time_channels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">spectra</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">cd</span> <span class="ow">in</span> <span class="p">(</span><span class="n">channels</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">cd</span> <span class="o">=</span> <span class="n">cd</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">device</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;device&quot;</span><span class="p">)</span>
+        <span class="n">dim</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dim&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">device</span> <span class="o">==</span> <span class="s2">&quot;time&quot;</span><span class="p">:</span>
+            <span class="n">time_channels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">device</span> <span class="o">==</span> <span class="s2">&quot;mca&quot;</span><span class="p">:</span>
+            <span class="n">spectra</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">dim</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">or</span> <span class="n">device</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">elif</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">motor_set</span> <span class="ow">or</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">NON_COUNTER_CHANNELS</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">counters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">counters</span><span class="p">,</span> <span class="n">time_channels</span><span class="p">,</span> <span class="n">spectra</span>
+
+
+<span class="k">def</span> <span class="nf">_mesh_axis_meta</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Per-motor scatter axis metadata parsed from a Sardana mesh command.</span>
+
+<span class="sd">    Layout: ``mesh mot_x start_x stop_x nx mot_y start_y stop_y ny ...``.</span>
+<span class="sd">    ``axis_points`` is intervals+1 (the number of points) and ``axis_id``</span>
+<span class="sd">    is 0 for the fast (x) motor, 1 for the slow (y) motor. Missing or</span>
+<span class="sd">    non-numeric arguments are skipped rather than raising.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># (motor, start, stop, intervals) argument positions, and the axis id</span>
+    <span class="k">for</span> <span class="n">mpos</span><span class="p">,</span> <span class="n">spos</span><span class="p">,</span> <span class="n">tpos</span><span class="p">,</span> <span class="n">npos</span><span class="p">,</span> <span class="n">axis_id</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">meta</span><span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="n">mpos</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;axis_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;forth&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;axis_id&quot;</span><span class="p">:</span> <span class="n">axis_id</span><span class="p">,</span>
+                <span class="s2">&quot;axis_points&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">npos</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">spos</span><span class="p">]),</span>
+                <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">tpos</span><span class="p">]),</span>
+            <span class="p">}</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="k">continue</span>
+    <span class="k">return</span> <span class="n">meta</span>
+
+
+<span class="k">def</span> <span class="nf">_first_value_counter</span><span class="p">(</span><span class="n">counters</span><span class="p">,</span> <span class="n">channels</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pick a scatter ``value`` counter, preferring a non-time channel.</span>
+
+<span class="sd">    A channel whose unit is seconds is a poor default value (it is usually</span>
+<span class="sd">    the integration time), so prefer the first counter with a different</span>
+<span class="sd">    unit, mirroring flint&#39;s default-counter selection. Falls back to the</span>
+<span class="sd">    first counter, or ``None`` so the consumer can choose.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">counters</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">channels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;unit&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;s&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">name</span>
+    <span class="k">return</span> <span class="n">counters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">counters</span> <span class="k">else</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="build_plots"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.build_plots">[docs]</a><span class="k">def</span> <span class="nf">build_plots</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build blissdata ``scan_info[&#39;plots&#39;]`` descriptors for a Sardana scan.</span>
+
+<span class="sd">    Returns ``{&quot;plots&quot;: [...], &quot;channel_meta&quot;: {name: {...}}}`` where</span>
+<span class="sd">    ``channel_meta`` holds scatter axis metadata to merge into the channels.</span>
+<span class="sd">    This function is independent of the optional blissdata import so it can</span>
+<span class="sd">    be exercised without a Redis backend.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">ref_moveables</span><span class="p">:</span>
+        <span class="n">motors</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">ref_moveables</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">motors</span> <span class="o">=</span> <span class="n">motors_from_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+    <span class="n">motor_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">motors</span><span class="p">)</span>
+
+    <span class="c1"># spectra are intentionally unused: flint infers their 1d-plot from the</span>
+    <span class="c1"># acquisition_chain (see the docstring), so we never emit one here.</span>
+    <span class="n">counters</span><span class="p">,</span> <span class="n">time_channels</span><span class="p">,</span> <span class="n">_spectra</span> <span class="o">=</span> <span class="n">_classify_channels</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="n">motor_set</span><span class="p">)</span>
+
+    <span class="n">parts</span> <span class="o">=</span> <span class="p">(</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="n">macro</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">parts</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">plots</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">channel_meta</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">is_mesh</span> <span class="o">=</span> <span class="n">macro</span> <span class="ow">in</span> <span class="n">MESH_MACROS</span>
+
+    <span class="k">if</span> <span class="n">is_mesh</span><span class="p">:</span>
+        <span class="n">xaxis</span> <span class="o">=</span> <span class="n">time_channels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">time_channels</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="n">motors</span><span class="p">:</span>
+        <span class="n">xaxis</span> <span class="o">=</span> <span class="n">motors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">time_channels</span><span class="p">:</span>
+        <span class="n">xaxis</span> <span class="o">=</span> <span class="n">time_channels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xaxis</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">is_mesh</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">motors</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">motors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">motors</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">_first_value_counter</span><span class="p">(</span><span class="n">counters</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">item</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter-plot&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">item</span><span class="p">]})</span>
+        <span class="n">channel_meta</span> <span class="o">=</span> <span class="n">_mesh_axis_meta</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+
+    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">counter</span> <span class="ow">in</span> <span class="n">counters</span><span class="p">:</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;curve&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">counter</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">xaxis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">item</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xaxis</span>
+        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;curve-plot&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="n">items</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;plots&quot;</span><span class="p">:</span> <span class="n">plots</span><span class="p">,</span> <span class="s2">&quot;channel_meta&quot;</span><span class="p">:</span> <span class="n">channel_meta</span><span class="p">}</span></div>
 
 
 <span class="k">if</span> <span class="n">REDIS</span><span class="p">:</span>

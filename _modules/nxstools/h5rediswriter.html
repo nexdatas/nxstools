@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.h5rediswriter &#8212; NXSTools 4.47.0 documentation</title>
+    <title>nxstools.h5rediswriter &#8212; NXSTools 4.52.1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.47</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.52</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -216,7 +216,8 @@
 <span class="kn">import</span> <span class="nn">datetime</span>
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">filewriter</span>
-<span class="kn">from</span> <span class="nn">.redisutils</span> <span class="kn">import</span> <span class="n">REDIS</span><span class="p">,</span> <span class="n">getDataStore</span>
+<span class="kn">from</span> <span class="nn">.redisutils</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">REDIS</span><span class="p">,</span> <span class="n">getDataStore</span><span class="p">,</span> <span class="n">build_acq_chain</span><span class="p">,</span> <span class="n">build_plots</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.nxsfileparser</span> <span class="kn">import</span> <span class="p">(</span><span class="n">getdsname</span><span class="p">,</span> <span class="n">getdssource</span><span class="p">,</span>
                             <span class="n">tolist</span><span class="p">,</span>
                             <span class="c1"># getdstype</span>
@@ -275,9 +276,11 @@
 <span class="n">LimaStream</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">blissdata.streams.lima.stream</span> <span class="kn">import</span> <span class="n">LimaStream</span>
+    <span class="kn">from</span> <span class="nn">blissdata.lima.client</span> <span class="kn">import</span> <span class="n">acquisition_on_server</span>
     <span class="n">PLUGINS</span><span class="p">[</span><span class="s2">&quot;lima&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">LimaStream</span>
 <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
     <span class="n">LimaStream</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">acquisition_on_server</span> <span class="o">=</span> <span class="kc">None</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">blissdata.schemas.scan_info</span> <span class="kn">import</span> <span class="p">(</span>
@@ -323,6 +326,11 @@
         <span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">,</span> <span class="n">splitstr</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
     <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;scan_command&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
     <span class="s2">&quot;beamtime_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;beamtime_id&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+    <span class="c1"># Sardana&#39;s reference moveables (the scanned motor names). Captured</span>
+    <span class="c1"># only when the program datasource exposes a &quot;ref_moveables&quot; attribute;</span>
+    <span class="c1"># used to put the moved motor on the X-axis (acquisition_chain master)</span>
+    <span class="c1"># independently of the macro name. See build_acq_chain in redisutils.</span>
+    <span class="s2">&quot;reference_moveables&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ref_moveables&quot;</span><span class="p">,</span> <span class="n">splitstr</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
 <span class="p">}</span>
 
 <span class="n">titleplots</span> <span class="o">=</span> <span class="p">{</span>
@@ -687,6 +695,17 @@
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">__scan_lock</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__streams</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">stream</span></div>
 
+<div class="viewcode-block" id="H5RedisFile.acquisition_on_server"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisFile.acquisition_on_server">[docs]</a>    <span class="k">def</span> <span class="nf">acquisition_on_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_url</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; scan object</span>
+
+<span class="sd">        :param server_url: server url</span>
+<span class="sd">        :typeserver_url: :obj:`str`</span>
+<span class="sd">        :returns: acquisition offset</span>
+<span class="sd">        :rtype: :obj:`int`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">acquisition_on_server</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">acquisition_on_server</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__datastore</span><span class="p">,</span> <span class="n">server_url</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="H5RedisFile.set_scan"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisFile.set_scan">[docs]</a>    <span class="k">def</span> <span class="nf">set_scan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scan</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; scan object</span>
 
@@ -865,6 +884,7 @@
             <span class="s2">&quot;datadesc&quot;</span><span class="p">:</span> <span class="p">{},</span>
             <span class="s2">&quot;snapshot&quot;</span><span class="p">:</span> <span class="p">{},</span>
             <span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;reference_moveables&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;beamtime_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;scan_meta_categories&quot;</span><span class="p">:</span> <span class="p">[</span>
                 <span class="s2">&quot;snapshot&quot;</span><span class="p">,</span>
@@ -1117,26 +1137,45 @@
             <span class="c1"># print(&quot;SCAN&quot;, measurement, number)</span>
             <span class="c1"># print(&quot;NAMES&quot;, self.names())</span>
 
+<div class="viewcode-block" id="H5RedisFile.add_plot"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisFile.add_plot">[docs]</a>    <span class="k">def</span> <span class="nf">add_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; build the scan_info ``plots`` descriptors for the scan kind</span>
+
+<span class="sd">        A curve-plot (motor or time on x, one curve per counter) is created</span>
+<span class="sd">        for every scan kind; mesh scans additionally get a scatter-plot.</span>
+<span class="sd">        MCA/spectra channels get no explicit plot -- flint infers their</span>
+<span class="sd">        1d-plot from the acquisition_chain. See :func:`redisutils.build_plots`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">build_plots</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">([</span><span class="s2">&quot;title&quot;</span><span class="p">]),</span>
+            <span class="n">channels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">([</span><span class="s2">&quot;channels&quot;</span><span class="p">]),</span>
+            <span class="n">ref_moveables</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">([</span><span class="s2">&quot;reference_moveables&quot;</span><span class="p">]),</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">chname</span><span class="p">,</span> <span class="n">meta</span> <span class="ow">in</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;channel_meta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">meta</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;channels&quot;</span><span class="p">,</span> <span class="n">chname</span><span class="p">,</span> <span class="n">key</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;plots&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;plots&quot;</span><span class="p">])</span></div>
+
 <div class="viewcode-block" id="H5RedisFile.start"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisFile.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; start scan</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">REDIS</span><span class="p">:</span>
-            <span class="n">acq_chain</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">devices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_devices</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">dd</span> <span class="ow">in</span> <span class="n">devices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="s2">&quot;channels&quot;</span> <span class="ow">in</span> <span class="n">dd</span><span class="p">:</span>
                     <span class="n">dd</span><span class="p">[</span><span class="s2">&quot;channels&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">dd</span><span class="p">[</span><span class="s2">&quot;channels&quot;</span><span class="p">]))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">devices</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;devices&quot;</span><span class="p">])</span>
-            <span class="n">acq_chain</span><span class="p">[</span><span class="s2">&quot;axis&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ChainDict</span><span class="p">(</span>
-                <span class="n">top_master</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">,</span>
-                <span class="n">devices</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">devices</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
-                <span class="n">scalars</span><span class="o">=</span><span class="p">[],</span>
-                <span class="n">spectra</span><span class="o">=</span><span class="p">[],</span>
-                <span class="n">images</span><span class="o">=</span><span class="p">[],</span>
-                <span class="n">master</span><span class="o">=</span><span class="p">{})</span>
+            <span class="n">channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_channels</span><span class="p">()</span>
+            <span class="n">acq_chain</span> <span class="o">=</span> <span class="n">build_acq_chain</span><span class="p">(</span>
+                <span class="n">devices</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">([</span><span class="s2">&quot;title&quot;</span><span class="p">]),</span>
+                <span class="n">channels</span><span class="o">=</span><span class="n">channels</span><span class="p">,</span>
+                <span class="n">ref_moveables</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">([</span><span class="s2">&quot;reference_moveables&quot;</span><span class="p">]),</span>
+            <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">acq_chain</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;acquisition_chain&quot;</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_channels</span><span class="p">(),</span> <span class="p">[</span><span class="s2">&quot;channels&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;channels&quot;</span><span class="p">])</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_plot</span><span class="p">()</span>
 
             <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_getattr</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
             <span class="n">sinfo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">()</span>
@@ -1259,6 +1298,17 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;append_stream&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisGroup.acquisition_on_server"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisGroup.acquisition_on_server">[docs]</a>    <span class="k">def</span> <span class="nf">acquisition_on_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_url</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; scan object</span>
+
+<span class="sd">        :param server_url: server url</span>
+<span class="sd">        :typeserver_url: :obj:`str`</span>
+<span class="sd">        :returns: acquisition offset</span>
+<span class="sd">        :rtype: :obj:`int`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;acquisition_on_server&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">acquisition_on_server</span><span class="p">(</span><span class="n">server_url</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="H5RedisGroup.set_entryname"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisGroup.set_entryname">[docs]</a>    <span class="k">def</span> <span class="nf">set_entryname</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entryname</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; set entry name</span>
@@ -1578,6 +1628,17 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;append_stream&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisField.acquisition_on_server"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisField.acquisition_on_server">[docs]</a>    <span class="k">def</span> <span class="nf">acquisition_on_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_url</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; scan object</span>
+
+<span class="sd">        :param server_url: server url</span>
+<span class="sd">        :typeserver_url: :obj:`str`</span>
+<span class="sd">        :returns: acquisition offset</span>
+<span class="sd">        :rtype: :obj:`int`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;acquisition_on_server&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">acquisition_on_server</span><span class="p">(</span><span class="n">server_url</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="H5RedisField.set_scan"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisField.set_scan">[docs]</a>    <span class="k">def</span> <span class="nf">set_scan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scan</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; scan object</span>
@@ -1930,11 +1991,11 @@
                         <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">or</span> <span class="n">np</span><span class="p">:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">])</span>
                             <span class="c1"># print(key, np)</span>
-                            <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;title&quot;</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                                <span class="n">macro_name</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                                <span class="k">for</span> <span class="n">mn</span><span class="p">,</span> <span class="n">plot</span> <span class="ow">in</span> <span class="n">titleplots</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                                    <span class="k">if</span> <span class="n">mn</span> <span class="ow">in</span> <span class="n">macro_name</span><span class="p">:</span>
-                                        <span class="bp">self</span><span class="o">.</span><span class="n">append_scaninfo</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;plots&quot;</span><span class="p">])</span>
+                            <span class="c1"># if key == &quot;title&quot; and isinstance(np, str):</span>
+                            <span class="c1">#     macro_name = np.split(&quot; &quot;)[0]</span>
+                            <span class="c1">#     for mn, plot in titleplots.items():</span>
+                            <span class="c1">#         if mn in macro_name:</span>
+                            <span class="c1">#             self.append_scaninfo(plot, [&quot;plots&quot;])</span>
 
                     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                         <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
@@ -2125,6 +2186,18 @@
                 <span class="n">plugin</span> <span class="o">=</span> <span class="n">PLUGINS</span><span class="p">[</span><span class="n">vmap</span><span class="p">[</span><span class="s2">&quot;plugin&quot;</span><span class="p">]]</span>
                 <span class="n">plugin_def</span> <span class="o">=</span> <span class="n">vmap</span><span class="p">[</span><span class="s2">&quot;plugin_def&quot;</span><span class="p">]</span>
                 <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">&quot;acquisition_offset&quot;</span> <span class="ow">in</span> <span class="n">plugin_def</span> <span class="ow">and</span> \
+                            <span class="ow">not</span> <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;acquisition_offset&quot;</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="s2">&quot;server_url&quot;</span> <span class="ow">in</span> <span class="n">plugin_def</span> <span class="ow">and</span> \
+                                <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;server_url&quot;</span><span class="p">]:</span>
+                            <span class="n">acq_off</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">acquisition_on_server</span><span class="p">(</span>
+                                <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;server_url&quot;</span><span class="p">])</span>
+                            <span class="k">if</span> <span class="n">acq_off</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="n">plugin_def</span><span class="p">[</span><span class="s2">&quot;acquisition_offset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">acq_off</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cannot read acquisition_on_server for&quot;</span><span class="p">,</span>
+                          <span class="n">vmap</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                <span class="k">try</span><span class="p">:</span>
                     <span class="n">sdef</span> <span class="o">=</span> <span class="n">plugin</span><span class="o">.</span><span class="n">make_definition</span><span class="p">(</span><span class="o">**</span><span class="n">plugin_def</span><span class="p">)</span>
                     <span class="c1"># print(&quot;create&quot;, plugin_def)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">__rstream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_command</span><span class="p">(</span>
@@ -2209,6 +2282,17 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;append_stream&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">append_stream</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5RedisVirtualFieldLayout.acquisition_on_server"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.acquisition_on_server">[docs]</a>    <span class="k">def</span> <span class="nf">acquisition_on_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_url</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; scan object</span>
+
+<span class="sd">        :param server_url: server url</span>
+<span class="sd">        :typeserver_url: :obj:`str`</span>
+<span class="sd">        :returns: acquisition offset</span>
+<span class="sd">        :rtype: :obj:`int`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="p">,</span> <span class="s2">&quot;acquisition_on_server&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tparent</span><span class="o">.</span><span class="n">acquisition_on_server</span><span class="p">(</span><span class="n">server_url</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="H5RedisVirtualFieldLayout.scan_command"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.H5RedisVirtualFieldLayout.scan_command">[docs]</a>    <span class="k">def</span> <span class="nf">scan_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; set scan attribute</span>
