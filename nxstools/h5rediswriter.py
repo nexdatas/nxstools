@@ -1024,7 +1024,13 @@ class H5RedisFile(H5File):
             self.set_scaninfo(
                 datetime.datetime.now().astimezone().isoformat(),
                 ['end_time'], direct=True)
-            self.set_scaninfo('SUCCESS', ['end_reason'], direct=True)
+            end_reason = "SUCCESS"
+            ereason = (self.get_scaninfo(["snapshot"]) or {}).get("end_reason")
+            if isinstance(ereason, dict):
+                ereason = ereason.get("value")
+            if ereason:
+                end_reason = str(ereason)
+            self.set_scaninfo(end_reason, ['end_reason'], direct=True)
             # print("stop SCAN")
             self.scan_command("close")
             # print("close SCAN")
