@@ -15,6 +15,9 @@ The beamtime ID at DESY is an 8 digit number.R</doc>
     <field type="NX_DATE_TIME" name="end_time">
       <doc>end time - timestamp when the experiment stopped.</doc>
       <strategy mode="FINAL"/>$datasources.end_time</field>
+    <field type="NX_CHAR" name="end_reason">
+      <doc>reason why the experiment stopped, e.g. SUCCESS, USER_ABORT or FAILURE.</doc>
+      <strategy mode="FINAL"/>$datasources.end_reason</field>
     <group type="NXmonitor" name="$(control)">
       <field type="NX_CHAR" name="mode">monitor<strategy mode="INIT"/>
       </field>

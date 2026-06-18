@@ -874,7 +874,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                     ['title', 'start_time', 'sample_name',
                      'nexdatas_version', 'nexdatas_configuration',
                      'end_time', 'chemical_formula', 'beamtime_id',
-                     'beamtime_filename']
+                     'beamtime_filename', 'end_reason']
                 ],
                 [
                     ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
@@ -911,6 +911,13 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      'end time - timestamp when the experiment stopped.'
                      '</doc>\n'
                      '      <strategy mode="FINAL" />$datasources.end_time'
+                     '</field>\n'
+                     '    <field name="end_reason" type="NX_CHAR">\n'
+                     '      <doc>'
+                     'reason why the experiment stopped, '
+                     'e.g. SUCCESS, USER_ABORT or FAILURE.'
+                     '</doc>\n'
+                     '      <strategy mode="FINAL" />$datasources.end_reason'
                      '</field>\n'
                      '    <group name="instrument" type="NXinstrument">\n'
                      '      <group name="source" type="NXsource">\n'
@@ -1039,6 +1046,16 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '  <datasource type="PYEVAL" name="beamtime_filename">\n'
                      '    <result name="result">\n'
                      'ds.result = ""\n</result>\n'
+                     '  </datasource>\n'
+                     '</definition>',
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                     '<definition>\n'
+                     '  <datasource name="end_reason" type="CLIENT">\n'
+                     '    <record name="end_reason" />\n'
+                     '    <doc>'
+                     'The scan end reason (e.g. SUCCESS, USER_ABORT, FAILURE) '
+                     'provided by the client after the experiment is finished.'
+                     '</doc>\n'
                      '  </datasource>\n'
                      '</definition>']
                 ],
@@ -1052,7 +1069,7 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                     ['title', 'start_time', 'sample_name',
                      'nexdatas_version', 'nexdatas_configuration',
                      'end_time', 'chemical_formula', 'beamtime_id',
-                     'beamtime_filename']
+                     'beamtime_filename', 'end_reason']
                 ],
                 [
                     ['<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
@@ -1089,6 +1106,13 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      'end time - timestamp when the experiment stopped.'
                      '</doc>\n'
                      '      <strategy mode="FINAL" />$datasources.end_time'
+                     '</field>\n'
+                     '    <field name="end_reason" type="NX_CHAR">\n'
+                     '      <doc>'
+                     'reason why the experiment stopped, '
+                     'e.g. SUCCESS, USER_ABORT or FAILURE.'
+                     '</doc>\n'
+                     '      <strategy mode="FINAL" />$datasources.end_reason'
                      '</field>\n'
                      '    <group name="instrument" type="NXinstrument">\n'
                      '      <group name="source" type="NXsource">\n'
@@ -1217,6 +1241,16 @@ class NXSCreateStdCompFSTest(unittest.TestCase):
                      '  <datasource type="PYEVAL" name="beamtime_filename">\n'
                      '    <result name="result">\n'
                      'ds.result = ""\n</result>\n'
+                     '  </datasource>\n'
+                     '</definition>',
+                     '<?xml version=\'1.0\' encoding=\'utf-8\'?>\n'
+                     '<definition>\n'
+                     '  <datasource name="end_reason" type="CLIENT">\n'
+                     '    <record name="end_reason" />\n'
+                     '    <doc>'
+                     'The scan end reason (e.g. SUCCESS, USER_ABORT, FAILURE) '
+                     'provided by the client after the experiment is finished.'
+                     '</doc>\n'
                      '  </datasource>\n'
                      '</definition>']
                 ],
