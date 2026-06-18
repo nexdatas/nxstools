@@ -1,3 +1,7 @@
+2026-06-18 Jan Kotanski <jankotan@gmail.com>
+	* aborted plan end reason fixed (#926)
+	* tagged as v4.53.0
+
 2026-06-16 Jan Kotanski <jankotan@gmail.com>
 	* fix scan plots for redis writer from Udai (#927)
 	* tagged as v4.52.1
