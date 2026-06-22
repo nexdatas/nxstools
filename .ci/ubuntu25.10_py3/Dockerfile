@@ -9,7 +9,7 @@ RUN curl --retry 10 -s http://repos.pni-hdri.de/debian_repo.pub.gpg  | gpg --no-
 RUN chmod 644 /etc/apt/trusted.gpg.d/debian-hdri-repo.gpg
 
 
-RUN cd /etc/apt/sources.list.d && wget https://repos.pni-hdri.de/questing-pni-hdri.sources \
+RUN cd /etc/apt/sources.list.d && wget http://repos.pni-hdri.de/questing-pni-hdri.sources \
     && useradd -ms /bin/bash tango
 
 RUN apt-get -qq update && apt-get -qq -y dist-upgrade
