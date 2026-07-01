@@ -67,10 +67,12 @@ LimaStream = None
 try:
     from blissdata.streams.lima.stream import LimaStream
     from blissdata.lima.client import acquisition_on_server
+    from blissdata.lima.client import prepare_next_lima_acquisition
     PLUGINS["lima"] = LimaStream
 except Exception:
     LimaStream = None
     acquisition_on_server = None
+    prepare_next_lima_acquisition = None
 
 try:
     from blissdata.schemas.scan_info import (
@@ -790,6 +792,17 @@ class RedisFile(filewriter.FTFile):
         """
         if acquisition_on_server is not None:
             return acquisition_on_server(self.__datastore, server_url)
+
+    def prepare_next_lima_acquisition(self, server_url):
+        """ prepare the next lima acquisition on the server
+
+        :param server_url: server url
+        :typeserver_url: :obj:`str`
+        :returns: next acquisition number
+        :rtype: :obj:`int`
+        """
+        if prepare_next_lima_acquisition is not None:
+            return prepare_next_lima_acquisition(self.__datastore, server_url)
 
     def set_scan(self, scan):
         """ scan object
@@ -1623,6 +1636,17 @@ class RedisGroup(filewriter.FTGroup):
         if hasattr(self._tparent, "acquisition_on_server"):
             return self._tparent.acquisition_on_server(server_url)
 
+    def prepare_next_lima_acquisition(self, server_url):
+        """ prepare the next lima acquisition on the server
+
+        :param server_url: server url
+        :typeserver_url: :obj:`str`
+        :returns: next acquisition number
+        :rtype: :obj:`int`
+        """
+        if hasattr(self._tparent, "prepare_next_lima_acquisition"):
+            return self._tparent.prepare_next_lima_acquisition(server_url)
+
     def set_entryname(self, entryname):
         """ set entry name
 
@@ -2065,6 +2089,17 @@ class RedisField(filewriter.FTField):
         """
         if hasattr(self._tparent, "acquisition_on_server"):
             return self._tparent.acquisition_on_server(server_url)
+
+    def prepare_next_lima_acquisition(self, server_url):
+        """ prepare the next lima acquisition on the server
+
+        :param server_url: server url
+        :typeserver_url: :obj:`str`
+        :returns: next acquisition number
+        :rtype: :obj:`int`
+        """
+        if hasattr(self._tparent, "prepare_next_lima_acquisition"):
+            return self._tparent.prepare_next_lima_acquisition(server_url)
 
     def set_scan(self, scan):
         """ scan object
@@ -3161,6 +3196,15 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                     print("Cannot read acquisition_on_server for",
                           vmap, str(e))
                 try:
+                    if vmap["plugin"] == "lima" and \
+                            "server_url" in plugin_def and \
+                            plugin_def["server_url"]:
+                        self.prepare_next_lima_acquisition(
+                            plugin_def["server_url"])
+                except Exception as e:
+                    print("Cannot prepare_next_lima_acquisition for",
+                          vmap, str(e))
+                try:
                     sdef = plugin.make_definition(**plugin_def)
                     # print("create", plugin_def)
                     self.__rstream = self.scan_command(
@@ -3256,6 +3300,17 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         """
         if hasattr(self._tparent, "acquisition_on_server"):
             return self._tparent.acquisition_on_server(server_url)
+
+    def prepare_next_lima_acquisition(self, server_url):
+        """ prepare the next lima acquisition on the server
+
+        :param server_url: server url
+        :typeserver_url: :obj:`str`
+        :returns: next acquisition number
+        :rtype: :obj:`int`
+        """
+        if hasattr(self._tparent, "prepare_next_lima_acquisition"):
+            return self._tparent.prepare_next_lima_acquisition(server_url)
 
     def scan_command(self, command, *args, **kwargs):
         """ set scan attribute
