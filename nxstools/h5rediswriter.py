@@ -1800,25 +1800,38 @@ class H5RedisField(H5Field):
         self.set_scaninfo(ids, ["snapshot", dsn])
         if self.name in ["program_name"]:
             for key, vl in progattrdesc.items():
-                if vl[0] in anames:
-                    try:
+                np = ""
+                try:
+                    if isinstance(vl[0], list):
+                        values = []
+                        nms = vl[0]
+                        for nm in nms:
+                            if nm in anames:
+                                try:
+                                    vl = filewriter.first(attrs[nm].read())
+                                    values.append(vl)
+                                except Exception:
+                                    pass
+                            else:
+                                values = []
+                                break
+                        if not values:
+                            continue
+                        try:
+                            np = vl[1](values)
+                        except Exception:
+                            np = str(values)
+                    elif vl[0] in anames:
                         try:
                             np = vl[1](
                                 filewriter.first(attrs[vl[0]].read()))
                         except Exception:
                             np = str(filewriter.first(attrs[vl[0]].read()))
-                        if vl[2] or np:
-                            self.set_scaninfo(np, [key])
-                            # print(key, np)
-                            # if key == "title" and isinstance(np, str):
-                            #     macro_name = np.split(" ")[0]
-                            #     for mn, plot in titleplots.items():
-                            #         if mn in macro_name:
-                            #             self.append_scaninfo(plot, ["plots"])
-
-                    except Exception as e:
-                        print(str(e))
-                        pass
+                    if vl[2] or np:
+                        self.set_scaninfo(np, [key])
+                except Exception as e:
+                    print(str(e))
+                    pass
 
     def __set_channel_info(self, o):
         """ set channel value

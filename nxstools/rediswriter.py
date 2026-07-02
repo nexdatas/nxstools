@@ -109,12 +109,23 @@ def splitstr(text):
     return text.split(" ")
 
 
+def joinstr(textlst):
+    """ join strings
+
+    :param text: text strings to join
+    :type text: :obj:`list` <:obj:`str`>
+    :param text: joined text
+    :type text: :obj:`str`
+    """
+    return ", ".join(textlst)
+
+
 progattrdesc = {
     "npoints": ["npoints", int, True],
     "count_time": ["count_time", float, True],
     "measurement_group_channels": [
         "measurement_group_channels", splitstr, True],
-    "title": ["scan_command", str, False],
+    "title": [["scan_command", "measurement_group"], joinstr, False],
     "beamtime_id": ["beamtime_id", str, False],
     # Sardana's reference moveables (the scanned motor names). Captured
     # only when the program datasource exposes a "ref_moveables" attribute;
@@ -2509,25 +2520,38 @@ class RedisField(filewriter.FTField):
         self.set_scaninfo(ids, ["snapshot", dsn])
         if self.name in ["program_name"]:
             for key, vl in progattrdesc.items():
-                if vl[0] in anames:
-                    try:
+                np = ""
+                try:
+                    if isinstance(vl[0], list):
+                        values = []
+                        nms = vl[0]
+                        for nm in nms:
+                            if nm in anames:
+                                try:
+                                    vl = filewriter.first(attrs[nm].read())
+                                    values.append(vl)
+                                except Exception:
+                                    pass
+                            else:
+                                values = []
+                                break
+                        if not values:
+                            continue
+                        try:
+                            np = vl[1](values)
+                        except Exception:
+                            np = str(values)
+                    elif vl[0] in anames:
                         try:
                             np = vl[1](
                                 filewriter.first(attrs[vl[0]].read()))
                         except Exception:
                             np = str(filewriter.first(attrs[vl[0]].read()))
-                        if vl[2] or np:
-                            self.set_scaninfo(np, [key])
-                            # print(key, np)
-                            # if key == "title" and isinstance(np, str):
-                            #     macro_name = np.split(" ")[0]
-                            #     for mn, plot in titleplots.items():
-                            #         if mn in macro_name:
-                            #             self.append_scaninfo(plot, ["plots"])
-
-                    except Exception as e:
-                        print(str(e))
-                        pass
+                    if vl[2] or np:
+                        self.set_scaninfo(np, [key])
+                except Exception as e:
+                    print(str(e))
+                    pass
 
     def __set_channel_info(self, o):
         """ set channel value
