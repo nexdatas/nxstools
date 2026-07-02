@@ -99,50 +99,6 @@ attrdesc = {
 }
 
 
-<<<<<<< HEAD
-def splitstr(text):
-    """ split string separated by space
-
-    :param text: text to split
-    :type text: :obj:`str`
-    :param text: split text
-    :type text: :obj:`list` <:obj:`str`>
-    """
-    return text.split(" ")
-
-
-def joinstr(textlst):
-    """ join strings
-
-    :param text: text strings to join
-    :type text: :obj:`list` <:obj:`str`>
-    :param text: joined text
-    :type text: :obj:`str`
-    """
-    return ", ".join(textlst)
-
-
-progattrdesc = {
-    "npoints": ["npoints", int, True],
-    "count_time": ["count_time", float, True],
-    "measurement_group_channels": [
-        "measurement_group_channels", splitstr, True],
-    "title": [["scan_command", "measurement_group"], joinstr, False],
-    "beamtime_id": ["beamtime_id", str, False],
-    # Sardana's reference moveables (the scanned motor names). Captured
-    # only when the program datasource exposes a "ref_moveables" attribute;
-    # used to put the moved motor on the X-axis (acquisition_chain master)
-    # independently of the macro name. See build_acq_chain in redisutils.
-    "reference_moveables": ["ref_moveables", splitstr, False],
-}
-
-titleplots = {
-    "mesh": {"kind": "scatter-plot", "items": [{"kind": "scatter"}]},
-}
-
-
-=======
->>>>>>> 1656e2268db55eb8f3d3fb13c70f1c363836c99e
 try:
     _npver = np.version.version.split(".")
     NPMAJOR = int(_npver[0])
