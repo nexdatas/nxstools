@@ -30,7 +30,8 @@ import datetime
 
 from . import filewriter
 from .redisutils import (
-    REDIS, getDataStore, build_acq_chain, build_plots)
+    REDIS, getDataStore, build_acq_chain, build_plots,
+    progattrdesc, progattr)
 from .nxsfileparser import (getdsname, getdssource,
                             tolist,
                             # getdstype
@@ -118,36 +119,6 @@ attrdesc = {
     "source": ["nexdatas_source", getdssource],
     "nexdatas_source": ["nexdatas_source", str],
     # "strategy": ["nexdatas_strategy", str],
-}
-
-
-def splitstr(text):
-    """ split string separated by space
-
-    :param text: text to split
-    :type text: :obj:`str`
-    :param text: split text
-    :type text: :obj:`list` <:obj:`str`>
-    """
-    return text.split(" ")
-
-
-progattrdesc = {
-    "npoints": ["npoints", int, True],
-    "count_time": ["count_time", float, True],
-    "measurement_group_channels": [
-        "measurement_group_channels", splitstr, True],
-    "title": ["scan_command", str, False],
-    "beamtime_id": ["beamtime_id", str, False],
-    # Sardana's reference moveables (the scanned motor names). Captured
-    # only when the program datasource exposes a "ref_moveables" attribute;
-    # used to put the moved motor on the X-axis (acquisition_chain master)
-    # independently of the macro name. See build_acq_chain in redisutils.
-    "reference_moveables": ["ref_moveables", splitstr, False],
-}
-
-titleplots = {
-    "mesh": {"kind": "scatter-plot", "items": [{"kind": "scatter"}]},
 }
 
 
@@ -1802,31 +1773,7 @@ class H5RedisField(H5Field):
             for key, vl in progattrdesc.items():
                 np = ""
                 try:
-                    if isinstance(vl[0], list):
-                        values = []
-                        nms = vl[0]
-                        for nm in nms:
-                            if nm in anames:
-                                try:
-                                    vl = filewriter.first(attrs[nm].read())
-                                    values.append(vl)
-                                except Exception:
-                                    pass
-                            else:
-                                values = []
-                                break
-                        if not values:
-                            continue
-                        try:
-                            np = vl[1](values)
-                        except Exception:
-                            np = str(values)
-                    elif vl[0] in anames:
-                        try:
-                            np = vl[1](
-                                filewriter.first(attrs[vl[0]].read()))
-                        except Exception:
-                            np = str(filewriter.first(attrs[vl[0]].read()))
+                    np = progattr(vl, anames, attrs)
                     if vl[2] or np:
                         self.set_scaninfo(np, [key])
                 except Exception as e:

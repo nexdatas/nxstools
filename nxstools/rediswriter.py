@@ -30,7 +30,8 @@ import numpy as np
 from . import filewriter
 # from .Types import nptype
 from .redisutils import (
-    REDIS, getDataStore, build_acq_chain, build_plots)
+    REDIS, getDataStore, build_acq_chain, build_plots,
+    progattrdesc, progattr)
 from .nxsfileparser import (getdsname, getdssource,
                             tolist,
                             # getdstype
@@ -98,6 +99,7 @@ attrdesc = {
 }
 
 
+<<<<<<< HEAD
 def splitstr(text):
     """ split string separated by space
 
@@ -139,6 +141,8 @@ titleplots = {
 }
 
 
+=======
+>>>>>>> 1656e2268db55eb8f3d3fb13c70f1c363836c99e
 try:
     _npver = np.version.version.split(".")
     NPMAJOR = int(_npver[0])
@@ -2522,6 +2526,7 @@ class RedisField(filewriter.FTField):
             for key, vl in progattrdesc.items():
                 np = ""
                 try:
+<<<<<<< HEAD
                     if isinstance(vl[0], list):
                         values = []
                         nms = vl[0]
@@ -2547,6 +2552,9 @@ class RedisField(filewriter.FTField):
                                 filewriter.first(attrs[vl[0]].read()))
                         except Exception:
                             np = str(filewriter.first(attrs[vl[0]].read()))
+=======
+                    np = progattr(vl, anames, attrs)
+>>>>>>> 1656e2268db55eb8f3d3fb13c70f1c363836c99e
                     if vl[2] or np:
                         self.set_scaninfo(np, [key])
                 except Exception as e:
