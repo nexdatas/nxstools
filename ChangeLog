@@ -1,3 +1,7 @@
+2026-07-02 Jan Kotanski <jankotan@gmail.com>
+	* add MG name to blissdata title (#933)
+	* tagged as v4.54.0
+
 2026-06-18 Jan Kotanski <jankotan@gmail.com>
 	* aborted plan end reason fixed (#926)
 	* tagged as v4.53.0
