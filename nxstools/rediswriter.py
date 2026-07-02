@@ -2482,35 +2482,7 @@ class RedisField(filewriter.FTField):
             for key, vl in progattrdesc.items():
                 np = ""
                 try:
-<<<<<<< HEAD
-                    if isinstance(vl[0], list):
-                        values = []
-                        nms = vl[0]
-                        for nm in nms:
-                            if nm in anames:
-                                try:
-                                    vl = filewriter.first(attrs[nm].read())
-                                    values.append(vl)
-                                except Exception:
-                                    pass
-                            else:
-                                values = []
-                                break
-                        if not values:
-                            continue
-                        try:
-                            np = vl[1](values)
-                        except Exception:
-                            np = str(values)
-                    elif vl[0] in anames:
-                        try:
-                            np = vl[1](
-                                filewriter.first(attrs[vl[0]].read()))
-                        except Exception:
-                            np = str(filewriter.first(attrs[vl[0]].read()))
-=======
                     np = progattr(vl, anames, attrs)
->>>>>>> 1656e2268db55eb8f3d3fb13c70f1c363836c99e
                     if vl[2] or np:
                         self.set_scaninfo(np, [key])
                 except Exception as e:
