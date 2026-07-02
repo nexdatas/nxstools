@@ -18,6 +18,7 @@
 
 """ Provides redis utils """
 
+from . import filewriter
 
 REDIS = True
 try:
@@ -85,6 +86,73 @@ MESH_MACROS = {
     "meshct", "ameshct", "dmeshct",
     "mesh_repeat", "amesh_repeat", "dmesh_repeat",
 }
+
+
+def splitstr(text):
+    """ split string separated by space
+
+    :param text: text to split
+    :type text: :obj:`str`
+    :returns: split text
+    :rtype: :obj:`list` <:obj:`str`>
+    """
+    return text.split(" ")
+
+
+def joinstr(textlst):
+    """ join strings
+
+    :param textlst: text strings to join
+    :type textlst: :obj:`list` <:obj:`str`>
+    :returns: joined text
+    :rtype: :obj:`str`
+    """
+    return ", ".join(textlst)
+
+
+progattrdesc = {
+    "npoints": ["npoints", int, True],
+    "count_time": ["count_time", float, True],
+    "measurement_group_channels": [
+        "measurement_group_channels", splitstr, True],
+    "title": [["measurement_group", "scan_command"], joinstr, False],
+    "beamtime_id": ["beamtime_id", str, False],
+    # Sardana's reference moveables (the scanned motor names). Captured
+    # only when the program datasource exposes a "ref_moveables" attribute;
+    # used to put the moved motor on the X-axis (acquisition_chain master)
+    # independently of the macro name. See build_acq_chain in redisutils.
+    "reference_moveables": ["ref_moveables", splitstr, False],
+}
+
+
+def progattr(vl, anames, attrs):
+    np = ""
+    if isinstance(vl[0], list):
+        values = []
+        nms = vl[0]
+        for nm in nms:
+            if nm in anames:
+                try:
+                    val = filewriter.first(attrs[nm].read())
+                    values.append(val)
+                except Exception:
+                    pass
+            else:
+                values = []
+                break
+        if not values:
+            return
+        try:
+            np = vl[1](values)
+        except Exception:
+            np = str(values)
+    elif vl[0] in anames:
+        try:
+            np = vl[1](
+                filewriter.first(attrs[vl[0]].read()))
+        except Exception:
+            np = str(filewriter.first(attrs[vl[0]].read()))
+    return np
 
 
 def motors_from_title(title, channels=None):
