@@ -30,7 +30,8 @@ import numpy as np
 from . import filewriter
 # from .Types import nptype
 from .redisutils import (
-    REDIS, getDataStore, build_acq_chain, build_plots)
+    REDIS, getDataStore, build_acq_chain, build_plots,
+    progattrdesc, progattr)
 from .nxsfileparser import (getdsname, getdssource,
                             tolist,
                             # getdstype
@@ -95,36 +96,6 @@ attrdesc = {
     "source": ["nexdatas_source", getdssource],
     "nexdatas_source": ["nexdatas_source", str],
     # "strategy": ["nexdatas_strategy", str],
-}
-
-
-def splitstr(text):
-    """ split string separated by space
-
-    :param text: text to split
-    :type text: :obj:`str`
-    :param text: split text
-    :type text: :obj:`list` <:obj:`str`>
-    """
-    return text.split(" ")
-
-
-progattrdesc = {
-    "npoints": ["npoints", int, True],
-    "count_time": ["count_time", float, True],
-    "measurement_group_channels": [
-        "measurement_group_channels", splitstr, True],
-    "title": ["scan_command", str, False],
-    "beamtime_id": ["beamtime_id", str, False],
-    # Sardana's reference moveables (the scanned motor names). Captured
-    # only when the program datasource exposes a "ref_moveables" attribute;
-    # used to put the moved motor on the X-axis (acquisition_chain master)
-    # independently of the macro name. See build_acq_chain in redisutils.
-    "reference_moveables": ["ref_moveables", splitstr, False],
-}
-
-titleplots = {
-    "mesh": {"kind": "scatter-plot", "items": [{"kind": "scatter"}]},
 }
 
 
@@ -2509,25 +2480,14 @@ class RedisField(filewriter.FTField):
         self.set_scaninfo(ids, ["snapshot", dsn])
         if self.name in ["program_name"]:
             for key, vl in progattrdesc.items():
-                if vl[0] in anames:
-                    try:
-                        try:
-                            np = vl[1](
-                                filewriter.first(attrs[vl[0]].read()))
-                        except Exception:
-                            np = str(filewriter.first(attrs[vl[0]].read()))
-                        if vl[2] or np:
-                            self.set_scaninfo(np, [key])
-                            # print(key, np)
-                            # if key == "title" and isinstance(np, str):
-                            #     macro_name = np.split(" ")[0]
-                            #     for mn, plot in titleplots.items():
-                            #         if mn in macro_name:
-                            #             self.append_scaninfo(plot, ["plots"])
-
-                    except Exception as e:
-                        print(str(e))
-                        pass
+                np = ""
+                try:
+                    np = progattr(vl, anames, attrs)
+                    if vl[2] or np:
+                        self.set_scaninfo(np, [key])
+                except Exception as e:
+                    print(str(e))
+                    pass
 
     def __set_channel_info(self, o):
         """ set channel value
