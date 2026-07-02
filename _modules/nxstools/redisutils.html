@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.redisutils &#8212; NXSTools 4.52.1 documentation</title>
+    <title>nxstools.redisutils &#8212; NXSTools 4.54.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.52</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.54</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -205,6 +205,7 @@
 
 <span class="sd">&quot;&quot;&quot; Provides redis utils &quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">filewriter</span>
 
 <span class="n">REDIS</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">try</span><span class="p">:</span>
@@ -272,6 +273,73 @@
     <span class="s2">&quot;meshct&quot;</span><span class="p">,</span> <span class="s2">&quot;ameshct&quot;</span><span class="p">,</span> <span class="s2">&quot;dmeshct&quot;</span><span class="p">,</span>
     <span class="s2">&quot;mesh_repeat&quot;</span><span class="p">,</span> <span class="s2">&quot;amesh_repeat&quot;</span><span class="p">,</span> <span class="s2">&quot;dmesh_repeat&quot;</span><span class="p">,</span>
 <span class="p">}</span>
+
+
+<div class="viewcode-block" id="splitstr"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.splitstr">[docs]</a><span class="k">def</span> <span class="nf">splitstr</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; split string separated by space</span>
+
+<span class="sd">    :param text: text to split</span>
+<span class="sd">    :type text: :obj:`str`</span>
+<span class="sd">    :returns: split text</span>
+<span class="sd">    :rtype: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="joinstr"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.joinstr">[docs]</a><span class="k">def</span> <span class="nf">joinstr</span><span class="p">(</span><span class="n">textlst</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; join strings</span>
+
+<span class="sd">    :param textlst: text strings to join</span>
+<span class="sd">    :type textlst: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">    :returns: joined text</span>
+<span class="sd">    :rtype: :obj:`str`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">textlst</span><span class="p">)</span></div>
+
+
+<span class="n">progattrdesc</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;npoints&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;npoints&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+    <span class="s2">&quot;count_time&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;count_time&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+    <span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">,</span> <span class="n">splitstr</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="s2">&quot;measurement_group&quot;</span><span class="p">,</span> <span class="s2">&quot;scan_command&quot;</span><span class="p">],</span> <span class="n">joinstr</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+    <span class="s2">&quot;beamtime_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;beamtime_id&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+    <span class="c1"># Sardana&#39;s reference moveables (the scanned motor names). Captured</span>
+    <span class="c1"># only when the program datasource exposes a &quot;ref_moveables&quot; attribute;</span>
+    <span class="c1"># used to put the moved motor on the X-axis (acquisition_chain master)</span>
+    <span class="c1"># independently of the macro name. See build_acq_chain in redisutils.</span>
+    <span class="s2">&quot;reference_moveables&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ref_moveables&quot;</span><span class="p">,</span> <span class="n">splitstr</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="progattr"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.progattr">[docs]</a><span class="k">def</span> <span class="nf">progattr</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="n">anames</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+    <span class="n">np</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">nms</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">nms</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">val</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+                    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">values</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">np</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span><span class="n">values</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">np</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">np</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span>
+                <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">np</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+    <span class="k">return</span> <span class="n">np</span></div>
 
 
 <div class="viewcode-block" id="motors_from_title"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.motors_from_title">[docs]</a><span class="k">def</span> <span class="nf">motors_from_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

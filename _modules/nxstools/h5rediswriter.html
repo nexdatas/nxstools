@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.h5rediswriter &#8212; NXSTools 4.53.0 documentation</title>
+    <title>nxstools.h5rediswriter &#8212; NXSTools 4.54.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.53</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.54</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -217,7 +217,8 @@
 
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">filewriter</span>
 <span class="kn">from</span> <span class="nn">.redisutils</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">REDIS</span><span class="p">,</span> <span class="n">getDataStore</span><span class="p">,</span> <span class="n">build_acq_chain</span><span class="p">,</span> <span class="n">build_plots</span><span class="p">)</span>
+    <span class="n">REDIS</span><span class="p">,</span> <span class="n">getDataStore</span><span class="p">,</span> <span class="n">build_acq_chain</span><span class="p">,</span> <span class="n">build_plots</span><span class="p">,</span>
+    <span class="n">progattrdesc</span><span class="p">,</span> <span class="n">progattr</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.nxsfileparser</span> <span class="kn">import</span> <span class="p">(</span><span class="n">getdsname</span><span class="p">,</span> <span class="n">getdssource</span><span class="p">,</span>
                             <span class="n">tolist</span><span class="p">,</span>
                             <span class="c1"># getdstype</span>
@@ -305,36 +306,6 @@
     <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="n">getdssource</span><span class="p">],</span>
     <span class="s2">&quot;nexdatas_source&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
     <span class="c1"># &quot;strategy&quot;: [&quot;nexdatas_strategy&quot;, str],</span>
-<span class="p">}</span>
-
-
-<div class="viewcode-block" id="splitstr"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5rediswriter.splitstr">[docs]</a><span class="k">def</span> <span class="nf">splitstr</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; split string separated by space</span>
-
-<span class="sd">    :param text: text to split</span>
-<span class="sd">    :type text: :obj:`str`</span>
-<span class="sd">    :param text: split text</span>
-<span class="sd">    :type text: :obj:`list` &lt;:obj:`str`&gt;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
-
-
-<span class="n">progattrdesc</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;npoints&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;npoints&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
-    <span class="s2">&quot;count_time&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;count_time&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
-    <span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;measurement_group_channels&quot;</span><span class="p">,</span> <span class="n">splitstr</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
-    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;scan_command&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-    <span class="s2">&quot;beamtime_id&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;beamtime_id&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-    <span class="c1"># Sardana&#39;s reference moveables (the scanned motor names). Captured</span>
-    <span class="c1"># only when the program datasource exposes a &quot;ref_moveables&quot; attribute;</span>
-    <span class="c1"># used to put the moved motor on the X-axis (acquisition_chain master)</span>
-    <span class="c1"># independently of the macro name. See build_acq_chain in redisutils.</span>
-    <span class="s2">&quot;reference_moveables&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ref_moveables&quot;</span><span class="p">,</span> <span class="n">splitstr</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
-<span class="p">}</span>
-
-<span class="n">titleplots</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;mesh&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter-plot&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter&quot;</span><span class="p">}]},</span>
 <span class="p">}</span>
 
 
@@ -1987,25 +1958,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;snapshot&quot;</span><span class="p">,</span> <span class="n">dsn</span><span class="p">])</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;program_name&quot;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="n">progattrdesc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="k">try</span><span class="p">:</span>
-                            <span class="n">np</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span>
-                                <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-                        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-                            <span class="n">np</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
-                        <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">or</span> <span class="n">np</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">])</span>
-                            <span class="c1"># print(key, np)</span>
-                            <span class="c1"># if key == &quot;title&quot; and isinstance(np, str):</span>
-                            <span class="c1">#     macro_name = np.split(&quot; &quot;)[0]</span>
-                            <span class="c1">#     for mn, plot in titleplots.items():</span>
-                            <span class="c1">#         if mn in macro_name:</span>
-                            <span class="c1">#             self.append_scaninfo(plot, [&quot;plots&quot;])</span>
-
-                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
-                        <span class="k">pass</span>
+                <span class="n">np</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">np</span> <span class="o">=</span> <span class="n">progattr</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="n">anames</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">or</span> <span class="n">np</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">set_scaninfo</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                    <span class="k">pass</span>
 
     <span class="k">def</span> <span class="nf">__set_channel_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; set channel value</span>

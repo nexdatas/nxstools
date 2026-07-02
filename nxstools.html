@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>nxstools package &#8212; NXSTools 4.53.0 documentation</title>
+    <title>nxstools package &#8212; NXSTools 4.54.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.53</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.54</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -643,7 +643,6 @@
 <li><a class="reference internal" href="#nxstools.h5rediswriter.load_file"><code class="docutils literal notranslate"><span class="pre">load_file()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.nptype"><code class="docutils literal notranslate"><span class="pre">nptype()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.open_file"><code class="docutils literal notranslate"><span class="pre">open_file()</span></code></a></li>
-<li><a class="reference internal" href="#nxstools.h5rediswriter.splitstr"><code class="docutils literal notranslate"><span class="pre">splitstr()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.target_field_view"><code class="docutils literal notranslate"><span class="pre">target_field_view()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.unlimited"><code class="docutils literal notranslate"><span class="pre">unlimited()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.h5rediswriter.unlimited_selection"><code class="docutils literal notranslate"><span class="pre">unlimited_selection()</span></code></a></li>
@@ -1495,7 +1494,10 @@
 <li><a class="reference internal" href="#nxstools.redisutils.build_acq_chain"><code class="docutils literal notranslate"><span class="pre">build_acq_chain()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.redisutils.build_plots"><code class="docutils literal notranslate"><span class="pre">build_plots()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.redisutils.getDataStore"><code class="docutils literal notranslate"><span class="pre">getDataStore()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.redisutils.joinstr"><code class="docutils literal notranslate"><span class="pre">joinstr()</span></code></a></li>
 <li><a class="reference internal" href="#nxstools.redisutils.motors_from_title"><code class="docutils literal notranslate"><span class="pre">motors_from_title()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.redisutils.progattr"><code class="docutils literal notranslate"><span class="pre">progattr()</span></code></a></li>
+<li><a class="reference internal" href="#nxstools.redisutils.splitstr"><code class="docutils literal notranslate"><span class="pre">splitstr()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-nxstools">Module contents</a><ul>
@@ -7261,20 +7263,6 @@ MCA/spectra channels get no explicit plot – flint infers their
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#nxstools.h5rediswriter.H5RedisFile" title="nxstools.h5rediswriter.H5RedisFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">H5RedisFile</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="nxstools.h5rediswriter.splitstr">
-<span class="sig-prename descclassname"><span class="pre">nxstools.h5rediswriter.</span></span><span class="sig-name descname"><span class="pre">splitstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/h5rediswriter.html#splitstr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.h5rediswriter.splitstr" title="Permalink to this definition">¶</a></dt>
-<dd><p>split string separated by space</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> &lt;<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>&gt;) – text to split</p></li>
-<li><p><strong>text</strong> – split text</p></li>
-</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -13733,6 +13721,23 @@ be exercised without a Redis backend.</p>
 <dd></dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="nxstools.redisutils.joinstr">
+<span class="sig-prename descclassname"><span class="pre">nxstools.redisutils.</span></span><span class="sig-name descname"><span class="pre">joinstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">textlst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/redisutils.html#joinstr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.redisutils.joinstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>join strings</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>textlst</strong> (<a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> &lt;<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>&gt;) – text strings to join</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>joined text</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="nxstools.redisutils.motors_from_title">
 <span class="sig-prename descclassname"><span class="pre">nxstools.redisutils.</span></span><span class="sig-name descname"><span class="pre">motors_from_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/redisutils.html#motors_from_title"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.redisutils.motors_from_title" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return moved-motor channel names parsed from a Sardana macro_command.</p>
@@ -13741,6 +13746,28 @@ be exercised without a Redis backend.</p>
 are kept (so a typo in the macro can’t push a non-existent channel
 into the acquisition chain). Returns <code class="docutils literal notranslate"><span class="pre">[]</span></code> for an unrecognised or
 motorless macro (e.g. <code class="docutils literal notranslate"><span class="pre">ct</span></code>).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nxstools.redisutils.progattr">
+<span class="sig-prename descclassname"><span class="pre">nxstools.redisutils.</span></span><span class="sig-name descname"><span class="pre">progattr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/redisutils.html#progattr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.redisutils.progattr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nxstools.redisutils.splitstr">
+<span class="sig-prename descclassname"><span class="pre">nxstools.redisutils.</span></span><span class="sig-name descname"><span class="pre">splitstr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nxstools/redisutils.html#splitstr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nxstools.redisutils.splitstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>split string separated by space</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – text to split</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>split text</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.5/library/stdtypes.html#list" title="(in Python v3.5)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> &lt;<a class="reference external" href="https://docs.python.org/2.7/library/functions.html#str" title="(in Python v2.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>&gt;</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
