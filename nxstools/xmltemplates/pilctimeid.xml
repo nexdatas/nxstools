@@ -21,13 +21,13 @@
           <field units="s" type="NX_FLOAT64" name="time_trigger_step_size">
             <strategy mode="FINAL"/>$datasources.$(name)_timetriggerstepsize</field>
           <field type="NX_CHAR" name="file_prefix">
-            <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field> 
+            <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field>
           <field type="NX_CHAR" name="file_dir">
-            <strategy mode="FINAL"/>$datasources.$(name)_filedir</field> 
-          <field type="NX_CHAR" name="file_names">
-            <strategy mode="STEP"/>$datasources.$(name)_filename</field> 
+            <strategy mode="FINAL"/>$datasources.$(name)_filedir</field>
+          <field type="NX_CHAR" name="first_file_name">
+            <strategy mode="INIT"/>$datasources.$(name)_filename</field>
           <field type="NX_CHAR" name="last_file_name">
-            <strategy mode="FINAL"/>$datasources.$(name)_filename</field> 
+            <strategy mode="FINAL"/>$datasources.$(name)_filename</field>
           <field type="NX_INT32" name="trigger_counter">
             <strategy mode="FINAL"/>$datasources.$(name)_triggercounter</field>
           <field type="NX_INT32" name="encoder_trigger">
@@ -59,7 +59,7 @@
           <field units="steps/unit" type="NX_FLOAT64" name="position5_conversion">
             <strategy mode="FINAL"/>$datasources.$(name)_position5conversion</field>
 	</group>
-        <group type="NXdata" name="data">	  
+        <group type="NXdata" name="data">
         </group>
       </group>
     </group>

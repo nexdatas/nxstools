@@ -1,3 +1,7 @@
+2026-07-03 Jan Kotanski <jankotan@gmail.com>
+	* change pilctimeid to be not STEP like (#937)
+	* tagged as v4.55.0
+
 2026-07-02 Jan Kotanski <jankotan@gmail.com>
 	* add MG name to blissdata title (#933)
 	* tagged as v4.54.0
