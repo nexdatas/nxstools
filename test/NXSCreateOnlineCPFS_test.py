@@ -339,7 +339,8 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                      "perkinelmerdetector",
                      "pilatus", "pilatus100k",
                      "pilatus1m", "pilatus2m", "pilatus300k",
-                     "pilatus6m", "pilc", "pilcslavevds", "pilctimeid",
+                     "pilatus6m", "pilc", "pilcfvds",
+                     "pilcslavevds", "pilctimeid",
                      "pilcvds", "pilcvds4",
                      "prodigyremote",
                      "tangovimba", "xspress3"])
@@ -382,6 +383,7 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
             'pco',
             'pilatus6m',            #
             "pilc",
+            "pilcfvds",
             "pilcslavevds",
             "pilctimeid",
             "pilcvds",
@@ -468,7 +470,8 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                              "perkinelmerdetector",
                              "pilatus", "pilatus100k",
                              "pilatus1m", "pilatus2m", "pilatus300k",
-                             "pilatus6m", "pilc", "pilcslavevds", "pilctimeid",
+                             "pilatus6m", "pilc", "pilcfvds",
+                             "pilcslavevds", "pilctimeid",
                              "pilcvds", "pilcvds4",
                              "prodigyremote",
                              "tangovimba", "xspress3"])
@@ -552,7 +555,8 @@ class NXSCreateOnlineCPFSTest(unittest.TestCase):
                  "perkinelmerdetector",
                  "pilatus", "pilatus100k",
                  "pilatus1m", "pilatus2m", "pilatus300k",
-                 "pilatus6m", "pilc", "pilcslavevds", "pilctimeid",
+                 "pilatus6m", "pilc", "pilcfvds",
+                 "pilcslavevds", "pilctimeid",
                  "pilcvds", "pilcvds4",
                  "prodigyremote",
                  "tangovimba", "xspress3"])

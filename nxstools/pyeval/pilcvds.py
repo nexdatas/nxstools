@@ -112,3 +112,81 @@ def vmap(commonblock, name, fieldname,
     if meta:
         vmap.update(meta)
     return json.dumps(vmap)
+
+
+def vds(commonblock, name, fieldname,
+        triggermode,
+        nbtriggers, triggersperfile,
+        hostname, device,
+        filename, entryname,
+        insname, pilcfileprefix, pilcfiledir,
+        timeid=False,
+        shortdetpath=None):
+    """ code for triggermode_cb  datasource
+
+    :param commonblock: commonblock of nxswriter
+    :type commonblock: :obj:`dict`<:obj:`str`, `any`>
+    :param name: component name
+    :type name: :obj:`str`
+    :param attrname: attribute name
+    :type attrname: :obj:`str`
+    :param triggermode:  trigger mode
+    :type triggermode: :obj:`int` or :obj:`str`
+    :param nbtriggers: a number of triggers
+    :type nbtriggers: :obj:`int`
+    :param triggersperfile: a number of triggers per file
+    :type triggersperfile: :obj:`int`
+    :param hostname: tango host name
+    :type hostname: :obj:`str`
+    :param device: tango device name
+    :type device: :obj:`str`
+    :param filename: master file name
+    :type filename: :obj:`str`
+    :param entryname: entry name
+    :type entryname: :obj:`str`
+    :param insname: instrument name
+    :type insname: :obj:`str`
+    :param pilcfileprefix: pilc file name prefix
+    :type pilcfileprefix :obj:`str`
+    :param pilcfiledir: pilc file name directory
+    :type pilcfiledir :obj:`str`
+    :param timeid: file id with timestamp
+    :type timeid: :obj:`bool`
+    :param shortdetpath: shortdetpath
+    :type shortdetpath: :obj:`bool`
+    :returns: triggermode
+    :rtype: :obj:`str` or :obj:`int`
+    """
+    step = commonblock["__counter__"] - 1
+    path = ""
+    if filename:
+        sfname = (filename).split("/")
+        path = sfname[-1].split(".")[0] + "/"
+        if shortdetpath is None and \
+                len(sfname) > 1 and sfname[-2] == path[:-1]:
+            path = ""
+        elif shortdetpath:
+            path = ""
+    fpattern = pilcfileprefix.split("/")[-1]
+    path += '%s/%s' % (name, fpattern)
+    if triggersperfile >= 1:
+        nbfiles = (nbtriggers + triggersperfile - 1) // triggersperfile
+    else:
+        nbfiles = 1
+
+    vmaps = []
+    for nbf in range(nbfiles):
+
+        if triggersperfile and nbtriggers > triggersperfile:
+            target = "%s_%05d.nxs:/entry/data/%s" % (path, nbf, fieldname)
+        else:
+            target = "%s%05d_00000.nxs:/entry/data/%s" % (
+                path[:-5], nbf, fieldname)
+
+        vsize = triggersperfile
+        if nbf == nbfiles - 1 and triggersperfile:
+            vsize = nbtriggers - nbf * triggersperfile
+        vmap = {"target": target, "key": step, "shape": [vsize],
+                "dsname": "%s_%s" % (name, fieldname)}
+        vmaps.append(vmap)
+    return json.dumps(vmaps)
