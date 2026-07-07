@@ -3402,7 +3402,10 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             self.shape = self.cure_shape(self.__vmaps, self.shape)
         # print("SHAPE12", shape)
         counter = 0
+        plugin = False
         for vmap in self.__vmaps:
+            if "plugin" in vmap and vmap["plugin"] in PLUGINS.keys():
+                plugin = True
             edtype = vmap["dtype"] \
                 if "dtype" in vmap else self.dtype
             key = vmap["key"] if "key" in vmap else counter
@@ -3458,6 +3461,15 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
         if self.dsname:
             self.set_scaninfo(
                 self.shape, ["datadesc", self.dsname, "__vmaps_shape__"])
+            if not plugin:
+                self.set_scaninfo(
+                    self.dtype, ["datadesc", self.dsname, "dtype"])
+                self.set_scaninfo(
+                    self.shape, ["datadesc", self.dsname, "shape"])
+                self.set_scaninfo(
+                    self.dsname, ["datadesc", self.dsname, "name"])
+                self.set_scaninfo(
+                    self.dsname, ["datadesc", self.dsname, "label"])
 
     @classmethod
     def find_shape(cls, key, eshape=None, change_unlimited=True):
