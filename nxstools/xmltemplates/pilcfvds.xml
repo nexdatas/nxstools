@@ -21,11 +21,11 @@
           <field units="s" type="NX_FLOAT64" name="time_trigger_step_size">
             <strategy mode="FINAL"/>$datasources.$(name)_timetriggerstepsize</field>
           <field type="NX_CHAR" name="file_prefix">
-            <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field> 
+            <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field>
           <field type="NX_CHAR" name="file_dir">
-            <strategy mode="FINAL"/>$datasources.$(name)_filedir</field> 
+            <strategy mode="FINAL"/>$datasources.$(name)_filedir</field>
           <field type="NX_CHAR" name="last_file_name">
-            <strategy mode="FINAL"/>$datasources.$(name)_filename</field> 
+            <strategy mode="FINAL"/>$datasources.$(name)_filename</field>
           <field type="NX_INT32" name="trigger_counter">
             <strategy mode="FINAL"/>$datasources.$(name)_triggercounter</field>
           <field type="NX_INT32" name="encoder_trigger">
@@ -57,34 +57,64 @@
           <field units="steps/unit" type="NX_FLOAT64" name="position5_conversion">
             <strategy mode="FINAL"/>$datasources.$(name)_position5conversion</field>
 	</group>
-        <group type="NXdata" name="data">	  
+        <group type="NXdata" name="data">
 	  <vds name="counter" type="NX_FLOAT32">
-	    <dimensions rank="2" />
+	    <dimensions rank="1">
+	      <dim index="1">
+		$datasources.$(name)_nbtriggers
+		<strategy mode="INIT"/>
+	      </dim>
+	    </dimensions>
 	    $datasources.$(name)_countervds
 	    <strategy mode="FINAL"/>
 	  </vds>
 	  <vds name="encoder_1" type="NX_FLOAT32">
-	    <dimensions rank="2" />
+	    <dimensions rank="1">
+	      <dim index="1">
+		$datasources.$(name)_nbtriggers
+		<strategy mode="INIT"/>
+	      </dim>
+	    </dimensions>
 	    $datasources.$(name)_encoder1vds
 	    <strategy mode="FINAL"/>
 	  </vds>
 	  <vds name="encoder_2" type="NX_FLOAT32">
-	    <dimensions rank="2" />
+	    <dimensions rank="1">
+	      <dim index="1">
+		$datasources.$(name)_nbtriggers
+		<strategy mode="INIT"/>
+	      </dim>
+	    </dimensions>
 	    $datasources.$(name)_encoder2vds
 	    <strategy mode="FINAL"/>
 	  </vds>
 	  <vds name="encoder_3" type="NX_FLOAT32">
-	    <dimensions rank="2" />
+	    <dimensions rank="1">
+	      <dim index="1">
+		$datasources.$(name)_nbtriggers
+		<strategy mode="INIT"/>
+	      </dim>
+	    </dimensions>
 	    $datasources.$(name)_encoder3vds
 	    <strategy mode="FINAL"/>
 	  </vds>
 	  <vds name="encoder_4" type="NX_FLOAT32">
-	    <dimensions rank="2" />
+	    <dimensions rank="1">
+	      <dim index="1">
+		$datasources.$(name)_nbtriggers
+		<strategy mode="INIT"/>
+	      </dim>
+	    </dimensions>
 	    $datasources.$(name)_encoder4vds
 	    <strategy mode="FINAL"/>
 	  </vds>
 	  <vds name="encoder_5" type="NX_FLOAT32">
-	    <dimensions rank="2" />
+	    <dimensions rank="1">
+	      <dim index="1">
+		$datasources.$(name)_nbtriggers
+		<strategy mode="INIT"/>
+	      </dim>
+	    </dimensions>
 	    $datasources.$(name)_encoder5vds
 	    <strategy mode="FINAL"/>
 	  </vds>

@@ -186,7 +186,10 @@ def vds(commonblock, name, fieldname,
         vsize = triggersperfile
         if nbf == nbfiles - 1 and triggersperfile:
             vsize = nbtriggers - nbf * triggersperfile
-        vmap = {"target": target, "key": step, "shape": [vsize],
+        vmap = {"target": target,
+                "key": [(nbf * triggersperfile),
+                        (nbf * triggersperfile + vsize)],
+                "shape": [vsize],
                 "dsname": "%s_%s" % (name, fieldname)}
         vmaps.append(vmap)
     return json.dumps(vmaps)
