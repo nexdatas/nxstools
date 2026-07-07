@@ -157,7 +157,7 @@ def vds(commonblock, name, fieldname,
     :returns: triggermode
     :rtype: :obj:`str` or :obj:`int`
     """
-    step = commonblock["__counter__"] - 1
+    # step = commonblock["__counter__"] - 1
     path = ""
     if filename:
         sfname = (filename).split("/")
