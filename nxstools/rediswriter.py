@@ -3470,7 +3470,7 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                     self.dsname, ["datadesc", self.dsname, "name"])
                 self.set_scaninfo(
                     self.dsname, ["datadesc", self.dsname, "label"])
-                nexus_path =  "%s/%s" % (self._tparent.path, self.fieldname)
+                nexus_path = "%s/%s" % (self._tparent.path, self.fieldname)
                 self.set_scaninfo(
                     nexus_path, ["datadesc", self.dsname, "nexus_path"])
 
