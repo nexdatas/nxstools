@@ -1,3 +1,7 @@
+2026-07-07 Jan Kotanski <jankotan@gmail.com>
+	* add pilcfvds template
+	* tagged as v4.56.0
+
 2026-07-03 Jan Kotanski <jankotan@gmail.com>
 	* change pilctimeid to be not STEP like (#937)
 	* tagged as v4.55.0
