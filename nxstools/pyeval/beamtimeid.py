@@ -109,6 +109,19 @@ def beamtimeid(commonblock, starttime, shortname, compath, curpath, locpath,
                 dirpath, tail = os.path.split(dirpath)
         except Exception:
             pass
+    if os.path.isdir(curpath):
+        try:
+            if os.path.isdir(curpath):
+                btml = [fl for fl in os.listdir(curpath)
+                        if (fl.startswith(curprefix)
+                            and fl.endswith(curext))]
+            if btml:
+                if strip:
+                    result = btml[0][len(curprefix):-len(curext)]
+                else:
+                    result = os.path.join(os.path.abspath(curpath), btml[0])
+        except Exception:
+            pass
     if not result:
         if strip:
             result = "%s_%s@%s" % (shortname, starttime, socket.gethostname())
