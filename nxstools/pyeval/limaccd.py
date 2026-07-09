@@ -101,7 +101,7 @@ def postrun(commonblock,
     if acq_mode == "SINGLE" and \
             acq_trigger_mode in ["INTERNAL_TRIGGER_MULTI",
                                  "EXTERNAL_TRIGGER_MULTI"] and \
-            saving_format == "HDF5":
+            saving_format in ["HDF5", "HDF5GZ", "HDF5BS"]:
         filelastnumber = saving_next_number - 1
         nbfiles = (acq_nb_frames + saving_frame_per_file - 1) \
             // saving_frame_per_file
@@ -313,7 +313,7 @@ def vmap(commonblock,
                 "EXTERNAL_TRIGGER",
                 "INTERNAL_TRIGGER_MULTI",
                 "EXTERNAL_TRIGGER_MULTI"] and \
-            saving_format == "HDF5":
+            saving_format in ["HDF5", "HDF5GZ", "HDF5BS"]:
 
         if "__root__" in commonblock.keys():
             root = commonblock["__root__"]
@@ -493,7 +493,7 @@ def event(commonblock,
            "EXTERNAL_TRIGGER",
            "INTERNAL_TRIGGER_MULTI",
            "EXTERNAL_TRIGGER_MULTI"] and \
-       saving_format == "HDF5":
+       saving_format in ["HDF5", "HDF5GZ", "HDF5BS"]:
         if step == 0:
             filedir = (saving_directory).replace("\\", "/")
             if len(filedir) > 1 and filedir[1] == ":":
