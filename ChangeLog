@@ -1,5 +1,6 @@
 2026-07-09 Jan Kotanski <jankotan@gmail.com>
 	* add support for beamtime Id when scandir is different then current directory (#943)
+	* add support for HDF5GZ and HDF5BS
 	* tagged as v4.57.0
 
 2026-07-07 Jan Kotanski <jankotan@gmail.com>
