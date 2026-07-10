@@ -1,3 +1,7 @@
+2026-07-10 Jan Kotanski <jankotan@gmail.com>
+	* add support for multi datadesc
+	* tagged as v4.58.0
+
 2026-07-09 Jan Kotanski <jankotan@gmail.com>
 	* add support for beamtime Id when scandir is different then current directory (#943)
 	* add support for HDF5GZ and HDF5BS
