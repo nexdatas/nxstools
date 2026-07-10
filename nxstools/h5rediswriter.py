@@ -1736,6 +1736,7 @@ class H5RedisField(H5Field):
         dsn = dsname
         while dsn in pars:
             dsn = dsn + "_"
+        sds["name"] = dsn
         self.set_scaninfo(sds, ["datadesc", dsn])
 
     def __set_init_channel_info(self, dsname, units, shape, strategy, o, av):
