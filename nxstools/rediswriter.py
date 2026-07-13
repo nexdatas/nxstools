@@ -3464,9 +3464,9 @@ class RedisVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
             # print("KEY", key, sourcekey, sourceshape, eshape)
             self.add(key, ef, sourcekey, sourceshape)
         if self.dsname:
-            self.set_scaninfo(
-                self.shape, ["datadesc", self.dsname, "__vmaps_shape__"])
             if not plugin:
+                self.set_scaninfo(
+                    self.shape, ["datadesc", self.dsname, "__vmaps_shape__"])
                 self.set_scaninfo(
                     self.dtype, ["datadesc", self.dsname, "dtype"])
                 self.set_scaninfo(

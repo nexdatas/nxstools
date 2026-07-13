@@ -1,3 +1,7 @@
+2026-07-13 Jan Kotanski <jankotan@gmail.com>
+	* set __vmaps_shape__ only if plugin is not defined (#951)
+	* tagged as v4.59.0
+
 2026-07-10 Jan Kotanski <jankotan@gmail.com>
 	* add support for multi datadesc
 	* tagged as v4.58.0
