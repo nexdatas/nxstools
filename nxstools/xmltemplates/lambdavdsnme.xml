@@ -1,0 +1,81 @@
+<?xml version='1.0'?>
+<definition>
+  <group type="NXentry" name="$var.entryname#'$(__entryname__)'$var.serialno">
+    <group type="NXinstrument" name="$(__insname__)">
+      <group type="NXdetector" name="$(name)">
+	<vds name="data" type="NX_INT32">
+	  <dimensions rank="3" />
+	  <map>
+	    $datasources.$(name)
+	    <strategy mode="STEP"/>
+	  </map>
+	</vds>
+        <field units="um" type="NX_FLOAT64" name="x_pixel_size">55<strategy mode="INIT"/>
+        </field>
+        <field units="um" type="NX_FLOAT64" name="y_pixel_size">55<strategy mode="INIT"/>
+        </field>
+        <field type="NX_CHAR" name="layout">area<strategy mode="INIT"/>
+        </field>
+        <field type="NX_CHAR" name="description">$(name)<strategy mode="INIT"/>
+        </field>
+        <field units="eV" type="NX_FLOAT32" name="threshold_energy">
+          <strategy mode="FINAL"/>$datasources.$(name)_energythreshold</field>
+        <group type="NXcollection" name="collection">
+          <field type="NX_INT16" name="trigger_mode">
+            <strategy mode="FINAL"/>$datasources.$(name)_triggermode</field>
+          <field units="ms" type="NX_FLOAT64" name="shutter_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_shuttertime</field>
+          <field units="ms" type="NX_FLOAT64" name="delay_time">
+            <strategy mode="FINAL"/>$datasources.$(name)_delaytime</field>
+          <field type="NX_INT64" name="frame_numbers">
+            <strategy mode="FINAL"/>$datasources.$(name)_framenumbers</field>
+          <field type="NX_BOOLEAN" name="save_all_images">
+            <strategy mode="FINAL"/>$datasources.$(name)_saveallimages</field>
+          <field type="NX_INT64" name="lastest_image_number">
+            <strategy mode="FINAL"/>$datasources.$(name)_latestimagenumber</field>
+          <field type="NX_INT64" name="total_loss_frames">
+            <strategy mode="FINAL"/>$datasources.$(name)_totallossframes</field>
+          <field type="NX_UINT64" name="width">
+            <strategy mode="FINAL"/>$datasources.$(name)_width</field>
+          <field type="NX_UINT64" name="height">
+            <strategy mode="FINAL"/>$datasources.$(name)_height</field>
+          <field type="NX_UINT64" name="depth">
+            <strategy mode="FINAL"/>$datasources.$(name)_depth</field>
+          <field type="NX_UINT16" name="distortion_correction">
+            <strategy mode="FINAL"/>$datasources.$(name)_distortioncorrection</field>
+        </group>
+        <group type="NXcollection" name="collection_extra">
+          <field type="NX_INT64" name="thread_no">
+            <strategy mode="FINAL"/>$datasources.$(name)_threadno</field>
+          <field type="NX_CHAR" name="config_file_path">
+            <strategy mode="FINAL"/>$datasources.$(name)_configfilepath</field>
+          <field type="NX_CHAR" name="file_prefix">
+            <strategy mode="FINAL"/>$datasources.$(name)_fileprefix</field>
+          <field type="NX_CHAR" name="file_start_num">
+            <strategy mode="INIT"/>$datasources.$(name)_filestartnum</field>
+          <field type="NX_CHAR" name="file_pre_ext">
+            <strategy mode="FINAL"/>$datasources.$(name)_filepreext</field>
+          <field type="NX_CHAR" name="file_postfix">
+            <strategy mode="FINAL"/>$datasources.$(name)_filepostfix</field>
+          <field type="NX_CHAR" name="save_file_path">
+            <strategy mode="FINAL"/>$datasources.$(name)_savefilepath</field>
+          <field type="NX_CHAR" name="frames_per_file">
+            <strategy mode="FINAL"/>$datasources.$(name)_framesperfile</field>
+          <field type="NX_CHAR" name="save_file_name">
+            <strategy mode="FINAL"/>$datasources.$(name)_savefilename</field>
+          <field type="NX_UINT16" name="compression_rate">
+            <strategy mode="FINAL"/>$datasources.$(name)_compressionrate</field>
+          <field type="NX_CHAR" name="layout">
+            <strategy mode="FINAL"/>$datasources.$(name)_layout</field>
+          <field units="ms" type="NX_FLOAT64" name="shutter_time_max">
+            <strategy mode="FINAL"/>$datasources.$(name)_shuttertimemax</field>
+          <field units="ms" type="NX_FLOAT64" name="shutter_time_min">
+            <strategy mode="FINAL"/>$datasources.$(name)_shuttertimemin</field>
+        </group>
+      </group>
+    </group>
+    <group type="NXdata" name="data">
+      <link target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data" name="$(name)"/>
+    </group>
+  </group>
+</definition>
