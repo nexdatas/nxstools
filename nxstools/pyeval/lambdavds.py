@@ -27,6 +27,187 @@ except Exception:
     import common
 
 
+def vmap(commonblock, name, triggermode,
+         translations, saveallimages,
+         fileprefix, filepreext, filepostfix,
+         filestartnum, framesperfile, framenumbers,
+         height, width, opmode, savefilepath, savefilename,
+         lastimagenumber, filename, entryname, insname, hostname, device,
+         shortdetpath=None):
+    """ code for triggermode_cb  datasource
+
+    :param commonblock: commonblock of nxswriter
+    :type commonblock: :obj:`dict`<:obj:`str`, `any`>
+    :param name: component name
+    :type name: :obj:`str`
+    :param triggermode:  trigger mode
+    :type triggermode: :obj:`int` or :obj:`str`
+    :param translations: json dictionary with translations
+    :type translations: :obj:`str`
+    :param saveallimages: save all images flag
+    :type saveallimages: :obj:`int` or :obj:`bool`
+    :param fileprefix: filename prefix
+    :type fileprefix:  :obj:`str`
+    :param filepreext: filename pre ext
+    :type filepreext:  :obj:`str`
+    :param filepostfix: filename postfix
+    :type filepostfix:  :obj:`str`
+    :param filestartnum: file start number
+    :type filestartnum:  :obj:`str`
+    :param framesperfile: a number of frames per file
+    :type framesperfile: :obj:`int`
+    :param framenumbers: The frame numbers need to be acquired
+    :type framenumbers: :obj:`int`
+    :param height: height of the image
+    :type height: :obj:`int`
+    :param width: width of the image
+    :type width: :obj:`int`
+    :param opmode: operation mode,
+                   i.e. 1="int8", 6="int8", 12="int16", 24="int32"
+    :type opmode:  :obj:`int`
+    :param savefilepath: savefilepath
+    :type savefilepath: :obj:`str`
+    :param savefilename: savefilename
+    :type savefilename: :obj:`str`
+    :param lastimagenumber: last image number
+    :type lastimagenumber: :obj:`int`
+    :param filename: master file name
+    :type filename: :obj:`str`
+    :param entryname: entry name
+    :type entryname: :obj:`str`
+    :param insname: instrument name
+    :type insname: :obj:`str`
+    :param hostname: tango host name
+    :type hostname: :obj:`str`
+    :param device: tango device name
+    :type device: :obj:`str`
+    :param shortdetpath: shortdetpath
+    :type shortdetpath: :obj:`bool`
+    :returns: json vmap
+    :rtype: :obj:`str`
+    """
+    step = commonblock["__counter__"] - 1
+    vmaps = []
+    if saveallimages and step == 0:
+        dtm = {1: "int8", 6: "int8", 12: "int16", 24: "int32"}
+        try:
+            dtype = dtm[opmode]
+        except Exception:
+            dtype = "int32"
+
+        modoffsets = json.loads(translations)
+        totalheight = 0
+        totalwidth = 0
+        totalframenumbers = 0
+        modsize = len(list(modoffsets.keys()))
+        for offset in modoffsets.values():
+            totalframenumbers = max(
+                totalframenumbers, framenumbers + offset[0])
+            totalheight = max(totalheight, height + offset[1])
+            totalwidth = max(totalwidth, width + offset[2])
+        shape = [totalheight, totalwidth]
+        unlimited = False
+        if totalframenumbers == framenumbers:
+            unlimited = True
+
+        path = ""
+        if filename:
+            sfname = (filename).split("/")
+            path = sfname[-1].split(".")[0] + "/"
+            if shortdetpath is None and \
+                    len(sfname) > 1 and sfname[-2] == path[:-1]:
+                path = ""
+            elif shortdetpath:
+                path = ""
+        # vfl = nxw.virtual_field_layout(
+        #     [totalframenumbers, totalheight, totalwidth], dtype)
+
+        if "__root__" in commonblock.keys():
+            root = commonblock["__root__"]
+            if type(root).__name__ == "RedisGroup":
+                import nxstools.rediswriter as nxw
+            elif root.h5object.__class__.__name__ == "File":
+                import nxstools.h5pywriter as nxw
+            else:
+                import nxstools.h5cppwriter as nxw
+        else:
+            raise Exception("Writer cannot be found")
+
+        npath = "/entry/instrument/detector/data"
+        for modulename, offset in modoffsets.items():
+            mfilename = path + name + "/" + str(savefilename)
+            if modsize != 1:
+                mfilename += "_" + modulename
+            mfilename += "." + str(filepostfix)
+            # target = "%s:/%s" % (mfilename, npath)
+            if unlimited:
+                key = [[None, nxw.unlimited()],
+                       [offset[1], height + offset[1]],
+                       [offset[2], width + offset[2]]]
+                sourcekey = [[None, nxw.unlimited()], [None], [None]]
+            else:
+
+                key = [[offset[0], framenumbers + offset[0]],
+                       [offset[1], height + offset[1]],
+                       [offset[2], width + offset[2]]]
+                sourcekey = [[None], [None], [None]]
+            vmap = {"fieldpath": npath,
+                    "filename": mfilename,
+                    "dtype": dtype,
+                    "key": key,
+                    "sourcekey": sourcekey,
+                    "shape": [totalframenumbers, shape[0], shape[1]],
+                    "dsname": "%s" % (name),
+                    # "plugin_stream": {"frame": step, "stored": True}
+                    }
+            vmaps.append(vmap)
+
+        #     ef = nxw.target_field_view(
+        #         mfilename, npath, [framenumbers, height, width], dtype)
+
+        #     if unlimited:
+        #         vfl.add(
+        #             (slice(None, nxw.unlimited()),
+        #              slice(offset[1], height + offset[1]),
+        #              slice(offset[2], width + offset[2])),
+        #             ef,
+        #             (slice(None, nxw.unlimited()),
+        #              slice(None), slice(None)))
+        #     else:
+        #         vfl.add(
+        #             (slice(offset[0], framenumbers + offset[0]),
+        #              slice(offset[1], height + offset[1]),
+        #              slice(offset[2], width + offset[2])),
+        #             ef,
+        #             (slice(None), slice(None), slice(None)))
+        # det.create_virtual_field("data", vfl)
+
+        # patternprefix = "%s/%s" % (pilcfiledir, pilcfileprefix)
+        # if triggersperfile and nbtriggers > triggersperfile:
+        #     pattern = "{prefix}_%05d.nxs".format(prefix=patternprefix)
+        # else:
+        #     pattern = "{prefix}%05d_00000.nxs".format(
+        #         prefix=(patternprefix[:-5]))
+        # meta = {
+        #     "plugin": "h5file_detector",
+        #     "plugin_def": {
+        #         "name": "%s" % (name),
+        #         "dtype": dtype,
+        #         "shape": shape,
+        #         "file_pattern": pattern,
+        #         "frames_per_file": totalframenumbers,
+        #         "data_path": npath,
+        #         "info": {"unit": ""},
+        #         "file_index_offset": 0,
+        #         "file_mode": "noframe"
+        #     }
+        # }
+
+        # if meta:
+        #     vmap.update(meta)
+        return json.dumps(vmaps)
+
+
 def nm_triggermode_cb(commonblock, name, triggermode,
                       translations, saveallimages,
                       filepostfix, framenumbers,

@@ -62,8 +62,8 @@ def vmap(commonblock, name, fieldname,
     :type timeid: :obj:`bool`
     :param shortdetpath: shortdetpath
     :type shortdetpath: :obj:`bool`
-    :returns: triggermode
-    :rtype: :obj:`str` or :obj:`int`
+    :returns: json map
+    :rtype: :obj:`str`
     """
     step = commonblock["__counter__"] - 1
     path = ""

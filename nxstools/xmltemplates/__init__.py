@@ -1906,6 +1906,9 @@ moduleTemplateFiles = {
     'lambdavdsnm': ['lambdavdsnm.xml',
                     'lambdavdsnm_triggermode_cb.ds.xml',
                     'lambdavdsnm_nxdata.ds.xml'],
+    'lambdavdsnme': ['lambdavdsnme.xml',
+                     'lambdavdsnme.ds.xml',
+                     'lambdavdsnme_nxdata.ds.xml'],
     'lambda2m': ['lambda2m.xml',
                  'lambda2m_m1_nxdata.ds.xml',
                  'lambda2m_m2_nxdata.ds.xml',
@@ -2398,6 +2401,16 @@ moduleMultiAttributes = {
         'LiveLastImageData', 'FramesPerFile', 'OpMode', 'Translations'
     ],
     'lambdavdsnm': [
+        'TriggerMode', 'ShutterTime', 'DelayTime', 'FrameNumbers', 'ThreadNo',
+        'EnergyThreshold', 'OperatingMode', 'ConfigFilePath', 'SaveAllImages',
+        'FilePrefix', 'FileStartNum', 'FilePreExt', 'FilePostfix',
+        'SaveFilePath', 'SaveFileName', 'LatestImageNumber', 'LiveMode',
+        'TotalLossFrames', 'CompressorShuffle', 'CompressionRate',
+        'CompressionEnabled', 'Layout', 'ShutterTimeMax', 'ShutterTimeMin',
+        'Width', 'Height', 'Depth', 'LiveFrameNo', 'DistortionCorrection',
+        'LiveLastImageData', 'FramesPerFile', 'OpMode', 'Translations'
+    ],
+    'lambdavdsnme': [
         'TriggerMode', 'ShutterTime', 'DelayTime', 'FrameNumbers', 'ThreadNo',
         'EnergyThreshold', 'OperatingMode', 'ConfigFilePath', 'SaveAllImages',
         'FilePrefix', 'FileStartNum', 'FilePreExt', 'FilePostfix',
