@@ -1,0 +1,9 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_nxdata">
+    <result name="result">
+ds.result = ""
+if ds.$(name)_saveallimages:
+    ds.result += "$var.entryname#'$(__entryname__)'$var.serialno:NXentry/$(__insname__)/$(name):NXdetector/data"</result>
+ $datasources.$(name)_saveallimages</datasource>
+</definition>

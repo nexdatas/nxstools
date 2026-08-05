@@ -32,7 +32,7 @@ def vmap(commonblock, name, triggermode,
          fileprefix, filepreext, filepostfix,
          filestartnum, framesperfile, framenumbers,
          height, width, opmode, savefilepath, savefilename,
-         lastimagenumber, filename, entryname, insname, hostname, device,
+         filename, entryname, insname, hostname, device,
          shortdetpath=None):
     """ code for triggermode_cb  datasource
 
@@ -69,8 +69,6 @@ def vmap(commonblock, name, triggermode,
     :type savefilepath: :obj:`str`
     :param savefilename: savefilename
     :type savefilename: :obj:`str`
-    :param lastimagenumber: last image number
-    :type lastimagenumber: :obj:`int`
     :param filename: master file name
     :type filename: :obj:`str`
     :param entryname: entry name
@@ -205,7 +203,7 @@ def vmap(commonblock, name, triggermode,
 
         # if meta:
         #     vmap.update(meta)
-        return json.dumps(vmaps)
+    return json.dumps(vmaps)
 
 
 def nm_triggermode_cb(commonblock, name, triggermode,

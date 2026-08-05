@@ -1,3 +1,7 @@
+2026-08-05 Jan Kotanski <jankotan@gmail.com>
+	* add lambdavdsnme template  (#954)
+	* tagged as v4.61.0
+
 2026-08-03 Jan Kotanski <jankotan@gmail.com>
 	* set __vmaps_shape__ back for plugin  (#954)
 	* tagged as v4.60.0
