@@ -103,7 +103,7 @@ def vmap(commonblock, name, triggermode,
                 totalframenumbers, framenumbers)
             totalheight = max(totalheight, height + round(offset[1]))
             totalwidth = max(totalwidth, width + round(offset[0]))
-        shape = [totalheight, totalwidth]
+        # shape = [totalheight, totalwidth]
         unlimited = False
         if totalframenumbers == framenumbers:
             unlimited = True
