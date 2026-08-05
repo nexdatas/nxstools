@@ -1717,15 +1717,10 @@ class H5CppVirtualFieldLayout(filewriter.FTVirtualFieldLayout):
                                             + start) + 1
                                     sizes[si] = max(sizes[si], size)
                                 else:
-                                    if si:
-                                        sizes[si] = max(
-                                            sizes[si],
-                                            eshape[si]
-                                            if len(eshape) > si else 1, 1)
-                                    else:
-                                        sizes[si] += max(
-                                            eshape[si]
-                                            if len(eshape) > si else 1, 1)
+                                    sizes[si] = max(
+                                        sizes[si],
+                                        eshape[si]
+                                        if len(eshape) > si else 1, 1)
                             else:
                                 if si:
                                     sizes[si] = max(
