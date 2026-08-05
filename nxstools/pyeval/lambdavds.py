@@ -100,9 +100,9 @@ def vmap(commonblock, name, triggermode,
         modsize = len(list(modoffsets.keys()))
         for offset in modoffsets.values():
             totalframenumbers = max(
-                totalframenumbers, framenumbers + offset[0])
+                totalframenumbers, framenumbers)
             totalheight = max(totalheight, height + offset[1])
-            totalwidth = max(totalwidth, width + offset[2])
+            totalwidth = max(totalwidth, width + offset[0])
         shape = [totalheight, totalwidth]
         unlimited = False
         if totalframenumbers == framenumbers:
@@ -141,13 +141,13 @@ def vmap(commonblock, name, triggermode,
             if unlimited:
                 key = [[None, nxw.unlimited()],
                        [offset[1], height + offset[1]],
-                       [offset[2], width + offset[2]]]
+                       [offset[0], width + offset[0]]]
                 sourcekey = [[None, nxw.unlimited()], [None], [None]]
             else:
 
-                key = [[offset[0], framenumbers + offset[0]],
+                key = [[0, framenumbers],
                        [offset[1], height + offset[1]],
-                       [offset[2], width + offset[2]]]
+                       [offset[0], width + offset[0]]]
                 sourcekey = [[None], [None], [None]]
             vmap = {"fieldpath": npath,
                     "filename": mfilename,
@@ -159,26 +159,6 @@ def vmap(commonblock, name, triggermode,
                     # "plugin_stream": {"frame": step, "stored": True}
                     }
             vmaps.append(vmap)
-
-        #     ef = nxw.target_field_view(
-        #         mfilename, npath, [framenumbers, height, width], dtype)
-
-        #     if unlimited:
-        #         vfl.add(
-        #             (slice(None, nxw.unlimited()),
-        #              slice(offset[1], height + offset[1]),
-        #              slice(offset[2], width + offset[2])),
-        #             ef,
-        #             (slice(None, nxw.unlimited()),
-        #              slice(None), slice(None)))
-        #     else:
-        #         vfl.add(
-        #             (slice(offset[0], framenumbers + offset[0]),
-        #              slice(offset[1], height + offset[1]),
-        #              slice(offset[2], width + offset[2])),
-        #             ef,
-        #             (slice(None), slice(None), slice(None)))
-        # det.create_virtual_field("data", vfl)
 
         # patternprefix = "%s/%s" % (pilcfiledir, pilcfileprefix)
         # if triggersperfile and nbtriggers > triggersperfile:
@@ -263,9 +243,9 @@ def nm_triggermode_cb(commonblock, name, triggermode,
         modsize = len(list(modoffsets.keys()))
         for offset in modoffsets.values():
             totalframenumbers = max(
-                totalframenumbers, framenumbers + offset[0])
+                totalframenumbers, framenumbers)
             totalheight = max(totalheight, height + offset[1])
-            totalwidth = max(totalwidth, width + offset[2])
+            totalwidth = max(totalwidth, width + offset[0])
         unlimited = False
         if totalframenumbers == framenumbers:
             unlimited = True
@@ -308,15 +288,15 @@ def nm_triggermode_cb(commonblock, name, triggermode,
                 vfl.add(
                     (slice(None, nxw.unlimited()),
                      slice(offset[1], height + offset[1]),
-                     slice(offset[2], width + offset[2])),
+                     slice(offset[0], width + offset[0])),
                     ef,
                     (slice(None, nxw.unlimited()),
                      slice(None), slice(None)))
             else:
                 vfl.add(
-                    (slice(offset[0], framenumbers + offset[0]),
+                    (slice(0, framenumbers),
                      slice(offset[1], height + offset[1]),
-                     slice(offset[2], width + offset[2])),
+                     slice(offset[0], width + offset[0])),
                     ef,
                     (slice(None), slice(None), slice(None)))
         det.create_virtual_field("data", vfl)

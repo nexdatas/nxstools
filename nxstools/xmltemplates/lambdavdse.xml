@@ -75,7 +75,7 @@
       </group>
     </group>
     <group type="NXdata" name="data">
-      <link name="$(name)">$datasources.$(name)_nxdata<strategy mode="FINAL"/></link>
+      <link target="/$var.entryname#'$(__entryname__)'$var.serialno/$(__insname__)/$(name)/data" name="$(name)"/>
     </group>
   </group>
 </definition>
