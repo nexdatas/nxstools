@@ -101,8 +101,8 @@ def vmap(commonblock, name, triggermode,
         for offset in modoffsets.values():
             totalframenumbers = max(
                 totalframenumbers, framenumbers)
-            totalheight = max(totalheight, height + offset[1])
-            totalwidth = max(totalwidth, width + offset[0])
+            totalheight = max(totalheight, height + round(offset[1]))
+            totalwidth = max(totalwidth, width + round(offset[0]))
         shape = [totalheight, totalwidth]
         unlimited = False
         if totalframenumbers == framenumbers:
@@ -140,14 +140,14 @@ def vmap(commonblock, name, triggermode,
             # target = "%s:/%s" % (mfilename, npath)
             if unlimited:
                 key = [[None, nxw.unlimited()],
-                       [offset[1], height + offset[1]],
-                       [offset[0], width + offset[0]]]
+                       [round(offset[1]), height + round(offset[1])],
+                       [round(offset[0]), width + round(offset[0])]]
                 sourcekey = [[None, nxw.unlimited()], [None], [None]]
             else:
 
                 key = [[0, framenumbers],
-                       [offset[1], height + offset[1]],
-                       [offset[0], width + offset[0]]]
+                       [round(offset[1]), height + round(offset[1])],
+                       [round(offset[0]), width + round(offset[0])]]
                 sourcekey = [[None], [None], [None]]
             vmap = {"fieldpath": npath,
                     "filename": mfilename,
@@ -244,8 +244,8 @@ def nm_triggermode_cb(commonblock, name, triggermode,
         for offset in modoffsets.values():
             totalframenumbers = max(
                 totalframenumbers, framenumbers)
-            totalheight = max(totalheight, height + offset[1])
-            totalwidth = max(totalwidth, width + offset[0])
+            totalheight = max(totalheight, height + round(offset[1]))
+            totalwidth = max(totalwidth, width + round(offset[0]))
         unlimited = False
         if totalframenumbers == framenumbers:
             unlimited = True
@@ -287,16 +287,16 @@ def nm_triggermode_cb(commonblock, name, triggermode,
             if unlimited:
                 vfl.add(
                     (slice(None, nxw.unlimited()),
-                     slice(offset[1], height + offset[1]),
-                     slice(offset[0], width + offset[0])),
+                     slice(round(offset[1]), height + round(offset[1])),
+                     slice(round(offset[0]), width + round(offset[0]))),
                     ef,
                     (slice(None, nxw.unlimited()),
                      slice(None), slice(None)))
             else:
                 vfl.add(
                     (slice(0, framenumbers),
-                     slice(offset[1], height + offset[1]),
-                     slice(offset[0], width + offset[0])),
+                     slice(round(offset[1]), height + round(offset[1])),
+                     slice(round(offset[0]), width + round(offset[0]))),
                     ef,
                     (slice(None), slice(None), slice(None)))
         det.create_virtual_field("data", vfl)
