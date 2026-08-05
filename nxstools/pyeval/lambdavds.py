@@ -154,7 +154,7 @@ def vmap(commonblock, name, triggermode,
                     "dtype": dtype,
                     "key": key,
                     "sourcekey": sourcekey,
-                    "shape": [totalframenumbers, shape[0], shape[1]],
+                    "shape": [totalframenumbers, height, width],
                     "dsname": "%s" % (name),
                     # "plugin_stream": {"frame": step, "stored": True}
                     }
@@ -183,6 +183,7 @@ def vmap(commonblock, name, triggermode,
 
         # if meta:
         #     vmap.update(meta)
+    print(vmaps)
     return json.dumps(vmaps)
 
 
