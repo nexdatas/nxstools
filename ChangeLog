@@ -1,3 +1,7 @@
+2026-08-06 Jan Kotanski <jankotan@gmail.com>
+	* remove delaytime from  lambda template  (#963)
+	* tagged as v4.62.0
+
 2026-08-05 Jan Kotanski <jankotan@gmail.com>
 	* add lambdavdsnme template  (#954)
 	* tagged as v4.61.0

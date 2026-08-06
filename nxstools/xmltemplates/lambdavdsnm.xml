@@ -18,8 +18,6 @@
             <strategy mode="FINAL"/>$datasources.$(name)_triggermode_cb</field>
           <field units="ms" type="NX_FLOAT64" name="shutter_time">
             <strategy mode="FINAL"/>$datasources.$(name)_shuttertime</field>
-          <field units="ms" type="NX_FLOAT64" name="delay_time">
-            <strategy mode="FINAL"/>$datasources.$(name)_delaytime</field>
           <field type="NX_INT64" name="frame_numbers">
             <strategy mode="STEP"/>$datasources.$(name)_framenumbers</field>
           <field type="NX_BOOLEAN" name="save_all_images">
