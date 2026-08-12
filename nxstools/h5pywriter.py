@@ -755,7 +755,7 @@ class H5PYGroup(filewriter.FTGroup):
         """
         if type_code in ['string', b'string']:
             type_code = h5py.special_dtype(vlen=unicode)
-        if type_code in ['ascii', b'ascii']:
+        elif type_code in ['ascii', b'ascii']:
             type_code = h5py.special_dtype(vlen=bytes)
         if type_code in [h5py.special_dtype(vlen=unicode),
                          h5py.special_dtype(vlen=bytes)] and \
