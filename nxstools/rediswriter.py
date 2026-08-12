@@ -373,47 +373,6 @@ def _slice2selection(t, shape):
             return filewriter.FTHyperslab(offset, block, count, stride)
 
 
-# pTh = {
-#     "long": h5cpp.datatype.Integer,
-#     "str": h5cpp.datatype.kVariableString,
-#     "unicode": h5cpp.datatype.kVariableString,
-#     "bool": h5cpp.datatype.kEBool,
-#     "int": h5cpp.datatype.kInt64,
-#     "int64": h5cpp.datatype.kInt64,
-#     "int32": h5cpp.datatype.kInt32,
-#     "int16": h5cpp.datatype.kInt16,
-#     "int8": h5cpp.datatype.kInt8,
-#     "uint": h5cpp.datatype.kInt64,
-#     "uint64": h5cpp.datatype.kUInt64,
-#     "uint32": h5cpp.datatype.kUInt32,
-#     "uint16": h5cpp.datatype.kUInt16,
-#     "uint8": h5cpp.datatype.kUInt8,
-#     "float": h5cpp.datatype.kFloat32,
-#     "float64": h5cpp.datatype.kFloat64,
-#     "float32": h5cpp.datatype.kFloat32,
-#     "string": h5cpp.datatype.kVariableString,
-# }
-
-
-# hTp = {
-#     h5cpp.datatype.Integer: "long",
-#     h5cpp.datatype.kVariableString: "string",
-#     h5cpp._datatype.Class.STRING: "string",
-#     h5cpp.datatype.kInt64: "int64",
-#     h5cpp.datatype.kInt32: "int32",
-#     h5cpp.datatype.kInt16: "int16",
-#     h5cpp.datatype.kInt8: "int8",
-#     h5cpp.datatype.kInt64: "uint",
-#     h5cpp.datatype.kUInt64: "uint64",
-#     h5cpp.datatype.kUInt32: "uint32",
-#     h5cpp.datatype.kUInt16: "uint16",
-#     h5cpp.datatype.kUInt8: "uint8",
-#     h5cpp.datatype.Float: "float",
-#     h5cpp.datatype.kFloat64: "float64",
-#     h5cpp.datatype.kFloat32: "float32",
-# }
-
-
 def unlimited(parent=None):
     """ return dataspace UNLIMITED variable for the current writer module
 

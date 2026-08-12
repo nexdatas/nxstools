@@ -246,6 +246,7 @@ pTh = {
     "long": h5cpp.datatype.Integer,
     "str": h5cpp.datatype.kVariableString,
     "unicode": h5cpp.datatype.kVariableString,
+    "ascii": h5cpp.datatype.kVariableString,
     "bool": h5cpp.datatype.kEBool,
     "int": h5cpp.datatype.kInt64,
     "int64": h5cpp.datatype.kInt64,
@@ -262,7 +263,6 @@ pTh = {
     "float32": h5cpp.datatype.kFloat32,
     "string": h5cpp.datatype.kVariableString,
 }
-
 
 hTp = {
     h5cpp.datatype.Integer: "long",
@@ -281,6 +281,15 @@ hTp = {
     h5cpp.datatype.kFloat64: "float64",
     h5cpp.datatype.kFloat32: "float32",
 }
+
+
+if hasattr(h5cpp.datatype, "kVariableASCII"):
+    pTh["ascii"] = h5cpp.datatype.kVariableASCII
+    hTp[h5cpp.datatype.kVariableASCII] = "ascii"
+if hasattr(h5cpp.datatype, "kVariableUTF8"):
+    pTh["unicode"] = h5cpp.datatype.kVariableUTF8
+    pTh["str"] = h5cpp.datatype.kVariableUTF8
+    hTp[h5cpp.datatype.kVariableUTF8] = "unicode"
 
 
 def unlimited(parent=None):
@@ -904,7 +913,7 @@ class H5CppGroup(filewriter.FTGroup):
         :rtype: :class:`H5CppField`
         """
         dcpl = h5cpp.property.DatasetCreationList()
-        if type_code in ["str", "unicode", "string"] and \
+        if type_code in ["str", "unicode", "string", "ascii"] and \
            shape is None and chunk is None:
             dataspace = h5cpp.dataspace.Scalar()
             return H5CppField(h5cpp.node.Dataset(

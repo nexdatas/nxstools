@@ -1,4 +1,8 @@
 2026-08-06 Jan Kotanski <jankotan@gmail.com>
+	* writer string in h5cpp as utf8  (#966)
+	* tagged as v4.63.0
+
+2026-08-06 Jan Kotanski <jankotan@gmail.com>
 	* remove delaytime from  lambda template  (#963)
 	* tagged as v4.62.0
 

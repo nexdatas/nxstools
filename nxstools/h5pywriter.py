@@ -215,6 +215,8 @@ def nptype(dtype):
     """
     if str(dtype) in ['string', b'string']:
         return 'str'
+    if str(dtype) in ['ascii', b'ascii']:
+        return 'str'
     return dtype
 
 
@@ -753,8 +755,10 @@ class H5PYGroup(filewriter.FTGroup):
         """
         if type_code in ['string', b'string']:
             type_code = h5py.special_dtype(vlen=unicode)
-            # type_code = h5py.special_dtype(vlen=bytes)
-        if type_code == h5py.special_dtype(vlen=unicode) and \
+        elif type_code in ['ascii', b'ascii']:
+            type_code = h5py.special_dtype(vlen=bytes)
+        if type_code in [h5py.special_dtype(vlen=unicode),
+                         h5py.special_dtype(vlen=bytes)] and \
            shape is None and chunk is None:
             return H5PYField(
                 self._h5object.create_dataset(name,  (), type_code), self)
@@ -1575,6 +1579,15 @@ class H5PYAttributeManager(filewriter.FTAttributeManager):
                 self._h5object.create(
                     name, np.empty(shape, dtype=etype),
                     shape=shape, dtype=nptype(dtype))
+            elif dtype in ['ascii', b'ascii']:
+                dtype = h5py.special_dtype(vlen=bytes)
+                if is_strings_as_bytes():
+                    etype = 'str'
+                else:
+                    etype = dtype
+                self._h5object.create(
+                    name, np.empty(shape, dtype=etype),
+                    shape=shape, dtype=nptype(dtype))
             else:
                 self._h5object.create(
                     name, np.zeros(shape, dtype=dtype),
@@ -1584,6 +1597,11 @@ class H5PYAttributeManager(filewriter.FTAttributeManager):
                 dtype = h5py.special_dtype(vlen=unicode)
                 self._h5object.create(
                     name, np.array(u"", dtype=dtype),
+                    dtype=dtype)
+            elif dtype in ['ascii', b'ascii']:
+                dtype = h5py.special_dtype(vlen=bytes)
+                self._h5object.create(
+                    name, np.array("", dtype=dtype),
                     dtype=dtype)
             else:
                 self._h5object.create(
@@ -1730,6 +1748,12 @@ class H5PYAttribute(filewriter.FTAttribute):
                 self._h5object[0][self.name] = unicode(o)
             else:
                 dtype = h5py.special_dtype(vlen=unicode)
+                self._h5object[0][self.name] = np.array(o, dtype=dtype)
+        elif self.dtype in ['ascii', b'ascii']:
+            if isinstance(o, str):
+                self._h5object[0][self.name] = unicode(o)
+            else:
+                dtype = h5py.special_dtype(vlen=bytes)
                 self._h5object[0][self.name] = np.array(o, dtype=dtype)
         else:
             self._h5object[0][self.name] = np.array(o, dtype=self.dtype)
