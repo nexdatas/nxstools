@@ -29,10 +29,8 @@ import binascii
 import docutils.parsers.rst
 import docutils.utils
 import getpass
-import pwd
 from dateutil import parser as duparser
 import time
-import grp
 import shutil
 import base64
 import PIL
@@ -43,6 +41,16 @@ from io import BytesIO
 from nxstools import nxsfileinfo
 from nxstools import filewriter
 
+PWD_GRP = True
+try:
+    import pwd
+except ImportError:
+    PWD_GRP = False
+
+try:
+    import grp
+except ImportError:
+    PWD_GRP = False
 
 try:
     from cStringIO import StringIO
@@ -9273,8 +9281,9 @@ For more help:
                 self.assertEqual(df["uid"], getpass.getuser())
                 self.assertTrue(df["perm"] in ['-rw-r--r--', '-rw-rw-r--'])
 
-                gid = pwd.getpwnam(getpass.getuser()).pw_gid
-                self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
+                if PWD_GRP:
+                    gid = pwd.getpwnam(getpass.getuser()).pw_gid
+                    self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
 
                 tm = df["time"]
                 if sys.version_info > (3,):
@@ -9420,8 +9429,9 @@ For more help:
                 self.assertEqual(df["uid"], getpass.getuser())
                 self.assertTrue(df["perm"] in ['-rw-r--r--', '-rw-rw-r--'])
 
-                gid = pwd.getpwnam(getpass.getuser()).pw_gid
-                self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
+                if PWD_GRP:
+                    gid = pwd.getpwnam(getpass.getuser()).pw_gid
+                    self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
 
                 tm = df["time"]
                 if sys.version_info > (3,):
@@ -9529,8 +9539,9 @@ For more help:
                 self.assertEqual(df["uid"], getpass.getuser())
                 self.assertTrue(df["perm"] in ['-rw-r--r--', '-rw-rw-r--'])
 
-                gid = pwd.getpwnam(getpass.getuser()).pw_gid
-                self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
+                if PWD_GRP:
+                    gid = pwd.getpwnam(getpass.getuser()).pw_gid
+                    self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
 
                 tm = df["time"]
                 if sys.version_info > (3,):
@@ -9647,8 +9658,9 @@ For more help:
                 self.assertEqual(df["uid"], getpass.getuser())
                 self.assertTrue(df["perm"] in ['-rw-r--r--', '-rw-rw-r--'])
 
-                gid = pwd.getpwnam(getpass.getuser()).pw_gid
-                self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
+                if PWD_GRP:
+                    gid = pwd.getpwnam(getpass.getuser()).pw_gid
+                    self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
 
                 tm = df["time"]
                 if sys.version_info > (3,):
