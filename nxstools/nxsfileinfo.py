@@ -27,8 +27,6 @@ import stat
 import re
 import time
 import datetime
-import pwd
-import grp
 import fnmatch
 import yaml
 import base64
@@ -3461,10 +3459,12 @@ class OrigDatablock(Runner):
             rec["size"] = status.st_size
             rec["time"] = self.isotime(status.st_ctime)
             try:
+                import pwd
                 rec["uid"] = pwd.getpwuid(status.st_uid).pw_name
             except Exception:
                 rec["uid"] = status.st_uid
             try:
+                import grp
                 rec["gid"] = grp.getgrgid(status.st_gid).gr_name
             except Exception:
                 rec["gid"] = status.st_gid
