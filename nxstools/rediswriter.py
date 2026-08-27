@@ -31,7 +31,7 @@ from . import filewriter
 # from .Types import nptype
 from .redisutils import (
     REDIS, getDataStore, build_acq_chain, build_plots,
-    progattrdesc, progattr)
+    progattrdesc, progattr, get_title)
 from .nxsfileparser import (getdsname, getdssource,
                             tolist,
                             # getdstype
@@ -1163,7 +1163,7 @@ class RedisFile(filewriter.FTFile):
         1d-plot from the acquisition_chain. See :func:`redisutils.build_plots`.
         """
         result = build_plots(
-            title=self.get_scaninfo(["title"]),
+            title=get_title(self.get_scaninfo(["title"])),
             channels=self.get_scaninfo(["channels"]),
             ref_moveables=self.get_scaninfo(["reference_moveables"]),
         )
@@ -1185,7 +1185,7 @@ class RedisFile(filewriter.FTFile):
             channels = self.get_channels()
             acq_chain = build_acq_chain(
                 devices,
-                title=self.get_scaninfo(["title"]),
+                title=get_title(self.get_scaninfo(["title"])),
                 channels=channels,
                 ref_moveables=self.get_scaninfo(["reference_moveables"]),
             )

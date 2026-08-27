@@ -110,6 +110,19 @@ def joinstr(textlst):
     return ", ".join(textlst)
 
 
+def get_title(fulltitle):
+    """ join strings
+
+    :param fulltitle: title with MG in front of
+    :type fulltitle: :obj:`str`
+    :returns: joined text
+    :rtype: :obj:`str`
+    """
+    if ", " not in fulltitle:
+        return fulltitle
+    return fulltitle.split(", ", -1)[-1]
+
+
 progattrdesc = {
     "npoints": ["npoints", int, True],
     "count_time": ["count_time", float, True],

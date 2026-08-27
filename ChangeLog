@@ -1,5 +1,6 @@
 2026-08-27 Jan Kotanski <jankotan@gmail.com>
 	* change scripts to entry points  (#972)
+	* split title from fulltitle (#974)
 	* tagged as v4.64.0
 
 2026-08-14 Jan Kotanski <jankotan@gmail.com>
