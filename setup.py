@@ -132,14 +132,25 @@ SETUPDATA = dict(
               "nxstools.ontology"],
     package_data={'nxstools.xmltemplates': ['*.xml'],
                   'nxstools.ontology': ['*.json']},
-    scripts=[
-        'nxsconfig',
-        'nxsdata',
-        'nxscreate',
-        'nxscollect',
-        'nxsetup',
-        'nxsfileinfo',
-    ],
+    # scripts=[
+    #     'nxsconfig',
+    #     'nxsdata',
+    #     'nxscreate',
+    #     'nxscollect',
+    #     'nxsetup',
+    #     'nxsfileinfo',
+    # ],
+    entry_points={
+        'console_scripts':
+        [
+            'nxsconfig = nxstools.nxsconfig:main',
+            'nxscreate = nxstools.nxscreate:main',
+            'nxsdata = nxstools.nxsdata:main',
+            'nxsetup = nxstools.nxsetup:main',
+            'nxsfileinfo = nxstools.nxsfileinfo:main',
+            'nxscollect = nxstools.nxscollect:main',
+        ]
+    },
     cmdclass={
         # 'test': TestCommand,
         'build_sphinx': BuildDoc

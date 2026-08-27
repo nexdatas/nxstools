@@ -1,3 +1,7 @@
+2026-08-27 Jan Kotanski <jankotan@gmail.com>
+	* change scripts to entry points  (#972)
+	* tagged as v4.64.0
+
 2026-08-14 Jan Kotanski <jankotan@gmail.com>
 	* import pwd and grp locally  (#969)
 	* tagged as v4.63.1
