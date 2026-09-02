@@ -37,6 +37,9 @@ requirements:
     - blissdata
     - pytest
     - docutils
+    - nxsconfigserver
+    - nxswriter
+    - nxsrecselector
   run:
     - python
     - numpy
