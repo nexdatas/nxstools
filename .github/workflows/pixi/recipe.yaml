@@ -15,7 +15,7 @@ build:
   number: 0
   script:
     - python -m pip install . -vv --no-deps --no-build-isolation
-    - python -m pytest test
+    - python -m unittest test/NXSConfig_test.py
 
 requirements:
   host:
