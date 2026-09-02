@@ -36,6 +36,7 @@ requirements:
     - matplotlib-base
     - blissdata
     - pytest
+    - docutils
   run:
     - python
     - numpy
