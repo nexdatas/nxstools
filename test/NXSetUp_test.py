@@ -393,7 +393,8 @@ For more help:
             "optionalarguments:", "options:")
         h2 = "".join(vl.split()).replace(
             "optionalarguments:", "options:").replace(
-                "usage:python3", "usage:")
+                "usage:python3", "usage:").replace(
+                    "usage:python", "usage:")
         if len(h2) > len(h1):
             self.assertEqual(h2[:len(h1)], h1)
         else:
@@ -413,7 +414,8 @@ For more help:
                 "optionalarguments:", "options:")
             h2 = "".join(vl.split()).replace(
                 "optionalarguments:", "options:").replace(
-                    "usage:python3", "usage:")
+                    "usage:python3", "usage:").replace(
+                        "usage:python", "usage:")
             if len(h2) > len(h1):
                 self.assertEqual(h2[:len(h1)], h1)
             else:
