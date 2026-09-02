@@ -50,6 +50,7 @@ requirements:
     - h5py
     - matplotlib-base
     - blissdata
+    - docutils
     # - blissdata-h5file-detector
 
 tests:
