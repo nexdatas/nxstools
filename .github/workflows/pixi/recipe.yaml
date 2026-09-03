@@ -21,8 +21,8 @@ build:
     - echo "$PREFIX"
     - echo "$BUILD_PREFIX"
     # - ls -ltr  $PREFIX/bin/NXSConfigServer
-    - ls -ltr  $SRC_DIR/test/TestServer
-    - echo "export MYTANGO_PREFIX=$PREFIX/bin\nexport MYTEST_PREFIX=$SRC_DIR/test\n" > /home/tango/.env
+    - ls -ltr  $BUILD_PREFIX/test/TestServer
+    - echo "export MYTANGO_PREFIX=$PREFIX/bin\nexport MYTEST_PREFIX=$BUILD_PREFIX/test\n" > /home/tango/.env
     # - /usr/bin/NXSConfigServer hahaha
     # - python -m unittest test.NXSetUp_test.NXSetUpTest.test_addrecorderpath_all
     - python test
