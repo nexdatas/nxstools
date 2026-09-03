@@ -20,6 +20,7 @@ build:
     - echo "$PREFIX"
     - echo "$BUILD_PREFIX"
     - ls -ltr  $PREFIX/bin/NXSConfigServer
+    - echo "export MYTANGO_PREFIX=$PREFIX/bin" > /usr/lib/tango/.env
     - /usr/bin/NXSConfigServer hahaha
     # - python -m unittest test.NXSetUp_test.NXSetUpTest.test_set_nxsconfigserver
     
