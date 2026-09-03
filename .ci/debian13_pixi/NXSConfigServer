@@ -1,3 +1,13 @@
 #!/bin/bash
 source /home/tango/.sh.sh
-/var/lib/tango/.pixi/envs/default/bin/NXSConfigServer $*
+
+if [ ! -z "$PREFIX" ]; then
+    TANGO_PREFIX=$PREFIX/bin
+elif [ ! -z "$BUILD_PREFIX" ]; then
+    TANGO_PREFIX=$BUILD_PREFIX/bin
+else
+    TANGO_PREFIX=/usr/lib/tango/server
+fi
+    
+# [ -z "$PREFIX" ] && PREFIX="/usr"
+$TANGO_PREFIX/NXSConfigServer $*
