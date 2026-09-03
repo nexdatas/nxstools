@@ -27,6 +27,7 @@ COPY NXSDataWriter /usr/bin/NXSDataWriter
 COPY NXSRecSelector /usr/bin/NXSRecSelector
 COPY MacroServer /usr/bin/MacroServer
 COPY Pool /usr/bin/Pool
+COPY TestServer /usr/bin/TestServer
 
 
 ENV PKG_CONFIG_PATH=/home/tango/lib/pkgconfig
