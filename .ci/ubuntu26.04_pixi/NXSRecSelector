@@ -4,5 +4,5 @@ source /etc/tangorc
 source /home/tango/.env
 
 # echo "$MYTANGO_PREFIX"
-    
+
 $MYTANGO_PREFIX/NXSRecSelector $*

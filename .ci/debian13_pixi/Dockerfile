@@ -36,6 +36,8 @@ RUN /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections 
 
 
 COPY NXSConfigServer /usr/bin/NXSConfigServer
+COPY NXSDataWriter /usr/bin/NXSDataWriter
+COPY NXSRecSelector /usr/bin/NXSRecSelector
 
 ENV PKG_CONFIG_PATH=/home/tango/lib/pkgconfig
 USER tango

@@ -23,6 +23,9 @@ RUN /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections 
      && sed -i "s/\[mysql\]/\[mysqld\]\nsql_mode = NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION\ncharacter-set-collations = latin1=latin1_swedish_ci\ncharacter-set-server=latin1\n\[mysql\]/g" /etc/mysql/conf.d/mysql.cnf
 
 COPY NXSConfigServer /usr/bin/NXSConfigServer
+COPY NXSDataWriter /usr/bin/NXSDataWriter
+COPY NXSRecSelector /usr/bin/NXSRecSelector
+
 
 ENV PKG_CONFIG_PATH=/home/tango/lib/pkgconfig
 

@@ -25,7 +25,7 @@ build:
     # - python -m unittest test.NXSetUp_test.NXSetUpTest.test_set_nxsconfigserver
     - python test
     - python setup.py install --prefix=$PREFIX
-    
+
 
 requirements:
   host:
@@ -119,7 +119,7 @@ about:
   description: |
     Command-line tools for Nexus Data Writer - python3 module
     It provides command-line tools to communicate with Tango servers:
-    NXSDataWriter and NXSConfigServer as well as to create simple 
+    NXSDataWriter and NXSConfigServer as well as to create simple
     datasources and components containing writer's configuration.
     It contains also python modules used by NXSDataWriter server
     to write NeXus files and publish metadata into blissdata.
