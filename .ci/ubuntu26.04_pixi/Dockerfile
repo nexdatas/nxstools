@@ -25,6 +25,8 @@ RUN /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections 
 COPY NXSConfigServer /usr/bin/NXSConfigServer
 COPY NXSDataWriter /usr/bin/NXSDataWriter
 COPY NXSRecSelector /usr/bin/NXSRecSelector
+COPY MacroServer /usr/bin/MacroServer
+COPY Pool /usr/bin/Pool
 
 
 ENV PKG_CONFIG_PATH=/home/tango/lib/pkgconfig
