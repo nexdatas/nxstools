@@ -109,7 +109,7 @@ class MacroServerSetUp(object):
                 stdout=None, stderr=None, shell=True)
         else:
             self._psub = subprocess.call(
-                "cd %s;  python2 ./MacroServer %s &" %
+                "cd %s;  python ./MacroServer %s &" %
                 (path, self.instance),
                 stdout=None, stderr=None, shell=True)
         sys.stdout.write("waiting for test macro server")
