@@ -338,8 +338,8 @@ For more help:
         sys.stderr = old_stderr
         vl = mystdout.getvalue()
         er = mystderr.getvalue()
-        # print(vl)
-        # print(er)
+        print(vl)
+        print(er)
         if etxt:
             print(etxt)
         self.assertTrue(etxt is None)

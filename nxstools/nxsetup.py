@@ -941,6 +941,7 @@ class SetUp(object):
         :returns: True if server was created
         :rtype: :obj:`bool`
         """
+        print("C1")
         if not beamline:
             print("createConfigServer: no beamline given ")
             return False
@@ -952,6 +953,7 @@ class SetUp(object):
         server = class_name
         server_name = server + '/' + masterhost
         self.cserver_name = "%s/nxsconfigserver/%s" % (beamline, masterhost)
+        print("C2")
         if server_name not in self.db.get_server_list(server_name):
             print("creating: %s" % server_name)
 
@@ -975,12 +977,14 @@ class SetUp(object):
                   "To change its device name please remove it." % server_name)
             return False
 
+        print("C3")
         if not hostname:
             hostname = self.db.get_db_host().split(".")[0]
 
         self._startupServer(server_name, 1, hostname, 1, self.cserver_name,
                             postpone)
 
+        print("C4")
         if not postpone:
             dp = tango.DeviceProxy(self.cserver_name)
             if dp.state() != tango.DevState.ON:
@@ -1011,6 +1015,7 @@ class SetUp(object):
                         print("try to change the settings")
                         return False
 
+        print("C5")
         return True
 
     def createSelector(self, beamline, masterhost, writer=None, cserver=None,
