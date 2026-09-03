@@ -751,20 +751,27 @@ class SetUp(object):
         :returns: True if server was started up
         :rtype: :obj:`bool`
         """
+        print("S1")
         server = self.db.get_server_class_list(new)
+        print("S2", server)
         if len(server) == 0:
             sys.stderr.write('Server ' + new.split('/')[0]
                              + ' not defined in database\n')
             sys.stderr.flush()
             return False
+        print("S3", host)
         admin = self.getStarterName(host)
         if not admin:
             raise Exception("Starter tango server is not running")
+        print("S4", admin)
         adminproxy = tango.DeviceProxy(admin)
         startdspaths = self.db.get_device_property(
             admin,
             "StartDsPath")["StartDsPath"]
+        print("S5", startdspaths)
         if '/usr/bin' not in startdspaths:
+            print("S6", startdspaths)
+            
             if startdspaths:
                 startdspaths = [p for p in startdspaths if p]
             else:
@@ -773,6 +780,7 @@ class SetUp(object):
             self.db.put_device_property(
                 admin, {"StartDsPath": startdspaths})
             adminproxy.Init()
+        print("S7")
 
         sinfo = self.db.get_server_info(new)
         sinfo.name = new
@@ -780,20 +788,27 @@ class SetUp(object):
         sinfo.mode = ctrl
         sinfo.level = level
         self.db.put_server_info(sinfo)
+        print("S8",sinfo)
         adminproxy.UpdateServersInfo()
         running = adminproxy.DevGetRunningServers(True)
+        print("S9",running)
         # running = adminproxy.RunningServers
         if new not in running and not postpone:
+            print("S10",new)
             adminproxy.DevStart(new)
         else:
+            print("S11",new)
             print("%s NOT STARTED" % new)
 
         adminproxy.UpdateServersInfo()
+        print("S12")
 
         if not postpone:
+            print("S13")
             sys.stdout.write("waiting for server ")
             sys.stdout.flush()
             return self.waitServerRunning(new, device, adminproxy)
+        print("S14")
 
     def createDataWriter(self, beamline, masterhost, postpone=False):
         """ creates data writer
@@ -981,6 +996,7 @@ class SetUp(object):
         if not hostname:
             hostname = self.db.get_db_host().split(".")[0]
 
+        print("C3a")
         self._startupServer(server_name, 1, hostname, 1, self.cserver_name,
                             postpone)
 
