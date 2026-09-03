@@ -5,4 +5,4 @@ source /home/tango/.env
 
 # echo "$MYTANGO_PREFIX"
     
-$MYTANGO_PREFIX/NXSConfigServer $*
+$MYTANGO_PREFIX/NXSDataWriter $*
