@@ -780,9 +780,10 @@ class SetUp(object):
             self.db.put_device_property(
                 admin, {"StartDsPath": startdspaths})
             adminproxy.Init()
-        print("S7")
+        print("S7",startdspaths)
 
         sinfo = self.db.get_server_info(new)
+        print("S7a",sinfo, new, host, ctrl, level)
         sinfo.name = new
         sinfo.host = host
         sinfo.mode = ctrl
