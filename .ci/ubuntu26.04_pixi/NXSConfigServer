@@ -1,6 +1,7 @@
 #!/bin/bash
 source /home/tango/.sh.sh
-source  /usr/lib/tango/.env
+source /etc/tangorc
+source  /home/tango/.env
 
 
 # if [ ! -z "$PREFIX" ]; then
