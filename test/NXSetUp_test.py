@@ -228,7 +228,7 @@ For more help:
 
                 pipe = proc.stdout
                 res = str(pipe.read(), "utf-8").split("\n")
-                print(res)
+                # print(res)
                 for r in res:
                     sr = r.split()
                     if len(sr) > 2:
@@ -3008,6 +3008,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3169,6 +3170,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3330,6 +3332,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3452,36 +3455,26 @@ For more help:
             instance=ins2,
             msdevices=[msdv2],
             doordevices=["doormtestp09/testts/t2r228"])
-        print("M1")
         ms2.setUp()
-        print("M2")
         mss = self.db.get_server_list("MacroServer/*").value_string
-        print("M4", mss)
         skiptest = True
         if len(mss) == 2:
             skiptest = False
-        print("M5")
         if skiptest:
-            print("M6")
             ms2.tearDown()
         else:
-            print("M11")
             try:
                 setup = nxsetup.SetUp()
-                print("M12")
                 admin = setup.getStarterName(self.host)
                 startdspaths = self.getProperty(admin, "StartDsPath")
                 adp = tango.DeviceProxy(admin)
 
-                print("M13",startdspaths, ins1, ins2)
                 setup.waitServerRunning("MacroServer/%s" % ins2,
                                         msdv2,  adp, waitforproc=False)
-                print("M14")
                 setup.waitServerRunning("MacroServer/%s" % ins1,
                                         msdv1,  adp)
                 newpath = os.path.abspath(
                     os.path.dirname(TestServerSetUp.__file__))
-                print("M15")
                 newstartdspaths = list(startdspaths)
                 newstartdspaths.append("/usr/bin")
                 newstartdspaths.append(newpath)
@@ -3489,17 +3482,13 @@ For more help:
                     admin, {"StartDsPath": newstartdspaths})
                 adp.Init()
 
-                print("M16", newstartdspaths)
                 recorder2paths = self.getProperty(msdv2, "RecorderPath")
                 recorder1paths = self.getProperty(msdv1, "RecorderPath")
                 self.assertEqual(recorder1paths, [])
                 self.assertEqual(recorder2paths, [])
-                print("M17")
 
                 pid2 = self.serverPid("MacroServer/%s" % ins2)
-                print("M18")
                 pid1 = self.serverPid("MacroServer/%s" % ins1)
-                print("M19", pid2, pid1)
                 path1 = "/tmp/"
                 vl, er = self.runtest(
                     ["nxsetup", "add-recorder-path", path1])
@@ -3508,7 +3497,6 @@ For more help:
                     self.serverPid("MacroServer/%s" % ins1) != pid1)
                 self.assertTrue(
                     self.serverPid("MacroServer/%s" % ins2) != pid2)
-                print("M20")
 
                 recorder2paths1 = self.getProperty(msdv2, "RecorderPath")
                 recorder1paths1 = self.getProperty(msdv1, "RecorderPath")
@@ -3517,11 +3505,9 @@ For more help:
                 self.assertEqual(df1, [path1])
                 df1 = list(set(recorder2paths1) - set(recorder2paths))
                 self.assertEqual(df1, [path1])
-                print("M21")
 
                 pid2 = self.serverPid("MacroServer/%s" % ins2)
                 pid1 = self.serverPid("MacroServer/%s" % ins1)
-                print("M22", pid2, pid1)
                 path2 = "/usr/share/"
                 vl, er = self.runtest(
                     ["nxsetup", "add-recorder-path", path2])
@@ -3530,7 +3516,6 @@ For more help:
                     self.serverPid("MacroServer/%s" % ins1) != pid1)
                 self.assertTrue(
                     self.serverPid("MacroServer/%s" % ins2) != pid2)
-                print("M23", pid2, pid1)
 
                 recorder2paths2 = self.getProperty(msdv2, "RecorderPath")
                 recorder1paths2 = self.getProperty(msdv1, "RecorderPath")
@@ -3539,10 +3524,8 @@ For more help:
                 df2 = list(set(recorder2paths2) - set(recorder2paths1))
                 self.assertEqual(df2, [path2])
 
-                print("M24", pid2, pid1)
                 pid2 = self.serverPid("MacroServer/%s" % ins2)
                 pid1 = self.serverPid("MacroServer/%s" % ins1)
-                print("M25", pid2, pid1)
                 path2 = "/usr/share/"
                 vl, er = self.runtest(
                     ["nxsetup", "add-recorder-path", path2])
@@ -3552,14 +3535,12 @@ For more help:
                 self.assertTrue(
                     self.serverPid("MacroServer/%s" % ins2) == pid2)
 
-                print("M26", pid2, pid1)
                 recorder2paths3 = self.getProperty(msdv2, "RecorderPath")
                 recorder1paths3 = self.getProperty(msdv1, "RecorderPath")
                 df2 = list(set(recorder1paths3) - set(recorder1paths2))
                 self.assertEqual(df2, [])
                 df2 = list(set(recorder2paths3) - set(recorder2paths2))
                 self.assertEqual(df2, [])
-                print("M27")
 
             finally:
                 try:
@@ -3684,6 +3665,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3773,6 +3755,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3887,6 +3870,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -4025,6 +4009,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -4416,6 +4401,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -4553,6 +4539,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -4941,6 +4928,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -5081,6 +5069,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})

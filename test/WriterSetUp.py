@@ -58,7 +58,7 @@ class WriterSetUp(object):
         if os.path.isfile("../NXSDataWriter"):
             self._psub = subprocess.call(
                 "export PYTHONPATH= ;cd ..; "
-                " ./NXSDataWriter %s &" % (pycmd, self.__instance),
+                " ./NXSDataWriter %s &" % (self.__instance),
                 stdout=None,
                 stderr=None, shell=True)
         else:
