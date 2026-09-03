@@ -11,6 +11,9 @@ docker exec  ndts /bin/bash -c 'curl -fsSL https://pixi.sh/install.sh | sh ; exp
 # # create nxsconfig database
 # docker exec  --user root ndts /bin/bash -c 'source /home/tango/.sh.sh ; export MYSQL_PASSWORD="rootpw" ; create_nxsconfig_db -x -d=nxsonfig -u=tango -p="$CONDA_PREFIX"'
 
+# docker exec  --user root ndts /bin/bash -c 'source /home/tango/.sh.sh ; export MYSQL_PASSWORD="rootpw" ; create_nxsconfig_db -x -d=nxsonfig -u=tango -p="$CONDA_PREFIX"'
+printf '#!/bin/bash\n. /etc/tangorc\n. /home/tango/.sh.sh\n /home/tango/.pixi/envs/default/bin//bin/NXSConfigServer $$*\n' >  debian/nxsconfigserver/usr/lib/tango/server/NXSConfigServer
+
 echo "run nxsconfigserver-db"
 docker exec  ndts /bin/bash -c 'source .sh.sh ; pixi run  --manifest-path .github/workflows/pixi/pixi.toml rattler-build build  --recipe .github/workflows/pixi/recipe.yaml'
 

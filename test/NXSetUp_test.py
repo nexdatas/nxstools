@@ -926,6 +926,7 @@ For more help:
             for cmd in commands:
                 if not skiptest:
                     try:
+                        print(cmd)
                         vl, er = self.runtest(cmd)
                         self.assertEqual('', er)
                         self.assertTrue(vl)
