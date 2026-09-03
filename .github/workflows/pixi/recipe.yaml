@@ -15,7 +15,7 @@ build:
   script:
     - python -m pip install . -vv --no-deps --no-build-isolation
     - which NXSDataWriter
-    - ls -ltr  /home/tango/.pixi/envs/default/bin/NXSConfigServer 
+    - ls -ltr  /var/lib/tango/.pixi/envs/default/bin/NXSConfigServer
     - python -m unittest test.NXSetUp_test.NXSetUpTest.test_set_nxsconfigserver
     
     # - python test
