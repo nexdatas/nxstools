@@ -22,7 +22,7 @@ RUN /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections 
      && /bin/bash -c 'export DEBIAN_FRONTEND=noninteractive; debconf-set-selections <<< "nxsconfigserver-db nxsconfigserver-db/db/app-user string tango"' \
      && sed -i "s/\[mysql\]/\[mysqld\]\nsql_mode = NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION\ncharacter-set-collations = latin1=latin1_swedish_ci\ncharacter-set-server=latin1\n\[mysql\]/g" /etc/mysql/conf.d/mysql.cnf
 
-COPY .github/workflows/pixi/NXSConfigServer /usr/bin/NXSConfigServer
+COPY .ci/bin/NXSConfigServer /usr/bin/NXSConfigServer
 
 ENV PKG_CONFIG_PATH=/home/tango/lib/pkgconfig
 
