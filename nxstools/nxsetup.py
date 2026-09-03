@@ -782,7 +782,12 @@ class SetUp(object):
             adminproxy.Init()
         print("S7",startdspaths, new)
 
-        sinfo = self.db.get_server_info(new)
+        try:
+            sinfo = self.db.get_server_info(new)
+        except Exception as e:
+            print(str(e))
+            sinfo = tango.DbServInfo(new)
+            
         print("S7a",sinfo, new, host, ctrl, level)
         sinfo.name = new
         sinfo.host = host
