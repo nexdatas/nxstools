@@ -3456,7 +3456,7 @@ For more help:
         ms2.setUp()
         print("M2")
         mss = self.db.get_server_list("MacroServer/*").value_string
-        print("M4")
+        print("M4", mss)
         skiptest = True
         if len(mss) == 2:
             skiptest = False
@@ -3473,7 +3473,7 @@ For more help:
                 startdspaths = self.getProperty(admin, "StartDsPath")
                 adp = tango.DeviceProxy(admin)
 
-                print("M13")
+                print("M13",startdspaths, ins1, ins2)
                 setup.waitServerRunning("MacroServer/%s" % ins2,
                                         msdv2,  adp, waitforproc=False)
                 print("M14")
@@ -3488,7 +3488,7 @@ For more help:
                     admin, {"StartDsPath": newstartdspaths})
                 adp.Init()
 
-                print("M16")
+                print("M16", newstartdspaths)
                 recorder2paths = self.getProperty(msdv2, "RecorderPath")
                 recorder1paths = self.getProperty(msdv1, "RecorderPath")
                 self.assertEqual(recorder1paths, [])
