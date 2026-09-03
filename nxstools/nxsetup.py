@@ -786,7 +786,7 @@ class SetUp(object):
             sinfo = self.db.get_server_info(new)
         except Exception as e:
             print(str(e))
-            sinfo = tango.DbServInfo(new)
+            sinfo = tango.DbServerInfo(new)
             
         print("S7a",sinfo, new, host, ctrl, level)
         sinfo.name = new
