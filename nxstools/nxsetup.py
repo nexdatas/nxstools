@@ -751,7 +751,7 @@ class SetUp(object):
         :returns: True if server was started up
         :rtype: :obj:`bool`
         """
-        print("S1")
+        print("S1", new, level, host, ctrl, device, postpone)
         server = self.db.get_server_class_list(new)
         print("S2", server)
         if len(server) == 0:
@@ -780,7 +780,7 @@ class SetUp(object):
             self.db.put_device_property(
                 admin, {"StartDsPath": startdspaths})
             adminproxy.Init()
-        print("S7",startdspaths)
+        print("S7",startdspaths, new)
 
         sinfo = self.db.get_server_info(new)
         print("S7a",sinfo, new, host, ctrl, level)
