@@ -7,7 +7,7 @@ source /home/tango/.env
 echo "$PYTHONPATH"
 echo "$PREFIX"
 
-pixi add numpy pytango
+# pixi add numpy pytango
 # export OLD_PYTHONPATH="$PYTHONPATH"
 # export PYTHONPATH="/path/to/your/custom/src:$PYTHONPATH"
 

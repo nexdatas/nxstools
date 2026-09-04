@@ -1,10 +1,10 @@
 #!/bin/bash
-source /home/tango/.sh.sh
+11;rgb:ffff/ffff/ffffsource /home/tango/.sh.sh
 source /etc/tangorc
 source /home/tango/.env
 
 # echo "$MYTEST_PREFIX"
 
-pixi add numpy pytango
+# pixi add numpy pytango
 # $MYTEST_PREFIX/TestServer $*
 python /home/tango/bin/TestServer $*
