@@ -2,10 +2,10 @@
 
 echo "install pixi"
 docker exec  ndts /bin/bash -c 'pwd; ls -ltr'
-docker exec  ndts /bin/bash -c 'mkdir /home/tango/bin; cp /home/tango/test/TestServer /home/tango/bin'
-docker exec  ndts /bin/bash -c 'ls -ltr /home/tango'
-docker exec  ndts /bin/bash -c 'cp /var/lib/tango/test/TestServer /home/tango/bin'
-docker exec  ndts /bin/bash -c 'ls  --ltr /var/lib/tango'
+docker exec  ndts /bin/bash -c 'mkdir /home/tango/bin; cp /home/tango/test/TestServer2 /home/tango/bin/TestServer'
+docker exec  ndts /bin/bash -c 'ls -ltr /home/tango/test'
+docker exec  ndts /bin/bash -c 'cp /var/lib/tango/test/TestServer2 /home/tango/bin/TestServer'
+docker exec  ndts /bin/bash -c 'ls  --ltr /var/lib/tango/test'
 docker exec  ndts /bin/bash -c 'curl -fsSL https://pixi.sh/install.sh | sh ; export PATH=/var/lib/tango/.pixi/bin:$PATH ; pixi shell-hook  --manifest-path .github/workflows/pixi/pixi.toml > .sh.sh ; source .sh.sh ; pixi add  --manifest-path .github/workflows/pixi/pixi.toml rattler-build'
 # docker exec  ndts /bin/bash -c 'curl -fsSL https://pixi.sh/install.sh | sh ; export PATH=/var/lib/tango/.pixi/bin:$PATH ; pixi shell-hook  --manifest-path .github/workflows/pixi/pixi.toml > .sh.sh ; source .sh.sh ; pixi add  --manifest-path .github/workflows/pixi/pixi.toml rattler-build nxsconfigserver-db'
 # # /home/tango
