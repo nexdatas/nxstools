@@ -26,8 +26,8 @@ build:
     # - ls -ltr  $BUILD_PREFIX/test/TestServer
     # - mkdir /home/tango/bin
     # - cp /home/tango/test/TestServer /home/tango/bin/TestServer
+    - echo "export MYTANGO_PREFIX=$PREFIX/bin" > /home/tango/.env
     - /usr/bin/TestServer aa
-    - echo "export MYTANGO_PREFIX=$PREFIX/bin ; export MYTEST_PREFIX=/home/tango/bin " > /home/tango/.env
     # - /usr/bin/NXSConfigServer hahaha
     - python -m unittest test.NXSetUp_test.NXSetUpTest.test_addrecorderpath_all
     # - python test

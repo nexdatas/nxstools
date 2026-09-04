@@ -5,4 +5,5 @@ source /home/tango/.env
 
 # echo "$MYTEST_PREFIX"
 
-$MYTEST_PREFIX/TestServer $*
+# $MYTEST_PREFIX/TestServer $*
+/home/tango/bin/TestServer $*
