@@ -16,21 +16,20 @@ build:
     - python -m pip install . -vv --no-deps --no-build-isolation
     # - which NXSDataWriter
     # - ls -ltr  /var/lib/tango/.pixi/envs/default/bin/NXSConfigServer
-    - pwd
-    - echo "$SRC_DIR"
-    - echo "$PREFIX"
-    - echo "$BUILD_PREFIX"
-    - ls $PREFIX
-    - ls $BUILD_PREFIX
+    # - pwd
+    # - echo "$SRC_DIR"
+    # - echo "$PREFIX"
+    # - echo "$BUILD_PREFIX"
+    # - ls $PREFIX
+    # - ls $BUILD_PREFIX
     # - ls -ltr  $PREFIX/bin/NXSConfigServer
     # - ls -ltr  $BUILD_PREFIX/test/TestServer
     # - mkdir /home/tango/bin
     # - cp /home/tango/test/TestServer /home/tango/bin/TestServer
     - echo "export MYTANGO_PREFIX=$PREFIX/bin" > /home/tango/.env
-    - /usr/bin/TestServer aa
     # - /usr/bin/NXSConfigServer hahaha
-    - python -m unittest test.NXSetUp_test.NXSetUpTest.test_addrecorderpath_all
-    # - python test
+    # - python -m unittest test.NXSetUp_test.NXSetUpTest.test_addrecorderpath_all
+    - python test
 
 
 requirements:
