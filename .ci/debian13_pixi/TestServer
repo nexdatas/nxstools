@@ -4,6 +4,11 @@ source /etc/tangorc
 source /home/tango/.env
 
 # echo "$MYTEST_PREFIX"
+echo "$PYTHONPATH"
+echo "$PREFIX"
+
+# export OLD_PYTHONPATH="$PYTHONPATH"
+# export PYTHONPATH="/path/to/your/custom/src:$PYTHONPATH"
 
 # $MYTEST_PREFIX/TestServer $*
 python /home/tango/bin/TestServer $*

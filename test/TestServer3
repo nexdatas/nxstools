@@ -38,6 +38,7 @@ import sys
 is_conda = 'CONDA_PREFIX' in os.environ or 'CONDA_DEFAULT_ENV' in os.environ
 executable_path = sys.executable
 print("CONDA: ", is_conda, "EXE: ", executable_path)
+print('\n'.join(sys.path))
 
 import sys
 import numpy
