@@ -4,5 +4,6 @@ source /etc/tangorc
 source /home/tango/.env
 
 # echo "$MYTANGO_PREFIX"
+# $MYTANGO_PREFIX"/MacroServer $*
 
-$MYTANGO_PREFIX/MacroServer $*
+python /home/tango/bin/MacroServer $*
