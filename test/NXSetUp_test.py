@@ -199,7 +199,7 @@ For more help:
 
         found = False
         cnt = 0
-        while not found and cnt < 1000:
+        while not found and cnt < 100:
             try:
                 sys.stdout.write(".")
                 dp = tango.DeviceProxy(dvname)
@@ -865,8 +865,9 @@ For more help:
         cnfs[2]['masterhost'] = 'hasoo12'
         cnfs[3]['beamline'] = 'testnxs3'
         cnfs[3]['masterhost'] = 'hasoo000'
-
+        
         for cnf in cnfs:
+          for _ in range(100):
             cfsvname = "NXSConfigServer/%s" % cnf["masterhost"]
             dwsvname = "NXSDataWriter/%s" % cnf["masterhost"]
             rssvname = "NXSRecSelector/%s" % cnf["masterhost"]
