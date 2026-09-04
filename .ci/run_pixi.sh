@@ -10,7 +10,7 @@ docker exec  ndts /bin/bash -c 'curl -fsSL https://pixi.sh/install.sh | sh ; exp
 
 echo "run nxsconfigserver-db"
 # docker exec  ndts /bin/bash -c 'source .sh.sh ; pixi run  --manifest-path .github/workflows/pixi/pixi.toml arattler-build build  --recipe .github/workflows/pixi/recipe.yaml'
-docker exec  ndts /bin/bash -c 'source .sh.sh ; echo "export MYTANGO_PREFIX=$CONDA_PREFIX/bin" > /home/tango/.env ;  python -m pip install . -vv --no-deps --no-build-isolation ; python test'
+docker exec  ndts /bin/bash -c 'source .sh.sh ; echo "export MYTANGO_PREFIX=$CONDA_PREFIX/bin" > /home/tango/.env ;  python -m pip install . -vv --no-deps --no-build-isolation ; /usr/local/bin/NXSConfigServer asd ; python test'
 
 ERROR=$?
 if [ $ERROR -ne "0" ]
