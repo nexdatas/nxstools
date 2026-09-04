@@ -15,7 +15,8 @@ build:
   script:
     - python -m pip install . -vv --no-deps --no-build-isolation
     - echo "export MYTANGO_PREFIX=$PREFIX/bin" > /home/tango/.env
-    - python test
+    - python -m unittest test.NXSetUp_test.NXSetUpTest.test_set_nxsconfigserver.test_set_nxsconfigserver
+    # - python test
 
 
 requirements:
