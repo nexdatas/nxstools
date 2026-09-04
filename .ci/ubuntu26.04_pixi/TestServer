@@ -5,5 +5,6 @@ source /home/tango/.env
 
 # echo "$MYTEST_PREFIX"
 
+pixi add numpy pytango
 # $MYTEST_PREFIX/TestServer $*
 python /home/tango/bin/TestServer $*
