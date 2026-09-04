@@ -938,6 +938,7 @@ For more help:
                             dwsvname).value_string
                         rsservers = self.db.get_server_list(
                             rssvname).value_string
+                        time.sleep(1)
                         self.assertTrue(cfsvname in cfservers)
                         self.assertTrue(dwsvname not in dwservers)
                         self.assertTrue(rssvname not in rsservers)
@@ -1064,6 +1065,7 @@ For more help:
                             dwsvname).value_string
                         rsservers = self.db.get_server_list(
                             rssvname).value_string
+                        time.sleep(1)
                         self.assertTrue(cfsvname in cfservers)
                         self.assertTrue(dwsvname in dwservers)
                         self.assertTrue(rssvname in rsservers)
@@ -1520,6 +1522,7 @@ For more help:
                             vl, er = self.runtest(cmd)
                             self.assertEqual('', er)
                             self.assertTrue(vl)
+                            time.sleep(1)
                             cfservers = self.db.get_server_list(
                                 cfsvname).value_string
                             dwservers = self.db.get_server_list(
@@ -1661,6 +1664,7 @@ For more help:
                             vl, er = self.runtest(cmd)
                             self.assertEqual('', er)
                             self.assertTrue(vl)
+                            time.sleep(1)
                             cfservers = self.db.get_server_list(
                                 cfsvname).value_string
                             dwservers = self.db.get_server_list(
@@ -1789,6 +1793,7 @@ For more help:
                             acmd.extend(dwcfsvs)
                             vl, er = self.runtest(acmd)
 
+                            time.sleep(1)
                             cfservers = self.db.get_server_list(
                                 cfsvname).value_string
                             dwservers = self.db.get_server_list(
@@ -1817,6 +1822,7 @@ For more help:
                             vl, er = self.runtest(acmd)
                             self.assertEqual('', er)
                             self.assertTrue(vl)
+                            time.sleep(1)
                             cfservers = self.db.get_server_list(
                                 cfsvname).value_string
                             dwservers = self.db.get_server_list(
