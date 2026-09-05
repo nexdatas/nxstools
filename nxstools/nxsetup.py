@@ -727,7 +727,10 @@ class SetUp(object):
         :returns: True if level was changed
         :rtype: :obj:`bool`
         """
-        sinfo = self.db.get_server_info(name)
+        try:
+            sinfo = self.db.get_server_info(name)
+        except Exception:
+            sinfo = tango.DbServerInfo()
         if not tohigher or level > sinfo.level:
             sinfo.level = level
         self.db.put_server_info(sinfo)
@@ -764,17 +767,27 @@ class SetUp(object):
         startdspaths = self.db.get_device_property(
             admin,
             "StartDsPath")["StartDsPath"]
-        if '/usr/bin' not in startdspaths:
+        if '/usr/bin' not in startdspaths or \
+                '/usr/local/bin' not in startdspaths:
+
             if startdspaths:
                 startdspaths = [p for p in startdspaths if p]
             else:
                 startdspaths = []
-            startdspaths.append('/usr/bin')
+            if '/usr/local/bin' not in startdspaths:
+                startdspaths.append('/usr/local/bin')
+            if '/usr/bin' not in startdspaths:
+                startdspaths.append('/usr/bin')
             self.db.put_device_property(
                 admin, {"StartDsPath": startdspaths})
             adminproxy.Init()
 
-        sinfo = self.db.get_server_info(new)
+        try:
+            sinfo = self.db.get_server_info(new)
+        except Exception:
+            # print(str(e))
+            sinfo = tango.DbServerInfo()
+
         sinfo.name = new
         sinfo.host = host
         sinfo.mode = ctrl
@@ -1421,7 +1434,8 @@ class ChangeProp(Runner):
         + "       nxsetup change-prop -n DefaultPreselectedComponents -w " \
         + "\"[\\\"pinhole1\\\",\\\"slit2\\\"]\" NXSRecSelector/r228\n" \
         + "       nxsetup change-prop -n StartDsPath -w " \
-        + "\"[\\\"/usr/bin\\\",\\\"/usr/lib/tango\\\"]\" Starter\n" \
+        + "\"[\\\"/usr/bin\\\",\\\"/usr/local/bin\\\"," \
+        "\\\"/usr/lib/tango\\\"]\" Starter\n" \
         + "\n"
 
     def create(self):

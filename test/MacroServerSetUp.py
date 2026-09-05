@@ -104,12 +104,12 @@ class MacroServerSetUp(object):
         if (sys.version_info > (3,) and self.python is None) or \
            self.python == 3:
             self._psub = subprocess.call(
-                "cd %s;  python3 ./MacroServer %s &" %
+                "cd %s;  ./MacroServer %s &" %
                 (path, self.instance),
                 stdout=None, stderr=None, shell=True)
         else:
             self._psub = subprocess.call(
-                "cd %s;  python2 ./MacroServer %s &" %
+                "cd %s;  python ./MacroServer %s &" %
                 (path, self.instance),
                 stdout=None, stderr=None, shell=True)
         sys.stdout.write("waiting for test macro server")

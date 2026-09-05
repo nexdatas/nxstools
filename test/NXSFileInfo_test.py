@@ -257,7 +257,8 @@ For more help:
                 "optionalarguments:", "options:"),
             "".join(vl.split()).replace(
                 "optionalarguments:", "options:").replace(
-                    "usage:python3", "usage:"))
+                    "usage:python3", "usage:").replace(
+                        "usage:python", "usage:"))
         self.assertEqual(self.helperror, er)
 
     def test_help(self):
@@ -287,7 +288,8 @@ For more help:
                     "optionalarguments:", "options:"),
                 "".join(vl.split()).replace(
                     "optionalarguments:", "options:").replace(
-                        "usage:python3", "usage:"))
+                        "usage:python3", "usage:").replace(
+                            "usage:python", "usage:"))
             self.assertEqual('', er)
 
     def test_general_emptyfile(self):
