@@ -6,7 +6,7 @@ FROM debian:bullseye
 
 # switch to the german archive mirror
 RUN sed -i 's|http://deb.debian.org|http://archive.debian.org|g' /etc/apt/sources.list
-RUN sed -i 's|http://security.debian.org|http://archive.debian.org|g' /etc/apt/sources.list
+# RUN sed -i 's|http://security.debian.org|http://archive.debian.org|g' /etc/apt/sources.list
 
 RUN apt-get -qq update && apt-get -qq install -y libterm-readline-gnu-perl software-properties-common coreutils gnupg2 procps apt-utils curl apt-transport-https gnupg2 ca-certificates wget
 
