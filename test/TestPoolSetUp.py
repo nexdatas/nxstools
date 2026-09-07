@@ -87,7 +87,7 @@ class TestPoolSetUp(object):
                 stderr=None, shell=True)
         else:
             self._psub = subprocess.call(
-                "cd %s;  python2 ./TestPool.py %s &" %
+                "cd %s;  python ./TestPool.py %s &" %
                 (path, self.instance),
                 stdout=None,
                 stderr=None, shell=True)

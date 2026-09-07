@@ -66,7 +66,12 @@ if not H5PY_AVAILABLE and not H5CPP_AVAILABLE:
 DB_AVAILABLE = []
 
 try:
-    import MySQLdb
+    try:
+        import MySQLdb
+    except ImportError:
+        import pymysql as MySQLdb
+        MySQLdb.install_as_MySQLdb()
+
     # connection arguments to MYSQL DB
     args = {}
     args["db"] = 'tango'
@@ -79,7 +84,11 @@ try:
     DB_AVAILABLE.append("MYSQL")
 except Exception as e1:
     try:
-        import MySQLdb
+        try:
+            import MySQLdb
+        except ImportError:
+            import pymysql as MySQLdb
+            MySQLdb.install_as_MySQLdb()
         from os.path import expanduser
         home = expanduser("~")
         # connection arguments to MYSQL DB

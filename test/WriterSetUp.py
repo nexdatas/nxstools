@@ -55,14 +55,10 @@ class WriterSetUp(object):
         db.add_server(
             self.new_device_info_writer.server,
             self.new_device_info_writer)
-        if sys.version_info > (3,):
-            pycmd = "python3"
-        else:
-            pycmd = "python"
         if os.path.isfile("../NXSDataWriter"):
             self._psub = subprocess.call(
                 "export PYTHONPATH= ;cd ..; "
-                "%s ./NXSDataWriter %s &" % (pycmd, self.__instance),
+                " ./NXSDataWriter %s &" % (self.__instance),
                 stdout=None,
                 stderr=None, shell=True)
         else:

@@ -228,6 +228,7 @@ For more help:
 
                 pipe = proc.stdout
                 res = str(pipe.read(), "utf-8").split("\n")
+                # print(res)
                 for r in res:
                     sr = r.split()
                     if len(sr) > 2:
@@ -240,6 +241,7 @@ For more help:
                 stdout=subprocess.PIPE, shell=True).stdout
 
             res = str(pipe.read()).split("\n")
+            print(res)
             for r in res:
                 sr = r.split()
                 if len(sr) > 2:
@@ -338,8 +340,8 @@ For more help:
         sys.stderr = old_stderr
         vl = mystdout.getvalue()
         er = mystderr.getvalue()
-        # print(vl)
-        # print(er)
+        print(vl)
+        print(er)
         if etxt:
             print(etxt)
         self.assertTrue(etxt is None)
@@ -393,7 +395,8 @@ For more help:
             "optionalarguments:", "options:")
         h2 = "".join(vl.split()).replace(
             "optionalarguments:", "options:").replace(
-                "usage:python3", "usage:")
+                "usage:python3", "usage:").replace(
+                    "usage:python", "usage:")
         if len(h2) > len(h1):
             self.assertEqual(h2[:len(h1)], h1)
         else:
@@ -413,7 +416,8 @@ For more help:
                 "optionalarguments:", "options:")
             h2 = "".join(vl.split()).replace(
                 "optionalarguments:", "options:").replace(
-                    "usage:python3", "usage:")
+                    "usage:python3", "usage:").replace(
+                        "usage:python", "usage:")
             if len(h2) > len(h1):
                 self.assertEqual(h2[:len(h1)], h1)
             else:
@@ -924,6 +928,7 @@ For more help:
             for cmd in commands:
                 if not skiptest:
                     try:
+                        print(cmd)
                         vl, er = self.runtest(cmd)
                         self.assertEqual('', er)
                         self.assertTrue(vl)
@@ -933,6 +938,7 @@ For more help:
                             dwsvname).value_string
                         rsservers = self.db.get_server_list(
                             rssvname).value_string
+                        time.sleep(1)
                         self.assertTrue(cfsvname in cfservers)
                         self.assertTrue(dwsvname not in dwservers)
                         self.assertTrue(rssvname not in rsservers)
@@ -1059,6 +1065,7 @@ For more help:
                             dwsvname).value_string
                         rsservers = self.db.get_server_list(
                             rssvname).value_string
+                        time.sleep(1)
                         self.assertTrue(cfsvname in cfservers)
                         self.assertTrue(dwsvname in dwservers)
                         self.assertTrue(rssvname in rsservers)
@@ -1515,6 +1522,7 @@ For more help:
                             vl, er = self.runtest(cmd)
                             self.assertEqual('', er)
                             self.assertTrue(vl)
+                            time.sleep(1)
                             cfservers = self.db.get_server_list(
                                 cfsvname).value_string
                             dwservers = self.db.get_server_list(
@@ -1656,6 +1664,7 @@ For more help:
                             vl, er = self.runtest(cmd)
                             self.assertEqual('', er)
                             self.assertTrue(vl)
+                            time.sleep(1)
                             cfservers = self.db.get_server_list(
                                 cfsvname).value_string
                             dwservers = self.db.get_server_list(
@@ -1784,6 +1793,7 @@ For more help:
                             acmd.extend(dwcfsvs)
                             vl, er = self.runtest(acmd)
 
+                            time.sleep(1)
                             cfservers = self.db.get_server_list(
                                 cfsvname).value_string
                             dwservers = self.db.get_server_list(
@@ -1812,6 +1822,7 @@ For more help:
                             vl, er = self.runtest(acmd)
                             self.assertEqual('', er)
                             self.assertTrue(vl)
+                            time.sleep(1)
                             cfservers = self.db.get_server_list(
                                 cfsvname).value_string
                             dwservers = self.db.get_server_list(
@@ -3003,6 +3014,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3164,6 +3176,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3325,6 +3338,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3468,6 +3482,7 @@ For more help:
                 newpath = os.path.abspath(
                     os.path.dirname(TestServerSetUp.__file__))
                 newstartdspaths = list(startdspaths)
+                newstartdspaths.append("/usr/local/bin")
                 newstartdspaths.append(newpath)
                 self.db.put_device_property(
                     admin, {"StartDsPath": newstartdspaths})
@@ -3656,6 +3671,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3745,6 +3761,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3859,6 +3876,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3997,6 +4015,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -4388,6 +4407,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -4525,6 +4545,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -4913,6 +4934,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -5053,6 +5075,7 @@ For more help:
             newpath = os.path.abspath(
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
+            newstartdspaths.append("/usr/local/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})

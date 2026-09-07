@@ -1,7 +1,13 @@
 FROM debian:bullseye
 
 # MAINTAINER DESY, Jan Kotanski <jankotan@gmail.com>
-RUN /bin/bash -c 'echo "deb http://ftp.de.debian.org/debian bullseye main" > /etc/apt/sources.list.d/debiande.list'
+# RUN sed -i -E 's/(deb|ftp\.[a-z]{2})\.debian\.org/archive.debian.org/g' /etc/apt/sources.list /etc/apt/sources.list.d/*.list
+# RUN /bin/bash -c 'echo "deb http://archive.debian.org/debian bullseye main" > /etc/apt/sources.list.d/debiande.list'
+
+# switch to the german archive mirror
+# RUN sed -i 's|http://deb.debian.org|http://archive.debian.org|g' /etc/apt/sources.list
+# RUN sed -i 's|http://security.debian.org|http://archive.debian.org|g' /etc/apt/sources.list
+
 RUN apt-get -qq update && apt-get -qq install -y libterm-readline-gnu-perl software-properties-common coreutils gnupg2 procps apt-utils curl apt-transport-https gnupg2 ca-certificates wget
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections

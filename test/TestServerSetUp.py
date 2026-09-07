@@ -116,7 +116,7 @@ class TestServerSetUp(object):
 
         if sys.version_info > (3,):
             self._psub = subprocess.call(
-                "cd %s; python3 ./TestServer %s &" %
+                "cd %s; ./TestServer %s &" %
                 (path, self.instance), stdout=None,
                 stderr=None, shell=True)
         else:
