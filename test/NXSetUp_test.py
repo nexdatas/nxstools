@@ -3341,7 +3341,7 @@ For more help:
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
             newstartdspaths.append("/usr/local/bin")
-            newstartdspaths.append("/usr/bin")
+            # newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
@@ -3486,7 +3486,7 @@ For more help:
                     os.path.dirname(TestServerSetUp.__file__))
                 newstartdspaths = list(startdspaths)
                 newstartdspaths.append("/usr/local/bin")
-                newstartdspaths.append("/usr/bin")
+                # newstartdspaths.append("/usr/bin")
                 newstartdspaths.append(newpath)
                 self.db.put_device_property(
                     admin, {"StartDsPath": newstartdspaths})
@@ -3676,7 +3676,7 @@ For more help:
                 os.path.dirname(TestServerSetUp.__file__))
             newstartdspaths = list(startdspaths)
             newstartdspaths.append("/usr/local/bin")
-            newstartdspaths.append("/usr/bin")
+            # newstartdspaths.append("/usr/bin")
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
