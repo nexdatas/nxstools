@@ -111,7 +111,9 @@ def joinstr(textlst):
     :returns: joined text
     :rtype: :obj:`str`
     """
-    return ", ".join(textlst)
+    lstr = ", ".join(textlst)
+    lstr = lstr[:200] if len(lstr) > 200 else lstr
+    return lstr
 
 
 def get_title(fulltitle):
