@@ -1,3 +1,7 @@
+2026-09-08 Jan Kotanski <jankotan@gmail.com>
+	* fix get_title for fscan (#982)
+	* tagged as v4.64.1
+
 2026-08-27 Jan Kotanski <jankotan@gmail.com>
 	* change scripts to entry points  (#972)
 	* split title from fulltitle (#974)

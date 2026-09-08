@@ -87,6 +87,10 @@ MESH_MACROS = {
     "mesh_repeat", "amesh_repeat", "dmesh_repeat",
 }
 
+SCATTER_MACROS = {
+    "fscan",
+}
+
 
 def splitstr(text):
     """ split string separated by space
@@ -120,7 +124,7 @@ def get_title(fulltitle):
     """
     if ", " not in fulltitle:
         return fulltitle
-    return fulltitle.split(", ", -1)[-1]
+    return ", ".join(fulltitle.split(", ")[1:])
 
 
 progattrdesc = {
@@ -342,6 +346,7 @@ def build_plots(title=None, channels=None, ref_moveables=None):
     channel_meta = {}
 
     is_mesh = macro in MESH_MACROS
+    is_scatter = macro in SCATTER_MACROS
 
     if is_mesh:
         xaxis = time_channels[0] if time_channels else None
@@ -359,6 +364,9 @@ def build_plots(title=None, channels=None, ref_moveables=None):
             item["value"] = value
         plots.append({"kind": "scatter-plot", "items": [item]})
         channel_meta = _mesh_axis_meta(parts)
+    elif is_scatter:
+        item = {"kind": "scatter"}
+        plots.append({"kind": "scatter-plot", "items": [item]})
 
     items = []
     for counter in counters:
