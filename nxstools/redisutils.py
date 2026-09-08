@@ -112,7 +112,7 @@ def joinstr(textlst):
     :rtype: :obj:`str`
     """
     lstr = ", ".join(textlst)
-    lstr = lstr[:200] if len(lstr) > 200 else lstr
+    lstr = (lstr[:200] + " ...") if len(lstr) > 200 else lstr
     return lstr
 
 
