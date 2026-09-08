@@ -126,7 +126,7 @@ def get_title(fulltitle):
     """
     if ", " not in fulltitle:
         return fulltitle
-    return ", ".join(fulltitle.split(", ")[1:])
+    return fulltitle.split(", ", 1)[-1]
 
 
 progattrdesc = {
