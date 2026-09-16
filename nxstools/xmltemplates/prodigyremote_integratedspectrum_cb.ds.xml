@@ -1,0 +1,9 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_integratedspectrum_cb">
+    <result name="result">
+ds.result = ds.$(name)_integratedspectrum
+</result>
+  $datasources.$(name)_integratedspectrum
+  </datasource>
+</definition>
