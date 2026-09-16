@@ -1768,7 +1768,12 @@ standardComponentTemplateFiles = {
 #:     xml template files of modules
 moduleTemplateFiles = {
     'mythen2': ['mythen2.xml'],
-    'prodigyremote': ['prodigyremote.xml'],
+    'prodigyremote': [
+        'prodigyremote.xml',
+        'prodigyremote_integratedspectrum_cb.ds.xml',
+        'prodigyremote_fullspectrum_cb.ds.xml',
+        'prodigyremote_energypoints_cb.ds.xml',
+    ],
     'cobold': ['cobold.xml'],
     'mythen': ['mythen.xml',
                'mythen_postrun.ds.xml',
