@@ -1,4 +1,9 @@
 2026-09-16 Jan Kotanski <jankotan@gmail.com>
+	* set prodigyremote data dimensions (#988)
+	* remove fullspecturm field from prodigyremote (#988)
+	* tagged as v4.65.1
+
+2026-09-16 Jan Kotanski <jankotan@gmail.com>
 	* change prodigyremote tango step datasources to pyeval ones (#985)
 	* tagged as v4.65.0
 

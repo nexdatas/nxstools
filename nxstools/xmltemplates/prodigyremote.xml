@@ -9,15 +9,22 @@
               <strategy mode="INIT"/>raw
             </attribute>
             <field type="NX_FLOAT64" name="raw">
-              <strategy mode="STEP"/>$datasources.$(name)_integratedspectrum_cb<dimensions rank="1"/>
+              <strategy mode="STEP"/>$datasources.$(name)_integratedspectrum_cb
+	      <dimensions rank="1">
+		<dim index="1">
+		  $datasources.$(name)_expectednumberofpoints
+		</dim>
+               </dimensions>
             </field>
             <field units="eV" type="NX_FLOAT64" name="energy">
-              <strategy mode="STEP"/>$datasources.$(name)_energypoints_cb<dimensions rank="1"/>
+              <strategy mode="STEP"/>$datasources.$(name)_energypoints_cb
+	      <dimensions rank="1">
+		<dim index="1">
+		  $datasources.$(name)_expectednumberofpoints
+		</dim>
+               </dimensions>
             </field>
 	  </group>
-          <field units="eV" type="NX_FLOAT64" name="data">
-            <strategy mode="STEP"/>$datasources.$(name)_fullspectrum_cb<dimensions rank="2"/>
-          </field>
   	</group>
         <group type="NXcollectioncolumn" name="collectioncolumn">
           <field type="NX_CHAR" name="lens_mode">
@@ -72,7 +79,6 @@
     <group type="NXdata" name="data">
       <link target="/scan$var.serialno/instrument/$(name)/electron_detector/raw_data/raw" name="$(name)_integratedspectrum"/>
       <link target="/scan$var.serialno/instrument/$(name)/electron_detector/raw_data/energy" name="$(name)_energy"/>
-      <link target="/scan$var.serialno/instrument/$(name)/electron_detector/data" name="$(name)_fullspectrum"/>
     </group>
   </group>
 </definition>
