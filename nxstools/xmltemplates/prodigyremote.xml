@@ -17,7 +17,7 @@
                </dimensions>
             </field>
             <field units="eV" type="NX_FLOAT64" name="energy">
-              <strategy mode="STEP"/>$datasources.$(name)_energypoints_cb
+              <strategy mode="INIT"/>$datasources.$(name)_energypoints_cb
 	      <dimensions rank="1">
 		<dim index="1">
 		  $datasources.$(name)_expectednumberofpoints
