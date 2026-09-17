@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<definition>
+  <datasource type="PYEVAL" name="$(name)_expectedenergypoints">
+    <result name="result">
+import numpy as np
+ds.result = np.linspace(ds.$(name)_startenergy, ds.$(name)_stopenergy, ds.$(name)_expectednumberofpoints).tolist()
+</result>
+  $datasources.$(name)_startenergy
+  $datasources.$(name)_stopenergy
+  $datasources.$(name)_expectednumberofpoints
+  </datasource>
+</definition>
