@@ -1,3 +1,7 @@
+2026-09-17 Jan Kotanski <jankotan@gmail.com>
+	* add expectedenergypoints  datasource for prodigyremote component (#991)
+	* tagged as v4.65.2
+
 2026-09-16 Jan Kotanski <jankotan@gmail.com>
 	* set prodigyremote data dimensions (#988)
 	* remove fullspecturm field from prodigyremote (#988)

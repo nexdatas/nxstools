@@ -1773,6 +1773,7 @@ moduleTemplateFiles = {
         'prodigyremote_integratedspectrum_cb.ds.xml',
         'prodigyremote_fullspectrum_cb.ds.xml',
         'prodigyremote_energypoints_cb.ds.xml',
+        'prodigyremote_expectedenergypoints.ds.xml',
     ],
     'cobold': ['cobold.xml'],
     'mythen': ['mythen.xml',
