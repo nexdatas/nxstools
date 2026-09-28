@@ -2161,7 +2161,10 @@ class SECoPCPCreator(CPCreator):
                             units = di.get("unit")
                             minval = di.get("min")
                             maxval = di.get("max")
-                        log = NGroup(mgr, "value_log", "NXlog")
+                        if nxtype not in ["NX_CHAR"]:
+                            log = NGroup(mgr, "value_log", "NXlog")
+                        else:
+                            log = NGroup(mgr, "value_log", "NXtextlog")
                         field = NField(log, 'value', nxtype)
                         if meaning:
                             ename = \
@@ -2282,7 +2285,10 @@ class SECoPCPCreator(CPCreator):
             minval = di.get("min")
             maxval = di.get("max")
         access = access or "[0]"
-        log = NGroup(par, name, "NXlog")
+        if nxtype not in ["NX_CHAR"]:
+            log = NGroup(par, name, "NXlog")
+        else:
+            log = NGroup(par, name, "NXtextlog")
         field = NField(log, "value", nxtype)
         dsname = "%s_%s_%s" % (nodename, modname, name)
         timedsname = "%s_%s_%s_time" % (nodename, modname, name)

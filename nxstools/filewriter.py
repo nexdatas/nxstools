@@ -732,7 +732,7 @@ class FTGroup(FTObject):
                     if not hasattr(node, "names"):
                         return node
 
-        for cnm in ["NXentry", "NXdata", "NXmonitor", "NXlog"]:
+        for cnm in ["NXentry", "NXdata", "NXmonitor", "NXlog", "NXtextlog"]:
             names = node.names()
             if cnm[2:] in names:
                 snames = [cnm[2:]]
