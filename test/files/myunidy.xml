@@ -70,7 +70,7 @@
               <field name="value" type="NX_INT64">$datasources.{cpname}_t_status<strategy mode="INIT"/></field>
               <field name="time" type="NX_FLOAT64" units="s">$datasources.{cpname}_t_status_time<attribute name="start" type="NX_DATE_TIME">$datasources.client_start_time<strategy mode="INIT"/></attribute><strategy mode="INIT"/></field>
             </group>
-            <group name="_calib" type="NXlog">
+            <group name="_calib" type="NXtextlog">
               <field name="value" type="NX_CHAR">$datasources.{cpname}_t__calib<strategy mode="INIT"/></field>
               <field name="time" type="NX_FLOAT64" units="s">$datasources.{cpname}_t__calib_time<attribute name="start" type="NX_DATE_TIME">$datasources.client_start_time<strategy mode="INIT"/></attribute><strategy mode="INIT"/></field>
             </group>
