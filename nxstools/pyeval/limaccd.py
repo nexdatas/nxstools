@@ -759,7 +759,9 @@ def asapo(commonblock,
 
             props = commonblock[name]["properties"]
             server_url = props["asapo_device_url"]
-            stream = tango.DeviceProxy(server_url).Stream
+            aproxy = tango.DeviceProxy(server_url)
+            stream = aproxy.Stream
+            frame_offset = aproxy.FrameOffset
             meta = {
                 "plugin": "asapo_stream",
                 "plugin_def": {
@@ -767,15 +769,15 @@ def asapo(commonblock,
                     "dtype": dtype,
                     "shape": shape,
                     # prop
-                    "server_name": props["endpoint"][0],
+                    "server_name": props["Endpoint"][0],
                     "beamtime_id": props["Beamtimeid"][0],
                     "token_file_path": props["TokenFile"][0],
                     "data_source": props["DataSource"][0],
                     # attr
                     "stream": stream,
+                    "id_offset": frame_offset,
                     #
                     # "timeout_ms": int = 5000,
-                    # "id_offset": int = 1,
                     # "info": Optional[dict] = None,
                 }
             }
