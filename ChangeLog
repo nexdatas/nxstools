@@ -1,3 +1,7 @@
+2026-10-07 Jan Kotanski <jankotan@gmail.com>
+	* add limaccdavds component template (#997)
+	* tagged as v4.67.0
+
 2026-09-28 Jan Kotanski <jankotan@gmail.com>
 	* use NXtextlog for test secop NXlog groups (#994)
 	* tagged as v4.66.0
