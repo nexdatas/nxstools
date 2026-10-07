@@ -761,7 +761,7 @@ def asapo(commonblock,
             server_url = props["asapo_device_url"]
             aproxy = tango.DeviceProxy(server_url)
             stream = aproxy.Stream
-            frame_offset = aproxy.FrameOffset
+            frame_offset = aproxy.IdOffset
             meta = {
                 "plugin": "asapo_stream",
                 "plugin_def": {
@@ -770,7 +770,7 @@ def asapo(commonblock,
                     "shape": shape,
                     # prop
                     "server_name": props["Endpoint"][0],
-                    "beamtime_id": props["Beamtimeid"][0],
+                    "beamtime_id": props["BeamtimeId"][0],
                     "token_file_path": props["TokenFile"][0],
                     "data_source": props["DataSource"][0],
                     # attr
@@ -807,17 +807,21 @@ def asapo_device_props(commonblock, name, hostname, device):
     :param device: tango device name
     :type device: :obj:`str`
     """
-
-    lima = tango.DeviceProxy('%s/%s' % (hostname, device))
-    asapodevice = lima.getPluginDeviceNameFromType("asapopublisher")
-    host, port = hostname.split(":")
-    device_url = '%s/%s' % (hostname, asapodevice)
-    db = tango.DataBase(host, port)
-    pnames = db.get_device_property_list(asapodevice, "*").value_string
-    props = {"asapo_device_url": device_url}
-    for nm in pnames:
-        pvl = db.get_device_property(asapodevice, nm)
-        if pvl:
-            props.update(pvl)
-    commonblock[name]["properties"] = props
+    try:
+        lima = tango.DeviceProxy('%s/%s' % (hostname, device))
+        asapodevice = lima.getPluginDeviceNameFromType("asapopublisher")
+        host, port = hostname.split(":")
+        device_url = '%s/%s' % (hostname, asapodevice)
+        db = tango.Database(host, port)
+        pnames = db.get_device_property_list(asapodevice, "*").value_string
+        props = {"asapo_device_url": device_url}
+        for nm in pnames:
+            pvl = db.get_device_property(asapodevice, nm)
+            if pvl:
+                props.update(pvl)
+        if name not in commonblock:
+            commonblock[name] = {}
+        commonblock[name]["properties"] = props
+    except Exception as e:
+        return str(e)
     return device_url
