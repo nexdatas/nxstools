@@ -87,6 +87,13 @@ try:
 except Exception:
     FileStream = None
 
+AsapoBackedStream = None
+try:
+    from asapo_stream.stream import AsapoBackedStream
+    PLUGINS["asapo_stream"] = AsapoBackedStream
+except Exception:
+    AsapoBackedStream = None
+
 LimaStream = None
 try:
     from blissdata.streams.lima.stream import LimaStream
