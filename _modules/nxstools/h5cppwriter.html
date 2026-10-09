@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.h5cppwriter &#8212; NXSTools 4.67.1 documentation</title>
+    <title>nxstools.h5cppwriter &#8212; NXSTools 4.68.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
@@ -37,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.67</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.68</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -626,6 +626,33 @@
     <span class="n">attrs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">&quot;file_update_time&quot;</span><span class="p">,</span> <span class="n">pTh</span><span class="p">[</span><span class="s2">&quot;unicode&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
         <span class="n">unicode</span><span class="p">(</span><span class="n">H5CppFile</span><span class="o">.</span><span class="n">currenttime</span><span class="p">()))</span>
     <span class="n">rt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">H5CppFile</span><span class="p">(</span><span class="n">fl</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="memory_file"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.memory_file">[docs]</a><span class="k">def</span> <span class="nf">memory_file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">libver</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; create a new file</span>
+
+<span class="sd">    :param filename: file name</span>
+<span class="sd">    :type filename: :obj:`str`</span>
+<span class="sd">    :param libver: library version: &#39;lastest&#39; or &#39;earliest&#39;</span>
+<span class="sd">    :type libver: :obj:`str`</span>
+<span class="sd">    :returns: file object</span>
+<span class="sd">    :rtype: :class:`H5CppFile`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fcpl</span> <span class="o">=</span> <span class="n">h5cpp</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">FileCreationList</span><span class="p">()</span>
+    <span class="n">fapl</span> <span class="o">=</span> <span class="n">h5cpp</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">FileAccessList</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">mdrv</span> <span class="o">=</span> <span class="n">h5cpp</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">MemoryDriver</span><span class="p">()</span>
+        <span class="n">mdrv</span><span class="p">(</span><span class="n">fapl</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MemoryDriver not available </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="n">h5cpp</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">AccessFlags</span><span class="o">.</span><span class="n">TRUNCATE</span>
+    <span class="k">if</span> <span class="n">libver</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">libver</span> <span class="o">==</span> <span class="s1">&#39;lastest&#39;</span><span class="p">:</span>
+        <span class="n">fapl</span><span class="o">.</span><span class="n">library_version_bounds</span><span class="p">(</span>
+            <span class="n">h5cpp</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">LibVersion</span><span class="o">.</span><span class="n">LATEST</span><span class="p">,</span>
+            <span class="n">h5cpp</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">LibVersion</span><span class="o">.</span><span class="n">LATEST</span><span class="p">)</span>
+    <span class="n">fl</span> <span class="o">=</span> <span class="n">h5cpp</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">fcpl</span><span class="p">,</span> <span class="n">fapl</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">H5CppFile</span><span class="p">(</span><span class="n">fl</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span></div>
 
 
@@ -1446,6 +1473,29 @@
 <span class="sd">        :type o: :obj:`any`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">o</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="H5CppField.write_chunk"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppField.write_chunk">[docs]</a>    <span class="k">def</span> <span class="nf">write_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; write the field chunk value</span>
+
+<span class="sd">        :param o: h5 object</span>
+<span class="sd">        :type o: :obj:`any`</span>
+<span class="sd">        :param offset: chunk offset</span>
+<span class="sd">        :type offset: :obj:`list` &lt; :obj:`int` &gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">write_chunk</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">offset</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="H5CppField.read_chunk"><a class="viewcode-back" href="../../nxstools.html#nxstools.h5cppwriter.H5CppField.read_chunk">[docs]</a>    <span class="k">def</span> <span class="nf">read_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; read the field chunk value</span>
+
+<span class="sd">        :param offset: chunk offset</span>
+<span class="sd">        :type offset: :obj:`list` &lt; :obj:`int` &gt;</span>
+<span class="sd">        :returns: h5 object</span>
+<span class="sd">        :rtype: :obj:`any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cdim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">chunk_storage_size</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">[</span><span class="n">cdim</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;uint8&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_h5object</span><span class="o">.</span><span class="n">read_chunk</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">offset</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">value</span></div>
 
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; set value</span>
