@@ -1,3 +1,7 @@
+2026-10-09 Jan Kotanski <jankotan@gmail.com>
+	* add fromchunk, write_chunk and read_chunk for writers (#1001)
+	* tagged as v4.68.0
+
 2026-10-07 Jan Kotanski <jankotan@gmail.com>
 	* add limaccdavds component template (#998)
 	* tagged as v4.67.1
