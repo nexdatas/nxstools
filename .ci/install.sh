@@ -85,7 +85,7 @@ else
     if [ "$1" = "ubuntu22.04" ] ; then
 	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation
     else
-	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation  --break-system-packages --root-user-action
+	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation  --break-system-packages --root-user-action=ignore
     fi    
 fi
 if [ "$?" != "0" ]; then exit 255; fi
