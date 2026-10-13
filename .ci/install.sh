@@ -82,6 +82,6 @@ else
     echo "install python3-nxstools"
     docker exec --user root ndts chown -R tango:tango .
     # docker exec  ndts sphinx-build -b html doc ../nexdatas.tools-doc/html
-    docker exec --user root ndts python3 -m pip install .
+    docker exec --user root ndts python3 -m pip install . --break-system-packages
 fi
 if [ "$?" != "0" ]; then exit 255; fi
