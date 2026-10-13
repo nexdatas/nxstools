@@ -81,7 +81,11 @@ if [ "$2" = "2" ]; then
 else
     echo "install python3-nxstools"
     docker exec --user root ndts chown -R tango:tango .
-    docker exec  ndts python3 setup.py build
-    docker exec --user root ndts python3 setup.py  install
+    # docker exec  ndts sphinx-build -b html doc ../nexdatas.tools-doc/html
+    if [ "$1" = "ubuntu22.04" ] ; then
+	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation
+    else
+	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation  --break-system-packages --root-user-action=ignore
+    fi    
 fi
 if [ "$?" != "0" ]; then exit 255; fi

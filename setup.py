@@ -25,6 +25,8 @@ from setuptools import setup
 # from setuptools.command.build_py import build_py
 # from distutils.core import setup
 from distutils.core import Command
+from importlib.util import module_from_spec, spec_from_file_location
+from pathlib import Path
 
 try:
     from sphinx.setup_command import BuildDoc
@@ -32,8 +34,15 @@ except Exception:
     BuildDoc = None
 
 
-PKG = "nxstools"
-IPKG = __import__(PKG)
+def get_version():
+    path = Path(__file__).parent / "nxstools" / "release.py"
+    spec = spec_from_file_location("release", path.as_posix())
+    module = module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+release = get_version().__version__
 
 needs_pytest = set(['test']).intersection(sys.argv)
 pytest_runner = ['pytest-runner'] if needs_pytest else []
@@ -87,7 +96,7 @@ class TestCommand(Command):
         raise SystemExit(errno)
 
 
-release = IPKG.__version__
+# release = IPKG.__version__
 version = ".".join(release.split(".")[:2])
 name = "NXSTools"
 author = "Jan Kotanski, Eugen Wintersberger , Halil Pasic"
@@ -96,7 +105,7 @@ glicense = "GNU GENERAL PUBLIC LICENSE version 3"
 #: metadata for distutils
 SETUPDATA = dict(
     name="nxstools",
-    version=IPKG.__version__,
+    version=release,
     author=author,
     author_email="jankotan@gmail.com, eugen.wintersberger@gmail.com, "
     + "halil.pasic@gmail.com",
@@ -118,15 +127,17 @@ SETUPDATA = dict(
         # 'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         # 'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
+        # 'Programming Language :: Python :: 3.5',
+        # 'Programming Language :: Python :: 3.6',
+        # 'Programming Language :: Python :: 3.7',
+        # 'Programming Language :: Python :: 3.8',
+        # 'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
+        'Programming Language :: Python :: 3.15',
     ],
     packages=["nxstools", "nxstools.xmltemplates", "nxstools.pyeval",
               "nxstools.ontology"],
