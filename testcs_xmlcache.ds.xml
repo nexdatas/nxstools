@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<definition>
+  <datasource type="TANGO" name="testcs_xmlcache">
+    <device name="testp09/testmcs/testr228" member="attribute" hostname="72529f3b4bca" port="10000" group="testcs_"/>
+    <record name="XMLCache"/>
+  </datasource>
+</definition>

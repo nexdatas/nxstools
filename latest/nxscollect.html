@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>nxcollect &#8212; NXSTools 4.68.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <title>nxcollect &#8212; NXSTools 4.69.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
+    <script src="_static/documentation_options.js?v=a730ddbd"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="nxsconfig" href="nxsconfig.html" />
-    <link rel="prev" title="Welcome to nxstools&#39;s documentation!" href="index.html" />
+    <link rel="prev" title="Welcome to nxstools’s documentation!" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -40,7 +37,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.68</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.69</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -147,35 +144,12 @@
 </ul>
 </li>
               
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">nxcollect</a><ul>
-<li><a class="reference internal" href="#description">Description</a></li>
-<li><a class="reference internal" href="#synopsis-for-nxscollect-append">Synopsis for nxscollect append</a></li>
-<li><a class="reference internal" href="#examples-of-nxscollect-append">Examples of nxscollect append</a></li>
-<li><a class="reference internal" href="#synopsis-for-nxscollect-link">Synopsis for nxscollect link</a></li>
-<li><a class="reference internal" href="#examples-of-nxscollect-link">Examples of nxscollect link</a></li>
-<li><a class="reference internal" href="#synopsis-for-nxscollect-vds">Synopsis for nxscollect vds</a></li>
-<li><a class="reference internal" href="#examples-of-nxscollect-vds">Examples of nxscollect vds</a></li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
             
             
               
                 
   <li>
-    <a href="index.html" title="Previous Chapter: Welcome to nxstools's documentation!"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Welcome to nx...</span>
+    <a href="index.html" title="Previous Chapter: Welcome to nxstools’s documentation!"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Welcome to nx...</span>
     </a>
   </li>
   <li>
@@ -205,19 +179,47 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">nxcollect</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#synopsis-for-nxscollect-append">Synopsis for nxscollect append</a></li>
+<li><a class="reference internal" href="#examples-of-nxscollect-append">Examples of nxscollect append</a></li>
+<li><a class="reference internal" href="#synopsis-for-nxscollect-link">Synopsis for nxscollect link</a></li>
+<li><a class="reference internal" href="#examples-of-nxscollect-link">Examples of nxscollect link</a></li>
+<li><a class="reference internal" href="#synopsis-for-nxscollect-vds">Synopsis for nxscollect vds</a></li>
+<li><a class="reference internal" href="#examples-of-nxscollect-vds">Examples of nxscollect vds</a></li>
+</ul>
+</li>
+</ul>
+<p>
+  <h3 class='versions'>Versions</h3>
+  <p>
+    <ul>
+      <li><a class="reference external" href="index/../../latest/index.html">v:latest</a></li>
+      <li><a class="reference external" href="index/../../stable/index.html">v:stable</a></li>
+      
+      <li><a class="reference external" href="index/../../v4.69.0/index.html">v4.69.0</a></li>
+      <li><a class="reference external" href="index/../../v4.68.0/index.html">v4.68.0</a></li>
+      
+    </ul>
+  </p>
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <section id="nxcollect">
-<h1>nxcollect<a class="headerlink" href="#nxcollect" title="Permalink to this heading">¶</a></h1>
+<h1>nxcollect<a class="headerlink" href="#nxcollect" title="Link to this heading">¶</a></h1>
 <section id="description">
-<h2>Description<a class="headerlink" href="#description" title="Permalink to this heading">¶</a></h2>
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
 <p>The nxscollect is  a command-line tool dedicated to collect detector images.</p>
 <p>The append sub-commnand adds images of external formats into the NeXus master file.
 The images to collect should be denoted by postrun fields inside NXcollection groups or given by command-line parameters.</p>
 <p>The link sub-commnand creates external or internal link in the NeXus master file to NeXus data files.</p>
 </section>
 <section id="synopsis-for-nxscollect-append">
-<h2>Synopsis for nxscollect append<a class="headerlink" href="#synopsis-for-nxscollect-append" title="Permalink to this heading">¶</a></h2>
+<h2>Synopsis for nxscollect append<a class="headerlink" href="#synopsis-for-nxscollect-append" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">        </span>nxscollect<span class="w"> </span>append<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-c<span class="w"> </span>COMPRESSION<span class="o">]</span><span class="w"> </span><span class="o">[</span>-p<span class="w"> </span>PATH<span class="o">]</span><span class="w"> </span><span class="o">[</span>-i<span class="w"> </span>INPUTFILES<span class="o">]</span>
 <span class="w">                       </span><span class="o">[</span>--separator<span class="w"> </span>SEPARATOR<span class="o">]</span><span class="w"> </span><span class="o">[</span>--dtype<span class="w"> </span>DATATYPE<span class="o">]</span>
 <span class="w">                       </span><span class="o">[</span>--shape<span class="w"> </span>SHAPE<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="o">]</span><span class="w"> </span><span class="o">[</span>-r<span class="o">]</span><span class="w"> </span><span class="o">[</span>--test<span class="o">]</span><span class="w"> </span><span class="o">[</span>--h5py<span class="o">]</span>
@@ -235,7 +237,7 @@ nexus_file<span class="w">            </span>nexus<span class="w"> </span>files<
 </dd>
 <dt><kbd><span class="option">-c <var>COMPRESSION</var></span>, <span class="option">--compression <var>COMPRESSION</var></span></kbd></dt>
 <dd><p>deflate compression rate from 0 to 9 (default: 2) or
-&lt;filterid&gt;:opt1,opt2,... e.g. -c 32008:0,2 for
+&lt;filterid&gt;:opt1,opt2,… e.g. -c 32008:0,2 for
 bitshuffle with lz4</p>
 </dd>
 <dt><kbd><span class="option">-p <var>PATH</var></span>, <span class="option">--path <var>PATH</var></span></kbd></dt>
@@ -244,18 +246,18 @@ bitshuffle with lz4</p>
 </dd>
 <dt><kbd><span class="option">-i <var>INPUTFILES</var></span>, <span class="option">--input_files <var>INPUTFILES</var></span></kbd></dt>
 <dd><p>input data files defined with a pattern or separated
-by ',' e.g.'scan_%05d.tif:0:100'</p>
+by ‘,’ e.g.’scan_%05d.tif:0:100’</p>
 </dd>
 <dt><kbd><span class="option">--separator <var>SEPARATOR</var></span></kbd></dt>
-<dd><p>input data files separator (default: ',')</p>
+<dd><p>input data files separator (default: ‘,’)</p>
 </dd>
 <dt><kbd><span class="option">--dtype <var>DATATYPE</var></span></kbd></dt>
 <dd><p>datatype of input data - only for raw data, e.g.
-'uint8'</p>
+‘uint8’</p>
 </dd>
 <dt><kbd><span class="option">--shape <var>SHAPE</var></span></kbd></dt>
 <dd><p>shape of input data - only for raw data, e.g.
-'[4096,2048]'</p>
+‘[4096,2048]’</p>
 </dd>
 <dt><kbd><span class="option">-s</span>, <span class="option">--skip_missing</span></kbd></dt>
 <dd><p>skip missing files</p>
@@ -278,7 +280,7 @@ with .__nxscollect__old__* extension</p>
 </dl>
 </section>
 <section id="examples-of-nxscollect-append">
-<h2>Examples of nxscollect append<a class="headerlink" href="#examples-of-nxscollect-append" title="Permalink to this heading">¶</a></h2>
+<h2>Examples of nxscollect append<a class="headerlink" href="#examples-of-nxscollect-append" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxscollect<span class="w"> </span>append<span class="w"> </span>-c1<span class="w"> </span>/tmp/gpfs/raw/scan_234.nxs
 
 nxscollect<span class="w"> </span>append<span class="w"> </span>-c32008:0,2<span class="w"> </span>/ramdisk/scan_123.nxs
@@ -290,7 +292,7 @@ nxscollect<span class="w"> </span>append<span class="w"> </span>scan_234.nxs<spa
 </div>
 </section>
 <section id="synopsis-for-nxscollect-link">
-<h2>Synopsis for nxscollect link<a class="headerlink" href="#synopsis-for-nxscollect-link" title="Permalink to this heading">¶</a></h2>
+<h2>Synopsis for nxscollect link<a class="headerlink" href="#synopsis-for-nxscollect-link" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">        </span>nxscollect<span class="w"> </span>link<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-n<span class="w"> </span>NAME<span class="o">]</span><span class="w"> </span><span class="o">[</span>-t<span class="w"> </span>TARGET<span class="o">]</span><span class="w"> </span><span class="o">[</span>-r<span class="o">]</span><span class="w"> </span><span class="o">[</span>--test<span class="o">]</span>
 <span class="w">                     </span><span class="o">[</span>--h5py<span class="o">]</span><span class="w"> </span><span class="o">[</span>--h5cpp<span class="o">]</span>
 <span class="w">                     </span><span class="o">[</span>nexus_file_path<span class="o">]</span>
@@ -327,7 +329,7 @@ with .__nxscollect__old__* extension</p>
 </dl>
 </section>
 <section id="examples-of-nxscollect-link">
-<h2>Examples of nxscollect link<a class="headerlink" href="#examples-of-nxscollect-link" title="Permalink to this heading">¶</a></h2>
+<h2>Examples of nxscollect link<a class="headerlink" href="#examples-of-nxscollect-link" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxscollect<span class="w"> </span>link<span class="w"> </span>scan_234.nxs://entry/instrument/lambda<span class="w"> </span>--name<span class="w"> </span>data<span class="w"> </span>--target<span class="w"> </span>lambda.nxs://entry/data/data
 
 nxscollect<span class="w"> </span>link<span class="w"> </span>scan_123.nxs://entry:NXentry/instrument/eiger:NXdetector<span class="w">  </span>--target<span class="w"> </span>eiger.nxs://entry/data/data
@@ -335,7 +337,7 @@ nxscollect<span class="w"> </span>link<span class="w"> </span>scan_123.nxs://ent
 </div>
 </section>
 <section id="synopsis-for-nxscollect-vds">
-<h2>Synopsis for nxscollect vds<a class="headerlink" href="#synopsis-for-nxscollect-vds" title="Permalink to this heading">¶</a></h2>
+<h2>Synopsis for nxscollect vds<a class="headerlink" href="#synopsis-for-nxscollect-vds" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxscollect<span class="w"> </span>vds<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-e<span class="w"> </span>TARGETFIELDS<span class="o">]</span><span class="w"> </span><span class="o">[</span>--separator<span class="w"> </span>SEPARATOR<span class="o">]</span>
 <span class="w">            </span><span class="o">[</span>-t<span class="w"> </span>DTYPE<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>SHAPE<span class="o">]</span><span class="w"> </span><span class="o">[</span>-f<span class="w"> </span>FILLVALUE<span class="o">]</span><span class="w"> </span><span class="o">[</span>-p<span class="w"> </span>SHAPES<span class="o">]</span>
 <span class="w">            </span><span class="o">[</span>-o<span class="w"> </span>OFFSETS<span class="o">]</span><span class="w"> </span><span class="o">[</span>-b<span class="w"> </span>BLOCKS<span class="o">]</span><span class="w"> </span><span class="o">[</span>-c<span class="w"> </span>COUNTS<span class="o">]</span><span class="w"> </span><span class="o">[</span>-d<span class="w"> </span>STRIDES<span class="o">]</span>
@@ -354,99 +356,99 @@ nxscollect<span class="w"> </span>link<span class="w"> </span>scan_123.nxs://ent
 <dd><p>show this help message and exit</p>
 </dd>
 <dt><kbd><span class="option">-t <var>DTYPE</var></span>, <span class="option">--dtype <var>DTYPE</var></span></kbd></dt>
-<dd><p>datatype of the VDS field, e.g. 'uint8'</p>
+<dd><p>datatype of the VDS field, e.g. ‘uint8’</p>
 </dd>
 <dt><kbd><span class="option">-s <var>SHAPE</var></span>, <span class="option">--shape <var>SHAPE</var></span></kbd></dt>
-<dd><p>shape of the VDS field, e.g. '[U,4096,2048]' or
-U,4096,2048 where U means span along the field'</p>
+<dd><p>shape of the VDS field, e.g. ‘[U,4096,2048]’ or
+U,4096,2048 where U means span along the field’</p>
 </dd>
 <dt><kbd><span class="option">-f <var>FILLVALUE</var></span>, <span class="option">--fill-value <var>FILLVALUE</var></span></kbd></dt>
 <dd><p>fill value for the gaps, default is 0</p>
 </dd>
 <dt><kbd><span class="option">-e <var>TARGETFIELDS</var></span>, <span class="option">--target-fields <var>TARGETFIELDS</var></span></kbd></dt>
 <dd><p>external fields with their NeXus file paths defined
-with a pattern or separated by ','
-e.g.'scan_123/lambda_%05d.nxs://entry/data/<a class="reference external" href="data:0:3">data:0:3</a>'</p>
+with a pattern or separated by ‘,’
+e.g.’scan_123/lambda_%05d.nxs://entry/data/<a class="reference external" href="data:0:3">data:0:3</a>’</p>
 </dd>
 <dt><kbd><span class="option">--separator <var>SEPARATOR</var></span></kbd></dt>
-<dd><p>input data files separator (default: ',')</p>
+<dd><p>input data files separator (default: ‘,’)</p>
 </dd>
 <dt><kbd><span class="option">-p <var>SHAPES</var></span>, <span class="option">--shapes <var>SHAPES</var></span></kbd></dt>
 <dd><p>shapes in the VDS layout hyperslab for the
 corresponding target fields with coordinates sepatated
-by ',' and different fields separated by ';', ':' or
-spaces e.g.',,;,300,;,600,0' where an empty coordinate
+by ‘,’ and different fields separated by ‘;’, ‘:’ or
+spaces e.g.’,,;,300,;,600,0’ where an empty coordinate
 means 0</p>
 </dd>
 <dt><kbd><span class="option">-o <var>OFFSETS</var></span>, <span class="option">--offsets <var>OFFSETS</var></span></kbd></dt>
 <dd><p>offsets in the VDS layout hyperslab for the
 corresponding target fields with coordinates sepatated
-by ',' and different fields separated by ';', ':' or
-spaces e.g.',,;,300,;,600,0' where an empty coordinate
+by ‘,’ and different fields separated by ‘;’, ‘:’ or
+spaces e.g.’,,;,300,;,600,0’ where an empty coordinate
 means 0</p>
 </dd>
 <dt><kbd><span class="option">-b <var>BLOCKS</var></span>, <span class="option">--blocks <var>BLOCKS</var></span></kbd></dt>
 <dd><p>block sizes in the VDS layout hyperslab for the
 corresponding target fields with coordinates sepatated
-by ',' and different fields separated by ';', ':' or
-spaces e.g. ',256,512;,256,512;,256,512' where an
+by ‘,’ and different fields separated by ‘;’, ‘:’ or
+spaces e.g. ‘,256,512;,256,512;,256,512’ where an
 empty coordinate means 1</p>
 </dd>
 <dt><kbd><span class="option">-c <var>COUNTS</var></span>, <span class="option">--counts <var>COUNTS</var></span></kbd></dt>
 <dd><p>count numbers in the VDS layout hyperslabfor the
 corresponding target fields with coordinates sepatated
-by ',' and different fields separated by ';', ':' or
-spaces e.g. ',1,1;,1,1;,1,1' where an empty coordinate
+by ‘,’ and different fields separated by ‘;’, ‘:’ or
+spaces e.g. ‘,1,1;,1,1;,1,1’ where an empty coordinate
 means span along the layout</p>
 </dd>
 <dt><kbd><span class="option">-d <var>STRIDES</var></span>, <span class="option">--strides <var>STRIDES</var></span></kbd></dt>
 <dd><p>stride sizes in the VDS layout hyperslabfor the
 corresponding target fields with coordinates sepatated
-by ',' and different fields separated by ';', ':' or
-spaces e.g. ',,;,,;,,' where an empty coordinate means
+by ‘,’ and different fields separated by ‘;’, ‘:’ or
+spaces e.g. ‘,,;,,;,,’ where an empty coordinate means
 1</p>
 </dd>
 <dt><kbd><span class="option">-l <var>SLICES</var></span>, <span class="option">--slices <var>SLICES</var></span></kbd></dt>
 <dd><p>mapping slices in the VDS layoutfor the corresponding
-target fields with coordinates sepatated by ',' and
-different fields separated by ';' or spaces e.g.
-':,0:50,: :,50:100,:' where U means span along the
+target fields with coordinates sepatated by ‘,’ and
+different fields separated by ‘;’ or spaces e.g.
+‘:,0:50,: :,50:100,:’ where U means span along the
 layout</p>
 </dd>
 <dt><kbd><span class="option">-P <var>TARGETSHAPES</var></span>, <span class="option">--target-shapes <var>TARGETSHAPES</var></span></kbd></dt>
-<dd><p>field shapes with coordinates sepatated by ',' and
-different fields separated by ';', ':' or spaces
-e.g.',,;,300,;,600,0'</p>
+<dd><p>field shapes with coordinates sepatated by ‘,’ and
+different fields separated by ‘;’, ‘:’ or spaces
+e.g.’,,;,300,;,600,0’</p>
 </dd>
 <dt><kbd><span class="option">-O <var>TARGETOFFSETS</var></span>, <span class="option">--target-offsets <var>TARGETOFFSETS</var></span></kbd></dt>
 <dd><p>offsets in the view hyperslab of target fieldswith
-coordinates sepatated by ',' and different fields
-separated by ';', ':' or spaces e.g.',,;,300,;,600,0'
+coordinates sepatated by ‘,’ and different fields
+separated by ‘;’, ‘:’ or spaces e.g.’,,;,300,;,600,0’
 where an empty coordinate means 0</p>
 </dd>
 <dt><kbd><span class="option">-B <var>TARGETBLOCKS</var></span>, <span class="option">--target-blocks <var>TARGETBLOCKS</var></span></kbd></dt>
 <dd><p>block sizes in the view hyperslab of target fields
-with coordinates sepatated by ',' and different fields
-separated by ';', ':' or spaces e.g.
-',256,512;,256,512;,256,512' where an empty coordinate
+with coordinates sepatated by ‘,’ and different fields
+separated by ‘;’, ‘:’ or spaces e.g.
+‘,256,512;,256,512;,256,512’ where an empty coordinate
 means 1</p>
 </dd>
 <dt><kbd><span class="option">-C <var>TARGETCOUNTS</var></span>, <span class="option">--target-counts <var>TARGETCOUNTS</var></span></kbd></dt>
 <dd><p>count numbers in the view hyperslab of target fields
-with coordinates sepatated by ',' and different fields
-separated by ';', ':' or spaces e.g. ',1,1;,1,1;,1,1'
+with coordinates sepatated by ‘,’ and different fields
+separated by ‘;’, ‘:’ or spaces e.g. ‘,1,1;,1,1;,1,1’
 where an empty coordinate means span along the layout</p>
 </dd>
 <dt><kbd><span class="option">-D <var>TARGETSTRIDES</var></span>, <span class="option">--target-strides <var>TARGETSTRIDES</var></span></kbd></dt>
 <dd><p>stride sizes numbers in the view hyperslab of target
-fields with coordinates sepatated by ',' and different
-fields separated by ';', ':' or spaces e.g. ',,;,,;,,'
+fields with coordinates sepatated by ‘,’ and different
+fields separated by ‘;’, ‘:’ or spaces e.g. ‘,,;,,;,,’
 where an empty coordinate means 1</p>
 </dd>
 <dt><kbd><span class="option">-L <var>TARGETSLICES</var></span>, <span class="option">--target-slices <var>TARGETSLICES</var></span></kbd></dt>
 <dd><p>view slices of target fields with coordinates
-sepatated by ',' and different fields separated by ';'
-or spaces e.g. ':,0:50,: :,0:50,:' where U means span
+sepatated by ‘,’ and different fields separated by ‘;’
+or spaces e.g. ‘:,0:50,: :,0:50,:’ where U means span
 along the layout</p>
 </dd>
 <dt><kbd><span class="option">-r</span>, <span class="option">--replace-nexus-file</span></kbd></dt>
@@ -466,7 +468,7 @@ with .__nxscollect__old__* extension</p>
 </div></blockquote>
 </section>
 <section id="examples-of-nxscollect-vds">
-<h2>Examples of nxscollect vds<a class="headerlink" href="#examples-of-nxscollect-vds" title="Permalink to this heading">¶</a></h2>
+<h2>Examples of nxscollect vds<a class="headerlink" href="#examples-of-nxscollect-vds" title="Link to this heading">¶</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxscollect<span class="w"> </span>vds<span class="w"> </span>scan_234.nxs://entry/instrument/eiger/data<span class="w">  </span>--shape<span class="w"> </span><span class="s1">&#39;1000,2048,1024&#39;</span><span class="w"> </span>--dtype<span class="w"> </span>uint32<span class="w"> </span>--target-fields<span class="w"> </span><span class="s1">&#39;eiger_%05d.nxs://entry/data/data:1:10&#39;</span><span class="w"> </span>--shapes<span class="w"> </span><span class="s1">&#39;100,,:100,,:100,,:100,,:100,,:100,,:100,,:100,,:100,,:100,,&#39;</span><span class="w">   </span>--offsets<span class="w"> </span><span class="s1">&#39;0,,:100,,:200,,:300,,:400,,:500,,:600,,:700,,:800,,:900,,&#39;</span>
 
 <span class="w">    </span>-<span class="w"> </span>creates<span class="w"> </span>VDS<span class="w"> </span><span class="o">(</span>shape<span class="w"> </span><span class="o">[</span><span class="m">1000</span>,2048,1024<span class="o">])</span><span class="w"> </span>of<span class="w"> </span>ten<span class="w"> </span>nexus<span class="w"> </span>files<span class="w"> </span><span class="o">(</span>shape<span class="w"> </span><span class="o">[</span><span class="m">100</span>,2048,1024<span class="o">])</span><span class="w"> </span>merged<span class="w"> </span><span class="k">in</span><span class="w"> </span>their<span class="w"> </span>first<span class="w"> </span>dimension
@@ -501,7 +503,7 @@ nxscollect<span class="w"> </span>vds<span class="w"> </span>scan_234.nxs://entr
         &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
 
 GNU GENERAL PUBLIC LICENSE, version 3.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
     </p>
   </div>
 </footer>
