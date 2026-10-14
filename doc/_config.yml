@@ -1,0 +1,6 @@
+# Site settings
+title: nxstools
+email: jan.kotanski@desy.de
+description: "nxstools"
+
+include: ['_sources', '_static', '_images', '_modules']
