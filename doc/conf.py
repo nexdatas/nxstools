@@ -443,11 +443,12 @@ epub_exclude_files = ['search.html']
 autoclass_content = 'both'
 
 intersphinx_mapping = {
-    'https://nexdatas.github.io/nxsconfigserver/':None,
-    'https://nexdatas.github.io/nxsdatawriter/':None,
-    'https://docs.python.org/2.7/': None,
-    'https://docs.python.org/3.5/': None,
-    'https://docs.scipy.org/doc/scipy/': None,
-    'https://numpy.org/doc/stable': None,
-    'https://pytango.readthedocs.io/en/latest/': None,
+    'nxscofigserver': ('https://nexdatas.github.io/nxsconfigserver/', None),
+    'nxswriter': ('https://nexdatas.github.io/nxsdatawriter/', None),
+    'python': ('https://docs.python.org/3/',  None),
+    'scipy': ('https://scipy.github.io/devdocs',  None),
+    'numpy': ('https://numpy.org/doc/stable/',  None),
+    'pytango': ('https://tango-controls.readthedocs.io/projects/pytango/en/stable',  None),
+    'pninexus': ('https://pni-libraries.github.io/python-pninexus/stable',  None),
+    'h5py': ('https://docs.h5py.org/en/stable',  None),
 }
