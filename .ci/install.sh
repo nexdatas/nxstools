@@ -90,7 +90,7 @@ else
     if [ "$?" != "0" ]; then exit 255; fi
 
     echo "build python3-lavue docs"
-    docker exec ndts mkdir build
+    docker exec ndts mkdir -p  build
     docker exec ndts mkdir doc/_static
     docker exec ndts sphinx-build  doc build/sphinx/html
     if [ "$?" != "0" ]; then exit 255; fi
