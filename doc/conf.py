@@ -240,7 +240,7 @@ html_static_path = ['_static']
 html_context = {
     "current_version": "v4.68.0", 
     "docs_versions" : [
-        "v4.69.0": ,
+        "v4.69.0",
         "v4.68.0",
     ]
 }
