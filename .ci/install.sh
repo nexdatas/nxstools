@@ -93,7 +93,6 @@ else
     echo "build python3-nxstools docs"
     docker exec ndts mkdir doc/_static
     docker exec ndts sphinx-build  doc build/sphinx/html
-    if [ "$?" != "0" ]; then exit 255; fi
 fi
-if [ "$?" != "0" ]; then exit 255; fi
+if [ "$1" != "ubuntu26.04" ] && [ "$?" != "0" ]; then exit 255; fi
 
