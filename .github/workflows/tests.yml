@@ -51,14 +51,11 @@ jobs:
         if: (github.ref == 'refs/heads/develop' ||  github.ref == 'refs/heads/issue_1005') &&  matrix.os == 'debian13'
         run: |
              docker  exec ndts /bin/bash -c "cp doc/index.html doc/_config.yml build"
-             docker  exec ndts /bin/bash -c "mkdir -p ./build/doc_html && cp -r doc_html/* ./build/doc_html/"
              docker  exec ndts /bin/bash -c "git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'"
              docker  exec ndts /bin/bash -c "git fetch && git checkout gh-pages && git pull"
              docker  exec ndts /bin/bash -c "mkdir -p ./latest && shopt -u dotglob && rm -rf ./latest/*"
-             docker  exec ndts /bin/bash -c "mkdir -p ./latest/doc_html"
              docker  exec ndts /bin/bash -c "mv -f build/sphinx/html/* ./latest/"
              docker  exec ndts /bin/bash -c "mv -f build/index.html build/_config.yml ."
-             docker  exec ndts /bin/bash -c "mv -f build/doc_html/* ./latest/doc_html/"
              docker  exec --user root ndts /bin/bash -c "rm -rf build test nxstools  dist  nxstools.egg-info testresult.txt"
 
       - name: Extract the code version from the branch name
@@ -71,14 +68,10 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/docs_') &&  matrix.os == 'debian13'
         run: |
              echo Version: ${{ steps.extract_docver.outputs.docver }}
-             docker  exec ndts /bin/bash -c "mkdir -p ./build/doc_html && cp -r doc_html/* ./build/doc_html/"
              docker  exec ndts /bin/bash -c "git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'"
              docker  exec ndts /bin/bash -c "git fetch && git checkout gh-pages && git pull"
-             docker  exec ndts /bin/bash -c "mkdir -p ./${{ steps.extract_docver.outputs.docver }}/doc_html/"
              docker  exec ndts /bin/bash -c "shopt -u dotglob && rm -rf ./${{ steps.extract_docver.outputs.docver }}/* "
              docker  exec ndts /bin/bash -c "mv -f build/sphinx/html/* ./${{ steps.extract_docver.outputs.docver }}"
-             docker  exec ndts /bin/bash -c "mkdir -p ./${{ steps.extract_docver.outputs.docver }}/doc_html"
-             docker  exec ndts /bin/bash -c "mv -f build/doc_html/* ./${{ steps.extract_docver.outputs.docver }}/doc_html/"
              docker  exec --user root ndts /bin/bash -c "rm -rf build test nxstools  dist  nxstools.egg-info  testresult.txt"
 
       - name: Deploy documentation
