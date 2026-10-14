@@ -234,6 +234,18 @@ html_static_path = ['_static']
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
 
+# if os.getenv("NXSTOOLS_HIDE_VERSIONS") != 'TRUE':
+#     html_sidebars['**'].append('versions.html')
+
+html_context = {
+    "current_version": "v4.68.0", 
+    "docs_versions" : [
+        "v4.69.0": ,
+        "v4.68.0",
+    ]
+}
+
+
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
 #html_additional_pages = {}

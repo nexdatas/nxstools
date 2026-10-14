@@ -87,5 +87,13 @@ else
     else
 	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation  --break-system-packages --root-user-action=ignore
     fi    
+    if [ "$?" != "0" ]; then exit 255; fi
+
+    echo "build python3-lavue docs"
+    docker exec ndts mkdir build
+    docker exec ndts mkdir doc/_static
+    docker exec ndts sphinx-build  doc build/sphinx/html
+    if [ "$?" != "0" ]; then exit 255; fi
 fi
 if [ "$?" != "0" ]; then exit 255; fi
+
