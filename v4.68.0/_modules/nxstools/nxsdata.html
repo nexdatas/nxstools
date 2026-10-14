@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nxstools.nxsdata &#8212; NXSTools 4.29.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          NXSTools</a>
+        <span class="navbar-text navbar-version pull-left"><b>4.29</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../nxscollect.html">nxcollect</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#synopsis-for-nxscollect-append">Synopsis for nxscollect append</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#examples-of-nxscollect-append">Examples of nxscollect append</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#synopsis-for-nxscollect-link">Synopsis for nxscollect link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#examples-of-nxscollect-link">Examples of nxscollect link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#synopsis-for-nxscollect-vds">Synopsis for nxscollect vds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#examples-of-nxscollect-vds">Examples of nxscollect vds</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxsconfig.html">nxsconfig</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsconfig.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsconfig.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsconfig.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxscreate.html">nxscreate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-clientds">nxscreate clientds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-tangods">nxscreate tangods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-deviceds">nxscreate deviceds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-onlineds">nxscreate onlineds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-poolds">nxscreate poolds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-onlinecp">nxscreate onlinecp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-stdcomp">nxscreate stdcomp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-comp">nxscreate comp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-secopcp">nxscreate secopcp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-compare">nxscreate compare</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxsdata.html">nxsdata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsdata.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsdata.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsdata.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxsfileinfo.html">nxsfileinfo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-general">nxsfileinfo general</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-field">nxsfileinfo field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-metadata">nxsfileinfo metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-origdatablock">nxsfileinfo origdatablock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-sample">nxsfileinfo sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-instrument">nxsfileinfo instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-attachment">nxsfileinfo attachment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-groupmetadata">nxsfileinfo groupmetadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxsetup.html">nxsetup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-set">nxsetup set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-restart">nxsetup restart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-start">nxsetup start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-stop">nxsetup stop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-wait">nxsetup wait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-move-prop">nxsetup move-prop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-change-prop">nxsetup change-prop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-add-recorder-path">nxsetup add-recorder-path</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxstools.html">nxstools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filenamegenerator">nxstools.filenamegenerator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filewriter">nxstools.filewriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5cppwriter">nxstools.h5cppwriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5pywriter">nxstools.h5pywriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5rediswriter">nxstools.h5rediswriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsargparser">nxstools.nxsargparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscollect">nxstools.nxscollect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsconfig">nxstools.nxsconfig module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscreate">nxstools.nxscreate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscreator">nxstools.nxscreator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdata">nxstools.nxsdata module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdevicetools">nxstools.nxsdevicetools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsetup">nxstools.nxsetup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsfileinfo">nxstools.nxsfileinfo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsfileparser">nxstools.nxsfileparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsparser">nxstools.nxsparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsxml">nxstools.nxsxml module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.release">nxstools.release module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.redisutils">nxstools.redisutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for nxstools.nxsdata</h1><div class="highlight"><pre>
+<span></span><span class="c1">#   This file is part of nexdatas - Tango Server for NeXus data writer</span>
+<span class="c1">#</span>
+<span class="c1">#    Copyright (C) 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#    nexdatas is free software: you can redistribute it and/or modify</span>
+<span class="c1">#    it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#    the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#    (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#    nexdatas is distributed in the hope that it will be useful,</span>
+<span class="c1">#    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#    GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#    You should have received a copy of the GNU General Public License</span>
+<span class="c1">#    along with nexdatas.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+
+<span class="sd">&quot;&quot;&quot; Command-line tool to ascess to Tango Data Server&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="kn">from</span> <span class="nn">.nxsdevicetools</span> <span class="kn">import</span> <span class="p">(</span><span class="n">checkServer</span><span class="p">,</span> <span class="n">listServers</span><span class="p">,</span> <span class="n">openServer</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.nxsargparser</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Runner</span><span class="p">,</span> <span class="n">NXSArgParser</span><span class="p">,</span> <span class="n">ErrorException</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="NexusServer"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.NexusServer">[docs]</a><span class="k">class</span> <span class="nc">NexusServer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; configuration server adapter</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
+
+<span class="sd">        :param device: device name of configuration server</span>
+<span class="sd">        :type device: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#: (:class:`PyTango.DeviceProxy`) NeXus writer device proxy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span> <span class="o">=</span> <span class="n">openServer</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<div class="viewcode-block" id="NexusServer.openFile"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.NexusServer.openFile">[docs]</a>    <span class="k">def</span> <span class="nf">openFile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; opens the h5 file</span>
+
+<span class="sd">        :param filename: h5 file name</span>
+<span class="sd">        :type filename: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span><span class="o">.</span><span class="n">Init</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span><span class="o">.</span><span class="n">FileName</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span><span class="o">.</span><span class="n">OpenFile</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="NexusServer.setData"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.NexusServer.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jsondata</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; sets the global JSON data</span>
+
+<span class="sd">        :param jsondata: global JSON data</span>
+<span class="sd">        :type jsondata: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span><span class="o">.</span><span class="n">JSONRecord</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">jsondata</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NexusServer.openEntry"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.NexusServer.openEntry">[docs]</a>    <span class="k">def</span> <span class="nf">openEntry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xmlconfig</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; opens an entry</span>
+
+<span class="sd">        :param xmlconfig: xml configuration string</span>
+<span class="sd">        :type xmlconfig: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span><span class="o">.</span><span class="n">XMLSettings</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">xmlconfig</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span><span class="o">.</span><span class="n">OpenEntry</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="NexusServer.record"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.NexusServer.record">[docs]</a>    <span class="k">def</span> <span class="nf">record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">jsondata</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; records one step</span>
+
+<span class="sd">        :param jsondata: step JSON data</span>
+<span class="sd">        :type jsondata: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span><span class="o">.</span><span class="n">Record</span><span class="p">(</span><span class="n">jsondata</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NexusServer.closeEntry"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.NexusServer.closeEntry">[docs]</a>    <span class="k">def</span> <span class="nf">closeEntry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; closes the entry</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span><span class="o">.</span><span class="n">CloseEntry</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="NexusServer.closeFile"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.NexusServer.closeFile">[docs]</a>    <span class="k">def</span> <span class="nf">closeFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; closes the file</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tdwServer</span><span class="o">.</span><span class="n">CloseFile</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="OpenFile"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.OpenFile">[docs]</a><span class="k">class</span> <span class="nc">OpenFile</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; OpenFile runner&quot;&quot;&quot;</span>
+
+    <span class="c1">#: (:obj:`str`) command description</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;open a new H5 file&quot;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot; examples:</span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;       nxsdata openfile /tmp/watertest.nxs </span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;       nxsdata openfile -s p02/tangodataserver/exp.01  &quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;/user/data/myfile.h5</span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="OpenFile.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.OpenFile.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--server&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;server&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;writer server device name&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenFile.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.OpenFile.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; parser creator after autocomplete run &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;file_name&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;new newxus file name&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenFile.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.OpenFile.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
+
+<span class="sd">        :param options: parser options</span>
+<span class="sd">        :type options: :class:`argparse.Namespace`</span>
+<span class="sd">        :returns: output information</span>
+<span class="sd">        :rtype: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tdwserver</span> <span class="o">=</span> <span class="n">NexusServer</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">args</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tdwserver</span><span class="o">.</span><span class="n">openFile</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></div></div>
+
+
+<div class="viewcode-block" id="SetData"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.SetData">[docs]</a><span class="k">class</span> <span class="nc">SetData</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; SetData runner&quot;&quot;&quot;</span>
+
+    <span class="c1">#: (:obj:`str`) command description</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;assign global JSON data&quot;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot; examples:</span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;       nxsdata setdata ... </span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="SetData.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.SetData.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--server&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;server&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;writer server device name&quot;</span>
+        <span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;json_data_string&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;json data string&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SetData.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.SetData.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
+
+<span class="sd">        :param options: parser options</span>
+<span class="sd">        :type options: :class:`argparse.Namespace`</span>
+<span class="sd">        :returns: output information</span>
+<span class="sd">        :rtype: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tdwserver</span> <span class="o">=</span> <span class="n">NexusServer</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">args</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tdwserver</span><span class="o">.</span><span class="n">setData</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div></div>
+
+
+<div class="viewcode-block" id="OpenEntry"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.OpenEntry">[docs]</a><span class="k">class</span> <span class="nc">OpenEntry</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; OpenEntry runner&quot;&quot;&quot;</span>
+
+    <span class="c1">#: (:obj:`str`) command description</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;create new entry&quot;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot; examples:</span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;       nxsdata openentry ... </span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="OpenEntry.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.OpenEntry.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--server&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;server&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;writer server device name&quot;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;xml_config&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;nexus writer configuration string&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OpenEntry.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.OpenEntry.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
+
+<span class="sd">        :param options: parser options</span>
+<span class="sd">        :type options: :class:`argparse.Namespace`</span>
+<span class="sd">        :returns: output information</span>
+<span class="sd">        :rtype: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tdwserver</span> <span class="o">=</span> <span class="n">NexusServer</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">args</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tdwserver</span><span class="o">.</span><span class="n">openEntry</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span></div></div>
+
+
+<div class="viewcode-block" id="Record"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.Record">[docs]</a><span class="k">class</span> <span class="nc">Record</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Record runner&quot;&quot;&quot;</span>
+
+    <span class="c1">#: (:obj:`str`) command description</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;record one step with step JSON data&quot;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot; examples:</span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;       nxsdata record ... </span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="Record.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.Record.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--server&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;server&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;writer server device name&quot;</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;json_data_string&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s1">&#39;json data string&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Record.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.Record.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
+
+<span class="sd">        :param options: parser options</span>
+<span class="sd">        :type options: :class:`argparse.Namespace`</span>
+<span class="sd">        :returns: output information</span>
+<span class="sd">        :rtype: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tdwserver</span> <span class="o">=</span> <span class="n">NexusServer</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tdwserver</span><span class="o">.</span><span class="n">record</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">args</span> <span class="k">else</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="CloseEntry"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.CloseEntry">[docs]</a><span class="k">class</span> <span class="nc">CloseEntry</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; CloseEntry runner&quot;&quot;&quot;</span>
+
+    <span class="c1">#: (:obj:`str`) command description</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;close the current entry&quot;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot; examples:</span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;       nxsdata closeentry </span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="CloseEntry.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.CloseEntry.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--server&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;server&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;writer server device name&quot;</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="CloseEntry.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.CloseEntry.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
+
+<span class="sd">        :param options: parser options</span>
+<span class="sd">        :type options: :class:`argparse.Namespace`</span>
+<span class="sd">        :returns: output information</span>
+<span class="sd">        :rtype: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tdwserver</span> <span class="o">=</span> <span class="n">NexusServer</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tdwserver</span><span class="o">.</span><span class="n">closeEntry</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="CloseFile"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.CloseFile">[docs]</a><span class="k">class</span> <span class="nc">CloseFile</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; CloseFile runner&quot;&quot;&quot;</span>
+
+    <span class="c1">#: (:obj:`str`) command description</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;close the current file&quot;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot; examples:</span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;       nxsdata closefile </span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="CloseFile.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.CloseFile.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--server&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;server&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;writer server device name&quot;</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="CloseFile.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.CloseFile.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
+
+<span class="sd">        :param options: parser options</span>
+<span class="sd">        :type options: :class:`argparse.Namespace`</span>
+<span class="sd">        :returns: output information</span>
+<span class="sd">        :rtype: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tdwserver</span> <span class="o">=</span> <span class="n">NexusServer</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tdwserver</span><span class="o">.</span><span class="n">closeFile</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Servers"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.Servers">[docs]</a><span class="k">class</span> <span class="nc">Servers</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Servers runner&quot;&quot;&quot;</span>
+
+    <span class="c1">#: (:obj:`str`) command description</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;get lists of tango data servers from &quot;</span> \
+                  <span class="o">+</span> <span class="s2">&quot;the current tango host&quot;</span>
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot; examples:</span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;       nxsdata servers </span><span class="se">\n</span><span class="s2">&quot;</span> \
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="Servers.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.Servers.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--server&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;server&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;tango host or writer server device name&quot;</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Servers.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.Servers.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
+
+<span class="sd">        :param options: parser options</span>
+<span class="sd">        :type options: :class:`argparse.Namespace`</span>
+<span class="sd">        :returns: output information</span>
+<span class="sd">        :rtype: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">listServers</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">server</span><span class="p">,</span> <span class="s1">&#39;NXSConfigServer&#39;</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsdata.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; the main program function</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: pipe arguments</span>
+    <span class="n">pipe</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">isatty</span><span class="p">():</span>
+        <span class="n">pp</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdin</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="c1">#: system pipe</span>
+        <span class="n">pipe</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pp</span><span class="p">)</span>
+
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Command-line tool for writing NeXus files&quot;</span> \
+                  <span class="o">+</span> <span class="s2">&quot; with NXSDataWriter&quot;</span>
+
+    <span class="n">epilog</span> <span class="o">=</span> <span class="s1">&#39;For more help:</span><span class="se">\n</span><span class="s1">  nxsdata &lt;sub-command&gt; -h&#39;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">NXSArgParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">epilog</span><span class="o">=</span><span class="n">epilog</span><span class="p">,</span>
+        <span class="n">formatter_class</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">RawDescriptionHelpFormatter</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">cmdrunners</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;openfile&#39;</span><span class="p">,</span> <span class="n">OpenFile</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;setdata&#39;</span><span class="p">,</span> <span class="n">SetData</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;openentry&#39;</span><span class="p">,</span> <span class="n">OpenEntry</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;record&#39;</span><span class="p">,</span> <span class="n">Record</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;closefile&#39;</span><span class="p">,</span> <span class="n">CloseFile</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;closeentry&#39;</span><span class="p">,</span> <span class="n">CloseEntry</span><span class="p">)]</span>
+    <span class="n">runners</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">createSubParsers</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">ErrorException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Error: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">subparser</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+            <span class="s2">&quot;Error: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;too few arguments&quot;</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">subparser</span> <span class="o">!=</span> <span class="s1">&#39;servers&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">server</span><span class="p">:</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="n">checkServer</span><span class="p">(</span><span class="s1">&#39;NXSDataWriter&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">server</span><span class="p">:</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">subparsers</span><span class="p">[</span><span class="n">options</span><span class="o">.</span><span class="n">subparser</span><span class="p">]</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
+
+    <span class="c1">#: command-line and pipe arguments</span>
+    <span class="n">parg</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="s2">&quot;args&quot;</span><span class="p">):</span>
+        <span class="n">parg</span> <span class="o">=</span> <span class="p">[</span><span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">]</span> <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">args</span> <span class="k">else</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">pipe</span><span class="p">:</span>
+        <span class="n">parg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pipe</span><span class="p">)</span>
+    <span class="n">options</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">parg</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">runners</span><span class="p">[</span><span class="n">options</span><span class="o">.</span><span class="n">subparser</span><span class="p">]</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
+
+GNU GENERAL PUBLIC LICENSE, version 3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
