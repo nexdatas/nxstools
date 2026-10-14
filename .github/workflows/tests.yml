@@ -48,7 +48,7 @@ jobs:
         run: .ci/run.sh ${OSYS} 3
 
       - name: Append documentation for the latest release version
-        if: github.ref == 'refs/heads/develop' &&  matrix.os == 'debian13'
+        if: (github.ref == 'refs/heads/develop' ||  github.ref == 'refs/heads/issue_1005') &&  matrix.os == 'debian13'
         run: |
              docker  exec ndts /bin/bash -c "cp doc/index.html doc/_config.yml build"
              docker  exec ndts /bin/bash -c "mkdir -p ./build/doc_html && cp -r doc_html/* ./build/doc_html/"
