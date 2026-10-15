@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nxstools.nxsfileparser &#8212; NXSTools 4.69.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
+    <script src="../../_static/documentation_options.js?v=a730ddbd"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          NXSTools</a>
+        <span class="navbar-text navbar-version pull-left"><b>4.69</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../nxscollect.html">nxcollect</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#synopsis-for-nxscollect-append">Synopsis for nxscollect append</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#examples-of-nxscollect-append">Examples of nxscollect append</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#synopsis-for-nxscollect-link">Synopsis for nxscollect link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#examples-of-nxscollect-link">Examples of nxscollect link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#synopsis-for-nxscollect-vds">Synopsis for nxscollect vds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscollect.html#examples-of-nxscollect-vds">Examples of nxscollect vds</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxsconfig.html">nxsconfig</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsconfig.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsconfig.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsconfig.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxscreate.html">nxscreate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-clientds">nxscreate clientds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-tangods">nxscreate tangods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-deviceds">nxscreate deviceds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-onlineds">nxscreate onlineds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-poolds">nxscreate poolds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-onlinecp">nxscreate onlinecp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-stdcomp">nxscreate stdcomp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-comp">nxscreate comp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-secopcp">nxscreate secopcp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxscreate.html#nxscreate-compare">nxscreate compare</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxsdata.html">nxsdata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsdata.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsdata.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsdata.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxsfileinfo.html">nxsfileinfo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-general">nxsfileinfo general</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-field">nxsfileinfo field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-metadata">nxsfileinfo metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-origdatablock">nxsfileinfo origdatablock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-sample">nxsfileinfo sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-instrument">nxsfileinfo instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-attachment">nxsfileinfo attachment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsfileinfo.html#nxsfileinfo-groupmetadata">nxsfileinfo groupmetadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxsetup.html">nxsetup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-set">nxsetup set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-restart">nxsetup restart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-start">nxsetup start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-stop">nxsetup stop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-wait">nxsetup wait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-move-prop">nxsetup move-prop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-change-prop">nxsetup change-prop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxsetup.html#nxsetup-add-recorder-path">nxsetup add-recorder-path</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../nxstools.html">nxstools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filenamegenerator">nxstools.filenamegenerator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.filewriter">nxstools.filewriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5cppwriter">nxstools.h5cppwriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5pywriter">nxstools.h5pywriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.h5rediswriter">nxstools.h5rediswriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsargparser">nxstools.nxsargparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscollect">nxstools.nxscollect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsconfig">nxstools.nxsconfig module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscreate">nxstools.nxscreate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxscreator">nxstools.nxscreator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdata">nxstools.nxsdata module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsdevicetools">nxstools.nxsdevicetools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsetup">nxstools.nxsetup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsfileinfo">nxstools.nxsfileinfo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsfileparser">nxstools.nxsfileparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsparser">nxstools.nxsparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.nxsxml">nxstools.nxsxml module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.release">nxstools.release module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools.redisutils">nxstools.redisutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../nxstools.html#module-nxstools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><p>
+  <h3 class='versions'>Versions</h3>
+  <p>
+    <ul>
+      <li><a class="reference external" href="../../index/../../latest/index.html">v:latest</a></li>
+      <li><a class="reference external" href="../../index/../../stable/index.html">v:stable</a></li>
+      
+      <li><a class="reference external" href="../../index/../../v4.69.0/index.html">v4.69.0</a></li>
+      <li><a class="reference external" href="../../index/../../v4.68.0/index.html">v4.68.0</a></li>
+      
+    </ul>
+  </p>
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for nxstools.nxsfileparser</h1><div class="highlight"><pre>
+<span></span><span class="c1">#   This file is part of nexdatas - Tango Server for NeXus data writer</span>
+<span class="c1">#</span>
+<span class="c1">#    Copyright (C) 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#    nexdatas is free software: you can redistribute it and/or modify</span>
+<span class="c1">#    it under the terms of the GNU General Public License as published by</span>
+<span class="c1">#    the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#    (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#    nexdatas is distributed in the hope that it will be useful,</span>
+<span class="c1">#    but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#    GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#    You should have received a copy of the GNU General Public License</span>
+<span class="c1">#    along with nexdatas.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+
+<span class="sd">&quot;&quot;&quot; NeXus main metadata viewer &quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">filewriter</span>
+<span class="kn">import</span> <span class="nn">fnmatch</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">et</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">dateutil.parser</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">lxml.etree</span> <span class="kn">import</span> <span class="n">XMLParser</span>
+
+<span class="kn">from</span> <span class="nn">nxstools.nxsparser</span> <span class="kn">import</span> <span class="n">ParserTools</span>
+
+
+<div class="viewcode-block" id="tolist">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.tolist">[docs]</a>
+<span class="k">def</span> <span class="nf">tolist</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; convert value to list</span>
+
+<span class="sd">    param value: array value</span>
+<span class="sd">    type value: :obj:`any`</span>
+<span class="sd">    returns: array value</span>
+<span class="sd">    rtype: :obj:`list`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;tolist&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="numpyEncoder">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.numpyEncoder">[docs]</a>
+<span class="k">class</span> <span class="nc">numpyEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; numpy json encoder with list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="numpyEncoder.default">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.numpyEncoder.default">[docs]</a>
+    <span class="k">def</span> <span class="nf">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; default encoder</span>
+
+<span class="sd">        :param obj: numpy array object</span>
+<span class="sd">        :type obj: :obj:`object` or `any`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="numpyEncoderNull">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.numpyEncoderNull">[docs]</a>
+<span class="k">class</span> <span class="nc">numpyEncoderNull</span><span class="p">(</span><span class="n">numpyEncoder</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; numpy json encoder with list with nan/inf to null</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="numpyEncoderNull.encode">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.numpyEncoderNull.encode">[docs]</a>
+    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">numpyEncoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">infNaN2None</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="infNaN2None">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.infNaN2None">[docs]</a>
+<span class="k">def</span> <span class="nf">infNaN2None</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; replace inf and NaN to None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">ky</span><span class="p">:</span> <span class="n">infNaN2None</span><span class="p">(</span><span class="n">vl</span><span class="p">)</span> <span class="k">for</span> <span class="n">ky</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">infNaN2None</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">obj</span></div>
+
+
+
+<span class="n">_regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(-?(?:[1-9][0-9]*)?[0-9]</span><span class="si">{4}</span><span class="s1">)-(1[0-2]|0[1-9])-&#39;</span> \
+    <span class="sa">r</span><span class="s1">&#39;(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])&#39;</span> \
+    <span class="sa">r</span><span class="s1">&#39;(\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])?$&#39;</span>
+
+<span class="n">_match_iso8601</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">_regex</span><span class="p">)</span><span class="o">.</span><span class="n">match</span>
+
+
+<div class="viewcode-block" id="isoDate">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.isoDate">[docs]</a>
+<span class="k">def</span> <span class="nf">isoDate</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; convert date to iso format</span>
+
+<span class="sd">    :param text: date text to convert</span>
+<span class="sd">    :type text: :obj:`str`</span>
+<span class="sd">    :returns: date in iso format</span>
+<span class="sd">    :rtype: :obj:`str`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">_match_iso8601</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+            <span class="n">date</span> <span class="o">=</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S.</span><span class="si">%f</span><span class="s1">%z&#39;</span>
+            <span class="k">if</span> <span class="n">date</span><span class="o">.</span><span class="n">tzinfo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">tzone</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">tzname</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">tzone</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CET&#39;</span><span class="p">,</span> <span class="s1">&#39;CEST&#39;</span><span class="p">]:</span>
+                    <span class="n">tzone</span> <span class="o">=</span> <span class="s1">&#39;Europe/Berlin&#39;</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+                        <span class="kn">import</span> <span class="nn">zoneinfo</span>
+                        <span class="n">tz</span> <span class="o">=</span> <span class="n">zoneinfo</span><span class="o">.</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="n">tzone</span><span class="p">)</span>
+                        <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="kn">import</span> <span class="nn">pytz</span>
+                        <span class="n">tz</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="n">tzone</span><span class="p">)</span>
+                        <span class="n">date</span> <span class="o">=</span> <span class="n">tz</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="kn">import</span> <span class="nn">tzlocal</span>
+                    <span class="n">tz</span> <span class="o">=</span> <span class="n">tzlocal</span><span class="o">.</span><span class="n">get_localzone</span><span class="p">()</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">text</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+<div class="viewcode-block" id="getdsname">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.getdsname">[docs]</a>
+<span class="k">def</span> <span class="nf">getdsname</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; provides datasource name from datasource xml string</span>
+
+<span class="sd">    :param xmlstring: datasource xml string</span>
+<span class="sd">    :type xmlstring: :obj:`str`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
+                <span class="nb">bytes</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
+                <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">xmlstring</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
+            <span class="n">xmlstring</span><span class="p">,</span>
+            <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;datasource&#39;</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;.//datasource&quot;</span><span class="p">)</span>
+    <span class="n">dsname</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="s2">&quot;name&quot;</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrib</span><span class="p">:</span>
+        <span class="n">dsname</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dsname</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="getdstype">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.getdstype">[docs]</a>
+<span class="k">def</span> <span class="nf">getdstype</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; provides datasource type from datasource xml string</span>
+
+<span class="sd">    :param xmlstring: datasource xml string</span>
+<span class="sd">    :type xmlstring: :obj:`str`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
+                <span class="nb">bytes</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
+                <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
+            <span class="n">xmlstring</span><span class="p">,</span>
+            <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;datasource&#39;</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;.//datasource&quot;</span><span class="p">)</span>
+    <span class="n">dstype</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">dstype</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dstype</span></div>
+
+
+
+<div class="viewcode-block" id="getdssource">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.getdssource">[docs]</a>
+<span class="k">def</span> <span class="nf">getdssource</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; provides source from datasource xml string</span>
+
+<span class="sd">    :param xmlstring: datasource xml string</span>
+<span class="sd">    :type xmlstring: :obj:`str`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
+                <span class="nb">bytes</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
+                <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
+            <span class="n">xmlstring</span><span class="p">,</span>
+            <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;datasource&#39;</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s2">&quot;.//datasource&quot;</span><span class="p">)</span>
+    <span class="n">dssource</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dssource</span> <span class="o">=</span> <span class="n">ParserTools</span><span class="o">.</span><span class="n">getRecord</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dssource</span></div>
+
+
+
+<div class="viewcode-block" id="NXSFileParser">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.NXSFileParser">[docs]</a>
+<span class="k">class</span> <span class="nc">NXSFileParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Metadata parser for NeXus files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
+
+<span class="sd">        :param root: nexus root node</span>
+<span class="sd">        :type root: :class:`filewriter.FTGroup`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1">#: (:obj:`list` &lt;:obj:`dict` &lt;:obj:`str`, `any`&gt; &gt;) \</span>
+        <span class="c1">#  description list of found nodes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1">#: (:obj:`str`) group postfix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_postfix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="c1">#: (:obj:`bool`) store NXentries as scientificMetadata</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scientific</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1">#: (:obj:`bool`) add empty units</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">emptyunits</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1">#: (:obj:`list` &lt;:obj:`str` &gt;) \</span>
+        <span class="c1">#    nexus field attribute show names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1">#: (:obj:`list` &lt;:obj:`str` &gt;) \</span>
+        <span class="c1">#    nexus field attribute hidden names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hiddenattrs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;nexdatas_strategy&quot;</span>
+        <span class="p">]</span>
+        <span class="c1">#: (:obj:`list` &lt;:obj:`str` &gt;) \</span>
+        <span class="c1">#    nexus entry classes to be shown</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryclasses</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;NXentry&quot;</span>
+        <span class="p">]</span>
+        <span class="c1">#: (:obj:`list` &lt;:obj:`str` &gt;) \</span>
+        <span class="c1">#    nexus entry names to be shown</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entrynames</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">]</span>
+        <span class="c1">#: (:obj:`dict` &lt;:obj:`str`, [:obj:`str, `any`] &gt; &gt;) \</span>
+        <span class="c1">#  attribute description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attrdesc</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;nexus_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+            <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+            <span class="s2">&quot;depends_on&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;depends_on&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+            <span class="s2">&quot;trans_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;transformation_type&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+            <span class="s2">&quot;trans_vector&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;vector&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+            <span class="s2">&quot;trans_offset&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;offset&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+            <span class="s2">&quot;source_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="n">getdsname</span><span class="p">],</span>
+            <span class="s2">&quot;source_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="n">getdstype</span><span class="p">],</span>
+            <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="n">getdssource</span><span class="p">],</span>
+            <span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_strategy&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="p">}</span>
+        <span class="c1">#: (:obj:`dict` &lt;:obj:`str`, [:obj:`str, `any`] &gt; &gt;) \</span>
+        <span class="c1">#  metadata attribute description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mattrdesc</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;source_name&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="n">getdsname</span><span class="p">],</span>
+            <span class="s2">&quot;source_type&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="n">getdstype</span><span class="p">],</span>
+            <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_source&quot;</span><span class="p">,</span> <span class="n">getdssource</span><span class="p">],</span>
+            <span class="s2">&quot;strategy&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;nexdatas_strategy&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+            <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+        <span class="p">}</span>
+        <span class="c1">#: (:obj:`list`&lt; :obj:`str`&gt;)  field names which value should be stored</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valuestostore</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;depends_on&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__root</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="c1">#: (:obj:`list`&lt; :obj:`str`&gt;)  filters for `full_path` names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># (:obj:`bool`) oned value flag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oned</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># (:obj:`int`) maximal 1d record size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxonedsize</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<div class="viewcode-block" id="NXSFileParser.getpath">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.NXSFileParser.getpath">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">getpath</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; converts full_path with NX_classes into nexus_path</span>
+
+<span class="sd">        :param path: nexus full_path</span>
+<span class="sd">        :type path: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">spath</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="p">[(</span><span class="n">dr</span> <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dr</span> <span class="k">else</span> <span class="n">dr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+             <span class="k">for</span> <span class="n">dr</span> <span class="ow">in</span> <span class="n">spath</span><span class="p">])</span></div>
+
+
+    <span class="k">def</span> <span class="nf">__addnode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">tgpath</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;adds the node into the description list</span>
+
+<span class="sd">        :param node: nexus node</span>
+<span class="sd">        :type node: :class:`filewriter.FTField` or \</span>
+<span class="sd">                    :class:`filewriter.FTLink` or \</span>
+<span class="sd">                    :class:`filewriter.FTAttribute` or \</span>
+<span class="sd">                    :class:`filewriter.FTGroup`</span>
+<span class="sd">        :param tgpath: target path of the link target or `None`</span>
+<span class="sd">        :type tgpath: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;full_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">getpath</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
+            <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">):</span>
+            <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">shape</span> <span class="ow">or</span> <span class="p">[])]</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;attributes&quot;</span><span class="p">):</span>
+            <span class="n">attrs</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">attributes</span>
+            <span class="n">anames</span> <span class="o">=</span> <span class="p">[</span><span class="n">at</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrdesc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
+                    <span class="n">desc</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span><span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valuestostore</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">is_valid</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">vl</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="n">cont</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">while</span> <span class="n">cont</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> \
+                           <span class="n">vl</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
+                            <span class="n">vl</span> <span class="o">=</span> <span class="n">vl</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                            <span class="n">cont</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> \
+                                <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">vl</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                            <span class="n">vl</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">cont</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                        <span class="n">cont</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vl</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tgpath</span><span class="p">:</span>
+            <span class="n">fname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__root</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">])</span> <span class="o">!=</span> <span class="n">tgpath</span><span class="p">:</span>
+                <span class="n">ldesc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">tgpath</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span>
+                    <span class="n">tgpath</span> <span class="o">=</span> <span class="n">tgpath</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">:]</span>
+                <span class="n">ldesc</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">-&gt; </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">tgpath</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ldesc</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__parsenode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">tgpath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;parses the node and add it into the description list</span>
+
+<span class="sd">        :param node: nexus node</span>
+<span class="sd">        :type node: :class:`filewriter.FTField` or \</span>
+<span class="sd">                    :class:`filewriter.FTLink` or \</span>
+<span class="sd">                    :class:`filewriter.FTAttribute` or \</span>
+<span class="sd">                    :class:`filewriter.FTGroup`</span>
+<span class="sd">        :param tgpath: target path of the link target or `None`</span>
+<span class="sd">        :type tgpath: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__addnode</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">tgpath</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">FTGroup</span><span class="p">):</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                 <span class="nb">str</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">target_path</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="s2">&quot;target_path&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">get_links</span><span class="p">(</span><span class="n">node</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ch</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__parsenode</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">nm</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1">#            except Exception:</span>
+<span class="c1">#                pass</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">__parsemetaentry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">lst</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;parses the node and add it into the description list</span>
+
+<span class="sd">        :param node: nexus node</span>
+<span class="sd">        :type node: :class:`filewriter.FTField` or \</span>
+<span class="sd">                    :class:`filewriter.FTLink` or \</span>
+<span class="sd">                    :class:`filewriter.FTAttribute` or \</span>
+<span class="sd">                    :class:`filewriter.FTGroup`</span>
+<span class="sd">        :param lst: metadata list</span>
+<span class="sd">        :type lst: :obj:`dict` &lt;:obj:`str`, `any`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dct</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__addmeta</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">dct</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scientific</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">FTGroup</span><span class="p">):</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                 <span class="nb">str</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">target_path</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="s2">&quot;target_path&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">get_links</span><span class="p">(</span><span class="n">node</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">gr</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gr</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                        <span class="n">nm</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                        <span class="k">while</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                            <span class="n">nm</span> <span class="o">=</span> <span class="n">nm</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                        <span class="n">dct</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span> <span class="o">=</span> <span class="n">gr</span>
+                        <span class="n">gr</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">gr</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">ch</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__parsemeta</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">gr</span><span class="p">)</span>
+<span class="c1">#            except Exception:</span>
+<span class="c1">#                pass</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="n">lst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__parsemeta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">dct</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;parses the node and add it into the description list</span>
+
+<span class="sd">        :param node: nexus node</span>
+<span class="sd">        :type node: :class:`filewriter.FTField` or \</span>
+<span class="sd">                    :class:`filewriter.FTLink` or \</span>
+<span class="sd">                    :class:`filewriter.FTAttribute` or \</span>
+<span class="sd">                    :class:`filewriter.FTGroup`</span>
+<span class="sd">        :param dct: metadata dictionary</span>
+<span class="sd">        :type dct: :obj:`dict` &lt;:obj:`str`, `any`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__addmeta</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">dct</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">FTGroup</span><span class="p">):</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                 <span class="nb">str</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">target_path</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="s2">&quot;target_path&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">get_links</span><span class="p">(</span><span class="n">node</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_postfix</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">gr</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gr</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                        <span class="n">nm</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                        <span class="k">while</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                            <span class="n">nm</span> <span class="o">=</span> <span class="n">nm</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                        <span class="n">dct</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span> <span class="o">=</span> <span class="n">gr</span>
+                        <span class="n">gr</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">gr</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">ch</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__parsemeta</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">gr</span><span class="p">)</span>
+<span class="c1">#            except Exception:</span>
+<span class="c1">#                pass</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">__addmeta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">dct</span><span class="p">,</span> <span class="n">scientific</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;adds the node into the description list</span>
+
+<span class="sd">        :param node: nexus node</span>
+<span class="sd">        :type node: :class:`filewriter.FTField` or \</span>
+<span class="sd">                    :class:`filewriter.FTLink` or \</span>
+<span class="sd">                    :class:`filewriter.FTAttribute` or \</span>
+<span class="sd">                    :class:`filewriter.FTGroup`</span>
+<span class="sd">        :param dct: metadata dictionary</span>
+<span class="sd">        :type dct: :obj:`dict` &lt;:obj:`str`, `any`&gt;</span>
+<span class="sd">        :param scientific: scientific flag</span>
+<span class="sd">        :type scientific: :obj:`bool`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">desc</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># path = filewriter.first(node.path)</span>
+        <span class="c1"># desc[&quot;full_path&quot;] = str(path)</span>
+        <span class="c1"># desc[&quot;nexus_path&quot;] = str(self.getpath(path))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">FTGroup</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">scientific</span><span class="p">:</span>
+                <span class="n">smname</span> <span class="o">=</span> <span class="s2">&quot;scientificMetadata&quot;</span>
+                <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">while</span> <span class="n">smname</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">smname</span> <span class="o">=</span> <span class="s2">&quot;scientificMetadata_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">counter</span>
+
+                <span class="n">nd</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">smname</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">smname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_postfix</span>
+
+                <span class="k">if</span> <span class="n">smname</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">nd</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">smname</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nd</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                        <span class="n">nm</span> <span class="o">=</span> <span class="n">smname</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                        <span class="k">while</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                            <span class="n">nm</span> <span class="o">=</span> <span class="n">nm</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                        <span class="n">dct</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span> <span class="o">=</span> <span class="n">nd</span>
+                        <span class="n">nd</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">smname</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">nd</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">smname</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">smname</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">smname</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">nd</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">smname</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nd</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">nm</span> <span class="o">=</span> <span class="n">smname</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                    <span class="k">while</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">dct</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="n">nm</span> <span class="o">=</span> <span class="n">nm</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                    <span class="n">dct</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span> <span class="o">=</span> <span class="n">nd</span>
+                    <span class="n">nd</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">smname</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">nd</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">smname</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;dtype&quot;</span><span class="p">):</span>
+            <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">):</span>
+            <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">shape</span> <span class="ow">or</span> <span class="p">[])]</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;attributes&quot;</span><span class="p">):</span>
+            <span class="n">attrs</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">attributes</span>
+            <span class="n">anames</span> <span class="o">=</span> <span class="p">[</span><span class="n">at</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mattrdesc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span> <span class="ow">and</span> \
+                   <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attrs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span> <span class="ow">and</span> \
+                   <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hiddenattrs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hiddenattrs</span><span class="p">):</span>
+                    <span class="n">nd</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span><span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">at</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span> <span class="ow">and</span> \
+                           <span class="n">at</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mattrdesc</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> \
+                           <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hiddenattrs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span>
+                                <span class="n">at</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hiddenattrs</span><span class="p">):</span>
+                            <span class="n">nd</span><span class="p">[</span><span class="n">at</span><span class="p">]</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">at</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">at</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">at</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">mattrdesc</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> \
+                       <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hiddenattrs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span>
+                            <span class="n">at</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">hiddenattrs</span><span class="p">):</span>
+                        <span class="n">nd</span><span class="p">[</span><span class="n">at</span><span class="p">]</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="n">at</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scientific</span> <span class="ow">and</span> <span class="s2">&quot;NX_class&quot;</span> <span class="ow">in</span> <span class="n">nd</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="ow">and</span> \
+               <span class="n">nd</span><span class="p">[</span><span class="s2">&quot;NX_class&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;NXentry&quot;</span><span class="p">:</span>
+                <span class="n">nd</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;NX_class&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">FTGroup</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">valuestostore</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">is_valid</span><span class="p">)</span> \
+               <span class="ow">or</span> <span class="s2">&quot;shape&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">desc</span> \
+               <span class="ow">or</span> <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[]]</span> \
+               <span class="ow">or</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">oned</span><span class="p">)</span>
+                   <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">vl</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                        <span class="n">cont</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">while</span> <span class="n">cont</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> \
+                                   <span class="n">vl</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
+                                    <span class="n">vl</span> <span class="o">=</span> <span class="n">vl</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+                                    <span class="n">cont</span> <span class="o">=</span> <span class="kc">False</span>
+                                <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> \
+                                        <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">)</span> <span class="ow">and</span>
+                                         <span class="nb">len</span><span class="p">(</span><span class="n">vl</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+                                    <span class="n">vl</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                                <span class="k">else</span><span class="p">:</span>
+                                    <span class="n">cont</span> <span class="o">=</span> <span class="kc">False</span>
+                            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                                <span class="n">cont</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxonedsize</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">desc</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span> \
+                           <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="s2">&quot;__len__&quot;</span><span class="p">)</span> <span class="ow">and</span> \
+                           <span class="nb">len</span><span class="p">(</span><span class="n">vl</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxonedsize</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="n">nd</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">vl</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">vl</span><span class="p">)]</span>
+                            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                                <span class="n">nd</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vl</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">nd</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vl</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">emptyunits</span> <span class="ow">and</span> <span class="s2">&quot;unit&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nd</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                            <span class="n">nd</span><span class="p">[</span><span class="s2">&quot;unit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                        <span class="k">pass</span>
+            <span class="k">if</span> <span class="s2">&quot;shape&quot;</span> <span class="ow">in</span> <span class="n">desc</span> <span class="ow">and</span> <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[]]:</span>
+                <span class="k">if</span> <span class="s2">&quot;shape&quot;</span> <span class="ow">in</span> <span class="n">nd</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">shp</span> <span class="o">=</span> <span class="n">nd</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span>
+                    <span class="n">nm</span> <span class="o">=</span> <span class="s2">&quot;shape&quot;</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                    <span class="k">while</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">nd</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="n">nm</span> <span class="o">=</span> <span class="n">nm</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+                    <span class="n">nd</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span> <span class="o">=</span> <span class="n">shp</span>
+                <span class="n">nd</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">desc</span><span class="p">[</span><span class="s2">&quot;shape&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">smname</span>
+
+    <span class="k">def</span> <span class="nf">__filter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;filters description list</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">:</span>
+                <span class="n">fpath</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;full_path&#39;</span><span class="p">]</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">:</span>
+                    <span class="n">found</span> <span class="o">=</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">filter</span><span class="p">([</span><span class="n">fpath</span><span class="p">],</span> <span class="n">df</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+                    <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">res</span>
+
+<div class="viewcode-block" id="NXSFileParser.parse">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.NXSFileParser.parse">[docs]</a>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;parses the file and creates the filtered description list</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__parsenode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__root</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__filter</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="NXSFileParser.parseMeta">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.NXSFileParser.parseMeta">[docs]</a>
+    <span class="k">def</span> <span class="nf">parseMeta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;parses the file and creates the filtered description list</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__root</span><span class="p">:</span>
+            <span class="n">nm</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">at</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;NX_class&quot;</span> <span class="ow">in</span> <span class="n">entry</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">names</span><span class="p">():</span>
+                    <span class="n">at</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;NX_class&quot;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entryclasses</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> \
+               <span class="n">at</span> <span class="ow">and</span> <span class="p">(</span><span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">at</span><span class="o">.</span><span class="n">read</span><span class="p">())</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entryclasses</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entrynames</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> \
+                   <span class="p">(</span><span class="n">nm</span> <span class="ow">and</span> <span class="n">nm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entrynames</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__parsemetaentry</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="FIOFileParser">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.FIOFileParser">[docs]</a>
+<span class="k">class</span> <span class="nc">FIOFileParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot; Metadata parser for FIO files</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; constructor</span>
+
+<span class="sd">        :param root: fio file content</span>
+<span class="sd">        :type root: :obj:`str`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1">#: (:obj:`list` &lt;:obj:`dict` &lt;:obj:`str`, `any`&gt; &gt;) \</span>
+        <span class="c1">#  description list of found nodes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1">#: (:obj:`str`) group postfix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group_postfix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="c1">#: (:obj:`dict` &lt;:obj:`str`, `any`&gt;)  metadata dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dctmetadata</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1">#: (:obj:`dict` &lt;:obj:`str`, `any`&gt;)  columns dictionary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># (:obj:`str`) text content of the file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__root</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="c1"># (:obj:`bool`) oned value flag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oned</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># (:obj:`int`) maximal 1d record size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxonedsize</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">_appendComments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;append comments</span>
+
+<span class="sd">        :param lines: comment fio lines</span>
+<span class="sd">        :type lines: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        :param meta: metadata dictionary</span>
+<span class="sd">        :type meta: :obj:`dict` &lt;:obj:`str`, `any`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">comments</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">):</span>
+                <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">comments</span><span class="p">[</span><span class="s2">&quot;line_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span>
+                <span class="k">if</span> <span class="n">counter</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;ScanCommand&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span>
+            <span class="k">if</span> <span class="s2">&quot;Acquisition started at &quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">sline</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;Acquisition started at &quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sline</span> <span class="ow">and</span> <span class="n">sline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">isoDate</span><span class="p">(</span><span class="n">sline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()),</span>
+                        <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+                    <span class="p">}</span>
+            <span class="k">elif</span> <span class="s2">&quot;Acquisition ended at &quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">sline</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;Acquisition ended at &quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sline</span> <span class="ow">and</span> <span class="n">sline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;end_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">isoDate</span><span class="p">(</span><span class="n">sline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()),</span>
+                        <span class="s2">&quot;unit&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+                    <span class="p">}</span>
+        <span class="k">if</span> <span class="n">comments</span><span class="p">:</span>
+            <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">comments</span>
+
+    <span class="k">def</span> <span class="nf">_appendParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;append comments</span>
+
+<span class="sd">        :param lines: parameter fio lines</span>
+<span class="sd">        :type lines: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        :param meta: metadata dictionary</span>
+<span class="sd">        :type meta: :obj:`dict` &lt;:obj:`str`, `any`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;=&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">sline</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sline</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">sline</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">and</span> \
+                   <span class="n">sline</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="s1">&#39;@&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sline</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">params</span><span class="p">[</span><span class="n">sline</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)]</span> <span class="o">=</span> \
+                                <span class="nb">eval</span><span class="p">(</span><span class="n">sline</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                            <span class="n">params</span><span class="p">[</span><span class="n">sline</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)]</span> <span class="o">=</span> \
+                                <span class="nb">str</span><span class="p">(</span><span class="n">sline</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;=&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">sline</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sline</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">sline</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">and</span> \
+                   <span class="n">sline</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="s1">&#39;@&#39;</span> <span class="ow">in</span> <span class="n">sline</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="n">field</span><span class="p">,</span> <span class="n">attr</span> <span class="o">=</span> <span class="n">sline</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span> \
+                            <span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">avl</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">sline</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                            <span class="n">avl</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sline</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+                        <span class="k">if</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="n">field</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+                                <span class="n">params</span><span class="p">[</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">params</span><span class="p">[</span><span class="n">field</span><span class="p">]}</span>
+                            <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="s2">&quot;units&quot;</span><span class="p">]:</span>
+                                <span class="n">params</span><span class="p">[</span><span class="n">field</span><span class="p">][</span><span class="s2">&quot;unit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">avl</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">params</span><span class="p">[</span><span class="n">field</span><span class="p">][</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">avl</span>
+
+        <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;parameters&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span>
+
+    <span class="k">def</span> <span class="nf">_appendData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">meta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;append comments</span>
+
+<span class="sd">        :param lines: data fio lines</span>
+<span class="sd">        :type lines: :obj:`list` &lt;:obj:`str`&gt;</span>
+<span class="sd">        :param meta: metadata dictionary</span>
+<span class="sd">        :type meta: :obj:`dict` &lt;:obj:`str`, `any`&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;Col&quot;</span><span class="p">):</span>
+                <span class="n">sline</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sline</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">sline</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                            <span class="n">cid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sline</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                            <span class="k">if</span> <span class="n">sline</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                                <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sline</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">cid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="p">,</span> <span class="p">[]]</span>
+                    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                        <span class="k">pass</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">):</span>
+                <span class="n">sline</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                         <span class="k">if</span> <span class="n">word</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+                <span class="k">for</span> <span class="n">wid</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sline</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">wid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">wid</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">word</span><span class="p">))</span>
+                        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">wid</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">word</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">wid</span><span class="p">,</span> <span class="n">nmvl</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxonedsize</span> <span class="o">&gt;=</span> <span class="mi">0</span> \
+               <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">nmvl</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;__len__&quot;</span><span class="p">)</span> <span class="ow">and</span> \
+               <span class="nb">len</span><span class="p">(</span><span class="n">nmvl</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxonedsize</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">nmvl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">nmvl</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">nmvl</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">nmvl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">nmvl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+
+<div class="viewcode-block" id="FIOFileParser.parseMeta">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileparser.FIOFileParser.parseMeta">[docs]</a>
+    <span class="k">def</span> <span class="nf">parseMeta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;parses the file and creates the filtered description list</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">smname</span> <span class="o">=</span> <span class="s2">&quot;scientificMetadata&quot;</span>
+        <span class="n">dct</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="p">[</span><span class="n">dct</span><span class="p">]</span>
+        <span class="n">nd</span> <span class="o">=</span> <span class="n">dct</span><span class="p">[</span><span class="n">smname</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__root</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__root</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__root</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)]</span>
+            <span class="n">dcpmap</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;%p&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+            <span class="n">last</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">dcpmap</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">last</span> <span class="o">=</span> <span class="n">line</span>
+                <span class="k">elif</span> <span class="n">last</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">):</span>
+                    <span class="n">dcpmap</span><span class="p">[</span><span class="n">last</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;!&quot;</span><span class="p">):</span>
+                    <span class="n">dcpmap</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">dcpmap</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_appendComments</span><span class="p">(</span><span class="n">dcpmap</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%c</span><span class="s2">&quot;</span><span class="p">],</span> <span class="n">nd</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dcpmap</span><span class="p">[</span><span class="s2">&quot;%p&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_appendParameters</span><span class="p">(</span><span class="n">dcpmap</span><span class="p">[</span><span class="s2">&quot;%p&quot;</span><span class="p">],</span> <span class="n">nd</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">dcpmap</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oned</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_appendData</span><span class="p">(</span><span class="n">dcpmap</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">],</span> <span class="n">nd</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
+
+GNU GENERAL PUBLIC LICENSE, version 3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

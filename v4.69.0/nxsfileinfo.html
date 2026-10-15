@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>nxsfileinfo &#8212; NXSTools 4.69.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
+    <script src="_static/documentation_options.js?v=a730ddbd"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nxsetup" href="nxsetup.html" />
+    <link rel="prev" title="nxsdata" href="nxsdata.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NXSTools</a>
+        <span class="navbar-text navbar-version pull-left"><b>4.69</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="nxscollect.html">nxcollect</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#synopsis-for-nxscollect-append">Synopsis for nxscollect append</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#examples-of-nxscollect-append">Examples of nxscollect append</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#synopsis-for-nxscollect-link">Synopsis for nxscollect link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#examples-of-nxscollect-link">Examples of nxscollect link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#synopsis-for-nxscollect-vds">Synopsis for nxscollect vds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#examples-of-nxscollect-vds">Examples of nxscollect vds</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxsconfig.html">nxsconfig</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxsconfig.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsconfig.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsconfig.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxscreate.html">nxscreate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-clientds">nxscreate clientds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-tangods">nxscreate tangods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-deviceds">nxscreate deviceds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-onlineds">nxscreate onlineds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-poolds">nxscreate poolds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-onlinecp">nxscreate onlinecp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-stdcomp">nxscreate stdcomp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-comp">nxscreate comp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-secopcp">nxscreate secopcp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-compare">nxscreate compare</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxsdata.html">nxsdata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxsdata.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsdata.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsdata.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nxsfileinfo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nxsfileinfo-general">nxsfileinfo general</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nxsfileinfo-field">nxsfileinfo field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nxsfileinfo-metadata">nxsfileinfo metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nxsfileinfo-origdatablock">nxsfileinfo origdatablock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nxsfileinfo-sample">nxsfileinfo sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nxsfileinfo-instrument">nxsfileinfo instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nxsfileinfo-attachment">nxsfileinfo attachment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nxsfileinfo-groupmetadata">nxsfileinfo groupmetadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxsetup.html">nxsetup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-set">nxsetup set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-restart">nxsetup restart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-start">nxsetup start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-stop">nxsetup stop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-wait">nxsetup wait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-move-prop">nxsetup move-prop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-change-prop">nxsetup change-prop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-add-recorder-path">nxsetup add-recorder-path</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxstools.html">nxstools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.filenamegenerator">nxstools.filenamegenerator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.filewriter">nxstools.filewriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.h5cppwriter">nxstools.h5cppwriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.h5pywriter">nxstools.h5pywriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.h5rediswriter">nxstools.h5rediswriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsargparser">nxstools.nxsargparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxscollect">nxstools.nxscollect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsconfig">nxstools.nxsconfig module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxscreate">nxstools.nxscreate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxscreator">nxstools.nxscreator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsdata">nxstools.nxsdata module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsdevicetools">nxstools.nxsdevicetools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsetup">nxstools.nxsetup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsfileinfo">nxstools.nxsfileinfo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsfileparser">nxstools.nxsfileparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsparser">nxstools.nxsparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsxml">nxstools.nxsxml module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.release">nxstools.release module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.redisutils">nxstools.redisutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nxsdata.html" title="Previous Chapter: nxsdata"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nxsdata</span>
+    </a>
+  </li>
+  <li>
+    <a href="nxsetup.html" title="Next Chapter: nxsetup"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nxsetup &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">nxsfileinfo</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#nxsfileinfo-general">nxsfileinfo general</a><ul>
+<li><a class="reference internal" href="#id1">Synopsis</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nxsfileinfo-field">nxsfileinfo field</a><ul>
+<li><a class="reference internal" href="#id2">Synopsis</a></li>
+<li><a class="reference internal" href="#id3">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nxsfileinfo-metadata">nxsfileinfo metadata</a><ul>
+<li><a class="reference internal" href="#id4">Synopsis</a></li>
+<li><a class="reference internal" href="#id5">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nxsfileinfo-origdatablock">nxsfileinfo origdatablock</a><ul>
+<li><a class="reference internal" href="#id6">Synopsis</a></li>
+<li><a class="reference internal" href="#id7">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nxsfileinfo-sample">nxsfileinfo sample</a><ul>
+<li><a class="reference internal" href="#id8">Synopsis</a></li>
+<li><a class="reference internal" href="#id9">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nxsfileinfo-instrument">nxsfileinfo instrument</a><ul>
+<li><a class="reference internal" href="#id10">Synopsis</a></li>
+<li><a class="reference internal" href="#id11">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nxsfileinfo-attachment">nxsfileinfo attachment</a><ul>
+<li><a class="reference internal" href="#id12">Synopsis</a></li>
+<li><a class="reference internal" href="#id13">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nxsfileinfo-groupmetadata">nxsfileinfo groupmetadata</a><ul>
+<li><a class="reference internal" href="#id14">Synopsis</a></li>
+<li><a class="reference internal" href="#id15">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>
+  <h3 class='versions'>Versions</h3>
+  <p>
+    <ul>
+      <li><a class="reference external" href="index/../../latest/index.html">v:latest</a></li>
+      <li><a class="reference external" href="index/../../stable/index.html">v:stable</a></li>
+      
+      <li><a class="reference external" href="index/../../v4.69.0/index.html">v4.69.0</a></li>
+      <li><a class="reference external" href="index/../../v4.68.0/index.html">v4.68.0</a></li>
+      
+    </ul>
+  </p>
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <section id="nxsfileinfo">
+<h1>nxsfileinfo<a class="headerlink" href="#nxsfileinfo" title="Link to this heading">¶</a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>The nxsfileinfo program show metadata from nexus files</p>
+</section>
+<section id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>&lt;command&gt;<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>&lt;nexus_file_name&gt;
+</pre></div>
+</div>
+<p>The following commands are available: general, field, metadata, origdatablock, sample, instrument, attachment</p>
+</section>
+<section id="nxsfileinfo-general">
+<h2>nxsfileinfo general<a class="headerlink" href="#nxsfileinfo-general" title="Link to this heading">¶</a></h2>
+<p>It shows general information for he nexus file.</p>
+<section id="id1">
+<h3>Synopsis<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>general<span class="w"> </span>&lt;nexus_file_name&gt;
+</pre></div>
+</div>
+<dl>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">--h5py</span></kbd></dt>
+<dd><p>use h5py module as a nexus reader</p>
+</dd>
+<dt><kbd><span class="option">--h5cpp</span></kbd></dt>
+<dd><p>use h5cpp module as a nexus reader</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>general<span class="w"> </span>saxs_ref1_02.nxs
+</pre></div>
+</div>
+</section>
+</section>
+<section id="nxsfileinfo-field">
+<h2>nxsfileinfo field<a class="headerlink" href="#nxsfileinfo-field" title="Link to this heading">¶</a></h2>
+<p>It shows field information for the nexus file.</p>
+<section id="id2">
+<h3>Synopsis<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>nxsfileinfo<span class="w"> </span>field<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w">  </span>&lt;file_name&gt;
+</pre></div>
+</div>
+<dl>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-c <var>HEADERS</var></span>, <span class="option">--columns=<var>HEADERS</var></span></kbd></dt>
+<dd><p>names of column to be shown (separated by commas without spaces). The possible names are: depends_on, dtype, full_path, nexus_path, nexus_type, shape, source, source_name, source_type, strategy, trans_type, trans_offset, trans_vector, units, value</p>
+</dd>
+<dt><kbd><span class="option">-f <var>FILTERS</var></span>, <span class="option">--filters=<var>FILTERS</var></span></kbd></dt>
+<dd><p>full_path filters (separated by commas without spaces). Default: ‘*’. E.g. ‘<em>:NXsample/</em>’</p>
+</dd>
+<dt><kbd><span class="option">-v <var>VALUES</var></span>, <span class="option">--values=<var>VALUES</var></span></kbd></dt>
+<dd><p>field names which value should be stored (separated by commas without spaces). Default: depends_on</p>
+</dd>
+<dt><kbd><span class="option">-g</span>, <span class="option">--geometry</span></kbd></dt>
+<dd><p>show fields with geometry full_path filters, i.e. <em>:NXtransformations/</em>,*/depends_on. It works only when -f is not defined</p>
+</dd>
+<dt><kbd><span class="option">-s</span>, <span class="option">--source</span></kbd></dt>
+<dd><p>show datasource parameters</p>
+</dd>
+<dt><kbd><span class="option">--h5py</span></kbd></dt>
+<dd><p>use h5py module as a nexus reader</p>
+</dd>
+<dt><kbd><span class="option">--h5cpp</span></kbd></dt>
+<dd><p>use h5cpp module as a nexus reader</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h3>Example<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>field<span class="w"> </span>/tmp/saxs_ref1_02.nxs
+nxsfileinfo<span class="w"> </span>field<span class="w"> </span>/user/data/myfile.nxs<span class="w"> </span>-g
+nxsfileinfo<span class="w"> </span>field<span class="w"> </span>/user/data/myfile.nxs<span class="w"> </span>-s
+</pre></div>
+</div>
+</section>
+</section>
+<section id="nxsfileinfo-metadata">
+<h2>nxsfileinfo metadata<a class="headerlink" href="#nxsfileinfo-metadata" title="Link to this heading">¶</a></h2>
+<p>It shows metadata of the nexus file.</p>
+<section id="id4">
+<h3>Synopsis<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>nxsfileinfo<span class="w"> </span>metadata<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>&lt;file_name&gt;
+</pre></div>
+</div>
+<dl>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-a <var>ATTRS</var></span>, <span class="option">--attributes <var>ATTRS</var></span></kbd></dt>
+<dd><p>names of field or group attributes to be show (separated by commas without spaces). The default takes all attributes</p>
+</dd>
+<dt><kbd><span class="option">-n <var>NATTRS</var></span>, <span class="option">--hidden-attributes <var>NATTRS</var></span></kbd></dt>
+<dd><p>names of field or group attributes to be hidden (separated by commas without spaces). The default: ‘nexdatas_source,nexdatas_strategy’</p>
+</dd>
+<dt><kbd><span class="option">-v <var>VALUES</var></span>, <span class="option">--values <var>VALUES</var></span></kbd></dt>
+<dd><p>field names of more dimensional datasets which value should be shown (separated by commas without spaces)</p>
+</dd>
+<dt><kbd><span class="option">-z <var>KEYWORDS</var></span>, <span class="option">--keywords <var>KEYWORDS</var></span></kbd></dt>
+<dd><p>dataset keywords separated by commas.</p>
+</dd>
+<dt><kbd><span class="option">-w <var>OWNERGROUP</var></span>, <span class="option">--owner-group <var>OWNERGROUP</var></span></kbd></dt>
+<dd><p>owner group name. Default is {beamtimeid}-part</p>
+</dd>
+<dt><kbd><span class="option">-c <var>ACCESSGROUPS</var></span>, <span class="option">--access-groups <var>ACCESSGROUPS</var></span></kbd></dt>
+<dd><p>access group names separated by commas. Default is
+{beamtimeid}-clbt,{beamtimeId}-dmgt,{beamline}dmgt</p>
+</dd>
+<dt><kbd><span class="option">-g <var>GROUP_POSTFIX</var></span>, <span class="option">--group-postfix <var>GROUP_POSTFIX</var></span></kbd></dt>
+<dd><p>postfix to be added to NeXus group name. The default: ‘Parameters’</p>
+</dd>
+<dt><kbd><span class="option">-t <var>ENTRYCLASSES</var></span>, <span class="option">--entry-classes <var>ENTRYCLASSES</var></span></kbd></dt>
+<dd><p>names of entry NX_class to be shown (separated by commas without spaces). If name is ‘’ all groups are shown. The default: ‘NXentry’</p>
+</dd>
+<dt><kbd><span class="option">-e <var>ENTRYNAMES</var></span>, <span class="option">--entry-names <var>ENTRYNAMES</var></span></kbd></dt>
+<dd><p>names of entry groups to be shown (separated by commas without spaces). If name is ‘’ all groups are shown. The default: ‘’</p>
+</dd>
+<dt><kbd><span class="option">-m</span>, <span class="option">--raw-metadata</span></kbd></dt>
+<dd><p>do not store NXentry as scientificMetadata</p>
+</dd>
+<dt><kbd><span class="option">--dont-merge</span></kbd></dt>
+<dd><p>keep entries separate</p>
+</dd>
+<dt><kbd><span class="option">--add-empty-units</span></kbd></dt>
+<dd><p>add empty units for fields without units</p>
+</dd>
+<dt><kbd><span class="option">--oned</span></kbd></dt>
+<dd><p>add 1d values to scientificMetadata</p>
+</dd>
+<dt><kbd><span class="option">--max-oned-size <var>MAXONEDSIZE</var></span></kbd></dt>
+<dd><p>add min and max (or first and last) values of 1d records to scientificMetadata if its size excides –max-oned-size value</p>
+</dd>
+<dt><kbd><span class="option">-p <var>PID</var></span>, <span class="option">--pid <var>PID</var></span></kbd></dt>
+<dd><p>dataset pid</p>
+</dd>
+<dt><kbd><span class="option">-i <var>BEAMTIMEID</var></span>, <span class="option">--beamtimeid <var>BEAMTIMEID</var></span></kbd></dt>
+<dd><p>beamtime id</p>
+</dd>
+<dt><kbd><span class="option">-u</span>, <span class="option">--pid-with-uuid</span></kbd></dt>
+<dd><p>generate pid with uuid</p>
+</dd>
+<dt><kbd><span class="option">-f</span>, <span class="option">--pid-with-filename</span></kbd></dt>
+<dd><p>generate pid with file name</p>
+</dd>
+<dt><kbd><span class="option">-q <var>TECHNIQUES</var></span>, <span class="option">--techniques <var>TECHNIQUES</var></span></kbd></dt>
+<dd><p>names of techniques (separated by commas without
+spaces).The default: ‘’</p>
+</dd>
+<dt><kbd><span class="option">-j <var>SAMPLEID</var></span>, <span class="option">--sample-id <var>SAMPLEID</var></span></kbd></dt>
+<dd><p>sampleId</p>
+</dd>
+<dt><kbd><span class="option">--sample-id-from-name</span></kbd></dt>
+<dd><p>get sampleId from the sample name</p>
+</dd>
+<dt><kbd><span class="option">-y <var>INSTRUMENTID</var></span>, <span class="option">--instrument-id <var>INSTRUMENTID</var></span></kbd></dt>
+<dd><p>instrumentId</p>
+</dd>
+<dt><kbd><span class="option">--raw-instrument-id</span></kbd></dt>
+<dd><p>leave raw instrument id</p>
+</dd>
+<dt><kbd><span class="option">-b <var>BEAMTIMEMETA</var></span>, <span class="option">--beamtime-meta <var>BEAMTIMEMETA</var></span></kbd></dt>
+<dd><p>beamtime metadata file</p>
+</dd>
+<dt><kbd><span class="option">-s <var>SCIENTIFICMETA</var></span>, <span class="option">--scientific-meta <var>SCIENTIFICMETA</var></span></kbd></dt>
+<dd><p>scientific metadata file</p>
+</dd>
+<dt><kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></dt>
+<dd><p>output scicat metadata file</p>
+</dd>
+<dt><kbd><span class="option">-r <var>RELPATH</var></span>, <span class="option">--relative-path <var>RELPATH</var></span></kbd></dt>
+<dd><p>relative path to the scan files</p>
+</dd>
+<dt><kbd><span class="option">-x <var>CHMOD</var></span>, <span class="option">--chmod <var>CHMOD</var></span></kbd></dt>
+<dd><p>json metadata file mod bits, e.g. 0o662</p>
+</dd>
+<dt><kbd><span class="option">--copy-map <var>COPYMAP</var></span></kbd></dt>
+<dd><p>json or yaml map {output: input} or [[output, input],]
+or a text file list to re-arrange metadata</p>
+</dd>
+<dt><kbd><span class="option">--copy-map-field <var>COPYMAPFIELD</var></span></kbd></dt>
+<dd><p>field json or yaml with map {output: input} or [[output, input],]
+or a text file list to re-arrange metadata. The default:
+‘scientificMetadata.nxsfileinfo_parameters.copymap.value’</p>
+</dd>
+<dt><kbd><span class="option">--copy-map-error</span></kbd></dt>
+<dd><p>Raise an error when the copy map file does not exist</p>
+</dd>
+<dt><kbd><span class="option">--copy-map-file <var>COPYMAPFILE</var></span></kbd></dt>
+<dd><p>json or yaml file containing the copy map, see also –copy-map</p>
+</dd>
+<dt><kbd><span class="option">-f <var>FILEFORMAT</var></span>, <span class="option">--file-format <var>FILEFORMAT</var></span></kbd></dt>
+<dd><p>input file format, e.g. ‘nxs’. Default is defined by the file extension</p>
+</dd>
+<dt><kbd><span class="option">--proposal-as-proposal</span></kbd></dt>
+<dd><p>Store the DESY proposal as the SciCat proposal</p>
+</dd>
+<dt><kbd><span class="option">--h5py</span></kbd></dt>
+<dd><p>use h5py module as a nexus reader</p>
+</dd>
+<dt><kbd><span class="option">--h5cpp</span></kbd></dt>
+<dd><p>use h5cpp module as a nexus reader</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>Example<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>metadata<span class="w"> </span>/user/data/myfile.nxs
+nxsfileinfo<span class="w"> </span>metadata<span class="w"> </span>/user/data/myfile.fio
+nxsfileinfo<span class="w"> </span>metadata<span class="w"> </span>/user/data/myfile.nxs<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Group&#39;</span>
+nxsfileinfo<span class="w"> </span>metadata<span class="w"> </span>/user/data/myfile.nxs<span class="w"> </span>-s
+nxsfileinfo<span class="w"> </span>metadata<span class="w"> </span>/user/data/myfile.nxs<span class="w"> </span>-a<span class="w"> </span>units,NX_class
+</pre></div>
+</div>
+</section>
+</section>
+<section id="nxsfileinfo-origdatablock">
+<h2>nxsfileinfo origdatablock<a class="headerlink" href="#nxsfileinfo-origdatablock" title="Link to this heading">¶</a></h2>
+<p>It generates description of all scan files</p>
+<section id="id6">
+<h3>Synopsis<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>nxsfileinfo<span class="w"> </span>origdatablock<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>&lt;scan_name&gt;
+</pre></div>
+</div>
+<dl>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-p <var>PID</var></span>, <span class="option">--pid <var>PID</var></span></kbd></dt>
+<dd><p>dataset pid</p>
+</dd>
+<dt><kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></dt>
+<dd><p>output scicat metadata file</p>
+</dd>
+<dt><kbd><span class="option">-w <var>OWNERGROUP</var></span>, <span class="option">--owner-group <var>OWNERGROUP</var></span></kbd></dt>
+<dd><p>owner group name. Default is {beamtimeid}-part</p>
+</dd>
+<dt><kbd><span class="option">-c <var>ACCESSGROUPS</var></span>, <span class="option">--access-groups <var>ACCESSGROUPS</var></span></kbd></dt>
+<dd><p>access group names separated by commas. Default is
+{beamtimeid}-clbt,{beamtimeId}-dmgt</p>
+</dd>
+<dt><kbd><span class="option">-s <var>SKIP</var></span>, <span class="option">--skip <var>SKIP</var></span></kbd></dt>
+<dd><p>filters for files to be skipped (separated by commas
+without spaces). Default: ‘’. E.g.
+‘<em>.pyc,</em>~’</p>
+</dd>
+<dt><kbd><span class="option">-a <var>ADD</var></span>, <span class="option">--add <var>ADD</var></span></kbd></dt>
+<dd><p>list of files to be added (separated by commas
+without spaces). Default: ‘’. E.g.
+‘scan1.nxs,scan2.nxs’</p>
+</dd>
+<dt><kbd><span class="option">-r <var>RELPATH</var></span>, <span class="option">--relative-path <var>RELPATH</var></span></kbd></dt>
+<dd><p>relative path to the scan files</p>
+</dd>
+<dt><kbd><span class="option">-x <var>CHMOD</var></span>, <span class="option">--chmod <var>CHMOD</var></span></kbd></dt>
+<dd><p>json metadata file mod bits, e.g. 0o662</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h3>Example<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>origdatablock<span class="w"> </span>/user/data/scan_12345
+</pre></div>
+</div>
+</section>
+</section>
+<section id="nxsfileinfo-sample">
+<h2>nxsfileinfo sample<a class="headerlink" href="#nxsfileinfo-sample" title="Link to this heading">¶</a></h2>
+<p>It generates description of sample</p>
+<section id="id8">
+<h3>Synopsis<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>nxsfileinfo<span class="w"> </span>sample<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
+<dl>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-s <var>SAMPLEID</var></span>, <span class="option">--sample-id <var>SAMPLEID</var></span></kbd></dt>
+<dd><p>sample id</p>
+</dd>
+<dt><kbd><span class="option">-i <var>BEAMTIMEID</var></span>, <span class="option">--beamtimeid <var>BEAMTIMEID</var></span></kbd></dt>
+<dd><p>beamtime id</p>
+</dd>
+<dt><kbd><span class="option">-b <var>BEAMLINE</var></span>, <span class="option">--beamline <var>BEAMLINE</var></span></kbd></dt>
+<dd><p>beamline</p>
+</dd>
+<dt><kbd><span class="option">-d <var>DESCRIPTION</var></span>, <span class="option">--description <var>DESCRIPTION</var></span></kbd></dt>
+<dd><p>sample description</p>
+</dd>
+<dt><kbd><span class="option">-r <var>OWNER</var></span>, <span class="option">--owner <var>OWNER</var></span></kbd></dt>
+<dd><p>sample owner</p>
+</dd>
+<dt><kbd><span class="option">-p</span>, <span class="option">--published</span></kbd></dt>
+<dd><p>sample is published</p>
+</dd>
+<dt><kbd><span class="option">-w <var>OWNERGROUP</var></span>, <span class="option">--owner-group <var>OWNERGROUP</var></span></kbd></dt>
+<dd><p>owner group name. Default is {beamtimeid}-dmgt</p>
+</dd>
+<dt><kbd><span class="option">-c <var>ACCESSGROUPS</var></span>, <span class="option">--access-groups <var>ACCESSGROUPS</var></span></kbd></dt>
+<dd><p>access group names separated by commas. Default is {be
+amtimeId}-dmgt,{beamtimeid}-clbt,{beamtimeId}-part,{be
+amline}dmgt,{beamline}staff</p>
+</dd>
+<dt><kbd><span class="option">-x <var>CHMOD</var></span>, <span class="option">--chmod <var>CHMOD</var></span></kbd></dt>
+<dd><p>json metadata file mod bits, e.g. 0o662</p>
+</dd>
+<dt><kbd><span class="option">-m <var>CHARACTERISTICSMETA</var></span>, <span class="option">--sample-characteristics <var>CHARACTERISTICSMETA</var></span></kbd></dt>
+<dd><p>sample characteristics metadata file</p>
+</dd>
+<dt><kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></dt>
+<dd><p>output scicat metadata file</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h3>Example<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>sample<span class="w"> </span>-i<span class="w"> </span>petra3/h2o/234234<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;HH water&#39;</span><span class="w"> </span>-s<span class="w"> </span>~/cm.json
+</pre></div>
+</div>
+</section>
+</section>
+<section id="nxsfileinfo-instrument">
+<h2>nxsfileinfo instrument<a class="headerlink" href="#nxsfileinfo-instrument" title="Link to this heading">¶</a></h2>
+<p>It generates description of instrument</p>
+<section id="id10">
+<h3>Synopsis<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>nxsfileinfo<span class="w"> </span>instrument<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
+<dl>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-p <var>PID</var></span>, <span class="option">--pid <var>PID</var></span></kbd></dt>
+<dd><p>instrument pid</p>
+</dd>
+<dt><kbd><span class="option">-n <var>NAME</var></span>, <span class="option">--name <var>NAME</var></span></kbd></dt>
+<dd><p>instrument name</p>
+</dd>
+<dt><kbd><span class="option">-i <var>BEAMTIMEID</var></span>, <span class="option">--beamtimeid <var>BEAMTIMEID</var></span></kbd></dt>
+<dd><p>beamtime id</p>
+</dd>
+<dt><kbd><span class="option">-b <var>BEAMLINE</var></span>, <span class="option">--beamline <var>BEAMLINE</var></span></kbd></dt>
+<dd><p>beamline</p>
+</dd>
+<dt><kbd><span class="option">-w <var>OWNERGROUP</var></span>, <span class="option">--owner-group <var>OWNERGROUP</var></span></kbd></dt>
+<dd><p>owner group name. Default is {beamtimeid}-dmgt</p>
+</dd>
+<dt><kbd><span class="option">-c <var>ACCESSGROUPS</var></span>, <span class="option">--access-groups <var>ACCESSGROUPS</var></span></kbd></dt>
+<dd><p>access group names separated by commas. Default is {be
+amtimeId}-dmgt,{beamtimeid}-clbt,{beamtimeId}-part,{be
+amline}dmgt,{beamline}staff</p>
+</dd>
+<dt><kbd><span class="option">-x <var>CHMOD</var></span>, <span class="option">--chmod <var>CHMOD</var></span></kbd></dt>
+<dd><p>json metadata file mod bits, e.g. 0o662</p>
+</dd>
+<dt><kbd><span class="option">-m <var>CUSTOMMETA</var></span>, <span class="option">--custom-metadata <var>CUSTOMMETA</var></span></kbd></dt>
+<dd><p>instrument characteristics metadata file</p>
+</dd>
+<dt><kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></dt>
+<dd><p>output scicat metadata file</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h3>Example<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>instrument<span class="w"> </span>-p<span class="w"> </span>/petra3/p00<span class="w"> </span>-n<span class="w"> </span>P00<span class="w"> </span>-m<span class="w"> </span>~/cm.json
+</pre></div>
+</div>
+</section>
+</section>
+<section id="nxsfileinfo-attachment">
+<h2>nxsfileinfo attachment<a class="headerlink" href="#nxsfileinfo-attachment" title="Link to this heading">¶</a></h2>
+<p>It generates description of attachment</p>
+<section id="id12">
+<h3>Synopsis<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>nxsfileinfo<span class="w"> </span>attachment<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>&lt;image_file<span class="p">|</span>scan_file&gt;
+</pre></div>
+</div>
+<dl>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-a <var>ATID</var></span>, <span class="option">--id <var>ATID</var></span></kbd></dt>
+<dd><p>attachment id</p>
+</dd>
+<dt><kbd><span class="option">-t <var>CAPTION</var></span>, <span class="option">--caption <var>CAPTION</var></span></kbd></dt>
+<dd><p>caption text</p>
+</dd>
+<dt><kbd><span class="option">-i <var>BEAMTIMEID</var></span>, <span class="option">--beamtimeid <var>BEAMTIMEID</var></span></kbd></dt>
+<dd><p>beamtime id</p>
+</dd>
+<dt><kbd><span class="option">-b <var>BEAMLINE</var></span>, <span class="option">--beamline <var>BEAMLINE</var></span></kbd></dt>
+<dd><p>beamline</p>
+</dd>
+<dt><kbd><span class="option">-r <var>OWNER</var></span>, <span class="option">--owner <var>OWNER</var></span></kbd></dt>
+<dd><p>attachment owner</p>
+</dd>
+<dt><kbd><span class="option">-w <var>OWNERGROUP</var></span>, <span class="option">--owner-group <var>OWNERGROUP</var></span></kbd></dt>
+<dd><p>owner group name. Default is {beamtimeid}-dmgt</p>
+</dd>
+<dt><kbd><span class="option">-c <var>ACCESSGROUPS</var></span>, <span class="option">--access-groups <var>ACCESSGROUPS</var></span></kbd></dt>
+<dd><p>access group names separated by commas. Default is {be
+amtimeId}-dmgt,{beamtimeid}-clbt,{beamtimeId}-part,{be
+amline}dmgt,{beamline}staff</p>
+</dd>
+<dt><kbd><span class="option">-f <var>FILEFORMAT</var></span>, <span class="option">--file-format <var>FILEFORMAT</var></span></kbd></dt>
+<dd><p>input file format, e.g. ‘nxs’. Default is defined by
+the file extension</p>
+</dd>
+<dt><kbd><span class="option">--h5py</span></kbd></dt>
+<dd><p>use h5py module as a nexus reader</p>
+</dd>
+<dt><kbd><span class="option">--h5cpp</span></kbd></dt>
+<dd><p>use h5cpp module as a nexus reader</p>
+</dd>
+<dt><kbd><span class="option">-x <var>CHMOD</var></span>, <span class="option">--chmod <var>CHMOD</var></span></kbd></dt>
+<dd><p>json metadata file mod bits, e.g. 0o662</p>
+</dd>
+<dt><kbd><span class="option">-s <var>SIGNALS</var></span>, <span class="option">--signals <var>SIGNALS</var></span></kbd></dt>
+<dd><p>signals data name(s) separated by comma</p>
+</dd>
+<dt><kbd><span class="option">-e <var>AXES</var></span>, <span class="option">--axes <var>AXES</var></span></kbd></dt>
+<dd><p>axis/axes data name(s) separated by comma</p>
+</dd>
+<dt><kbd><span class="option">-q <var>SCANCMDAXES</var></span>, <span class="option">--scan-command-axes <var>SCANCMDAXES</var></span></kbd></dt>
+<dd><p>a JSON dictionary with scan-command axes to override,
+axis/axes data name(s) separated by comma for
+detectors and by semicolon for more plots. Default:
+{“hklscan”:”h;k;l”,”qscan”:”qz;qpar”}</p>
+</dd>
+<dt><kbd><span class="option">-m <var>FRAME</var></span>, <span class="option">--frame <var>FRAME</var></span></kbd></dt>
+<dd><p>a frame number for if more 2D images in the data</p>
+</dd>
+<dt><kbd><span class="option">--signal-label <var>SLABEL</var></span></kbd></dt>
+<dd><p>signal label</p>
+</dd>
+<dt><kbd><span class="option">--xlabel <var>XLABEL</var></span></kbd></dt>
+<dd><p>x-axis label</p>
+</dd>
+<dt><kbd><span class="option">--ylabel <var>YLABEL</var></span></kbd></dt>
+<dd><p>y-axis label</p>
+</dd>
+<dt><kbd><span class="option">-u</span>, <span class="option">--override</span></kbd></dt>
+<dd><p>override NeXus entries by script parameters</p>
+</dd>
+<dt><kbd><span class="option">--parameters-in-caption</span></kbd></dt>
+<dd><p>add plot paramters to the caption</p>
+</dd>
+<dt><kbd><span class="option">-n <var>NEXUSPATH</var></span>, <span class="option">--nexus-path <var>NEXUSPATH</var></span></kbd></dt>
+<dd><p>base nexus path to element to be shown.
+If th path is ‘’ the default group is shown. The default: ‘’</p>
+</dd>
+<dt><kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></dt>
+<dd><p>output scicat metadata file</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h3>Example<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>attachment<span class="w"> </span>-b<span class="w"> </span>p00<span class="w"> </span>-i<span class="w"> </span><span class="m">2342342</span><span class="w"> </span>-t<span class="w"> </span><span class="s1">&#39;HH water&#39;</span><span class="w"> </span>-o<span class="w"> </span>~/at1.json<span class="w"> </span>thumbnail.png
+nxsfileinfo<span class="w"> </span>attachment<span class="w"> </span>-b<span class="w"> </span>p00<span class="w"> </span>-i<span class="w"> </span><span class="m">2342342</span><span class="w"> </span>-t<span class="w"> </span><span class="s1">&#39;HH water&#39;</span><span class="w"> </span>-o<span class="w"> </span>~/at2.json<span class="w"> </span>-s<span class="w"> </span>pilatus<span class="w"> </span>myscan_00123.nxs
+nxsfileinfo<span class="w"> </span>attachment<span class="w"> </span>-b<span class="w"> </span>p00<span class="w"> </span>-i<span class="w"> </span><span class="m">2342342</span><span class="w"> </span>-t<span class="w"> </span><span class="s1">&#39;HH water&#39;</span><span class="w"> </span>-o<span class="w"> </span>~/at2.json<span class="w">  </span>myscan_00124.fio
+</pre></div>
+</div>
+</section>
+</section>
+<section id="nxsfileinfo-groupmetadata">
+<h2>nxsfileinfo groupmetadata<a class="headerlink" href="#nxsfileinfo-groupmetadata" title="Link to this heading">¶</a></h2>
+<p>It groups scan metadata to one dataset</p>
+<section id="id14">
+<h3>Synopsis<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>nxsfileinfo<span class="w"> </span>groupmetadata<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>groupname<span class="o">]</span>
+</pre></div>
+</div>
+<dl>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-p <var>PID</var></span>, <span class="option">--pid <var>PID</var></span></kbd></dt>
+<dd><p>dataset pid</p>
+</dd>
+<dt><kbd><span class="option">--raw</span></kbd></dt>
+<dd><p>raw dataset type</p>
+</dd>
+<dt><kbd><span class="option">-i <var>BEAMTIMEID</var></span>, <span class="option">--beamtimeid</span></kbd></dt>
+<dd><p>BEAMTIMEID beamtime id</p>
+</dd>
+<dt><kbd><span class="option">-s</span>, <span class="option">--skip-group-datablock</span></kbd></dt>
+<dd><p>skip group datablock</p>
+</dd>
+<dt><kbd><span class="option">-w</span>, <span class="option">--allow-duplication</span></kbd></dt>
+<dd><p>allow to merge metadata with duplicated pid</p>
+</dd>
+<dt><kbd><span class="option">-q</span>, <span class="option">--raw</span></kbd></dt>
+<dd><p>raw dataset type</p>
+</dd>
+<dt><kbd><span class="option">-f</span>, <span class="option">--write-files</span></kbd></dt>
+<dd><p>write output to files</p>
+</dd>
+<dt><kbd><span class="option">-k <var>SCICATVERSION</var></span>, <span class="option">--scicat-version <var>SCICATVERSION</var></span></kbd></dt>
+<dd><p>major scicat version metadata</p>
+</dd>
+<dt><kbd><span class="option">-x <var>CHMOD</var></span>, <span class="option">--chmod <var>CHMOD</var></span></kbd></dt>
+<dd><p>json metadata file mod bits, e.g. 0o662</p>
+</dd>
+<dt><kbd><span class="option">-g <var>GROUPMAP</var></span>, <span class="option">--group-map <var>GROUPMAP</var></span></kbd></dt>
+<dd><p>json or yaml map of {output: input} or [[output,
+input],] or a text file list to re-arrange metadata</p>
+</dd>
+<dt><kbd><span class="option">-e</span>, <span class="option">--group-map-error</span></kbd></dt>
+<dd><p>Raise an error when the group map file does not exist</p>
+</dd>
+<dt><kbd><span class="option">-r <var>GROUPMAPFILE</var></span>, <span class="option">--group-map-file <var>GROUPMAPFILE</var></span></kbd></dt>
+<dd><p>json or yaml file containing the copy map, see also</p>
+</dd>
+<dt><kbd><span class="option">-m <var>METADATAFILE</var></span>, <span class="option">--metadata <var>METADATAFILE</var></span></kbd></dt>
+<dd><p>json metadata file</p>
+</dd>
+<dt><kbd><span class="option">-d <var>ORIGDATABLOCKFILE</var></span>, <span class="option">--origdatablock <var>ORIGDATABLOCKFILE</var></span></kbd></dt>
+<dd><p>json origmetadata file</p>
+</dd>
+<dt><kbd><span class="option">-a <var>ATTACHMENTFILE</var></span>, <span class="option">--attachment <var>ATTACHMENTFILE</var></span></kbd></dt>
+<dd><p>json attachment file</p>
+</dd>
+<dt><kbd><span class="option">-o <var>OUTPUT</var></span>, <span class="option">--output <var>OUTPUT</var></span></kbd></dt>
+<dd><p>output scicat group metadata file</p>
+</dd>
+<dt><kbd><span class="option">-l <var>DBOUTPUT</var></span>, <span class="option">--datablock-output <var>DBOUTPUT</var></span></kbd></dt>
+<dd><p>output scicat group datablocks list file</p>
+</dd>
+<dt><kbd><span class="option">-t <var>ATOUTPUT</var></span>, <span class="option">--attachment-output <var>ATOUTPUT</var></span></kbd></dt>
+<dd><p>output scicat group attachments list file</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="id15">
+<h3>Example<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsfileinfo<span class="w"> </span>groupmetadata<span class="w"> </span>-o<span class="w"> </span>/user/data/myscan.scan.json<span class="w">  </span>-t<span class="w"> </span>/user/data/myscan.attachment.json<span class="w">  </span>-l<span class="w"> </span>/user/data/myscan.origdatablock.json<span class="w">  </span>-c<span class="w"> </span>/home/user/group_config.txt<span class="w">  </span>-m<span class="w"> </span>/user/data/myscan_00023.scan.json<span class="w">  </span>-d<span class="w"> </span>/user/data/myscan_00023.origdatablock.json<span class="w">  </span>-a<span class="w"> </span>/user/data/myscan_00023.attachment.json
+
+nxsfileinfo<span class="w"> </span>groupmetadata<span class="w"> </span>myscan_m001<span class="w">  </span>-m<span class="w"> </span>/user/data/myscan_00021.scan.json<span class="w"> </span>-c<span class="w"> </span>/home/user/group_config.txt
+
+nxsfileinfo<span class="w"> </span>groupmetadata<span class="w">  </span>myscan_m001<span class="w">  </span>-c<span class="w"> </span>/home/user/group_config.txt<span class="w">  </span>-m<span class="w"> </span>/user/data/myscan_00023.scan.json<span class="w">  </span>-d<span class="w"> </span>/user/data/myscan_00023.origdatablock.json<span class="w">  </span>-a<span class="w"> </span>/user/data/myscan_00023.attachment.json
+
+nxsfileinfo<span class="w"> </span>groupmetadata<span class="w">  </span>-m<span class="w"> </span>/user/data/myscan_00023.scan.json<span class="w">  </span>-d<span class="w"> </span>/user/data/myscan_00023.origdatablock.json<span class="w">  </span>-c<span class="w"> </span>/home/user/group_config.txt
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
+
+GNU GENERAL PUBLIC LICENSE, version 3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
