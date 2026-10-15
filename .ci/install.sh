@@ -80,6 +80,7 @@ if [ "$2" = "2" ]; then
     docker exec --user root ndts python setup.py  install
 else
     echo "install python3-nxstools"
+    docker exec  --user root ndts /bin/bash -c 'apt-get remove -y python-nxstools' 
     docker exec --user root ndts chown -R tango:tango .
     docker exec ndts mkdir build
     # docker exec  ndts sphinx-build -b html doc ../nexdatas.tools-doc/html
