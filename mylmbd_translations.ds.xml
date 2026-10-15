@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<definition>
-  <datasource type="TANGO" name="mylmbd_translations">
-    <device name="p09/lambda/exp.01" member="attribute" hostname="haso000" port="10000" group="mylmbd_"/>
-    <record name="Translations"/>
-  </datasource>
-</definition>

@@ -1,9 +1,0 @@
-<?xml version='1.0'?>
-<definition>
-  <datasource type="PYEVAL" name="sampleenv_nxdata">
-    <result name="result">
-from nxstools.pyeval import secop
-ds.result = secop.create_sample_nxdata(commonblock, "$var.entryname#'scan'$var.serialno", "sample_environment")
-    </result>
-  </datasource>
-</definition>

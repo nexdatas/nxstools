@@ -1,9 +1,0 @@
-<?xml version='1.0'?>
-<definition>
-  <datasource type="PYEVAL" name="sample_env_links">
-    <result name="result">
-from nxstools.pyeval import secop
-ds.result = secop.create_env_links(commonblock, "temperature,magnetic_field", "$var.entryname#'scan'$var.serialno", "sample")
-    </result>
-  </datasource>
-</definition>
