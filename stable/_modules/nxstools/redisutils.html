@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.redisutils &#8212; NXSTools 4.64.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <title>nxstools.redisutils &#8212; NXSTools 4.69.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
+    <script src="../../_static/documentation_options.js?v=a730ddbd"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
@@ -37,7 +34,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.64</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.69</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -144,17 +141,6 @@
 </ul>
 </li>
               
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"></ul>
-</li>
-              
             
             
               
@@ -182,7 +168,23 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><p>
+  <h3 class='versions'>Versions</h3>
+  <p>
+    <ul>
+      <li><a class="reference external" href="../../index/../../latest/index.html">v:latest</a></li>
+      <li><a class="reference external" href="../../index/../../stable/index.html">v:stable</a></li>
+      
+      <li><a class="reference external" href="../../index/../../v4.69.0/index.html">v4.69.0</a></li>
+      <li><a class="reference external" href="../../index/../../v4.68.0/index.html">v4.68.0</a></li>
+      
+    </ul>
+  </p>
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <h1>Source code for nxstools.redisutils</h1><div class="highlight"><pre>
 <span></span><span class="c1">#   This file is part of nexdatas - Tango Server for NeXus data writer</span>
@@ -279,7 +281,9 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="splitstr"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.splitstr">[docs]</a><span class="k">def</span> <span class="nf">splitstr</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<div class="viewcode-block" id="splitstr">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.splitstr">[docs]</a>
+<span class="k">def</span> <span class="nf">splitstr</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; split string separated by space</span>
 
 <span class="sd">    :param text: text to split</span>
@@ -290,7 +294,10 @@
     <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="joinstr"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.joinstr">[docs]</a><span class="k">def</span> <span class="nf">joinstr</span><span class="p">(</span><span class="n">textlst</span><span class="p">):</span>
+
+<div class="viewcode-block" id="joinstr">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.joinstr">[docs]</a>
+<span class="k">def</span> <span class="nf">joinstr</span><span class="p">(</span><span class="n">textlst</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; join strings</span>
 
 <span class="sd">    :param textlst: text strings to join</span>
@@ -303,7 +310,10 @@
     <span class="k">return</span> <span class="n">lstr</span></div>
 
 
-<div class="viewcode-block" id="get_title"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.get_title">[docs]</a><span class="k">def</span> <span class="nf">get_title</span><span class="p">(</span><span class="n">fulltitle</span><span class="p">):</span>
+
+<div class="viewcode-block" id="get_title">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.get_title">[docs]</a>
+<span class="k">def</span> <span class="nf">get_title</span><span class="p">(</span><span class="n">fulltitle</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; join strings</span>
 
 <span class="sd">    :param fulltitle: title with MG in front of</span>
@@ -314,6 +324,7 @@
     <span class="k">if</span> <span class="s2">&quot;, &quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fulltitle</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">fulltitle</span>
     <span class="k">return</span> <span class="n">fulltitle</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
 
 
 <span class="n">progattrdesc</span> <span class="o">=</span> <span class="p">{</span>
@@ -331,7 +342,9 @@
 <span class="p">}</span>
 
 
-<div class="viewcode-block" id="progattr"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.progattr">[docs]</a><span class="k">def</span> <span class="nf">progattr</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="n">anames</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+<div class="viewcode-block" id="progattr">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.progattr">[docs]</a>
+<span class="k">def</span> <span class="nf">progattr</span><span class="p">(</span><span class="n">vl</span><span class="p">,</span> <span class="n">anames</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
     <span class="n">np</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
@@ -361,7 +374,10 @@
     <span class="k">return</span> <span class="n">np</span></div>
 
 
-<div class="viewcode-block" id="motors_from_title"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.motors_from_title">[docs]</a><span class="k">def</span> <span class="nf">motors_from_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="motors_from_title">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.motors_from_title">[docs]</a>
+<span class="k">def</span> <span class="nf">motors_from_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return moved-motor channel names parsed from a Sardana macro_command.</span>
 
 <span class="sd">    Recognises the macros listed in :data:`SARDANA_MOTOR_POSITIONS`. When</span>
@@ -389,7 +405,10 @@
     <span class="k">return</span> <span class="n">motors</span></div>
 
 
-<div class="viewcode-block" id="build_acq_chain"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.build_acq_chain">[docs]</a><span class="k">def</span> <span class="nf">build_acq_chain</span><span class="p">(</span><span class="n">devices</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="build_acq_chain">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.build_acq_chain">[docs]</a>
+<span class="k">def</span> <span class="nf">build_acq_chain</span><span class="p">(</span><span class="n">devices</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">ChainDict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{}</span>
 
@@ -432,6 +451,7 @@
             <span class="p">},</span>
         <span class="p">)</span>
     <span class="p">}</span></div>
+
 
 
 <span class="k">def</span> <span class="nf">_classify_channels</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="n">motor_set</span><span class="p">):</span>
@@ -509,7 +529,9 @@
     <span class="k">return</span> <span class="n">counters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">counters</span> <span class="k">else</span> <span class="kc">None</span>
 
 
-<div class="viewcode-block" id="build_plots"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.build_plots">[docs]</a><span class="k">def</span> <span class="nf">build_plots</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="build_plots">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.build_plots">[docs]</a>
+<span class="k">def</span> <span class="nf">build_plots</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Build blissdata ``scan_info[&#39;plots&#39;]`` descriptors for a Sardana scan.</span>
 
 <span class="sd">    Returns ``{&quot;plots&quot;: [...], &quot;channel_meta&quot;: {name: {...}}}`` where</span>
@@ -568,17 +590,23 @@
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;plots&quot;</span><span class="p">:</span> <span class="n">plots</span><span class="p">,</span> <span class="s2">&quot;channel_meta&quot;</span><span class="p">:</span> <span class="n">channel_meta</span><span class="p">}</span></div>
 
 
+
 <span class="k">if</span> <span class="n">REDIS</span><span class="p">:</span>
 
-<div class="viewcode-block" id="DESYIdentityModel"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.DESYIdentityModel">[docs]</a>    <span class="k">class</span> <span class="nc">DESYIdentityModel</span><span class="p">(</span><span class="n">HashModel</span><span class="p">):</span>
+<div class="viewcode-block" id="DESYIdentityModel">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.DESYIdentityModel">[docs]</a>
+    <span class="k">class</span> <span class="nc">DESYIdentityModel</span><span class="p">(</span><span class="n">HashModel</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Institute specific information used to link scans</span>
 <span class="sd">           in Redis to external services.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="DESYIdentityModel.Meta"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.DESYIdentityModel.Meta">[docs]</a>        <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="DESYIdentityModel.Meta">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.DESYIdentityModel.Meta">[docs]</a>
+        <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
             <span class="n">global_key_prefix</span> <span class="o">=</span> <span class="s2">&quot;esrf&quot;</span>
             <span class="n">model_key_prefix</span> <span class="o">=</span> <span class="s2">&quot;id&quot;</span>
             <span class="n">database</span> <span class="o">=</span> <span class="n">_UninitializedRedis</span><span class="p">()</span></div>
+
 
         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -594,11 +622,14 @@
         <span class="c1"># Without data policy</span>
         <span class="n">path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div>
 
+
 <span class="k">else</span><span class="p">:</span>
     <span class="n">DESYIdentityModel</span> <span class="o">=</span> <span class="kc">None</span>
 
 
-<div class="viewcode-block" id="getDataStore"><a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.getDataStore">[docs]</a><span class="k">def</span> <span class="nf">getDataStore</span><span class="p">(</span><span class="n">redisURL</span><span class="p">):</span>
+<div class="viewcode-block" id="getDataStore">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.getDataStore">[docs]</a>
+<span class="k">def</span> <span class="nf">getDataStore</span><span class="p">(</span><span class="n">redisURL</span><span class="p">):</span>
 
     <span class="n">datastore</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">try</span><span class="p">:</span>
@@ -613,6 +644,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Redis DataStore cannot be instantiated: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">datastore</span></div>
+
 </pre></div>
 
     </div>
@@ -629,7 +661,7 @@
         &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
 
 GNU GENERAL PUBLIC LICENSE, version 3.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
     </p>
   </div>
 </footer>

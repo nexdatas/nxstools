@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.nxsfileinfo &#8212; NXSTools 4.67.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <title>nxstools.nxsfileinfo &#8212; NXSTools 4.69.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
+    <script src="../../_static/documentation_options.js?v=a730ddbd"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
@@ -37,7 +34,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.67</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.69</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -144,17 +141,6 @@
 </ul>
 </li>
               
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"></ul>
-</li>
-              
             
             
               
@@ -182,7 +168,23 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><p>
+  <h3 class='versions'>Versions</h3>
+  <p>
+    <ul>
+      <li><a class="reference external" href="../../index/../../latest/index.html">v:latest</a></li>
+      <li><a class="reference external" href="../../index/../../stable/index.html">v:stable</a></li>
+      
+      <li><a class="reference external" href="../../index/../../v4.69.0/index.html">v4.69.0</a></li>
+      <li><a class="reference external" href="../../index/../../v4.68.0/index.html">v4.68.0</a></li>
+      
+    </ul>
+  </p>
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <h1>Source code for nxstools.nxsfileinfo</h1><div class="highlight"><pre>
 <span></span><span class="c1">#   This file is part of nexdatas - Tango Server for NeXus data writer</span>
@@ -263,7 +265,9 @@
 <span class="c1">#     PILLOW = False</span>
 
 
-<div class="viewcode-block" id="getlist"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.getlist">[docs]</a><span class="k">def</span> <span class="nf">getlist</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<div class="viewcode-block" id="getlist">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.getlist">[docs]</a>
+<span class="k">def</span> <span class="nf">getlist</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; converts a text string to a list of lists</span>
 <span class="sd">        with respect to newline and space characters</span>
 
@@ -280,7 +284,10 @@
     <span class="k">return</span> <span class="n">lst</span></div>
 
 
-<div class="viewcode-block" id="splittext"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.splittext">[docs]</a><span class="k">def</span> <span class="nf">splittext</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">lmax</span><span class="o">=</span><span class="mi">68</span><span class="p">):</span>
+
+<div class="viewcode-block" id="splittext">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.splittext">[docs]</a>
+<span class="k">def</span> <span class="nf">splittext</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">lmax</span><span class="o">=</span><span class="mi">68</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; split text to lines</span>
 
 <span class="sd">    :param text: parser options</span>
@@ -310,7 +317,10 @@
     <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lnew</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="General"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General">[docs]</a><span class="k">class</span> <span class="nc">General</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<div class="viewcode-block" id="General">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General">[docs]</a>
+<span class="k">class</span> <span class="nc">General</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; General runner&quot;&quot;&quot;</span>
 
@@ -322,7 +332,9 @@
         <span class="o">+</span> <span class="s2">&quot;       nxsfileinfo general /user/data/myfile.nxs</span><span class="se">\n</span><span class="s2">&quot;</span> \
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-<div class="viewcode-block" id="General.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="General.create">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -335,13 +347,19 @@
             <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;h5cpp&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use h5cpp module as a nexus reader&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="General.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="General.postauto">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.postauto">[docs]</a>
+    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; parser creator after autocomplete run &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;nexus_file&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="s1">&#39;new nexus file name&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="General.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="General.run">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -380,7 +398,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
         <span class="n">fl</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="General.parseentry"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.parseentry">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="General.parseentry">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.parseentry">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parseentry</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">entry</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; parse entry of nexus file</span>
 
@@ -526,7 +547,10 @@
                 <span class="n">description</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="n">key</span><span class="p">:</span> <span class="s2">&quot;Program:&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">pname</span><span class="p">})</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="General.show"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+
+<div class="viewcode-block" id="General.show">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.General.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; show general informations</span>
 
 <span class="sd">        :param root: nexus file root</span>
@@ -553,10 +577,14 @@
             <span class="n">rstdescription</span> <span class="o">=</span> <span class="n">ttools</span><span class="o">.</span><span class="n">generateList</span><span class="p">()</span>
             <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rstdescription</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div></div>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="BeamtimeLoader"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader">[docs]</a><span class="k">class</span> <span class="nc">BeamtimeLoader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader">[docs]</a>
+<span class="k">class</span> <span class="nc">BeamtimeLoader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="n">facilityalias</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;PETRA III&quot;</span><span class="p">:</span> <span class="s2">&quot;petra3&quot;</span><span class="p">,</span>
@@ -708,7 +736,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__scmeta</span> <span class="o">=</span> <span class="n">dct</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__metadata</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="BeamtimeLoader.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BeamtimeLoader.run">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; runner for DESY beamtime file parser</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -780,7 +810,10 @@
         <span class="c1"># print(self.__metadata)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__metadata</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.merge"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.merge">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.merge">[docs]</a>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; update metadata with dictionary</span>
 
 <span class="sd">        :param metadata: metadata dictionary to merge in</span>
@@ -794,7 +827,10 @@
             <span class="k">return</span> <span class="n">metadata</span>
         <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mergedict</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__metadata</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.merge_copy_maps"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.merge_copy_maps">[docs]</a>    <span class="k">def</span> <span class="nf">merge_copy_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmap</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.merge_copy_maps">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.merge_copy_maps">[docs]</a>
+    <span class="k">def</span> <span class="nf">merge_copy_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmap</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; merge copy maps</span>
 
 <span class="sd">        :param cmap: overwrite dictionary</span>
@@ -809,7 +845,10 @@
             <span class="n">cpmap</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cpmap</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.merge_copy_lists"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.merge_copy_lists">[docs]</a>    <span class="k">def</span> <span class="nf">merge_copy_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clist</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.merge_copy_lists">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.merge_copy_lists">[docs]</a>
+    <span class="k">def</span> <span class="nf">merge_copy_lists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clist</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; merge copy lists</span>
 
 <span class="sd">        :param clist: overwrite copy list</span>
@@ -824,7 +863,10 @@
             <span class="n">cplist</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">clist</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cplist</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.append_copymap_field"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.append_copymap_field">[docs]</a>    <span class="k">def</span> <span class="nf">append_copymap_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">clist</span><span class="p">,</span> <span class="n">cmapfield</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.append_copymap_field">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.append_copymap_field">[docs]</a>
+    <span class="k">def</span> <span class="nf">append_copymap_field</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">clist</span><span class="p">,</span> <span class="n">cmapfield</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; overwrite metadata with dictionary</span>
 
 <span class="sd">        :param metadata: metadata dictionary to merge in</span>
@@ -864,7 +906,10 @@
                             <span class="s2">&quot;nxsfileinfo: copymap update: &#39;</span><span class="si">%s</span><span class="s2">&#39;</span><span class="se">\n</span><span class="s2">&quot;</span>
                             <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.overwrite"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.overwrite">[docs]</a>    <span class="k">def</span> <span class="nf">overwrite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmapfield</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.overwrite">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.overwrite">[docs]</a>
+    <span class="k">def</span> <span class="nf">overwrite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmapfield</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; overwrite metadata with dictionary</span>
 
 <span class="sd">        :param metadata: metadata dictionary to merge in</span>
@@ -950,7 +995,10 @@
                             <span class="n">parent</span><span class="p">[</span><span class="n">tg</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span>
         <span class="k">return</span> <span class="n">metadata</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.remove_metadata"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.remove_metadata">[docs]</a>    <span class="k">def</span> <span class="nf">remove_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmapfield</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.remove_metadata">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.remove_metadata">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clist</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmapfield</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; remove metadata with dictionary with empty input or output</span>
 <span class="sd">            in the copy map</span>
 
@@ -1011,6 +1059,7 @@
                             <span class="n">parent</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">vl</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">metadata</span></div>
 
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_mergedict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dct1</span><span class="p">,</span> <span class="n">dct2</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">dct1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">dct2</span><span class="p">):</span>
@@ -1024,7 +1073,9 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">yield</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">dct2</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
 
-<div class="viewcode-block" id="BeamtimeLoader.update_pid"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.update_pid">[docs]</a>    <span class="k">def</span> <span class="nf">update_pid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">puuid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfname</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<div class="viewcode-block" id="BeamtimeLoader.update_pid">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.update_pid">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_pid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">puuid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfname</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                    <span class="n">beamtimeid</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; update pid metadata with dictionary</span>
 
@@ -1112,7 +1163,10 @@
                 <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;datasetName&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;pid&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">metadata</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.update_sampleid"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.update_sampleid">[docs]</a>    <span class="k">def</span> <span class="nf">update_sampleid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">sampleid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sidfromname</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.update_sampleid">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.update_sampleid">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_sampleid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">sampleid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sidfromname</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; update sampleid</span>
 
 <span class="sd">        :param metadata: metadata dictionary to merge in</span>
@@ -1162,7 +1216,10 @@
                                  <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">metadata</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.update_instrumentid"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.update_instrumentid">[docs]</a>    <span class="k">def</span> <span class="nf">update_instrumentid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.update_instrumentid">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.update_instrumentid">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_instrumentid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; update instrument id</span>
 
 <span class="sd">        :param metadata: metadata dictionary to merge in</span>
@@ -1178,7 +1235,10 @@
             <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;instrumentId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ins</span>
         <span class="k">return</span> <span class="n">metadata</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.update_techniques"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.update_techniques">[docs]</a>    <span class="k">def</span> <span class="nf">update_techniques</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">techniques</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.update_techniques">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.update_techniques">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_techniques</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">,</span> <span class="n">techniques</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; update techniques</span>
 
 <span class="sd">        :param metadata: metadata dictionary to merge in</span>
@@ -1254,7 +1314,10 @@
             <span class="n">metadata</span><span class="p">[</span><span class="s2">&quot;techniques&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">return</span> <span class="n">metadata</span></div>
 
-<div class="viewcode-block" id="BeamtimeLoader.generate_techniques"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.generate_techniques">[docs]</a>    <span class="k">def</span> <span class="nf">generate_techniques</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techniques</span><span class="p">,</span> <span class="n">techniques_pids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BeamtimeLoader.generate_techniques">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.BeamtimeLoader.generate_techniques">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_techniques</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">techniques</span><span class="p">,</span> <span class="n">techniques_pids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; generate technique dictionary</span>
 
 <span class="sd">        :param techniques: a list of techniques splitted by comma</span>
@@ -1289,10 +1352,14 @@
             <span class="k">elif</span> <span class="n">name</span><span class="p">:</span>
                 <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;pid&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span>
         <span class="c1"># print(result)</span>
-        <span class="k">return</span> <span class="n">result</span></div></div>
+        <span class="k">return</span> <span class="n">result</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Metadata"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata">[docs]</a><span class="k">class</span> <span class="nc">Metadata</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Metadata">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata">[docs]</a>
+<span class="k">class</span> <span class="nc">Metadata</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Metadata runner&quot;&quot;&quot;</span>
 
@@ -1309,7 +1376,9 @@
         <span class="o">+</span> <span class="s2">&quot;-a units,NX_class</span><span class="se">\n</span><span class="s2">&quot;</span> \
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-<div class="viewcode-block" id="Metadata.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Metadata.create">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1471,7 +1540,10 @@
             <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;copymaperror&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Raise an error when the copy map file does not exist&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Metadata.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Metadata.postauto">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.postauto">[docs]</a>
+    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; parser creator after autocomplete run &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s2">&quot;-b&quot;</span><span class="p">,</span> <span class="s2">&quot;--beamtime-meta&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;beamtimemeta&quot;</span><span class="p">,</span>
@@ -1493,7 +1565,10 @@
             <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;nexus_file&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="s1">&#39;new nexus file name&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Metadata.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Metadata.run">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -1556,6 +1631,7 @@
         <span class="k">if</span> <span class="n">nxfl</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">nxfl</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_cure</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="k">if</span> <span class="s1">&#39;creationTime&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
@@ -1586,7 +1662,9 @@
             <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">BeamtimeLoader</span><span class="o">.</span><span class="n">_mergedict</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">rs</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span>
 
-<div class="viewcode-block" id="Metadata.metadata"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.metadata">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Metadata.metadata">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.metadata">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; get metadata from nexus and beamtime file</span>
 
@@ -1860,7 +1938,10 @@
                 <span class="n">result</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                 <span class="bp">cls</span><span class="o">=</span><span class="n">numpyEncoderNull</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Metadata.show"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Metadata.show">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Metadata.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -1906,10 +1987,14 @@
                              <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div></div>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="GroupMetadata"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata">[docs]</a><span class="k">class</span> <span class="nc">GroupMetadata</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GroupMetadata">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata">[docs]</a>
+<span class="k">class</span> <span class="nc">GroupMetadata</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Group Metadata runner&quot;&quot;&quot;</span>
 
@@ -1959,7 +2044,9 @@
     <span class="n">firsttype</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;First&quot;</span><span class="p">,</span> <span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">]</span>
     <span class="c1"># avaragetype = [&quot;Average&quot;, &quot;A&quot;, &quot;a&quot;, &quot;average&quot;]</span>
 
-<div class="viewcode-block" id="GroupMetadata.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GroupMetadata.create">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2024,7 +2111,10 @@
             <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;groupmaperror&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;Raise an error when the group map file does not exist&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="GroupMetadata.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GroupMetadata.postauto">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.postauto">[docs]</a>
+    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; parser creator after autocomplete run &quot;&quot;&quot;</span>
         <span class="c1"># self._parser.add_argument(</span>
         <span class="c1">#     &quot;-b&quot;, &quot;--beamtime-meta&quot;, dest=&quot;beamtimemeta&quot;,</span>
@@ -2054,11 +2144,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s2">&quot;-t&quot;</span><span class="p">,</span> <span class="s2">&quot;--attachment-output&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;atoutput&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;output scicat group attachments list file&quot;</span><span class="p">))</span></div>
+
         <span class="c1"># self._parser.add_argument(</span>
         <span class="c1">#     &quot;-r&quot;, &quot;--relative-path&quot;, dest=&quot;relpath&quot;,</span>
         <span class="c1">#     help=(&quot;relative path to the scan files&quot;))</span>
 
-<div class="viewcode-block" id="GroupMetadata.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<div class="viewcode-block" id="GroupMetadata.run">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -2067,6 +2160,7 @@
 <span class="sd">        :rtype: :obj:`str`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></div>
+
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_cure</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
@@ -3234,7 +3328,9 @@
         <span class="n">metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_update_metadata</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">clist</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">metadata</span>
 
-<div class="viewcode-block" id="GroupMetadata.groupmetadata"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.groupmetadata">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="GroupMetadata.groupmetadata">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.groupmetadata">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">groupmetadata</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; group scan metadata</span>
 
@@ -3410,7 +3506,10 @@
                 <span class="n">result</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">numpyEncoderNull</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">jsnresult</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">dresult</span><span class="p">),</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">aresult</span><span class="p">)]</span></div>
 
-<div class="viewcode-block" id="GroupMetadata.show"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GroupMetadata.show">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.GroupMetadata.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -3508,10 +3607,14 @@
                              <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div></div>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="OrigDatablock"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock">[docs]</a><span class="k">class</span> <span class="nc">OrigDatablock</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrigDatablock">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock">[docs]</a>
+<span class="k">class</span> <span class="nc">OrigDatablock</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; OrigDatablock runner&quot;&quot;&quot;</span>
 
@@ -3523,7 +3626,9 @@
         <span class="o">+</span> <span class="s2">&quot;       nxsfileinfo origdatablock /user/data/scan_12345</span><span class="se">\n</span><span class="s2">&quot;</span> \
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-<div class="viewcode-block" id="OrigDatablock.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OrigDatablock.create">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -3560,7 +3665,10 @@
             <span class="s2">&quot;-x&quot;</span><span class="p">,</span> <span class="s2">&quot;--chmod&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;chmod&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;json metadata file mod bits, e.g. 0o662&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="OrigDatablock.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrigDatablock.postauto">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.postauto">[docs]</a>
+    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; parser creator after autocomplete run &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;scan_name&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span>
@@ -3572,7 +3680,10 @@
             <span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="s2">&quot;--relative-path&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;relpath&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;relative path to scan files&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="OrigDatablock.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrigDatablock.run">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -3582,7 +3693,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OrigDatablock.isotime"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.isotime">[docs]</a>    <span class="k">def</span> <span class="nf">isotime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tme</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrigDatablock.isotime">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.isotime">[docs]</a>
+    <span class="k">def</span> <span class="nf">isotime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tme</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; returns iso time string</span>
 
 <span class="sd">        :returns: iso time</span>
@@ -3609,7 +3723,10 @@
                 <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">tme</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">starttime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">fmt</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="OrigDatablock.filterout"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.filterout">[docs]</a>    <span class="k">def</span> <span class="nf">filterout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fpath</span><span class="p">,</span> <span class="n">filters</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrigDatablock.filterout">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.filterout">[docs]</a>
+    <span class="k">def</span> <span class="nf">filterout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fpath</span><span class="p">,</span> <span class="n">filters</span><span class="p">):</span>
         <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
@@ -3618,7 +3735,10 @@
                     <span class="k">break</span>
         <span class="k">return</span> <span class="n">found</span></div>
 
-<div class="viewcode-block" id="OrigDatablock.datafiles"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.datafiles">[docs]</a>    <span class="k">def</span> <span class="nf">datafiles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scanpath</span><span class="p">,</span> <span class="n">scdir</span><span class="p">,</span> <span class="n">scfiles</span><span class="p">,</span> <span class="n">relpath</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrigDatablock.datafiles">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.datafiles">[docs]</a>
+    <span class="k">def</span> <span class="nf">datafiles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scanpath</span><span class="p">,</span> <span class="n">scdir</span><span class="p">,</span> <span class="n">scfiles</span><span class="p">,</span> <span class="n">relpath</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">dtfiles</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">totsize</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">pdc</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;7&#39;</span><span class="p">:</span> <span class="s1">&#39;rwx&#39;</span><span class="p">,</span> <span class="s1">&#39;6&#39;</span><span class="p">:</span> <span class="s1">&#39;rw-&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">:</span> <span class="s1">&#39;r-x&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span>
@@ -3660,7 +3780,10 @@
             <span class="n">totsize</span> <span class="o">+=</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">dtfiles</span><span class="p">,</span> <span class="n">totsize</span></div>
 
-<div class="viewcode-block" id="OrigDatablock.datablock"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.datablock">[docs]</a>    <span class="k">def</span> <span class="nf">datablock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrigDatablock.datablock">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.datablock">[docs]</a>
+    <span class="k">def</span> <span class="nf">datablock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; dump scan datablock JSON</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -3761,7 +3884,10 @@
                 <span class="n">result</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                 <span class="bp">cls</span><span class="o">=</span><span class="n">numpyEncoder</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="OrigDatablock.show"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OrigDatablock.show">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.OrigDatablock.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -3804,10 +3930,14 @@
                              <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div></div>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Sample"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample">[docs]</a><span class="k">class</span> <span class="nc">Sample</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Sample">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample">[docs]</a>
+<span class="k">class</span> <span class="nc">Sample</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Sample runner&quot;&quot;&quot;</span>
 
@@ -3820,7 +3950,9 @@
         <span class="o">+</span> <span class="s2">&quot;-s ~/cm.json </span><span class="se">\n</span><span class="s2">&quot;</span> \
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-<div class="viewcode-block" id="Sample.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Sample.create">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -3856,7 +3988,10 @@
             <span class="s2">&quot;-x&quot;</span><span class="p">,</span> <span class="s2">&quot;--chmod&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;chmod&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;json metadata file mod bits, e.g. 0o662&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Sample.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Sample.postauto">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.postauto">[docs]</a>
+    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; parser creator after autocomplete run &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;--sample-characteristics&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;characteristicsmeta&quot;</span><span class="p">,</span>
@@ -3865,7 +4000,10 @@
             <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;output scicat metadata file&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Sample.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Sample.run">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -3875,7 +4013,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Sample.sample"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.sample">[docs]</a>    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Sample.sample">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.sample">[docs]</a>
+    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; create sample metadata</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -3934,7 +4075,10 @@
                 <span class="n">result</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                 <span class="bp">cls</span><span class="o">=</span><span class="n">numpyEncoder</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Sample.show"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Sample.show">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Sample.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -3977,10 +4121,14 @@
                              <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div></div>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Attachment"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment">[docs]</a><span class="k">class</span> <span class="nc">Attachment</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Attachment">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment">[docs]</a>
+<span class="k">class</span> <span class="nc">Attachment</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Attachment runner&quot;&quot;&quot;</span>
 
@@ -3997,7 +4145,9 @@
         <span class="o">+</span> <span class="s2">&quot;-o ~/at2.json  myscan_00124.fio </span><span class="se">\n</span><span class="s2">&quot;</span> \
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-<div class="viewcode-block" id="Attachment.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Attachment.create">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -4078,7 +4228,10 @@
             <span class="s2">&quot;The default: &#39;&#39;&quot;</span><span class="p">,</span>
             <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;nexuspath&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Attachment.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Attachment.postauto">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.postauto">[docs]</a>
+    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; parser creator after autocomplete run &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">,</span>
@@ -4087,7 +4240,10 @@
             <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;image_file&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="s1">&#39;png or NeXus image file name&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Attachment.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Attachment.run">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -4144,7 +4300,10 @@
         <span class="k">if</span> <span class="n">nxfl</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">nxfl</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Attachment.attachment"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.attachment">[docs]</a>    <span class="k">def</span> <span class="nf">attachment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Attachment.attachment">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.attachment">[docs]</a>
+    <span class="k">def</span> <span class="nf">attachment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; get metadata from nexus and beamtime file</span>
 
 <span class="sd">        :param root: nexus file root</span>
@@ -4318,6 +4477,7 @@
             <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
                 <span class="n">result</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                 <span class="bp">cls</span><span class="o">=</span><span class="n">numpyEncoder</span><span class="p">)</span></div>
+
 
     <span class="k">def</span> <span class="nf">_axesfromcommand</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scmd</span><span class="p">,</span> <span class="n">scmdaxes</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">useraxes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; create plot from nexus file</span>
@@ -4821,7 +4981,9 @@
         <span class="n">thumbnail</span> <span class="o">=</span> <span class="s2">&quot;data:image/png;base64,&quot;</span> <span class="o">+</span> <span class="n">thumbnail</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">thumbnail</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">pars</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Attachment.show"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+<div class="viewcode-block" id="Attachment.show">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Attachment.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -4866,10 +5028,14 @@
                              <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div></div>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Instrument"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument">[docs]</a><span class="k">class</span> <span class="nc">Instrument</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Instrument">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument">[docs]</a>
+<span class="k">class</span> <span class="nc">Instrument</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Instrument runner&quot;&quot;&quot;</span>
 
@@ -4882,7 +5048,9 @@
         <span class="o">+</span> <span class="s2">&quot;~/cm.json </span><span class="se">\n</span><span class="s2">&quot;</span> \
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-<div class="viewcode-block" id="Instrument.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Instrument.create">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -4912,7 +5080,10 @@
             <span class="s2">&quot;-x&quot;</span><span class="p">,</span> <span class="s2">&quot;--chmod&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;chmod&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;json metadata file mod bits, e.g. 0o662&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Instrument.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Instrument.postauto">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.postauto">[docs]</a>
+    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; parser creator after autocomplete run &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;--custom-metadata&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;custommeta&quot;</span><span class="p">,</span>
@@ -4921,7 +5092,10 @@
             <span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;output scicat metadata file&quot;</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Instrument.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Instrument.run">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -4931,7 +5105,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Instrument.instrument"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.instrument">[docs]</a>    <span class="k">def</span> <span class="nf">instrument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Instrument.instrument">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.instrument">[docs]</a>
+    <span class="k">def</span> <span class="nf">instrument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; create instrument metadata</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -4984,7 +5161,10 @@
                 <span class="n">result</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                 <span class="bp">cls</span><span class="o">=</span><span class="n">numpyEncoder</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Instrument.show"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Instrument.show">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Instrument.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -5027,10 +5207,14 @@
                              <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">print_help</span><span class="p">()</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div></div>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Field"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field">[docs]</a><span class="k">class</span> <span class="nc">Field</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Field">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field">[docs]</a>
+<span class="k">class</span> <span class="nc">Field</span><span class="p">(</span><span class="n">Runner</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Field runner&quot;&quot;&quot;</span>
 
@@ -5044,7 +5228,9 @@
         <span class="o">+</span> <span class="s2">&quot;       nxsfileinfo field /user/data/myfile.nxs -s</span><span class="se">\n</span><span class="s2">&quot;</span> \
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
-<div class="viewcode-block" id="Field.create"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Field.create">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field.create">[docs]</a>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; creates parser</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -5086,13 +5272,19 @@
             <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;h5cpp&quot;</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="s2">&quot;use h5cpp module as a nexus reader&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Field.postauto"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field.postauto">[docs]</a>    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Field.postauto">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field.postauto">[docs]</a>
+    <span class="k">def</span> <span class="nf">postauto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; parser creator after autocomplete run &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
             <span class="s1">&#39;args&#39;</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;nexus_file&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">help</span><span class="o">=</span><span class="s1">&#39;new nexus file name&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Field.run"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Field.run">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field.run">[docs]</a>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -5130,7 +5322,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
         <span class="n">fl</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Field.show"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Field.show">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.Field.show">[docs]</a>
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; the main function</span>
 
 <span class="sd">        :param options: parser options</span>
@@ -5177,10 +5372,14 @@
         <span class="n">ttools</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;File name: &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">options</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">ttools</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span>
         <span class="n">description</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">ttools</span><span class="o">.</span><span class="n">generateList</span><span class="p">())</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">description</span><span class="p">))</span></div></div>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">description</span><span class="p">))</span></div>
+</div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.nxsfileinfo.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; the main program function</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -5224,6 +5423,7 @@
         <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
 
 
+
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
@@ -5242,7 +5442,7 @@
         &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
 
 GNU GENERAL PUBLIC LICENSE, version 3.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
     </p>
   </div>
 </footer>

@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.filenamegenerator &#8212; NXSTools 4.29.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/sphinx_highlight.js"></script>
+    <title>nxstools.filenamegenerator &#8212; NXSTools 4.69.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
+    <script src="../../_static/documentation_options.js?v=a730ddbd"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
@@ -37,7 +34,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.29</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.69</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -144,17 +141,6 @@
 </ul>
 </li>
               
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"></ul>
-</li>
-              
             
             
               
@@ -182,7 +168,23 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><p>
+  <h3 class='versions'>Versions</h3>
+  <p>
+    <ul>
+      <li><a class="reference external" href="../../index/../../latest/index.html">v:latest</a></li>
+      <li><a class="reference external" href="../../index/../../stable/index.html">v:stable</a></li>
+      
+      <li><a class="reference external" href="../../index/../../v4.69.0/index.html">v4.69.0</a></li>
+      <li><a class="reference external" href="../../index/../../v4.68.0/index.html">v4.68.0</a></li>
+      
+    </ul>
+  </p>
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   <h1>Source code for nxstools.filenamegenerator</h1><div class="highlight"><pre>
 <span></span><span class="c1">#   This file is part of nexdatas - Tango Server for NeXus data writer</span>
@@ -215,7 +217,9 @@
     <span class="nb">bytes</span> <span class="o">=</span> <span class="nb">str</span>
 
 
-<div class="viewcode-block" id="FilenameGenerator"><a class="viewcode-back" href="../../nxstools.html#nxstools.filenamegenerator.FilenameGenerator">[docs]</a><span class="k">class</span> <span class="nc">FilenameGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="FilenameGenerator">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.filenamegenerator.FilenameGenerator">[docs]</a>
+<span class="k">class</span> <span class="nc">FilenameGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate image file names</span>
 
@@ -263,7 +267,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">file_index</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">yield</span> <span class="n">filename</span>
 
-<div class="viewcode-block" id="FilenameGenerator.from_slice"><a class="viewcode-back" href="../../nxstools.html#nxstools.filenamegenerator.FilenameGenerator.from_slice">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="FilenameGenerator.from_slice">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.filenamegenerator.FilenameGenerator.from_slice">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">from_slice</span><span class="p">(</span><span class="n">file_template</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Static factory method to create a filename_generator instance</span>
@@ -283,7 +289,9 @@
 
         <span class="n">start_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_index_str</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">FilenameGenerator</span><span class="p">(</span><span class="n">file_format</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">stop_index</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">FilenameGenerator</span><span class="p">(</span><span class="n">file_format</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">stop_index</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
     </div>
@@ -300,7 +308,7 @@
         &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
 
 GNU GENERAL PUBLIC LICENSE, version 3.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
     </p>
   </div>
 </footer>
