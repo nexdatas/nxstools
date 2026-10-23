@@ -1,5 +1,6 @@
 2026-11-23 Jan Kotanski <jankotan@gmail.com>
 	* add nrepetitions and scan_command_param_def to defaultinstrument (#1009)
+	* add ref_moveables to defaultinstrument (#1009)
 	* add add nexus attributes to bilssdata by default (#1009)
 	* tagged as v4.70.0
 

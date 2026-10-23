@@ -38,7 +38,7 @@ The beamtime ID at DESY is an 8 digit number.R</doc>
       <field short_name="$(shortname)" type="NX_CHAR" name="name">$(longname)<strategy mode="INIT"/>
       </field>
     </group>
-    <field scan_command="$var.scan_title" scan_id="$var.scan_id" npoints="$var.npoints" nrepetitions="$var.nrepetitions" scan_command_param_def="$var.scan_param_def" count_time="$var.count_time" beamtime_id="$var.beamtime_id" measurement_group="$var.measurement_group" measurement_group_channels="$var.mgchannels" nexus_components="$var.nexus_components" nexus_step_datasources="$var.nexus_step_datasources" nexus_init_datasources="$var.nexus_init_datasources" type="NX_CHAR" name="program_name">NexDaTaS<attribute type="NX_CHAR" name="version">
+    <field scan_command="$var.scan_title" scan_id="$var.scan_id" npoints="$var.npoints" nrepetitions="$var.nrepetitions" scan_command_param_def="$var.scan_param_def" ref_moveables="$var.ref_moveables" count_time="$var.count_time" beamtime_id="$var.beamtime_id" measurement_group="$var.measurement_group" measurement_group_channels="$var.mgchannels" nexus_components="$var.nexus_components" nexus_step_datasources="$var.nexus_step_datasources" nexus_init_datasources="$var.nexus_init_datasources" type="NX_CHAR" name="program_name">NexDaTaS<attribute type="NX_CHAR" name="version">
         <strategy mode="INIT"/>$datasources.nexdatas_version</attribute>
       <attribute type="NX_CHAR" name="configuration">
         <strategy mode="INIT"/>$datasources.nexdatas_configuration</attribute>
