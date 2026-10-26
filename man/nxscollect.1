@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "NXSCOLLECT" "1" "Oct 15, 2026" "4.69" "NXSTools"
+.TH "NXSCOLLECT" "1" "Oct 26, 2026" "4.70" "NXSTools"
 .SH NAME
 nxscollect \- upload external images into NeXus/HDF5 file
 .SH DESCRIPTION
@@ -42,8 +42,7 @@ The link sub\-commnand creates external or internal link in the NeXus master fil
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
         nxscollect append [\-h] [\-c COMPRESSION] [\-p PATH] [\-i INPUTFILES]
                        [\-\-separator SEPARATOR] [\-\-dtype DATATYPE]
                        [\-\-shape SHAPE] [\-s] [\-r] [\-\-test] [\-\-h5py]
@@ -52,8 +51,7 @@ The link sub\-commnand creates external or internal link in the NeXus master fil
 
 
 nexus_file            nexus files to be collected
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -109,8 +107,7 @@ use h5cpp module as a nexus reader/writer
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscollect append \-c1 /tmp/gpfs/raw/scan_234.nxs
 
 nxscollect append \-c32008:0,2 /ramdisk/scan_123.nxs
@@ -118,23 +115,20 @@ nxscollect append \-c32008:0,2 /ramdisk/scan_123.nxs
 nxscollect append \-\-test /tmp/gpfs/raw/scan_234.nxs
 
 nxscollect append scan_234.nxs \-\-path /scan/instrument/pilatus/data  \-\-inputfiles \(aqscan_%05d.tif:0:100\(aq
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH SYNOPSIS FOR NXSCOLLECT LINK
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
         nxscollect link [\-h] [\-n NAME] [\-t TARGET] [\-r] [\-\-test]
                      [\-\-h5py] [\-\-h5cpp]
                      [nexus_file_path]
 
 nexus_file_path       nexus files with the nexus directory to place the link
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -169,21 +163,18 @@ use h5cpp module as a nexus reader
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscollect link scan_234.nxs://entry/instrument/lambda \-\-name data \-\-target lambda.nxs://entry/data/data
 
 nxscollect link scan_123.nxs://entry:NXentry/instrument/eiger:NXdetector  \-\-target eiger.nxs://entry/data/data
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH SYNOPSIS FOR NXSCOLLECT VDS
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscollect vds [\-h] [\-e TARGETFIELDS] [\-\-separator SEPARATOR]
             [\-t DTYPE] [\-s SHAPE] [\-f FILLVALUE] [\-p SHAPES]
             [\-o OFFSETS] [\-b BLOCKS] [\-c COUNTS] [\-d STRIDES]
@@ -191,8 +182,7 @@ nxscollect vds [\-h] [\-e TARGETFIELDS] [\-\-separator SEPARATOR]
             [\-B TARGETBLOCKS] [\-C TARGETCOUNTS] [\-D TARGETSTRIDES]
             [\-L TARGETSLICES] [\-r] [\-\-test] [\-\-h5cpp] [\-\-h5py]
             [nexus_file_path_field]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .sp
@@ -323,8 +313,7 @@ use h5py module as a nexus reader/writer
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscollect vds scan_234.nxs://entry/instrument/eiger/data  \-\-shape \(aq1000,2048,1024\(aq \-\-dtype uint32 \-\-target\-fields \(aqeiger_%05d.nxs://entry/data/data:1:10\(aq \-\-shapes \(aq100,,:100,,:100,,:100,,:100,,:100,,:100,,:100,,:100,,:100,,\(aq   \-\-offsets \(aq0,,:100,,:200,,:300,,:400,,:500,,:600,,:700,,:800,,:900,,\(aq
 
     \- creates VDS (shape [1000,2048,1024]) of ten nexus files (shape [100,2048,1024]) merged in their first dimension
@@ -339,8 +328,7 @@ nxscollect vds scan_234.nxs://entry/instrument/percival/data  \-\-shape \(aq4000
     \- creates VDS (shape [1000,1600,2000]) of three nexus files (shape [1000,1600,2000])
          merged in their the first dimension with interlaying frames
          and unlimited first dimension
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH AUTHOR

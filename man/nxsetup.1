@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "NXSETUP" "1" "Oct 15, 2026" "4.69" "NXSTools"
+.TH "NXSETUP" "1" "Oct 26, 2026" "4.70" "NXSTools"
 .SH NAME
 nxsetup \- set NeXDaTaS Tango Server environment up
 .SH DESCRIPTION
@@ -37,11 +37,9 @@ The nxsetup is is a command\-line setup tool for NeXus servers.  It allows to se
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate  <command> [ <options>]  [<arg1> [<arg2>  ...]]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .sp
@@ -50,8 +48,7 @@ The following commands are available: set, restart, start, stop, move\-prop, cha
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 usage: nxsetup set [\-h] [\-b BEAMLINE] [\-m MASTERHOST] [\-u USER] [\-d DBNAME]
                    [\-j CSJSON]
                    [server_name [server_name ...]]
@@ -90,16 +87,14 @@ optional arguments:
        nxsetup set
        nxsetup set \-b p09 \-m haso228 \-u p09user \-d nxsconfig NXSConfigServer
        nxsetup set NexusWriter/haso228  \-k NexusWriter  \-y \(aq{\(dqp00/bliss_nexuswriter/test_session\(dq:{\(dqsession\(dq:\(dqtest_session\(dq,\(dqbeacon_host\(dq:\(dqhaso228:25000\(dq}}\(aq  \-t
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSETUP RESTART
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
    usage: nxsetup restart [\-h] [\-l LEVEL] [server_name [server_name ...]]
 
    restart tango server
@@ -119,16 +114,14 @@ examples:
 
     examples:
           nxsetup restart Pool/haso228 \-l 2
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSETUP START
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 usage: nxsetup start [\-h] [\-l LEVEL] [server_name [server_name ...]]
 
 start tango server
@@ -146,16 +139,14 @@ optional arguments:
 
  examples:
        nxsetup start Pool/haso228 \-l 2
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSETUP STOP
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 usage: nxsetup stop [\-h] [server_name [server_name ...]]
 
 stop tango server
@@ -168,16 +159,14 @@ optional arguments:
 
  examples:
        nxsetup stop Pool/haso228
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSETUP WAIT
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 usage: nxsetup wait [\-h] [server_name [server_name ...]]
 
 stop tango server
@@ -193,16 +182,14 @@ optional arguments:
 
  examples:
        nxsetup wait Pool/haso228
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSETUP MOVE-PROP
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 usage: nxsetup move\-prop [\-h] [\-n NEWNAME] [\-o OLDNAME]
                          [server_name [server_name ...]]
 
@@ -225,16 +212,14 @@ optional arguments:
  examples:
        nxsetup move\-prop \-n DefaultPreselectedComponents \-o DefaultAutomaticComponents NXSRecSelector
        nxsetup move\-prop \-t \-n DefaultPreselectedComponents  \-o DefaultAutomaticComponents NXSRecSelector
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSETUP CHANGE-PROP
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 usage: nxsetup change\-prop [\-h] [\-n NEWNAME] [\-w PROPVALUE]
                            [server_name [server_name ...]]
 
@@ -259,16 +244,14 @@ optional arguments:
        nxsetup change\-prop \-n ClientRecordKeys \-t \-w \(dq[\e\(dqphoibos_scan_command\e\(dq,\e\(dqphoibos_scan_comment\e\(dq]\(dq NXSRecSelector/r228
        nxsetup change\-prop \-n DefaultPreselectedComponents \-w \(dq[\e\(dqpinhole1\e\(dq,\e\(dqslit2\e\(dq]\(dq NXSRecSelector/r228
        nxsetup change\-prop \-n StartDsPath \-w \(dq[\e\(dq/usr/bin\e\(dq,\e\(dq/usr/lib/tango\e\(dq]\(dq Starter
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSETUP ADD-RECORDER-PATH
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 usage: nxsetup add\-recorder\-path [\-h] recorder_path
 
 add\-recorder\-path into MacroServer(s) property
@@ -287,8 +270,7 @@ optional arguments:
  examples:
        nxsetup add\-recorder\-path /usr/share/pyshared/sardananxsrecorder
        nxsetup add\-recorder\-path \-t /usr/share/pyshared/sardananxsrecorder
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH AUTHOR

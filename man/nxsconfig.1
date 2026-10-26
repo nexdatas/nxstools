@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "NXSCONFIG" "1" "Oct 15, 2026" "4.69" "NXSTools"
+.TH "NXSCONFIG" "1" "Oct 26, 2026" "4.70" "NXSTools"
 .SH NAME
 nxsconfig \- read NeXus Configuration Server settings
 .SH DESCRIPTION
@@ -41,11 +41,9 @@ perform the process of component merging.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsconfig <command> [\-s <config_server>]  [\-d] [\-r] [\-m] [\-n] [\-p] [<name1>] [<name2>] [<name3>] ...
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -158,13 +156,11 @@ do not ask
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsconfig list \-s p02/xmlconfigserver/exp.01 \-d
 nxsconfig info
 nxsconfig geometry
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH AUTHOR

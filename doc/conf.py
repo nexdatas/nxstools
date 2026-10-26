@@ -461,8 +461,8 @@ epub_exclude_files = ['search.html']
 autoclass_content = 'both'
 
 intersphinx_mapping = {
-    'nxscofigserver': ('https://nexdatas.github.io/nxsconfigserver/', None),
-    'nxswriter': ('https://nexdatas.github.io/nxsdatawriter/', None),
+    'nxscofigserver': ('https://nexdatas.github.io/nxsconfigserver/stable', None),
+    'nxswriter': ('https://nexdatas.github.io/nxsdatawriter/stable', None),
     'python': ('https://docs.python.org/3/',  None),
     'scipy': ('https://scipy.github.io/devdocs',  None),
     'numpy': ('https://numpy.org/doc/stable/',  None),

@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "NXSCREATE" "1" "Oct 15, 2026" "4.69" "NXSTools"
+.TH "NXSCREATE" "1" "Oct 26, 2026" "4.70" "NXSTools"
 .SH NAME
 nxscreate \- create NeXus Configuration component
 .SH DESCRIPTION
@@ -37,11 +37,9 @@ The nxscreate program allows one to create simple datasources and components.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate  <command> [ <options>]  [<arg1> [<arg2>  ...]]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .sp
@@ -53,11 +51,9 @@ It creates a set of CLIENT datasources.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate clientds [options] [name1] [name2]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -113,14 +109,12 @@ configuration server device name
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate clientds starttime \-b
 nxscreate clientds title \-d /home/user/xmldir
 nxscreate clientds \-v exp_c \-f1 \-l4 \-b
 nxscreate clientds \-v hasppXX:10000/expchan/vfcadc_exp/ \-f1 \-l8  \-m \-b \-s exp_vfc
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSCREATE TANGODS
@@ -130,11 +124,9 @@ It creates a set of TANGO datasources.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate tangods [options]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -207,16 +199,14 @@ configuration server device name
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate tangods \-f1 \-l2  \-v p09/motor/exp. \-s exp_mot
 nxscreate tangods \-f1 \-l32  \-v p02/motor/eh1a. \-s exp_mot \-b
 nxscreate tangods \-f1 \-l32  \-v p01/motor/oh1. \-s exp_mot \-b
 nxscreate tangods \-f1 \-l8  \-v pXX/slt/exp. \-s slt_exp_ \-u hasppXX.desy.de \-b
 nxscreate tangods \-v petra/globals/keyword \-s source_current \-u haso228 \-t 10000 \e
                   \-a BeamCurrent \-b \-r p09/nxsconfigserver/haso228 \-o \-g __CLIENT__
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSCREATE DEVICEDS
@@ -226,11 +216,9 @@ It creates a set of TANGO datasources for all device attributes.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate deviceds [options] [dv_attr1 [dv_attr2 [dv_attr3 ...]]]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -290,13 +278,11 @@ configuration server device name
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate deviceds  \-v p09/pilatus/haso228k
 nxscreate deviceds  \-v p09/lambda2m/haso228k  \-s haslambda \-b
 nxscreate deviceds  \-v p09/pilatus300k/haso228k \-b \-o pilatus300k_ RoI Energy ExposureTime
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSCREATE ONLINEDS
@@ -306,11 +292,9 @@ It creates a set of motor datasources from an online xml file.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate onlineds [options] inputFile
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -367,14 +351,12 @@ printout verbose mode
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate onlineds \-b
 nxscreate onlineds \-b \-t
 nxscreate onlineds \-d /home/user/xmldir
 nxscreate onlineds
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSCREATE POOLDS
@@ -384,11 +366,9 @@ It creates a set of motor datasources from a sardana pool device channels.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate onlineds [options] [channel [channel]]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -441,16 +421,14 @@ sardana pool device name
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate poolds \-b
 nxscreate poolds \-b \-t
 nxscreate poolds \-d \-s p09/pool/haso228
 nxscreate poolds \-b Motor CTExpChannel
 nxscreate poolds \-b mot01 mot03
 nxscreate poolds
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSCREATE ONLINECP
@@ -461,11 +439,9 @@ and its set of datasources.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate onlinecp [options] inputFile
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -541,16 +517,14 @@ instrument group name
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate onlinecp
 nxscreate onlinecp \-c lambda
 nxscreate onlinecp \-c pilatus \-b
 nxscreate onlinecp \-c lambda \-d /home/user/xmldir/
 nxscreate onlinecp \-c lmbd \-t lambda \-b
 nxscreate onlinecp \-c lmbd \-t lambda \-v p00/lmbd/1 \-u haso000 \-w 10000 \-b
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSCREATE STDCOMP
@@ -561,11 +535,9 @@ and its set of datasources.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate stdcomp [options] [name1 value1 [name2 value2] ...]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -631,14 +603,12 @@ entry group name (prefix)
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate stdcomp
 nxscreate stdcomp \-t source
 nxscreate stdcomp \-t slit \-c \-b front_slit1 xgap slt1x ygap slt1y
 nxscreate stdcomp \-t default \-c default \-b \-m
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSCREATE COMP
@@ -648,11 +618,9 @@ It creates a set of simple components.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate comp [options] [name1] [name2] ...
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -734,15 +702,13 @@ device name without first \(aq0\(aq
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate comp counter
 nxscreate comp \-f1 \-l3 \-v exp_c \-b
 nxscreate comp lambda \-d /home/user/xmldir/
 nxscreate comp \-n \(dq/\e$var.entryname#\(aqscan\(aq\e$var.serialno:NXentry/instrument/sis3302:NXdetector/collection:NXcollection/\(aq \-v sis3302_1_roi \-f1 \-l4  \-g STEP \-t NX_FLOAT64 \-k \-b \-m
 nxscreate comp \-n \(dq/\e$var.entryname#\(aqscan\(aq\e$var.serialno:NXentry/instrument/eh1_mca01:NXdetector/data\(dq eh1_mca01 \-g STEP \-t NX_FLOAT64 \-i \-b \-c SPECTRUM
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSCREATE SECOPCP
@@ -752,11 +718,9 @@ It creates a  component or components describing modules of the secop node.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate secopcp [\-h] [\-l] [\-o] [\-a] [\-q] [\-w] [\-c COMPONENT] [\-e PARAMSTRATEGY] [\-g STRATEGY] [\-m TIMEOUT] [\-s SAMPLENAME] [\-s SAMPLEENVNAME] [\-k MEANINGS] [\-v ENVIRONMENTS] [\-f FIRST] [\-z TRANSATTRS] [\-p XMLPACKAGE] [\-y ENTRYNAME] [\-i INSNAME] [\-d DIRECTORY] [\-j JSON] [\-x FILE] [\-n] [\-b] [\-u HOST] [\-t PORT] [\-r SERVER] [component_name ...]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -862,8 +826,7 @@ configuration server device name
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate secopcp
 nxscreate secopcp \-l
 
@@ -880,8 +843,7 @@ nxscreate secopcp T \-t 5001 \-b
 nxscreate secopcp \-d /home/user/xmldir/
 
     \- create the all secop components in the given directory
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSCREATE COMPARE
@@ -891,11 +853,9 @@ It compares two online.xml files
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate compare [\-h] [\-n] online_file [online_file]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -921,12 +881,10 @@ do not change aliases into lower case
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxscreate onlineds /online_dir/online.xml online.xml
 nxscreate compare online.xml
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH AUTHOR

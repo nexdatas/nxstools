@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "NXSFILEINFO" "1" "Oct 15, 2026" "4.69" "NXSTools"
+.TH "NXSFILEINFO" "1" "Oct 26, 2026" "4.70" "NXSTools"
 .SH NAME
 nxsfileinfo \- show metadata of the NeXus file
 .SH DESCRIPTION
@@ -37,11 +37,9 @@ The nxsfileinfo program show metadata from nexus files
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo <command> [options] <nexus_file_name>
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .sp
@@ -53,11 +51,9 @@ It shows general information for he nexus file.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo general <nexus_file_name>
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -79,11 +75,9 @@ use h5cpp module as a nexus reader
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo general saxs_ref1_02.nxs
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSFILEINFO FIELD
@@ -93,11 +87,9 @@ It shows field information for the nexus file.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 Usage: nxsfileinfo field [options]  <file_name>
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -134,13 +126,11 @@ use h5cpp module as a nexus reader
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo field /tmp/saxs_ref1_02.nxs
 nxsfileinfo field /user/data/myfile.nxs \-g
 nxsfileinfo field /user/data/myfile.nxs \-s
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSFILEINFO METADATA
@@ -150,11 +140,9 @@ It shows metadata of the nexus file.
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 Usage: nxsfileinfo metadata [options] <file_name>
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -283,15 +271,13 @@ use h5cpp module as a nexus reader
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo metadata /user/data/myfile.nxs
 nxsfileinfo metadata /user/data/myfile.fio
 nxsfileinfo metadata /user/data/myfile.nxs \-p \(aqGroup\(aq
 nxsfileinfo metadata /user/data/myfile.nxs \-s
 nxsfileinfo metadata /user/data/myfile.nxs \-a units,NX_class
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSFILEINFO ORIGDATABLOCK
@@ -301,11 +287,9 @@ It generates description of all scan files
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 Usage: nxsfileinfo origdatablock [options] <scan_name>
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -350,11 +334,9 @@ json metadata file mod bits, e.g. 0o662
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo origdatablock /user/data/scan_12345
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSFILEINFO SAMPLE
@@ -364,11 +346,9 @@ It generates description of sample
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 Usage: nxsfileinfo sample [options]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -419,11 +399,9 @@ output scicat metadata file
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo sample \-i petra3/h2o/234234 \-d \(aqHH water\(aq \-s ~/cm.json
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSFILEINFO INSTRUMENT
@@ -433,11 +411,9 @@ It generates description of instrument
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 Usage: nxsfileinfo instrument [options]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -482,11 +458,9 @@ output scicat metadata file
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo instrument \-p /petra3/p00 \-n P00 \-m ~/cm.json
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSFILEINFO ATTACHMENT
@@ -496,11 +470,9 @@ It generates description of attachment
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 Usage: nxsfileinfo attachment [options] <image_file|scan_file>
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -589,13 +561,11 @@ output scicat metadata file
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo attachment \-b p00 \-i 2342342 \-t \(aqHH water\(aq \-o ~/at1.json thumbnail.png
 nxsfileinfo attachment \-b p00 \-i 2342342 \-t \(aqHH water\(aq \-o ~/at2.json \-s pilatus myscan_00123.nxs
 nxsfileinfo attachment \-b p00 \-i 2342342 \-t \(aqHH water\(aq \-o ~/at2.json  myscan_00124.fio
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH NXSFILEINFO GROUPMETADATA
@@ -605,11 +575,9 @@ It groups scan metadata to one dataset
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 Usage: nxsfileinfo groupmetadata [options] [groupname]
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .INDENT 0.0
@@ -680,8 +648,7 @@ output scicat group attachments list file
 .INDENT 0.0
 .INDENT 3.5
 .sp
-.nf
-.ft C
+.EX
 nxsfileinfo groupmetadata \-o /user/data/myscan.scan.json  \-t /user/data/myscan.attachment.json  \-l /user/data/myscan.origdatablock.json  \-c /home/user/group_config.txt  \-m /user/data/myscan_00023.scan.json  \-d /user/data/myscan_00023.origdatablock.json  \-a /user/data/myscan_00023.attachment.json
 
 nxsfileinfo groupmetadata myscan_m001  \-m /user/data/myscan_00021.scan.json \-c /home/user/group_config.txt
@@ -689,8 +656,7 @@ nxsfileinfo groupmetadata myscan_m001  \-m /user/data/myscan_00021.scan.json \-c
 nxsfileinfo groupmetadata  myscan_m001  \-c /home/user/group_config.txt  \-m /user/data/myscan_00023.scan.json  \-d /user/data/myscan_00023.origdatablock.json  \-a /user/data/myscan_00023.attachment.json
 
 nxsfileinfo groupmetadata  \-m /user/data/myscan_00023.scan.json  \-d /user/data/myscan_00023.origdatablock.json  \-c /home/user/group_config.txt
-.ft P
-.fi
+.EE
 .UNINDENT
 .UNINDENT
 .SH AUTHOR
