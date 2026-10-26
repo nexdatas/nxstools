@@ -2280,10 +2280,22 @@ class RedisField(filewriter.FTField):
                 sds["dtype"] = "float64"
 
         anames = attrs._names()
+        found = ["nexdatas_strategy"]
         for key, vl in attrdesc.items():
             if vl[0] in anames:
                 avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
+                found.append(vl[0])
                 sds[key] = vl[1](filewriter.first(avl))
+        for anm in (set(anames) - set(found) - set(attrdesc.keys())):
+            avl = attrs[anm].read()
+            if type(avl).__name__ not in ["ndarray"]:
+                sds[anm] = filewriter.first(avl)
+            else:
+                try:
+                    sds[anm] = filewriter.first(avl.tolist())
+                except Exception as e:
+                    print(str(e))
+                    print([dsname, anm, avl, type(avl).__name__])
         sds["nexus_path"] = self.path
         try:
             if self.dtype not in ['string', b'string']:
@@ -2439,11 +2451,24 @@ class RedisField(filewriter.FTField):
         }
 
         anames = attrs._names()
+        found = ["nexdatas_strategy"]
         for key, vl in attrdesc.items():
             if vl[0] in anames:
                 avl = av[vl[0]] if vl[0] in av.keys() else attrs[vl[0]].read()
+                found.append(vl[0])
                 ids[key] = vl[1](filewriter.first(avl))
+        for anm in (set(anames) - set(found) - set(attrdesc.keys())):
+            avl = attrs[anm].read()
+            if type(avl).__name__ not in ["ndarray"]:
+                ids[anm] = filewriter.first(avl)
+            else:
+                try:
+                    ids[anm] = filewriter.first(avl.tolist())
+                except Exception as e:
+                    print(str(e))
+                    print([dsname, anm, avl, type(avl).__name__])
         ids["nexus_path"] = self.path
+        # print([dsname, ids])
         pars = (self.get_scaninfo(["snapshot"]) or {}).keys()
         dsn = dsname
         while dsn in pars:
