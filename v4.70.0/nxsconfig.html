@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>nxsconfig &#8212; NXSTools 4.70.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
+    <script src="_static/documentation_options.js?v=fc6bf5b4"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="nxscreate" href="nxscreate.html" />
+    <link rel="prev" title="nxcollect" href="nxscollect.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          NXSTools</a>
+        <span class="navbar-text navbar-version pull-left"><b>4.70</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="nxscollect.html">nxcollect</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#synopsis-for-nxscollect-append">Synopsis for nxscollect append</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#examples-of-nxscollect-append">Examples of nxscollect append</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#synopsis-for-nxscollect-link">Synopsis for nxscollect link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#examples-of-nxscollect-link">Examples of nxscollect link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#synopsis-for-nxscollect-vds">Synopsis for nxscollect vds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscollect.html#examples-of-nxscollect-vds">Examples of nxscollect vds</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nxsconfig</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxscreate.html">nxscreate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-clientds">nxscreate clientds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-tangods">nxscreate tangods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-deviceds">nxscreate deviceds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-onlineds">nxscreate onlineds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-poolds">nxscreate poolds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-onlinecp">nxscreate onlinecp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-stdcomp">nxscreate stdcomp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-comp">nxscreate comp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-secopcp">nxscreate secopcp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxscreate.html#nxscreate-compare">nxscreate compare</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxsdata.html">nxsdata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxsdata.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsdata.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsdata.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxsfileinfo.html">nxsfileinfo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#nxsfileinfo-general">nxsfileinfo general</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#nxsfileinfo-field">nxsfileinfo field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#nxsfileinfo-metadata">nxsfileinfo metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#nxsfileinfo-origdatablock">nxsfileinfo origdatablock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#nxsfileinfo-sample">nxsfileinfo sample</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#nxsfileinfo-instrument">nxsfileinfo instrument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#nxsfileinfo-attachment">nxsfileinfo attachment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsfileinfo.html#nxsfileinfo-groupmetadata">nxsfileinfo groupmetadata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxsetup.html">nxsetup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-set">nxsetup set</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-restart">nxsetup restart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-start">nxsetup start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-stop">nxsetup stop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-wait">nxsetup wait</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-move-prop">nxsetup move-prop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-change-prop">nxsetup change-prop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxsetup.html#nxsetup-add-recorder-path">nxsetup add-recorder-path</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nxstools.html">nxstools package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.filenamegenerator">nxstools.filenamegenerator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.filewriter">nxstools.filewriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.h5cppwriter">nxstools.h5cppwriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.h5pywriter">nxstools.h5pywriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.h5rediswriter">nxstools.h5rediswriter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsargparser">nxstools.nxsargparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxscollect">nxstools.nxscollect module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsconfig">nxstools.nxsconfig module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxscreate">nxstools.nxscreate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxscreator">nxstools.nxscreator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsdata">nxstools.nxsdata module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsdevicetools">nxstools.nxsdevicetools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsetup">nxstools.nxsetup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsfileinfo">nxstools.nxsfileinfo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsfileparser">nxstools.nxsfileparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsparser">nxstools.nxsparser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.nxsxml">nxstools.nxsxml module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.release">nxstools.release module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools.redisutils">nxstools.redisutils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nxstools.html#module-nxstools">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="nxscollect.html" title="Previous Chapter: nxcollect"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; nxcollect</span>
+    </a>
+  </li>
+  <li>
+    <a href="nxscreate.html" title="Next Chapter: nxscreate"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">nxscreate &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">nxsconfig</a><ul>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+<p>
+  <h3 class='versions'>Versions</h3>
+  <p>
+    <ul>
+      <li><a class="reference external" href="index/../../latest/index.html">v:latest</a></li>
+      <li><a class="reference external" href="index/../../stable/index.html">v:stable</a></li>
+      
+      <li><a class="reference external" href="index/../../v4.70.0/index.html">v4.70.0</a></li>
+      <li><a class="reference external" href="index/../../v4.69.0/index.html">v4.69.0</a></li>
+      <li><a class="reference external" href="index/../../v4.68.0/index.html">v4.68.0</a></li>
+      
+    </ul>
+  </p>
+</p>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <section id="nxsconfig">
+<h1>nxsconfig<a class="headerlink" href="#nxsconfig" title="Link to this heading">¶</a></h1>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>The nxsconfig program
+is a command-line interface to NXS Configuration Tango Server.
+It allows one to read XML configuration datasources
+and components. It also gives possibility to
+perform the process of component merging.</p>
+</section>
+<section id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsconfig<span class="w"> </span>&lt;command&gt;<span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;config_server&gt;<span class="o">]</span><span class="w">  </span><span class="o">[</span>-d<span class="o">]</span><span class="w"> </span><span class="o">[</span>-r<span class="o">]</span><span class="w"> </span><span class="o">[</span>-m<span class="o">]</span><span class="w"> </span><span class="o">[</span>-n<span class="o">]</span><span class="w"> </span><span class="o">[</span>-p<span class="o">]</span><span class="w"> </span><span class="o">[</span>&lt;name1&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>&lt;name2&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>&lt;name3&gt;<span class="o">]</span><span class="w"> </span>...
+</pre></div>
+</div>
+<dl>
+<dt>Commands:</dt><dd><dl class="simple">
+<dt>list [-s &lt;config_server&gt;] [-m] [-p] [-n]</dt><dd><p>list names of available components</p>
+</dd>
+<dt>list -d [-s &lt;config_server&gt;] [-n]</dt><dd><p>list names of available datasources</p>
+</dd>
+<dt>list -r [-s &lt;config_server&gt;] [-n]</dt><dd><p>list names of available profiles</p>
+</dd>
+<dt>show [-s &lt;config_server&gt;] [-m] [-o &lt;dir&gt;] component_name1 component_name2 …</dt><dd><p>show components with given names</p>
+</dd>
+<dt>show -d [-s &lt;config_server&gt;]  [-o &lt;dir&gt;] dsource_name1 dsource_name2 …</dt><dd><p>show datasources with given names</p>
+</dd>
+<dt>show -r [-s &lt;config_server&gt;]  [-o &lt;dir&gt;] profile_name1 profile_name2 …</dt><dd><p>show profiles with given names</p>
+</dd>
+<dt>upload [-s &lt;config_server&gt;] [-m] [-i &lt;dir&gt;] [-f] component_name1 component_name2 …</dt><dd><p>load components from given files</p>
+</dd>
+<dt>upload -d [-s &lt;config_server&gt;]  [-i &lt;dir&gt;] [-f] dsource_name1 dsource_name2 …</dt><dd><p>load datasources from given files</p>
+</dd>
+<dt>upload -r [-s &lt;config_server&gt;]  [-i &lt;dir&gt;] [-f] profile_name1 profile_name2 …</dt><dd><p>load profiles from given files</p>
+</dd>
+<dt>get [-s &lt;config_server&gt;]  [-n] component_name1 component_name2 …</dt><dd><p>get merged configuration of components</p>
+</dd>
+<dt>delete [-s &lt;config_server&gt;] [-f] component_name1 component_name2 …</dt><dd><p>delete components with given names</p>
+</dd>
+<dt>delete -d [-s &lt;config_server&gt;] [-f] dsource_name1 dsource_name2 …</dt><dd><p>delete datasources with given names</p>
+</dd>
+<dt>delete -r [-s &lt;config_server&gt;] [-f] profile_name1 profile_name2 …</dt><dd><p>delete profiles with given names</p>
+</dd>
+<dt>sources [-s &lt;config_server&gt;] [-m] [-n] component_name1 component_name2 …</dt><dd><p>get a list of component datasources</p>
+</dd>
+<dt>components [-s &lt;config_server&gt;] [-n] component_name1 component_name2 …</dt><dd><p>get a list of dependent components</p>
+</dd>
+<dt>variables [-s &lt;config_server&gt;] [-m] [-n] component_name1 component_name2 …</dt><dd><p>get a list of component variables</p>
+</dd>
+<dt>data [-s &lt;config_server&gt;] json_data</dt><dd><p>set values of component variables</p>
+</dd>
+<dt>record [-s &lt;config_server&gt;] [-n] component_name1</dt><dd><p>get a list of datasource record names from component</p>
+</dd>
+<dt>record -d [-s &lt;config_server&gt;] [-n] datasource_name1</dt><dd><p>get a list of datasource record names</p>
+</dd>
+<dt>servers [-s &lt;config_server/host&gt;] [-n]</dt><dd><p>get lists of configuration servers from the current tango host</p>
+</dd>
+<dt>describe [-s &lt;config_server&gt;] [-m | -p] [-n] component_name1 component_name2 …</dt><dd><p>show all parameters of given components</p>
+</dd>
+<dt>describe|info -d [-s &lt;config_server&gt;] [-n] dsource_name1 dsource_name2 …</dt><dd><p>show all parameters of given datasources</p>
+</dd>
+<dt>info [-s &lt;config_server&gt;] [-m | -p] [-n] component_name1 component_name2 …</dt><dd><p>show source parameters of given components</p>
+</dd>
+<dt>info -r [-s &lt;config_server&gt;]  [-n] profile_name1 profile_name2 …</dt><dd><p>show general parameters of given profiles</p>
+</dd>
+<dt>geometry [-s &lt;config_server&gt;] [-m | -p] [-n] component_name1 component_name2 …</dt><dd><p>show transformation parameters of given components</p>
+</dd>
+</dl>
+</dd>
+<dt>Options:</dt><dd><dl class="option-list">
+<dt><kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></dt>
+<dd><p>show this help message and exit</p>
+</dd>
+<dt><kbd><span class="option">-s <var>SERVER</var></span>, <span class="option">--server=<var>SERVER</var></span></kbd></dt>
+<dd><p>configuration server device name</p>
+</dd>
+<dt><kbd><span class="option">-d</span>, <span class="option">--datasources</span></kbd></dt>
+<dd><p>perform operation on datasources</p>
+</dd>
+<dt><kbd><span class="option">-m</span>, <span class="option">--mandatory</span></kbd></dt>
+<dd><p>make use mandatory components as well</p>
+</dd>
+<dt><kbd><span class="option">-p</span>, <span class="option">--private</span></kbd></dt>
+<dd><p>make use private components, i.e. starting with ‘__’</p>
+</dd>
+<dt><kbd><span class="option">-n</span>, <span class="option">--no-newlines</span></kbd></dt>
+<dd><p>split result with space characters</p>
+</dd>
+<dt><kbd><span class="option">-f</span>, <span class="option">--force</span></kbd></dt>
+<dd><p>do not ask</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nxsconfig<span class="w"> </span>list<span class="w"> </span>-s<span class="w"> </span>p02/xmlconfigserver/exp.01<span class="w"> </span>-d
+nxsconfig<span class="w"> </span>info
+nxsconfig<span class="w"> </span>geometry
+</pre></div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2012-2018 DESY, Jan Kotanski &lt;jkotan@mail.desy.de&gt;
+
+GNU GENERAL PUBLIC LICENSE, version 3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.1.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.h5rediswriter &#8212; NXSTools 4.69.0 documentation</title>
+    <title>nxstools.h5rediswriter &#8212; NXSTools 4.70.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
-    <script src="../../_static/documentation_options.js?v=a730ddbd"></script>
+    <script src="../../_static/documentation_options.js?v=fc6bf5b4"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -34,7 +34,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.69</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.70</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -176,6 +176,7 @@
       <li><a class="reference external" href="../../index/../../latest/index.html">v:latest</a></li>
       <li><a class="reference external" href="../../index/../../stable/index.html">v:stable</a></li>
       
+      <li><a class="reference external" href="../../index/../../v4.70.0/index.html">v4.70.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.69.0/index.html">v4.69.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.68.0/index.html">v4.68.0</a></li>
       
@@ -2034,10 +2035,22 @@
                 <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;float64&quot;</span>
 
         <span class="n">anames</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">_names</span><span class="p">()</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;nexdatas_strategy&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="n">attrdesc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
                 <span class="n">avl</span> <span class="o">=</span> <span class="n">av</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">av</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="n">found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
                 <span class="n">sds</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span><span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">avl</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">anm</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">anames</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">attrdesc</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+            <span class="n">avl</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">anm</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">avl</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ndarray&quot;</span><span class="p">]:</span>
+                <span class="n">sds</span><span class="p">[</span><span class="n">anm</span><span class="p">]</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">avl</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">sds</span><span class="p">[</span><span class="n">anm</span><span class="p">]</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">avl</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                    <span class="nb">print</span><span class="p">([</span><span class="n">dsname</span><span class="p">,</span> <span class="n">anm</span><span class="p">,</span> <span class="n">avl</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">avl</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">])</span>
         <span class="n">sds</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;string&#39;</span><span class="p">]:</span>
@@ -2193,10 +2206,22 @@
         <span class="p">}</span>
 
         <span class="n">anames</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">_names</span><span class="p">()</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;nexdatas_strategy&quot;</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">vl</span> <span class="ow">in</span> <span class="n">attrdesc</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">anames</span><span class="p">:</span>
                 <span class="n">avl</span> <span class="o">=</span> <span class="n">av</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">if</span> <span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">av</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="n">attrs</span><span class="p">[</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="n">found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vl</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
                 <span class="n">ids</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">vl</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span><span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">avl</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">anm</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">anames</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">attrdesc</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+            <span class="n">avl</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="n">anm</span><span class="p">]</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">avl</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ndarray&quot;</span><span class="p">]:</span>
+                <span class="n">ids</span><span class="p">[</span><span class="n">anm</span><span class="p">]</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">avl</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">ids</span><span class="p">[</span><span class="n">anm</span><span class="p">]</span> <span class="o">=</span> <span class="n">filewriter</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">avl</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+                    <span class="nb">print</span><span class="p">([</span><span class="n">dsname</span><span class="p">,</span> <span class="n">anm</span><span class="p">,</span> <span class="n">avl</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">avl</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">])</span>
         <span class="n">ids</span><span class="p">[</span><span class="s2">&quot;nexus_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
         <span class="n">pars</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_scaninfo</span><span class="p">([</span><span class="s2">&quot;snapshot&quot;</span><span class="p">])</span> <span class="ow">or</span> <span class="p">{})</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
         <span class="n">dsn</span> <span class="o">=</span> <span class="n">dsname</span>
