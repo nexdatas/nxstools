@@ -1,5 +1,6 @@
 2026-XX-YY Jan Kotanski <jankotan@gmail.com>
 	* add add ubuntu26.10py tests (#1013)
+	* change HDRI url from  http://repos.pni-hdri.de to https://docs.desy.de/pni-hdri (#1015)
 	* tagged as v4.70.X
 
 2026-11-23 Jan Kotanski <jankotan@gmail.com>
