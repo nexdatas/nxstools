@@ -1,7 +1,8 @@
-2026-XX-YY Jan Kotanski <jankotan@gmail.com>
+2026-11-23 Jan Kotanski <jankotan@gmail.com>
+	* add is_mesh_macro function ()
 	* add add ubuntu26.10py tests (#1013)
 	* change HDRI url from  http://repos.pni-hdri.de to https://docs.desy.de/pni-hdri (#1015)
-	* tagged as v4.70.X
+	* tagged as v4.71.0
 
 2026-11-23 Jan Kotanski <jankotan@gmail.com>
 	* add nrepetitions and scan_command_param_def to defaultinstrument (#1009)

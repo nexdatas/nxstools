@@ -202,10 +202,59 @@ def motors_from_title(title, channels=None):
     return motors
 
 
-def build_acq_chain(devices, title=None, channels=None, ref_moveables=None):
-    if ChainDict is None:
-        return {}
+def is_mesh_macro(macro):
+    """Return True for a 2D raster (mesh) macro.
 
+    Besides the standard Sardana macros in :data:`MESH_MACROS`, beamline
+    wrapper macros whose name ends in ``mesh``, ``mesh_repeat`` or
+    ``meshct`` (e.g. ``xps_mesh``) are treated as meshes too.
+    """
+    if not macro:
+        return False
+    return macro in MESH_MACROS or macro.endswith(
+        ("mesh", "mesh_repeat", "meshct"))
+
+
+def _is_number(text):
+    try:
+        float(text)
+    except (TypeError, ValueError):
+        return False
+    return True
+
+
+def _mesh_motors_in_title(parts, channels=None, first=None):
+    """Find the ``mot1 start stop n mot2`` mesh pattern in the title tokens.
+
+    Wrapper macros may put extra arguments in front of the mesh arguments,
+    so the pattern is searched for instead of using fixed positions. When
+    *first* is given only that motor is accepted as the first motor.
+    Returns ``(index_of_mot1, [mot1, mot2])`` or ``(None, [])``.
+    """
+    for idx in range(1, len(parts) - 4):
+        name = parts[idx]
+        if first is not None and name != first:
+            continue
+        second = parts[idx + 4]
+        if channels is not None and (
+                name not in channels or second not in channels):
+            continue
+        if not all(_is_number(parts[idx + k]) for k in (1, 2, 3)):
+            continue
+        if _is_number(name) or _is_number(second):
+            continue
+        return idx, [name, second]
+    return None, []
+
+
+def resolve_motors(title=None, channels=None, ref_moveables=None):
+    """Return the scanned motor names, fast (x) motor first.
+
+    Sardana's ``ref_moveables`` is preferred, otherwise the motors are
+    parsed from the title. Sardana marks only the first motor of a mesh
+    as a reference moveable, so for a mesh the second motor is completed
+    from the title.
+    """
     if ref_moveables:
         motors = [
             m for m in ref_moveables
@@ -213,6 +262,20 @@ def build_acq_chain(devices, title=None, channels=None, ref_moveables=None):
         ]
     else:
         motors = motors_from_title(title, channels)
+    parts = (title or "").split()
+    if parts and is_mesh_macro(parts[0]) and len(motors) < 2:
+        _, found = _mesh_motors_in_title(
+            parts, channels, motors[0] if motors else None)
+        if found:
+            motors = found
+    return motors
+
+
+def build_acq_chain(devices, title=None, channels=None, ref_moveables=None):
+    if ChainDict is None:
+        return {}
+
+    motors = resolve_motors(title, channels, ref_moveables)
     motor_set = set(motors)
 
     def _channels(bucket_names):
@@ -284,22 +347,27 @@ def _classify_channels(channels, motor_set):
     return counters, time_channels, spectra
 
 
-def _mesh_axis_meta(parts):
+def _mesh_axis_meta(parts, offset=1, intervals=True):
     """Per-motor scatter axis metadata parsed from a Sardana mesh command.
 
-    Layout: ``mesh mot_x start_x stop_x nx mot_y start_y stop_y ny ...``.
-    ``axis_points`` is intervals+1 (the number of points) and ``axis_id``
-    is 0 for the fast (x) motor, 1 for the slow (y) motor. Missing or
-    non-numeric arguments are skipped rather than raising.
+    Layout: ``mesh mot_x start_x stop_x nx mot_y start_y stop_y ny ...``,
+    where *offset* is the index of ``mot_x`` (wrapper macros may put extra
+    arguments in front). For the standard Sardana macros ``nx``/``ny`` are
+    intervals and ``axis_points`` is intervals+1; with *intervals* False
+    they are taken as the number of points. ``axis_id`` is 0 for the fast
+    (x) motor, 1 for the slow (y) motor. Missing or non-numeric arguments
+    are skipped rather than raising.
     """
     meta = {}
+    extra = 1 if intervals else 0
     # (motor, start, stop, intervals) argument positions, and the axis id
-    for mpos, spos, tpos, npos, axis_id in [(1, 2, 3, 4, 0), (5, 6, 7, 8, 1)]:
+    for mpos, axis_id in [(offset, 0), (offset + 4, 1)]:
+        spos, tpos, npos = mpos + 1, mpos + 2, mpos + 3
         try:
             meta[parts[mpos]] = {
                 "axis_kind": "forth",
                 "axis_id": axis_id,
-                "axis_points": int(parts[npos]) + 1,
+                "axis_points": int(parts[npos]) + extra,
                 "start": float(parts[spos]),
                 "stop": float(parts[tpos]),
             }
@@ -331,10 +399,7 @@ def build_plots(title=None, channels=None, ref_moveables=None):
     be exercised without a Redis backend.
     """
     channels = channels or {}
-    if ref_moveables:
-        motors = [m for m in ref_moveables if m in channels]
-    else:
-        motors = motors_from_title(title, channels)
+    motors = resolve_motors(title, channels, ref_moveables)
     motor_set = set(motors)
 
     # spectra are intentionally unused: flint infers their 1d-plot from the
@@ -347,7 +412,7 @@ def build_plots(title=None, channels=None, ref_moveables=None):
     plots = []
     channel_meta = {}
 
-    is_mesh = macro in MESH_MACROS
+    is_mesh = is_mesh_macro(macro)
     is_scatter = macro in SCATTER_MACROS
 
     if is_mesh:
@@ -365,7 +430,10 @@ def build_plots(title=None, channels=None, ref_moveables=None):
         if value is not None:
             item["value"] = value
         plots.append({"kind": "scatter-plot", "items": [item]})
-        channel_meta = _mesh_axis_meta(parts)
+        offset, found = _mesh_motors_in_title(parts, first=motors[0])
+        if found:
+            channel_meta = _mesh_axis_meta(
+                parts, offset, intervals=macro in MESH_MACROS)
     elif is_scatter:
         item = {"kind": "scatter"}
         plots.append({"kind": "scatter-plot", "items": [item]})
