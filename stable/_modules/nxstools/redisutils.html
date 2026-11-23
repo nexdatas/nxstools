@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.redisutils &#8212; NXSTools 4.70.0 documentation</title>
+    <title>nxstools.redisutils &#8212; NXSTools 4.71.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
-    <script src="../../_static/documentation_options.js?v=fc6bf5b4"></script>
+    <script src="../../_static/documentation_options.js?v=8dbebfed"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -34,7 +34,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.70</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.71</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -176,6 +176,7 @@
       <li><a class="reference external" href="../../index/../../latest/index.html">v:latest</a></li>
       <li><a class="reference external" href="../../index/../../stable/index.html">v:stable</a></li>
       
+      <li><a class="reference external" href="../../index/../../v4.71.0/index.html">v4.71.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.70.0/index.html">v4.70.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.69.0/index.html">v4.69.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.68.0/index.html">v4.68.0</a></li>
@@ -407,12 +408,64 @@
 
 
 
-<div class="viewcode-block" id="build_acq_chain">
-<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.build_acq_chain">[docs]</a>
-<span class="k">def</span> <span class="nf">build_acq_chain</span><span class="p">(</span><span class="n">devices</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">ChainDict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{}</span>
+<div class="viewcode-block" id="is_mesh_macro">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.is_mesh_macro">[docs]</a>
+<span class="k">def</span> <span class="nf">is_mesh_macro</span><span class="p">(</span><span class="n">macro</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return True for a 2D raster (mesh) macro.</span>
 
+<span class="sd">    Besides the standard Sardana macros in :data:`MESH_MACROS`, beamline</span>
+<span class="sd">    wrapper macros whose name ends in ``mesh``, ``mesh_repeat`` or</span>
+<span class="sd">    ``meshct`` (e.g. ``xps_mesh``) are treated as meshes too.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">macro</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="n">macro</span> <span class="ow">in</span> <span class="n">MESH_MACROS</span> <span class="ow">or</span> <span class="n">macro</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span>
+        <span class="p">(</span><span class="s2">&quot;mesh&quot;</span><span class="p">,</span> <span class="s2">&quot;mesh_repeat&quot;</span><span class="p">,</span> <span class="s2">&quot;meshct&quot;</span><span class="p">))</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_is_number</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<span class="k">def</span> <span class="nf">_mesh_motors_in_title</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">first</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the ``mot1 start stop n mot2`` mesh pattern in the title tokens.</span>
+
+<span class="sd">    Wrapper macros may put extra arguments in front of the mesh arguments,</span>
+<span class="sd">    so the pattern is searched for instead of using fixed positions. When</span>
+<span class="sd">    *first* is given only that motor is accepted as the first motor.</span>
+<span class="sd">    Returns ``(index_of_mot1, [mot1, mot2])`` or ``(None, [])``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">first</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">!=</span> <span class="n">first</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">second</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">channels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">channels</span> <span class="ow">or</span> <span class="n">second</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">_is_number</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)):</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">_is_number</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_is_number</span><span class="p">(</span><span class="n">second</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">return</span> <span class="n">idx</span><span class="p">,</span> <span class="p">[</span><span class="n">name</span><span class="p">,</span> <span class="n">second</span><span class="p">]</span>
+    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[]</span>
+
+
+<div class="viewcode-block" id="resolve_motors">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.resolve_motors">[docs]</a>
+<span class="k">def</span> <span class="nf">resolve_motors</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the scanned motor names, fast (x) motor first.</span>
+
+<span class="sd">    Sardana&#39;s ``ref_moveables`` is preferred, otherwise the motors are</span>
+<span class="sd">    parsed from the title. Sardana marks only the first motor of a mesh</span>
+<span class="sd">    as a reference moveable, so for a mesh the second motor is completed</span>
+<span class="sd">    from the title.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">ref_moveables</span><span class="p">:</span>
         <span class="n">motors</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">ref_moveables</span>
@@ -420,6 +473,23 @@
         <span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">motors</span> <span class="o">=</span> <span class="n">motors_from_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="p">(</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">parts</span> <span class="ow">and</span> <span class="n">is_mesh_macro</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">motors</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">found</span> <span class="o">=</span> <span class="n">_mesh_motors_in_title</span><span class="p">(</span>
+            <span class="n">parts</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">motors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">motors</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+            <span class="n">motors</span> <span class="o">=</span> <span class="n">found</span>
+    <span class="k">return</span> <span class="n">motors</span></div>
+
+
+
+<div class="viewcode-block" id="build_acq_chain">
+<a class="viewcode-back" href="../../nxstools.html#nxstools.redisutils.build_acq_chain">[docs]</a>
+<span class="k">def</span> <span class="nf">build_acq_chain</span><span class="p">(</span><span class="n">devices</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ChainDict</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="n">motors</span> <span class="o">=</span> <span class="n">resolve_motors</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="p">)</span>
     <span class="n">motor_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">motors</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_channels</span><span class="p">(</span><span class="n">bucket_names</span><span class="p">):</span>
@@ -492,22 +562,27 @@
     <span class="k">return</span> <span class="n">counters</span><span class="p">,</span> <span class="n">time_channels</span><span class="p">,</span> <span class="n">spectra</span>
 
 
-<span class="k">def</span> <span class="nf">_mesh_axis_meta</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_mesh_axis_meta</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">intervals</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Per-motor scatter axis metadata parsed from a Sardana mesh command.</span>
 
-<span class="sd">    Layout: ``mesh mot_x start_x stop_x nx mot_y start_y stop_y ny ...``.</span>
-<span class="sd">    ``axis_points`` is intervals+1 (the number of points) and ``axis_id``</span>
-<span class="sd">    is 0 for the fast (x) motor, 1 for the slow (y) motor. Missing or</span>
-<span class="sd">    non-numeric arguments are skipped rather than raising.</span>
+<span class="sd">    Layout: ``mesh mot_x start_x stop_x nx mot_y start_y stop_y ny ...``,</span>
+<span class="sd">    where *offset* is the index of ``mot_x`` (wrapper macros may put extra</span>
+<span class="sd">    arguments in front). For the standard Sardana macros ``nx``/``ny`` are</span>
+<span class="sd">    intervals and ``axis_points`` is intervals+1; with *intervals* False</span>
+<span class="sd">    they are taken as the number of points. ``axis_id`` is 0 for the fast</span>
+<span class="sd">    (x) motor, 1 for the slow (y) motor. Missing or non-numeric arguments</span>
+<span class="sd">    are skipped rather than raising.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">extra</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">intervals</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="c1"># (motor, start, stop, intervals) argument positions, and the axis id</span>
-    <span class="k">for</span> <span class="n">mpos</span><span class="p">,</span> <span class="n">spos</span><span class="p">,</span> <span class="n">tpos</span><span class="p">,</span> <span class="n">npos</span><span class="p">,</span> <span class="n">axis_id</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]:</span>
+    <span class="k">for</span> <span class="n">mpos</span><span class="p">,</span> <span class="n">axis_id</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">offset</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">offset</span> <span class="o">+</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]:</span>
+        <span class="n">spos</span><span class="p">,</span> <span class="n">tpos</span><span class="p">,</span> <span class="n">npos</span> <span class="o">=</span> <span class="n">mpos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mpos</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">mpos</span> <span class="o">+</span> <span class="mi">3</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">meta</span><span class="p">[</span><span class="n">parts</span><span class="p">[</span><span class="n">mpos</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;axis_kind&quot;</span><span class="p">:</span> <span class="s2">&quot;forth&quot;</span><span class="p">,</span>
                 <span class="s2">&quot;axis_id&quot;</span><span class="p">:</span> <span class="n">axis_id</span><span class="p">,</span>
-                <span class="s2">&quot;axis_points&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">npos</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;axis_points&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">npos</span><span class="p">])</span> <span class="o">+</span> <span class="n">extra</span><span class="p">,</span>
                 <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">spos</span><span class="p">]),</span>
                 <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="n">tpos</span><span class="p">]),</span>
             <span class="p">}</span>
@@ -541,10 +616,7 @@
 <span class="sd">    be exercised without a Redis backend.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span> <span class="ow">or</span> <span class="p">{}</span>
-    <span class="k">if</span> <span class="n">ref_moveables</span><span class="p">:</span>
-        <span class="n">motors</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">ref_moveables</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">channels</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">motors</span> <span class="o">=</span> <span class="n">motors_from_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="p">)</span>
+    <span class="n">motors</span> <span class="o">=</span> <span class="n">resolve_motors</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">ref_moveables</span><span class="p">)</span>
     <span class="n">motor_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">motors</span><span class="p">)</span>
 
     <span class="c1"># spectra are intentionally unused: flint infers their 1d-plot from the</span>
@@ -557,7 +629,7 @@
     <span class="n">plots</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">channel_meta</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="n">is_mesh</span> <span class="o">=</span> <span class="n">macro</span> <span class="ow">in</span> <span class="n">MESH_MACROS</span>
+    <span class="n">is_mesh</span> <span class="o">=</span> <span class="n">is_mesh_macro</span><span class="p">(</span><span class="n">macro</span><span class="p">)</span>
     <span class="n">is_scatter</span> <span class="o">=</span> <span class="n">macro</span> <span class="ow">in</span> <span class="n">SCATTER_MACROS</span>
 
     <span class="k">if</span> <span class="n">is_mesh</span><span class="p">:</span>
@@ -575,7 +647,10 @@
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">item</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
         <span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter-plot&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">item</span><span class="p">]})</span>
-        <span class="n">channel_meta</span> <span class="o">=</span> <span class="n">_mesh_axis_meta</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+        <span class="n">offset</span><span class="p">,</span> <span class="n">found</span> <span class="o">=</span> <span class="n">_mesh_motors_in_title</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">first</span><span class="o">=</span><span class="n">motors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+            <span class="n">channel_meta</span> <span class="o">=</span> <span class="n">_mesh_axis_meta</span><span class="p">(</span>
+                <span class="n">parts</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">intervals</span><span class="o">=</span><span class="n">macro</span> <span class="ow">in</span> <span class="n">MESH_MACROS</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">is_scatter</span><span class="p">:</span>
         <span class="n">item</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter&quot;</span><span class="p">}</span>
         <span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;scatter-plot&quot;</span><span class="p">,</span> <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">item</span><span class="p">]})</span>
