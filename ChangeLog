@@ -1,5 +1,5 @@
 2026-11-23 Jan Kotanski <jankotan@gmail.com>
-	* add is_mesh_macro function ()
+	* add is_mesh_macro function by @XiangL97 (#1017)
 	* add add ubuntu26.10py tests (#1013)
 	* change HDRI url from  http://repos.pni-hdri.de to https://docs.desy.de/pni-hdri (#1015)
 	* tagged as v4.71.0
