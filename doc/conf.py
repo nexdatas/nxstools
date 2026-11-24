@@ -255,8 +255,9 @@ if os.getenv("NXSTOOLS_HIDE_VERSIONS") != 'TRUE':
     html_sidebars['**'].append('versions.html')
 
 html_context = {
-    "current_version": "v4.71.0",
+    "current_version": "v4.72.0",
     "docs_versions" : [
+        "v4.72.0",
         "v4.71.0",
         "v4.70.0",
         "v4.69.0",
