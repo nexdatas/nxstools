@@ -25,7 +25,12 @@ try:
     from redis_om import HashModel, Field
     from typing import Optional
     from blissdata.redis_engine.identities import _UninitializedRedis
-    from blissdata.redis_engine.store import DataStore
+    try:
+        # blissdata >= 2 exposes DataStore at the top level
+        # (blissdata.redis_engine.store is removed in version 3)
+        from blissdata import DataStore
+    except ImportError:
+        from blissdata.redis_engine.store import DataStore
     from blissdata.schemas.scan_info import ChainDict
 except Exception as e:
     print("Redis or blissdata cannot be imported: %s" % str(e))
