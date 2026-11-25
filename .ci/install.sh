@@ -111,12 +111,26 @@ fi
 if [ "$?" != "0" ]; then exit 255; fi
 
 
+if  [ "$1" = "debian13py" ] || [ "$1" = "ubuntu26.04py" ] || [ "$1" = "ubuntu26.10py" ] ; then
+    echo "remove python3-mysqldb"
+    docker exec  --user root ndts /bin/bash -c 'apt-get  install -y   python3-pymysql'
+    docker exec  --user root ndts /bin/bash -c 'apt-get  remove -y   python3-mysqldb'
+fi
+
 if [ "$2" = "2" ]; then
     echo "install python-nxstools"
     docker exec --user root ndts chown -R tango:tango .
     docker exec  ndts python setup.py build
     docker exec --user root ndts python setup.py  install
 else
+    # python3-nxswriter pulls the released python3-nxstools from apt.
+    # Remove it before installing the checkout: pip cannot uninstall
+    # a dpkg package (no RECORD file), so the install fails and the tests
+    # would use the released nxstools.  It has to be the last apt/dpkg step:
+    # apt refuses to work with the python3-nxswriter dependency unsatisfied.
+    echo "remove python3-nxstools"
+    docker exec  --user root ndts /bin/bash -c 'dpkg -r --force-depends python3-nxstools'
+
     echo "install python3-nxstools"
     docker exec --user root ndts chown -R tango:tango .
     docker exec ndts mkdir build
@@ -125,29 +139,14 @@ else
 	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation
     else
 	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation  --break-system-packages --root-user-action=ignore
-    fi    
-    # if [ "$?" != "0" ]; then exit 255; fi
+    fi
+    # check the installed nxstools outside the source tree,
+    # i.e. without ./nxstools in sys.path
+    docker exec  ndts /bin/bash -c 'cd / && python3 -c "import nxstools, nxstools.release as rl; print(\"nxstools\", rl.__version__, nxstools.__file__)"'
+    if [ "$?" != "0" ]; then exit 255; fi
 
     echo "build python3-nxstools docs"
     docker exec ndts mkdir doc/_static
     docker exec ndts sphinx-build  doc build/sphinx/html
 fi
 if [ "$1" != "ubuntu26.04" ] && [ "$?" != "0" ]; then exit 255; fi
-
-if  [ "$1" = "debian13py" ] || [ "$1" = "ubuntu26.04py" ] || [ "$1" = "ubuntu26.10py" ] ; then
-    echo "remove python3-mysqldb"
-    docker exec  --user root ndts /bin/bash -c 'apt-get  install -y   python3-pymysql'
-    docker exec  --user root ndts /bin/bash -c 'apt-get  remove -y   python3-mysqldb'
-fi
-
-if [ "$2" != "2" ]; then
-    # python3-nxswriter pulls the released python3-nxstools from apt;
-    # remove it, so the tests import the nxstools installed from the checkout.
-    # It has to be the last dpkg/apt step: apt refuses to work with the
-    # dependency of python3-nxswriter left unsatisfied
-    echo "remove python3-nxstools"
-    docker exec  --user root ndts /bin/bash -c 'dpkg -r --force-depends python3-nxstools'
-    # fails if nxstools of the checkout is not installed
-    docker exec  ndts python3 -c "import nxstools, nxstools.release as rl; print('nxstools', rl.__version__, nxstools.__file__)"
-    if [ "$?" != "0" ]; then exit 255; fi
-fi
