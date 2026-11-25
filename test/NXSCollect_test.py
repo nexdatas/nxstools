@@ -44,10 +44,6 @@ except ImportError:
     from io import StringIO
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
 WRITERS = {}
 
 try:
@@ -113,11 +109,11 @@ For more help:
 
         try:
             # random seed
-            self.seed = long(binascii.hexlify(os.urandom(16)), 16)
+            self.seed = int(binascii.hexlify(os.urandom(16)), 16)
         except NotImplementedError:
             import time
             # random seed
-            self.seed = long(time.time() * 256)  # use fractional seconds
+            self.seed = int(time.time() * 256)  # use fractional seconds
 
         self.__rnd = random.Random(self.seed)
 

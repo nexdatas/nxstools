@@ -20,7 +20,6 @@
 
 # import math
 import os
-import sys
 import time
 # import numpy as np
 # from pninexus import h5cpp
@@ -140,13 +139,6 @@ def nptype(dtype):
     return h5writer.nptype(dtype)
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-else:
-    bytes = str
-
-
 def _tostr(text):
     """ converts text  to str type
 
@@ -157,10 +149,8 @@ def _tostr(text):
     """
     if isinstance(text, str):
         return text
-    elif sys.version_info > (3,):
-        return str(text, "utf-8")
     else:
-        return str(text)
+        return str(text, "utf-8")
 
 
 def unlimited_selection(sel, shape):

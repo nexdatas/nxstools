@@ -89,11 +89,6 @@ except Exception:
     RECSEL = False
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
-
 class mytty(object):
 
     def __init__(self, underlying):
@@ -163,11 +158,11 @@ For more help:
 
         try:
             # random seed
-            self.seed = long(binascii.hexlify(os.urandom(16)), 16)
+            self.seed = int(binascii.hexlify(os.urandom(16)), 16)
         except NotImplementedError:
             import time
             # random seed
-            self.seed = long(time.time() * 256)  # use fractional seconds
+            self.seed = int(time.time() * 256)  # use fractional seconds
 
         self.__rnd = random.Random(self.seed)
 
@@ -220,28 +215,14 @@ For more help:
     def serverPid(self, svname):
         pid = None
         svname, instance = svname.split("/")
-        if sys.version_info > (3,):
-            with subprocess.Popen(
-                    "ps -ef | grep '%s %s' | grep -v grep" %
-                    (svname, instance),
-                    stdout=subprocess.PIPE, shell=True) as proc:
-
-                pipe = proc.stdout
-                res = str(pipe.read(), "utf-8").split("\n")
-                # print(res)
-                for r in res:
-                    sr = r.split()
-                    if len(sr) > 2:
-                        pid = sr[1]
-                pipe.close()
-        else:
-            pipe = subprocess.Popen(
+        with subprocess.Popen(
                 "ps -ef | grep '%s %s' | grep -v grep" %
                 (svname, instance),
-                stdout=subprocess.PIPE, shell=True).stdout
+                stdout=subprocess.PIPE, shell=True) as proc:
 
-            res = str(pipe.read()).split("\n")
-            print(res)
+            pipe = proc.stdout
+            res = str(pipe.read(), "utf-8").split("\n")
+            # print(res)
             for r in res:
                 sr = r.split()
                 if len(sr) > 2:
@@ -268,28 +249,13 @@ For more help:
             pass
 
         svname, instance = svname.split("/")
-        if sys.version_info > (3,):
-            with subprocess.Popen(
-                    "ps -ef | grep '%s %s' | grep -v grep" %
-                    (svname, instance),
-                    stdout=subprocess.PIPE, shell=True) as proc:
-
-                pipe = proc.stdout
-                res = str(pipe.read(), "utf-8").split("\n")
-                for r in res:
-                    sr = r.split()
-                    if len(sr) > 2:
-                        subprocess.call(
-                            "kill -9 %s" % sr[1], stderr=subprocess.PIPE,
-                            shell=True)
-                pipe.close()
-        else:
-            pipe = subprocess.Popen(
+        with subprocess.Popen(
                 "ps -ef | grep '%s %s' | grep -v grep" %
                 (svname, instance),
-                stdout=subprocess.PIPE, shell=True).stdout
+                stdout=subprocess.PIPE, shell=True) as proc:
 
-            res = str(pipe.read()).split("\n")
+            pipe = proc.stdout
+            res = str(pipe.read(), "utf-8").split("\n")
             for r in res:
                 sr = r.split()
                 if len(sr) > 2:

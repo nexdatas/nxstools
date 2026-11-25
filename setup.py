@@ -117,6 +117,7 @@ SETUPDATA = dict(
     keywords="configuration writer Tango component nexus data",
     url="http://github.com/nexdatas/nxstools",
     platforms=("Linux"),
+    python_requires='>=3',
     install_requires=install_requires,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -124,7 +125,6 @@ SETUPDATA = dict(
         'Topic :: Scientific/Engineering :: Physics',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        # 'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         # 'Programming Language :: Python :: 3.4',
         # 'Programming Language :: Python :: 3.5',

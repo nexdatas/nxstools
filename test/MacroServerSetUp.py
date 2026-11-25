@@ -42,15 +42,13 @@ class MacroServerSetUp(object):
     # constructor
     # \brief defines server parameters
 
-    def __init__(self, instance="MSTESTS1", msdevices=None, doordevices=None,
-                 python=None):
+    def __init__(self, instance="MSTESTS1", msdevices=None, doordevices=None):
         if not isinstance(msdevices, list):
             msdevices = ["mstestp09/testts/t1r228"]
         if not isinstance(doordevices, list):
             doordevices = ["doortestp09/testts/t1r228"]
         # information about tango writer
         self.server = "MacroServer/%s" % instance
-        self.python = python
         self.door = {}
         self.ms = {}
         # device proxy
@@ -76,10 +74,7 @@ class MacroServerSetUp(object):
     def setUp(self):
         print("\nsetting up...")
         path = os.path.dirname(TestPool.__file__)
-        if sys.version_info > (3,):
-            shutil.copy2("%s/MacroServer3" % path, "%s/MacroServer" % path)
-        else:
-            shutil.copy2("%s/MacroServer2" % path, "%s/MacroServer" % path)
+        shutil.copy2("%s/MacroServer3" % path, "%s/MacroServer" % path)
         self.add()
         self.start()
 
@@ -101,17 +96,10 @@ class MacroServerSetUp(object):
         if not path:
             path = '.'
 
-        if (sys.version_info > (3,) and self.python is None) or \
-           self.python == 3:
-            self._psub = subprocess.call(
-                "cd %s;  ./MacroServer %s &" %
-                (path, self.instance),
-                stdout=None, stderr=None, shell=True)
-        else:
-            self._psub = subprocess.call(
-                "cd %s;  python ./MacroServer %s &" %
-                (path, self.instance),
-                stdout=None, stderr=None, shell=True)
+        self._psub = subprocess.call(
+            "cd %s;  ./MacroServer %s &" %
+            (path, self.instance),
+            stdout=None, stderr=None, shell=True)
         sys.stdout.write("waiting for test macro server")
 
         found = False
@@ -156,26 +144,12 @@ class MacroServerSetUp(object):
 
     # stops server
     def stop(self):
-        if sys.version_info > (3,):
-            with subprocess.Popen(
-                    "ps -ef | grep 'MacroServer %s' | grep -v grep" %
-                    self.instance,
-                    stdout=subprocess.PIPE, shell=True) as proc:
-                pipe = proc.stdout
-                res = str(pipe.read(), "utf8").split("\n")
-                for r in res:
-                    sr = r.split()
-                    if len(sr) > 2:
-                        subprocess.call(
-                            "kill -9 %s" % sr[1], stderr=subprocess.PIPE,
-                            shell=True)
-                pipe.close()
-        else:
-            pipe = subprocess.Popen(
+        with subprocess.Popen(
                 "ps -ef | grep 'MacroServer %s' | grep -v grep" %
                 self.instance,
-                stdout=subprocess.PIPE, shell=True).stdout
-            res = str(pipe.read()).split("\n")
+                stdout=subprocess.PIPE, shell=True) as proc:
+            pipe = proc.stdout
+            res = str(pipe.read(), "utf8").split("\n")
             for r in res:
                 sr = r.split()
                 if len(sr) > 2:

@@ -56,11 +56,6 @@ except ImportError:
     from io import StringIO
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
-
 class mytty(object):
 
     def __init__(self, underlying):
@@ -147,11 +142,11 @@ For more help:
 
         try:
             # random seed
-            self.seed = long(binascii.hexlify(os.urandom(16)), 16)
+            self.seed = int(binascii.hexlify(os.urandom(16)), 16)
         except NotImplementedError:
             import time
             # random seed
-            self.seed = long(time.time() * 256)  # use fractional seconds
+            self.seed = int(time.time() * 256)  # use fractional seconds
 
         self.__rnd = random.Random(self.seed)
 
@@ -369,7 +364,7 @@ For more help:
             xmlc.Open()
         version = xmlc.version
         vv = version.split('.')
-        self.revision = long(vv[-1])
+        self.revision = int(vv[-1])
         self.version = ".".join(vv[0:3])
         self.label = ".".join(vv[3:-1])
 

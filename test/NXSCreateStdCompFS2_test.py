@@ -31,11 +31,6 @@ except Exception:
     from . import NXSCreateStdCompFS_test
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
-
 # test fixture
 class NXSCreateStdCompFS2Test(
         NXSCreateStdCompFS_test.NXSCreateStdCompFSTest):

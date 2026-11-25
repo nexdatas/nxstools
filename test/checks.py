@@ -19,7 +19,6 @@
 # \file checks.py
 # checks
 #
-import sys
 import xml.etree.ElementTree as et
 from lxml.etree import XMLParser
 from functools import cmp_to_key
@@ -53,12 +52,8 @@ def cmpnodes(n1, n2):
 
     ln1 = list(n1)
     ln2 = list(n2)
-    if sys.version_info > (3,):
-        ln1.sort(key=cmp_to_key(cmpnodes))
-        ln2.sort(key=cmp_to_key(cmpnodes))
-    else:
-        ln1.sort(cmp=cmpnodes)
-        ln2.sort(cmp=cmpnodes)
+    ln1.sort(key=cmp_to_key(cmpnodes))
+    ln2.sort(key=cmp_to_key(cmpnodes))
 
     for c1, c2 in zip(ln1, ln2):
         val = cmpnodes(c1, c2)
@@ -92,12 +87,8 @@ def checknodes(utest, n1, n2):
     utest.assertEqual(len(n1), len(n2))
     ln1 = list(n1)
     ln2 = list(n2)
-    if sys.version_info > (3,):
-        ln1.sort(key=cmp_to_key(cmpnodes))
-        ln2.sort(key=cmp_to_key(cmpnodes))
-    else:
-        ln1.sort(cmp=cmpnodes)
-        ln2.sort(cmp=cmpnodes)
+    ln1.sort(key=cmp_to_key(cmpnodes))
+    ln2.sort(key=cmp_to_key(cmpnodes))
     for c1, c2 in zip(ln1, ln2):
         checknodes(utest, c1, c2)
 

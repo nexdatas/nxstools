@@ -37,9 +37,6 @@ try:
 except Exception:
     pass
 
-if sys.version_info > (3,):
-    raw_input = input
-
 
 class ConfigServer(object):
 
@@ -348,7 +345,7 @@ class ConfigServer(object):
         for ar in args:
             choice = default
             if ask:
-                choice = raw_input("Remove %s '%s'? [Y/n] \n" % (
+                choice = input("Remove %s '%s'? [Y/n] \n" % (
                     label, ar)).lower()
                 while True:
                     if choice == '':

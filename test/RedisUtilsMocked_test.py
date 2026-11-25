@@ -26,11 +26,6 @@ import time
 import nxstools.redisutils as redisutils
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
-
 # test fixture
 class RedisUtilsMockedTest(unittest.TestCase):
 
@@ -39,7 +34,7 @@ class RedisUtilsMockedTest(unittest.TestCase):
     def __init__(self, methodName):
         unittest.TestCase.__init__(self, methodName)
 
-        self.seed = long(time.time() * 256)  # use fractional seconds
+        self.seed = int(time.time() * 256)  # use fractional seconds
 
     # test starter
     # \brief Common set up

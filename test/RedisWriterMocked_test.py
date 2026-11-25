@@ -27,11 +27,6 @@ import time
 import nxstools.rediswriter as rediswriter
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
-
 # a mocked blissdata scan recording the lifecycle commands it receives
 class MockScan(object):
 
@@ -86,7 +81,7 @@ class RedisWriterMockedTest(unittest.TestCase):
     def __init__(self, methodName):
         unittest.TestCase.__init__(self, methodName)
 
-        self.seed = long(time.time() * 256)  # use fractional seconds
+        self.seed = int(time.time() * 256)  # use fractional seconds
 
         #: (:obj:`str`) a unique redis url - never contacted, only a cache key
         self.__url = "redis://localhost:6399/nxstools_mock_%s" % os.getpid()

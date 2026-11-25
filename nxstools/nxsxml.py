@@ -23,13 +23,8 @@ try:
     import tango
 except Exception:
     import PyTango as tango
-import sys
 
 import lxml.etree
-
-
-if sys.version_info > (3,):
-    unicode = str
 
 
 def _tostr(text):
@@ -42,8 +37,7 @@ def _tostr(text):
     if isinstance(text, str):
         return text
     else:
-        if sys.version_info > (3,) and \
-           (isinstance(text, bytes) or isinstance(text, unicode)):
+        if isinstance(text, bytes):
             return str(text, "utf-8")
         else:
             return str(text)
@@ -738,16 +732,10 @@ class XMLFile(object):
         :type etNode: :class:`lxml.etree.Element`
         """
         node = etNode if etNode is not None else self.elem
-        if sys.version_info > (3,):
-            xmls = _tostr(
-                lxml.etree.tostring(
-                    node, encoding='unicode',
-                    method='xml', pretty_print=True))
-        else:
-            xmls = _tostr(
-                lxml.etree.tostring(
-                    node, encoding='utf-8',
-                    method='xml', pretty_print=True))
+        xmls = _tostr(
+            lxml.etree.tostring(
+                node, encoding='unicode',
+                method='xml', pretty_print=True))
         if not xmls.startswith("<?xml"):
             xmls = "<?xml version='1.0' encoding='utf-8'?>\n" + xmls
         return xmls

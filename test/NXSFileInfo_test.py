@@ -58,10 +58,6 @@ except ImportError:
     from io import StringIO
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
 WRITERS = {}
 try:
     from nxstools import h5pywriter
@@ -142,11 +138,11 @@ For more help:
 
         try:
             # random seed
-            self.seed = long(binascii.hexlify(os.urandom(16)), 16)
+            self.seed = int(binascii.hexlify(os.urandom(16)), 16)
         except NotImplementedError:
             import time
             # random seed
-            self.seed = long(time.time() * 256)  # use fractional seconds
+            self.seed = int(time.time() * 256)  # use fractional seconds
 
         self.__rnd = random.Random(self.seed)
 
@@ -9288,11 +9284,10 @@ For more help:
                     self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
 
                 tm = df["time"]
-                if sys.version_info > (3,):
-                    tst = duparser.parse(tm).timestamp()
-                    ct = time.time()
-                    self.assertTrue(tst <= ct)
-                    self.assertTrue(ct - tst < 1)
+                tst = duparser.parse(tm).timestamp()
+                ct = time.time()
+                self.assertTrue(tst <= ct)
+                self.assertTrue(ct - tst < 1)
 
         finally:
             if os.path.isfile(filename):
@@ -9345,10 +9340,10 @@ For more help:
                 df["path"], 'nxsextrasp00/common4_common.ds.xml')
             self.assertEqual(df["size"], 258)
 
-            self.assertTrue(isinstance(df["uid"], unicode))
-            self.assertTrue(isinstance(df["gid"], unicode))
-            self.assertTrue(isinstance(df["time"], unicode))
-            self.assertTrue(isinstance(df["perm"], unicode))
+            self.assertTrue(isinstance(df["uid"], str))
+            self.assertTrue(isinstance(df["gid"], str))
+            self.assertTrue(isinstance(df["time"], str))
+            self.assertTrue(isinstance(df["perm"], str))
 
             for df in dfl:
                 if df["path"] == 'nxsextrasp00/collect4.xml':
@@ -9359,10 +9354,10 @@ For more help:
                 df["path"], 'nxsextrasp00/collect4.xml')
             self.assertEqual(df["size"], 143)
 
-            self.assertTrue(isinstance(df["uid"], unicode))
-            self.assertTrue(isinstance(df["gid"], unicode))
-            self.assertTrue(isinstance(df["time"], unicode))
-            self.assertTrue(isinstance(df["perm"], unicode))
+            self.assertTrue(isinstance(df["uid"], str))
+            self.assertTrue(isinstance(df["gid"], str))
+            self.assertTrue(isinstance(df["time"], str))
+            self.assertTrue(isinstance(df["perm"], str))
 
             for df in dfl:
                 if df["path"] == 'nxsextrasp00/mymca.xml':
@@ -9373,10 +9368,10 @@ For more help:
                 df["path"], 'nxsextrasp00/mymca.xml')
             self.assertEqual(df["size"], 565)
 
-            self.assertTrue(isinstance(df["uid"], unicode))
-            self.assertTrue(isinstance(df["gid"], unicode))
-            self.assertTrue(isinstance(df["time"], unicode))
-            self.assertTrue(isinstance(df["perm"], unicode))
+            self.assertTrue(isinstance(df["uid"], str))
+            self.assertTrue(isinstance(df["gid"], str))
+            self.assertTrue(isinstance(df["time"], str))
+            self.assertTrue(isinstance(df["perm"], str))
 
     def test_origdatablock_nxsextras_add(self):
         """ test nxsfileinfo origdatablock
@@ -9436,11 +9431,10 @@ For more help:
                     self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
 
                 tm = df["time"]
-                if sys.version_info > (3,):
-                    tst = duparser.parse(tm).timestamp()
-                    ct = time.time()
-                    self.assertTrue(tst <= ct)
-                    self.assertTrue(ct - tst < 1)
+                tst = duparser.parse(tm).timestamp()
+                ct = time.time()
+                self.assertTrue(tst <= ct)
+                self.assertTrue(ct - tst < 1)
 
                 for df in dfl:
                     if df["path"] == 'nxsextrasp00/common4_common.ds.xml':
@@ -9450,10 +9444,10 @@ For more help:
                     df["path"], 'nxsextrasp00/common4_common.ds.xml')
                 self.assertEqual(df["size"], 258)
 
-                self.assertTrue(isinstance(df["uid"], unicode))
-                self.assertTrue(isinstance(df["gid"], unicode))
-                self.assertTrue(isinstance(df["time"], unicode))
-                self.assertTrue(isinstance(df["perm"], unicode))
+                self.assertTrue(isinstance(df["uid"], str))
+                self.assertTrue(isinstance(df["gid"], str))
+                self.assertTrue(isinstance(df["time"], str))
+                self.assertTrue(isinstance(df["perm"], str))
 
                 for df in dfl:
                     if df["path"] == 'nxsextrasp00/collect4.xml':
@@ -9463,10 +9457,10 @@ For more help:
                     df["path"], 'nxsextrasp00/collect4.xml')
                 self.assertEqual(df["size"], 143)
 
-                self.assertTrue(isinstance(df["uid"], unicode))
-                self.assertTrue(isinstance(df["gid"], unicode))
-                self.assertTrue(isinstance(df["time"], unicode))
-                self.assertTrue(isinstance(df["perm"], unicode))
+                self.assertTrue(isinstance(df["uid"], str))
+                self.assertTrue(isinstance(df["gid"], str))
+                self.assertTrue(isinstance(df["time"], str))
+                self.assertTrue(isinstance(df["perm"], str))
 
                 for df in dfl:
                     if df["path"] == 'nxsextrasp00/mymca.xml':
@@ -9477,10 +9471,10 @@ For more help:
                     df["path"], 'nxsextrasp00/mymca.xml')
                 self.assertEqual(df["size"], 565)
 
-                self.assertTrue(isinstance(df["uid"], unicode))
-                self.assertTrue(isinstance(df["gid"], unicode))
-                self.assertTrue(isinstance(df["time"], unicode))
-                self.assertTrue(isinstance(df["perm"], unicode))
+                self.assertTrue(isinstance(df["uid"], str))
+                self.assertTrue(isinstance(df["gid"], str))
+                self.assertTrue(isinstance(df["time"], str))
+                self.assertTrue(isinstance(df["perm"], str))
 
         finally:
             if os.path.isfile(filename):
@@ -9546,11 +9540,10 @@ For more help:
                     self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
 
                 tm = df["time"]
-                if sys.version_info > (3,):
-                    tst = duparser.parse(tm).timestamp()
-                    ct = time.time()
-                    self.assertTrue(tst <= ct)
-                    self.assertTrue(ct - tst < 1)
+                tst = duparser.parse(tm).timestamp()
+                ct = time.time()
+                self.assertTrue(tst <= ct)
+                self.assertTrue(ct - tst < 1)
 
                 for df in dfl:
                     if df["path"] == os.path.join(
@@ -9562,10 +9555,10 @@ For more help:
                             relpath, 'nxsextrasp00/common4_common.ds.xml'))
                 self.assertEqual(df["size"], 258)
 
-                self.assertTrue(isinstance(df["uid"], unicode))
-                self.assertTrue(isinstance(df["gid"], unicode))
-                self.assertTrue(isinstance(df["time"], unicode))
-                self.assertTrue(isinstance(df["perm"], unicode))
+                self.assertTrue(isinstance(df["uid"], str))
+                self.assertTrue(isinstance(df["gid"], str))
+                self.assertTrue(isinstance(df["time"], str))
+                self.assertTrue(isinstance(df["perm"], str))
 
                 for df in dfl:
                     if df["path"] == os.path.join(
@@ -9577,10 +9570,10 @@ For more help:
                             relpath, 'nxsextrasp00/collect4.xml'))
                 self.assertEqual(df["size"], 143)
 
-                self.assertTrue(isinstance(df["uid"], unicode))
-                self.assertTrue(isinstance(df["gid"], unicode))
-                self.assertTrue(isinstance(df["time"], unicode))
-                self.assertTrue(isinstance(df["perm"], unicode))
+                self.assertTrue(isinstance(df["uid"], str))
+                self.assertTrue(isinstance(df["gid"], str))
+                self.assertTrue(isinstance(df["time"], str))
+                self.assertTrue(isinstance(df["perm"], str))
 
                 for df in dfl:
                     if df["path"] == os.path.join(
@@ -9593,10 +9586,10 @@ For more help:
                             relpath, 'nxsextrasp00/mymca.xml'))
                 self.assertEqual(df["size"], 565)
 
-                self.assertTrue(isinstance(df["uid"], unicode))
-                self.assertTrue(isinstance(df["gid"], unicode))
-                self.assertTrue(isinstance(df["time"], unicode))
-                self.assertTrue(isinstance(df["perm"], unicode))
+                self.assertTrue(isinstance(df["uid"], str))
+                self.assertTrue(isinstance(df["gid"], str))
+                self.assertTrue(isinstance(df["time"], str))
+                self.assertTrue(isinstance(df["perm"], str))
 
         finally:
             if os.path.isfile(filename):
@@ -9665,11 +9658,10 @@ For more help:
                     self.assertEqual(df["gid"], grp.getgrgid(gid).gr_name)
 
                 tm = df["time"]
-                if sys.version_info > (3,):
-                    tst = duparser.parse(tm).timestamp()
-                    ct = time.time()
-                    self.assertTrue(tst <= ct)
-                    self.assertTrue(ct - tst < 1)
+                tst = duparser.parse(tm).timestamp()
+                ct = time.time()
+                self.assertTrue(tst <= ct)
+                self.assertTrue(ct - tst < 1)
 
                 for df in dfl:
                     if df["path"] == os.path.join(
@@ -9681,10 +9673,10 @@ For more help:
                         relpath, 'nxsextrasp00/common4_common.ds.xml'))
                 self.assertEqual(df["size"], 258)
 
-                self.assertTrue(isinstance(df["uid"], unicode))
-                self.assertTrue(isinstance(df["gid"], unicode))
-                self.assertTrue(isinstance(df["time"], unicode))
-                self.assertTrue(isinstance(df["perm"], unicode))
+                self.assertTrue(isinstance(df["uid"], str))
+                self.assertTrue(isinstance(df["gid"], str))
+                self.assertTrue(isinstance(df["time"], str))
+                self.assertTrue(isinstance(df["perm"], str))
 
                 for df in dfl:
                     if df["path"] == os.path.join(
@@ -9696,10 +9688,10 @@ For more help:
                             relpath, 'nxsextrasp00/collect4.xml'))
                 self.assertEqual(df["size"], 143)
 
-                self.assertTrue(isinstance(df["uid"], unicode))
-                self.assertTrue(isinstance(df["gid"], unicode))
-                self.assertTrue(isinstance(df["time"], unicode))
-                self.assertTrue(isinstance(df["perm"], unicode))
+                self.assertTrue(isinstance(df["uid"], str))
+                self.assertTrue(isinstance(df["gid"], str))
+                self.assertTrue(isinstance(df["time"], str))
+                self.assertTrue(isinstance(df["perm"], str))
 
                 for df in dfl:
                     if df["path"] == os.path.join(
@@ -9712,10 +9704,10 @@ For more help:
                             relpath, 'nxsextrasp00/mymca.xml'))
                 self.assertEqual(df["size"], 565)
 
-                self.assertTrue(isinstance(df["uid"], unicode))
-                self.assertTrue(isinstance(df["gid"], unicode))
-                self.assertTrue(isinstance(df["time"], unicode))
-                self.assertTrue(isinstance(df["perm"], unicode))
+                self.assertTrue(isinstance(df["uid"], str))
+                self.assertTrue(isinstance(df["gid"], str))
+                self.assertTrue(isinstance(df["time"], str))
+                self.assertTrue(isinstance(df["perm"], str))
 
         finally:
             if os.path.isfile(filename):

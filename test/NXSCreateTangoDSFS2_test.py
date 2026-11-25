@@ -31,11 +31,6 @@ except Exception:
     from . import NXSCreateTangoDSFS_test
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
-
 # test fixture
 class NXSCreateTangoDSFS2Test(
         NXSCreateTangoDSFS_test.NXSCreateTangoDSFSTest):

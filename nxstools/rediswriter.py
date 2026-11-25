@@ -20,7 +20,6 @@
 
 import math
 import os
-import sys
 import time
 import datetime
 import getpass
@@ -143,13 +142,6 @@ def nptype(dtype):
     return dtype
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-else:
-    bytes = str
-
-
 def _tostr(text):
     """ converts text  to str type
 
@@ -160,10 +152,8 @@ def _tostr(text):
     """
     if isinstance(text, str):
         return text
-    elif sys.version_info > (3,):
-        return str(text, "utf-8")
     else:
-        return str(text)
+        return str(text, "utf-8")
 
 
 def unlimited_selection(sel, shape):
@@ -334,13 +324,13 @@ def _slice2selection(t, shape):
                 offset=[start],
                 count=[int(math.ceil((stop - start) / float(t.step)))],
                 stride=[t.step], block=[1])
-    elif isinstance(t, (int, long)) and shape and len(shape) > 1:
+    elif isinstance(t, (int, int)) and shape and len(shape) > 1:
         offset = [0] * len(shape)
         offset[0] = t
         return filewriter.FTHyperslab(
             offset=offset, block=shape,
             stride=shape, count=[1] * len(shape))
-    elif isinstance(t, (int, long)):
+    elif isinstance(t, (int, int)):
         return filewriter.FTHyperslab(offset=[t], block=[1],
                                       count=[1], stride=[1])
     elif isinstance(t, (list, tuple)):
@@ -351,7 +341,7 @@ def _slice2selection(t, shape):
         it = -1
         for tit, tel in enumerate(t):
             it += 1
-            if isinstance(tel, (int, long)):
+            if isinstance(tel, (int, int)):
                 if tel < 0:
                     offset.append(shape[it] + tel)
                 else:
@@ -699,7 +689,7 @@ class RedisFile(filewriter.FTFile):
         self.__datastore = None
         self.__entryname = ''
         self.__insname = ''
-        self._file_time = unicode(RedisFile.currenttime())
+        self._file_time = str(RedisFile.currenttime())
         if REDIS and self.__redisurl:
             with self.global_data_store_lock:
                 # print("FILENAME", self.name)
@@ -4026,7 +4016,7 @@ class RedisAttribute(filewriter.FTAttribute):
            (hasattr(o, "__len__") and t == slice(0, len(o), None)):
             if self.dtype in ['string', b'string']:
                 if isinstance(o, str):
-                    self.write(unicode(o))
+                    self.write(str(o))
                 else:
                     dtype = npunicode
                     self.write(np.array(o, dtype=dtype))
@@ -4068,8 +4058,8 @@ class RedisAttribute(filewriter.FTAttribute):
                 var = var.astype(dtype)
             self.write(var)
         else:
-            if isinstance(o, str) or isinstance(o, unicode):
-                self.write(unicode(o))
+            if isinstance(o, str) or isinstance(o, str):
+                self.write(str(o))
             else:
                 self.write(np.array(o, dtype=self.dtype))
 

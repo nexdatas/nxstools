@@ -163,6 +163,7 @@ if H5PY_AVAILABLE:
     import NXSCollectH5PY_test
     import NXSFileInfoH5PY_test
     import NXSCreatePyEvalH5PY_test
+    import H5MapWriter_test
 if H5CPP_AVAILABLE:
     import H5CppWriter_test
     import NXSCreatePyEvalH5Cpp_test
@@ -292,6 +293,9 @@ def main():
         suite.addTests(
             unittest.defaultTestLoader.loadTestsFromModule(
                 NXSCreatePyEvalH5PY_test))
+        suite.addTests(
+            unittest.defaultTestLoader.loadTestsFromModule(
+                H5MapWriter_test))
     if H5CPP_AVAILABLE:
         suite.addTests(
             unittest.defaultTestLoader.loadTestsFromModule(

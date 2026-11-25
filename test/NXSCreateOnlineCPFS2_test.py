@@ -31,11 +31,6 @@ except Exception:
     from . import NXSCreateOnlineCPFS_test
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
-
 # test fixture
 class NXSCreateOnlineCPFS2Test(
         NXSCreateOnlineCPFS_test.NXSCreateOnlineCPFSTest):

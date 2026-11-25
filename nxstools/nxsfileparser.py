@@ -151,17 +151,12 @@ def getdsname(xmlstring):
     :type xmlstring: :obj:`str`
     """
 
-    if sys.version_info > (3,):
-        try:
-            node = et.fromstring(
-                bytes(xmlstring, "UTF-8"),
-                parser=XMLParser(collect_ids=False))
-        except Exception:
-            return xmlstring
-    else:
+    try:
         node = et.fromstring(
-            xmlstring,
+            bytes(xmlstring, "UTF-8"),
             parser=XMLParser(collect_ids=False))
+    except Exception:
+        return xmlstring
     if node.tag == 'datasource':
         nodes = [node]
     else:
@@ -179,17 +174,12 @@ def getdstype(xmlstring):
     :type xmlstring: :obj:`str`
     """
 
-    if sys.version_info > (3,):
-        try:
-            node = et.fromstring(
-                bytes(xmlstring, "UTF-8"),
-                parser=XMLParser(collect_ids=False))
-        except Exception:
-            return ""
-    else:
+    try:
         node = et.fromstring(
-            xmlstring,
+            bytes(xmlstring, "UTF-8"),
             parser=XMLParser(collect_ids=False))
+    except Exception:
+        return ""
     if node.tag == 'datasource':
         nodes = [node]
     else:
@@ -207,17 +197,12 @@ def getdssource(xmlstring):
     :type xmlstring: :obj:`str`
     """
 
-    if sys.version_info > (3,):
-        try:
-            node = et.fromstring(
-                bytes(xmlstring, "UTF-8"),
-                parser=XMLParser(collect_ids=False))
-        except Exception:
-            return ""
-    else:
+    try:
         node = et.fromstring(
-            xmlstring,
+            bytes(xmlstring, "UTF-8"),
             parser=XMLParser(collect_ids=False))
+    except Exception:
+        return ""
     if node.tag == 'datasource':
         nodes = [node]
     else:
