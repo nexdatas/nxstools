@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.nxscollect &#8212; NXSTools 4.72.0 documentation</title>
+    <title>nxstools.nxscollect &#8212; NXSTools 4.73.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
-    <script src="../../_static/documentation_options.js?v=1fc16106"></script>
+    <script src="../../_static/documentation_options.js?v=6e142b5f"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -34,7 +34,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.72</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.73</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -176,6 +176,7 @@
       <li><a class="reference external" href="../../index/../../latest/index.html">v:latest</a></li>
       <li><a class="reference external" href="../../index/../../stable/index.html">v:stable</a></li>
       
+      <li><a class="reference external" href="../../index/../../v4.73.0/index.html">v4.73.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.72.0/index.html">v4.72.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.71.0/index.html">v4.71.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.70.0/index.html">v4.70.0</a></li>
@@ -227,13 +228,6 @@
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">filewriter</span>
 
 
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-    <span class="n">unicode</span> <span class="o">=</span> <span class="nb">str</span>
-    <span class="n">long</span> <span class="o">=</span> <span class="nb">int</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">bytes</span> <span class="o">=</span> <span class="nb">str</span>
-
-
 <span class="n">WRITERS</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">h5pywriter</span>
@@ -249,9 +243,9 @@
 
 
 <span class="n">pTc</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;long&quot;</span><span class="p">:</span> <span class="n">long</span><span class="p">,</span>
+    <span class="s2">&quot;long&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="s2">&quot;str&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="s2">&quot;unicode&quot;</span><span class="p">:</span> <span class="n">unicode</span><span class="p">,</span>
+    <span class="s2">&quot;unicode&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="s2">&quot;bool&quot;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
     <span class="s2">&quot;int&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="s2">&quot;int64&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -280,10 +274,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">text</span>
-    <span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="filegenerator">
@@ -1335,7 +1327,7 @@
                     <span class="n">files</span> <span class="o">=</span> <span class="n">inputfiles</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
                     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="s2">&quot;tolist&quot;</span><span class="p">):</span>
                         <span class="n">files</span> <span class="o">=</span> <span class="n">files</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">unicode</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
                         <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">files</span><span class="p">]</span>
                     <span class="n">fieldname</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span>
                     <span class="n">fielddtype</span> <span class="o">=</span> <span class="kc">None</span>
