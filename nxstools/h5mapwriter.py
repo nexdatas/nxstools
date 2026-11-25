@@ -21,9 +21,15 @@
 
 The writer builds the NeXus tree in an in-memory HDF5 file, so that
 the nexdatas XML elements, strategies and datasources work as with
-the h5py writer, but nothing is written to disk.  The tree is exported
+the file writers, but nothing is written to disk.  The tree is exported
 as a blissdata h5map, i.e. a JSON-serializable dictionary which can be
 put into the ``h5maps`` of a blissdata scan and written by blisswriter.
+
+The tree is built by the ``h5cpp`` writer if available, otherwise by the
+``h5py`` writer.  The backend can be selected by the ``backend`` parameter
+of :func:`create_file`, e.g. with the ``h5map?backend=h5py`` writer of
+NXSDataWriter, or by the module ``backend`` variable.  The tree is
+exported with h5py in both cases.
 
 Fields with the ``STEP`` strategy are exported as blissdata streams
 when their stream names are provided, see :meth:`H5MapFile.h5map`.
@@ -32,6 +38,7 @@ All other fields are exported with their values.
 
 import io
 import base64
+import contextlib
 
 import h5py
 import numpy as np
@@ -40,29 +47,187 @@ from . import filewriter
 from . import h5pywriter
 from .nxsfileparser import getdsname, getdssource
 
+try:
+    from pninexus import h5cpp
+    from . import h5cppwriter
+    #: (:obj:`bool`) h5cpp backend with in-memory files and file images
+    H5CPP = hasattr(h5cpp.file, "MemoryDriver") \
+        and hasattr(h5cpp.file, "from_buffer") \
+        and hasattr(h5cpp.file.File, "to_buffer")
+except Exception:
+    h5cppwriter = None
+    H5CPP = False
+
 
 #: (:obj:`list` <:obj:`str`>) strategies of fields exported as streams
 STREAM_STRATEGIES = ["STEP"]
 
-# the h5py writer functions which do not depend on the file backend
-_slice2selection = h5pywriter._slice2selection
-unlimited_selection = h5pywriter.unlimited_selection
-nptype = h5pywriter.nptype
-is_image_file_supported = h5pywriter.is_image_file_supported
-is_vds_supported = h5pywriter.is_vds_supported
-is_mbs_supported = h5pywriter.is_mbs_supported
-is_unlimited_vds_supported = h5pywriter.is_unlimited_vds_supported
-is_strings_as_bytes = h5pywriter.is_strings_as_bytes
-unlimited = h5pywriter.unlimited
-link = h5pywriter.link
-get_links = h5pywriter.get_links
-data_filter = h5pywriter.data_filter
-deflate_filter = h5pywriter.deflate_filter
-target_field_view = h5pywriter.target_field_view
-virtual_field_layout = h5pywriter.virtual_field_layout
+#: (:obj:`dict` <:obj:`str`, :obj:`module`>) available backend writers
+BACKENDS = {"h5py": h5pywriter}
+if H5CPP:
+    BACKENDS["h5cpp"] = h5cppwriter
+
+#: (:obj:`list` <:obj:`str`>) backends in order of preference
+DEFAULTBACKENDS = ["h5cpp", "h5py"]
+
+#: (:obj:`str`) default backend, the first available one if None
+backend = None
 
 
-def open_file(filename, readonly=False, streams=None, **pars):
+def default_backend():
+    """ provides the default backend name
+
+    :returns: the default backend, i.e. h5cpp if available
+    :rtype: :obj:`str`
+    """
+    if backend:
+        return _backend_name(backend)
+    for name in DEFAULTBACKENDS:
+        if name in BACKENDS:
+            return name
+
+
+def _backend_name(name=None):
+    """ checks the backend name
+
+    :param name: backend name, the default backend if None
+    :type name: :obj:`str`
+    :returns: backend name
+    :rtype: :obj:`str`
+    """
+    if not name:
+        return default_backend()
+    name = str(name).lower()
+    if name not in BACKENDS:
+        raise ValueError(
+            "h5mapwriter: backend '%s' is not available (available: %s)"
+            % (name, ", ".join(sorted(BACKENDS))))
+    return name
+
+
+def _module(parent=None):
+    """ provides the backend writer module of a node
+
+    :param parent: tree node or None for the default backend
+    :type parent: :class:`nxstools.filewriter.FTObject`
+    :returns: backend writer module
+    :rtype: :obj:`module`
+    """
+    node = parent
+    while node is not None:
+        if isinstance(node, H5MapFile):
+            return node.writer
+        node = getattr(node, "parent", None)
+    return BACKENDS[default_backend()]
+
+
+def is_image_file_supported():
+    """ provides if loading of image files are supported
+
+    :retruns: if loading of image files are supported
+    :rtype: :obj:`bool`
+    """
+    return _module().is_image_file_supported()
+
+
+def is_vds_supported():
+    """ provides if VDS are supported
+
+    :retruns: if VDS are supported
+    :rtype: :obj:`bool`
+    """
+    return _module().is_vds_supported()
+
+
+def is_unlimited_vds_supported():
+    """ provides if unlimited VDS are supported
+
+    :retruns: if unlimited VDS are supported
+    :rtype: :obj:`bool`
+    """
+    return _module().is_unlimited_vds_supported()
+
+
+def unlimited(parent=None):
+    """ provides the unlimited dimension size
+
+    :param parent: parent object
+    :type parent: :class:`nxstools.filewriter.FTObject`
+    :returns: unlimited dimension size
+    :rtype: :obj:`int`
+    """
+    return _module(parent).unlimited()
+
+
+def link(target, parent, name):
+    """ creates a link
+
+    :param target: link target, e.g. ``/entry/data`` or ``file.h5:/entry``
+    :type target: :obj:`str`
+    :param parent: parent group
+    :type parent: :class:`nxstools.filewriter.FTGroup`
+    :param name: link name
+    :type name: :obj:`str`
+    :returns: link object
+    :rtype: :class:`nxstools.filewriter.FTLink`
+    """
+    return _module(parent).link(target, parent, name)
+
+
+def get_links(parent):
+    """ provides the links of a group
+
+    :param parent: parent group
+    :type parent: :class:`nxstools.filewriter.FTGroup`
+    :returns: list of link objects
+    :rtype: :obj:`list` <:class:`nxstools.filewriter.FTLink`>
+    """
+    return _module(parent).get_links(parent)
+
+
+def data_filter(filterid=None, name=None, options=None, availability=None,
+                shuffle=None, rate=None):
+    """ creates a data filter of the default backend
+
+    :returns: data filter object
+    :rtype: :class:`nxstools.filewriter.FTDataFilter`
+    """
+    return _module().data_filter(
+        filterid, name, options, availability, shuffle, rate)
+
+
+def deflate_filter(rate=None, shuffle=None, availability=None):
+    """ creates a deflate filter of the default backend
+
+    :returns: deflate filter object
+    :rtype: :class:`nxstools.filewriter.FTDataFilter`
+    """
+    return _module().deflate_filter(rate, shuffle, availability)
+
+
+def target_field_view(filename, fieldpath, shape, dtype=None,
+                      maxshape=None):
+    """ creates a target field view of the default backend
+
+    :returns: target field view object
+    :rtype: :class:`nxstools.filewriter.FTTargetFieldView`
+    """
+    return _module().target_field_view(
+        filename, fieldpath, shape, dtype, maxshape)
+
+
+def virtual_field_layout(shape, dtype, maxshape=None, parent=None):
+    """ creates a virtual field layout
+
+    :returns: virtual field layout object
+    :rtype: :class:`nxstools.filewriter.FTVirtualFieldLayout`
+    """
+    return _module(parent).virtual_field_layout(
+        shape, dtype, maxshape, parent)
+
+
+def open_file(filename, readonly=False, streams=None, backend=None,
+              **pars):
     """ open the new file
 
     The target file belongs to the h5map consumer, e.g. blisswriter,
@@ -76,15 +241,19 @@ def open_file(filename, readonly=False, streams=None, **pars):
     :param streams: stream names of STEP fields or a stream resolver,
                     see :meth:`H5MapFile.h5map`
     :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
+    :param backend: backend writer: ``h5cpp`` or ``h5py``,
+                    the default backend if None
+    :type backend: :obj:`str`
     :param pars: parameters (not used)
     :type pars: :obj:`dict` < :obj:`str`, :obj:`str`>
     :returns: file object
     :rtype: :class:`H5MapFile`
     """
-    return create_file(filename, streams=streams)
+    return create_file(filename, streams=streams, backend=backend)
 
 
-def create_file(filename, overwrite=False, streams=None, **pars):
+def create_file(filename, overwrite=False, streams=None, backend=None,
+                **pars):
     """ create a new in-memory file
 
     :param filename: file name of the h5map target
@@ -94,18 +263,39 @@ def create_file(filename, overwrite=False, streams=None, **pars):
     :param streams: stream names of STEP fields or a stream resolver,
                     see :meth:`H5MapFile.h5map`
     :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
+    :param backend: backend writer: ``h5cpp`` or ``h5py``,
+                    the default backend if None
+    :type backend: :obj:`str`
     :param pars: parameters (not used)
     :type pars: :obj:`dict` < :obj:`str`, :obj:`str`>
     :returns: file object
     :rtype: :class:`H5MapFile`
     """
+    attrs = [
+        ("file_time", str(filewriter.FTFile.currenttime())),
+        ("NX_class", u"NXroot"),
+        ("file_name", str(filename)),
+        ("file_update_time", str(filewriter.FTFile.currenttime())),
+    ]
+    if _backend_name(backend) == "h5cpp":
+        fapl = h5cpp.property.FileAccessList()
+        # no fallback to a file on disk, i.e. the target file
+        h5cpp.file.MemoryDriver()(fapl)
+        # the default library version bounds: the image of an open file
+        # with the latest file format cannot be read back
+        fl = h5cpp.file.create(
+            filename, h5cpp.file.AccessFlags.TRUNCATE,
+            h5cpp.property.FileCreationList(), fapl)
+        mfile = H5MapCppFile(fl, filename, None, streams)
+        rattrs = mfile.root().attributes
+        for name, value in attrs:
+            rattrs.create(name, "string", overwrite=True)[...] = value
+        return mfile
     buffer = io.BytesIO()
     fl = h5py.File(buffer, "w", track_order=True)
-    fl.attrs["file_time"] = str(H5MapFile.currenttime())
-    fl.attrs["NX_class"] = u"NXroot"
-    fl.attrs["file_name"] = str(filename)
-    fl.attrs["file_update_time"] = str(H5MapFile.currenttime())
-    return H5MapFile(fl, filename, buffer, streams)
+    for name, value in attrs:
+        fl.attrs[name] = value
+    return H5MapPYFile(fl, filename, buffer, streams)
 
 
 def memory_file(filename, **pars):
@@ -113,7 +303,7 @@ def memory_file(filename, **pars):
 
     :param filename: file name of the h5map target
     :type filename: :obj:`str`
-    :param pars: parameters, i.e. ``streams``
+    :param pars: parameters, i.e. ``streams`` and ``backend``
     :type pars: :obj:`dict` < :obj:`str`, :obj:`str`>
     :returns: file object
     :rtype: :class:`H5MapFile`
@@ -122,28 +312,54 @@ def memory_file(filename, **pars):
 
 
 def load_file(membuffer, filename=None, readonly=False, streams=None,
-              **pars):
+              backend=None, **pars):
     """ load a file from memory byte buffer
 
     :param membuffer: memory buffer
-    :type membuffer: :obj:`bytes` or :obj:`io.BytesIO`
+    :type membuffer: :obj:`bytes`, :obj:`io.BytesIO` or
+                     :class:`numpy.ndarray`
     :param filename: file name of the h5map target
     :type filename: :obj:`str`
     :param readonly: readonly flag
     :type readonly: :obj:`bool`
     :param streams: stream names of STEP fields or a stream resolver
     :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
+    :param backend: backend writer: ``h5cpp`` or ``h5py``,
+                    the default backend if None
+    :type backend: :obj:`str`
     :param pars: parameters (not used)
     :type pars: :obj:`dict` < :obj:`str`, :obj:`str`>
     :returns: file object
     :rtype: :class:`H5MapFile`
     """
+    if _backend_name(backend) == "h5cpp":
+        image = _image_array(membuffer)
+        flag = h5cpp.file.ImageFlags.READONLY if readonly \
+            else h5cpp.file.ImageFlags.READWRITE
+        fl = h5cpp.file.from_buffer(image, flag)
+        return H5MapCppFile(fl, filename, image, streams)
     if not hasattr(membuffer, "read") or not hasattr(membuffer, "seek"):
         if hasattr(membuffer, "tobytes"):
             membuffer = membuffer.tobytes()
         membuffer = io.BytesIO(membuffer)
     fl = h5py.File(membuffer, "r" if readonly else "r+")
-    return H5MapFile(fl, filename, membuffer, streams)
+    return H5MapPYFile(fl, filename, membuffer, streams)
+
+
+def _image_array(membuffer):
+    """ converts a memory buffer to an uint8 numpy array
+
+    :param membuffer: memory buffer
+    :type membuffer: :obj:`bytes`, :obj:`io.BytesIO` or
+                     :class:`numpy.ndarray`
+    :returns: file image
+    :rtype: :class:`numpy.ndarray`
+    """
+    if hasattr(membuffer, "getvalue"):
+        membuffer = membuffer.getvalue()
+    if isinstance(membuffer, np.ndarray):
+        return np.array(membuffer, dtype="uint8").reshape(-1)
+    return np.frombuffer(bytes(membuffer), dtype="uint8").copy()
 
 
 def _tostr(value):
@@ -453,9 +669,116 @@ class H5MapExporter(object):
         return item
 
 
-class H5MapFile(h5pywriter.H5PYFile):
+class H5MapFile(object):
 
-    """ file tree exported to h5map
+    """ file tree exported to h5map, the base of the backend files
+    """
+
+    def _h5map_init(self, module, streams=None):
+        """ initializes the h5map part of the file
+
+        :param module: backend writer module
+        :type module: :obj:`module`
+        :param streams: stream names of STEP fields or a stream resolver,
+                        see :meth:`h5map`
+        :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
+        """
+        #: (:obj:`module`) backend writer module
+        self._backend_module = module
+        #: (:obj:`dict` <:obj:`str`, :obj:`str`> or callable) stream names
+        self.streams = streams
+
+    @property
+    def writer(self):
+        """ backend writer module of the tree nodes
+
+        :mod:`nxstools.filewriter` finds the writer module of a node
+        via its file, so that links and filters are created by the backend.
+
+        :returns: backend writer module
+        :rtype: :obj:`module`
+        """
+        return getattr(self, "_backend_module", None)
+
+    @writer.setter
+    def writer(self, value):
+        """ ignores the module set by :mod:`nxstools.filewriter`
+
+        :param value: writer module
+        :type value: :obj:`module`
+        """
+
+    @property
+    def backend(self):
+        """ backend name
+
+        :returns: ``h5cpp`` or ``h5py``
+        :rtype: :obj:`str`
+        """
+        for name, module in BACKENDS.items():
+            if module is self.writer:
+                return name
+
+    def hasswmr(self):
+        """ checks if SWMR is supported
+
+        :returns: SWMR flag
+        :rtype: :obj:`bool`
+        """
+        return False
+
+    @contextlib.contextmanager
+    def _h5py_file(self):
+        """ provides the tree as an h5py file
+
+        :returns: h5py file
+        :rtype: :class:`h5py.File`
+        """
+        raise NotImplementedError
+        yield
+
+    def h5map(self, streams=None, skip=None):
+        """ exports the file tree to an h5map
+
+        Fields with the ``STEP`` strategy are exported as streams when
+        *streams* provides their stream names.  *streams* is either a
+        dictionary with field paths, datasource names or datasource
+        records as keys and stream names as values, or a callable
+        ``streams(path, dsname, record, strategy)`` returning a stream
+        name or None.  The other fields are exported with their values.
+
+        Fields which are not written yet can be skipped by their strategy,
+        e.g. ``skip=["FINAL"]`` before closing the entry.
+
+        :param streams: stream names of STEP fields or a stream resolver,
+                        the file ``streams`` by default
+        :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
+        :param skip: strategies of fields to be skipped
+        :type skip: :obj:`list` <:obj:`str`>
+        :returns: h5map of the root group, serializable to JSON
+        :rtype: :obj:`dict` <:obj:`str`, `any`>
+        """
+        streams = streams if streams is not None else self.streams
+        exporter = H5MapExporter(self.name, streams, skip)
+        with self._h5py_file() as fl:
+            return exporter.group("/", fl)
+
+    def h5maps(self, streams=None, skip=None):
+        """ exports the file tree to the h5maps of a blissdata scan
+
+        :param streams: stream names of STEP fields or a stream resolver
+        :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
+        :param skip: strategies of fields to be skipped
+        :type skip: :obj:`list` <:obj:`str`>
+        :returns: ``{file name: h5map}``
+        :rtype: :obj:`dict` <:obj:`str`, `any`>
+        """
+        return {self.name: self.h5map(streams, skip)}
+
+
+class H5MapPYFile(H5MapFile, h5pywriter.H5PYFile):
+
+    """ file tree built with the h5py backend
     """
 
     def __init__(self, h5object, filename, buffer=None, streams=None):
@@ -472,10 +795,9 @@ class H5MapFile(h5pywriter.H5PYFile):
         :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
         """
         h5pywriter.H5PYFile.__init__(self, h5object, filename)
+        self._h5map_init(h5pywriter, streams)
         #: (:class:`io.BytesIO`) memory buffer of the h5py file
         self._buffer = buffer
-        #: (:obj:`dict` <:obj:`str`, :obj:`str`> or callable) stream names
-        self.streams = streams
 
     @property
     def is_valid(self):
@@ -520,53 +842,18 @@ class H5MapFile(h5pywriter.H5PYFile):
             self._buffer, "r" if readonly else "r+")
         filewriter.FTFile.reopen(self)
 
-    def hasswmr(self):
-        """ checks if SWMR is supported
+    @contextlib.contextmanager
+    def _h5py_file(self):
+        """ provides the tree as an h5py file
 
-        :returns: SWMR flag
-        :rtype: :obj:`bool`
+        :returns: h5py file
+        :rtype: :class:`h5py.File`
         """
-        return False
-
-    def h5map(self, streams=None, skip=None):
-        """ exports the file tree to an h5map
-
-        Fields with the ``STEP`` strategy are exported as streams when
-        *streams* provides their stream names.  *streams* is either a
-        dictionary with field paths, datasource names or datasource
-        records as keys and stream names as values, or a callable
-        ``streams(path, dsname, record, strategy)`` returning a stream
-        name or None.  The other fields are exported with their values.
-
-        Fields which are not written yet can be skipped by their strategy,
-        e.g. ``skip=["FINAL"]`` before closing the entry.
-
-        :param streams: stream names of STEP fields or a stream resolver,
-                        the file ``streams`` by default
-        :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
-        :param skip: strategies of fields to be skipped
-        :type skip: :obj:`list` <:obj:`str`>
-        :returns: h5map of the root group, serializable to JSON
-        :rtype: :obj:`dict` <:obj:`str`, `any`>
-        """
-        streams = streams if streams is not None else self.streams
-        exporter = H5MapExporter(self.name, streams, skip)
         if self.is_valid:
-            return exporter.group("/", self._h5object)
-        with h5py.File(self._buffer, "r") as fl:
-            return exporter.group("/", fl)
-
-    def h5maps(self, streams=None, skip=None):
-        """ exports the file tree to the h5maps of a blissdata scan
-
-        :param streams: stream names of STEP fields or a stream resolver
-        :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
-        :param skip: strategies of fields to be skipped
-        :type skip: :obj:`list` <:obj:`str`>
-        :returns: ``{file name: h5map}``
-        :rtype: :obj:`dict` <:obj:`str`, `any`>
-        """
-        return {self.name: self.h5map(streams, skip)}
+            yield self._h5object
+        else:
+            with h5py.File(self._buffer, "r") as fl:
+                yield fl
 
     def tobytes(self):
         """ provides the in-memory HDF5 image of the file
@@ -579,12 +866,95 @@ class H5MapFile(h5pywriter.H5PYFile):
         return self._buffer.getvalue()
 
 
-H5MapGroup = h5pywriter.H5PYGroup
-H5MapField = h5pywriter.H5PYField
-H5MapLink = h5pywriter.H5PYLink
-H5MapDataFilter = h5pywriter.H5PYDataFilter
-H5MapDeflate = h5pywriter.H5PYDeflate
-H5MapVirtualFieldLayout = h5pywriter.H5PYVirtualFieldLayout
-H5MapTargetFieldView = h5pywriter.H5PYTargetFieldView
-H5MapAttributeManager = h5pywriter.H5PYAttributeManager
-H5MapAttribute = h5pywriter.H5PYAttribute
+if H5CPP:
+
+    class H5MapCppFile(H5MapFile, h5cppwriter.H5CppFile):
+
+        """ file tree built with the h5cpp backend
+
+        The tree is an h5cpp file of the memory driver.  Its image is
+        exported with h5py and kept when the file is closed.
+        """
+
+        def __init__(self, h5object, filename, image=None, streams=None):
+            """ constructor
+
+            :param h5object: in-memory h5cpp file
+            :type h5object: :class:`pninexus.h5cpp.file.File`
+            :param filename: file name of the h5map target
+            :type filename: :obj:`str`
+            :param image: file image of the closed file
+            :type image: :class:`numpy.ndarray`
+            :param streams: stream names of STEP fields or a stream
+                            resolver, see :meth:`h5map`
+            :type streams: :obj:`dict` <:obj:`str`, :obj:`str`> or callable
+            """
+            h5cppwriter.H5CppFile.__init__(self, h5object, filename)
+            self._h5map_init(h5cppwriter, streams)
+            #: (:class:`numpy.ndarray`) file image of the closed file
+            self._image = image
+
+        def image(self):
+            """ provides the HDF5 image of the file
+
+            :returns: HDF5 file image
+            :rtype: :class:`numpy.ndarray`
+            """
+            if self.is_valid:
+                self._h5object.flush(h5cpp.file.Scope.GLOBAL)
+                image = np.zeros(self._h5object.buffer_size, dtype="uint8")
+                self._h5object.to_buffer(image)
+                return image
+            if self._image is None:
+                raise Exception("H5MapFile: file image is not available")
+            return self._image
+
+        def close(self):
+            """ closes the file but keeps its image
+            """
+            if not self.is_valid:
+                return
+            if not self.readonly:
+                self.root().attributes.create(
+                    "file_update_time", "string", overwrite=True)[...] = \
+                    str(self.currenttime())
+            self._image = self.image()
+            filewriter.FTFile.close(self)
+            self._h5object.close()
+
+        def reopen(self, readonly=False, swmr=False, libver=None):
+            """ reopens the file from its image
+
+            :param readonly: readonly flag
+            :type readonly: :obj:`bool`
+            :param swmr: swmr flag (not used)
+            :type swmr: :obj:`bool`
+            :param libver: library version (not used)
+            :type libver: :obj:`str`
+            """
+            if self.is_valid:
+                if bool(self.readonly) == bool(readonly):
+                    return
+                self.close()
+            flag = h5cpp.file.ImageFlags.READONLY if readonly \
+                else h5cpp.file.ImageFlags.READWRITE
+            self._h5object = h5cpp.file.from_buffer(self.image(), flag)
+            filewriter.FTFile.reopen(self)
+
+        @contextlib.contextmanager
+        def _h5py_file(self):
+            """ provides the tree as an h5py file
+
+            :returns: h5py file
+            :rtype: :class:`h5py.File`
+            """
+            with h5py.File(io.BytesIO(self.image().tobytes()), "r") as fl:
+                yield fl
+
+        def tobytes(self):
+            """ provides the in-memory HDF5 image of the file
+
+            :returns: HDF5 file image
+            :rtype: :obj:`bytes`
+            """
+            return self.image().tobytes()

@@ -83,6 +83,13 @@ XML = """<definition>
 
 class H5MapWriterTest(unittest.TestCase):
 
+    #: (:obj:`str`) backend writer
+    BACKEND = "h5py"
+
+    def create_file(self, **pars):
+        return FileWriter.create_file(
+            self._fname, writer=H5MapWriter, backend=self.BACKEND, **pars)
+
     def setUp(self):
         self._tmpdir = tempfile.mkdtemp()
         self._fname = os.path.join(self._tmpdir, "h5map_test.nxs")
@@ -130,9 +137,10 @@ class H5MapWriterTest(unittest.TestCase):
             self.validate({"type": "dataset", "value": item})
 
     def test_create_file_nothing_on_disk(self):
-        fl = FileWriter.create_file(self._fname, writer=H5MapWriter)
+        fl = self.create_file()
         self.assertTrue(isinstance(fl, H5MapWriter.H5MapFile))
-        self.assertEqual(fl.writer, H5MapWriter)
+        self.assertEqual(fl.backend, self.BACKEND)
+        self.assertEqual(fl.writer, H5MapWriter.BACKENDS[self.BACKEND])
         rt = fl.root()
         rt.create_group("entry", "NXentry")
         fl.flush()
@@ -151,7 +159,8 @@ class H5MapWriterTest(unittest.TestCase):
     def test_open_file_does_not_read_disk(self):
         with h5py.File(self._fname, "w") as fl:
             fl.create_group("existing")
-        fl = FileWriter.open_file(self._fname, writer=H5MapWriter)
+        fl = FileWriter.open_file(
+            self._fname, writer=H5MapWriter, backend=self.BACKEND)
         self.assertEqual(fl.root().names(), [])
         fl.root().create_group("new")
         fl.close()
@@ -159,7 +168,7 @@ class H5MapWriterTest(unittest.TestCase):
             self.assertEqual(list(hf.keys()), ["existing"])
 
     def test_tree(self):
-        fl = FileWriter.create_file(self._fname, writer=H5MapWriter)
+        fl = self.create_file()
         rt = fl.root()
         entry = rt.create_group("entry", "NXentry")
         data = entry.create_group("data", "NXdata")
@@ -199,8 +208,7 @@ class H5MapWriterTest(unittest.TestCase):
             {"type": "dataset", "value": "my title"})
 
     def _step_file(self, streams=None):
-        fl = FileWriter.create_file(
-            self._fname, writer=H5MapWriter, streams=streams)
+        fl = self.create_file(streams=streams)
         det = fl.root().create_group("entry", "NXentry").create_group(
             "det", "NXdetector")
         fld = det.create_field("counter", "float64", [0], [1])
@@ -262,7 +270,7 @@ class H5MapWriterTest(unittest.TestCase):
         fl.close()
 
     def test_close_reopen(self):
-        fl = FileWriter.create_file(self._fname, writer=H5MapWriter)
+        fl = self.create_file()
         rt = fl.root()
         grp = rt.create_group("entry", "NXentry")
         fl.close()
@@ -279,14 +287,16 @@ class H5MapWriterTest(unittest.TestCase):
             list(h5map["children"]["entry"]["children"].keys()), ["added"])
         fl.close()
         image = fl.tobytes()
-        lfl = H5MapWriter.load_file(image, self._fname, readonly=True)
+        lfl = H5MapWriter.load_file(
+            image, self._fname, readonly=True, backend=self.BACKEND)
+        self.assertEqual(lfl.backend, self.BACKEND)
         self.assertEqual(lfl.h5map(), h5map)
         lfl.close()
 
     def test_virtual_dataset(self):
-        if not H5MapWriter.is_vds_supported():
+        if not H5MapWriter.BACKENDS[self.BACKEND].is_vds_supported():
             return
-        fl = FileWriter.create_file(self._fname, writer=H5MapWriter)
+        fl = self.create_file()
         rt = fl.root()
         layout = FileWriter.virtual_field_layout(
             [2, 10, 20], "uint16", parent=rt)
@@ -320,7 +330,7 @@ class H5MapWriterTest(unittest.TestCase):
         TDW.WRITERS["h5map"] = H5MapWriter
         streams = {"c01": "scan:exp_c01"}
         tdw = TDW.TangoDataWriter()
-        tdw.writer = "h5map"
+        tdw.writer = "h5map?backend=%s" % self.BACKEND
         tdw.fileName = self._fname
         tdw.openFile()
         tdw.xmlsettings = XML
@@ -330,6 +340,7 @@ class H5MapWriterTest(unittest.TestCase):
         tdw.jsonrecord = json.dumps({"data": {
             "end_time": "2026-11-25T10:00:00",
             "farr": [1.5, float("nan"), 3]}})
+        self.assertEqual(tdw.getFile().backend, self.BACKEND)
         tdw.closeEntry()
         end = tdw.getFile().h5map(streams)
         tdw.closeFile()
@@ -369,6 +380,85 @@ class H5MapWriterTest(unittest.TestCase):
                 "counter"],
             {"type": "soft_link",
              "target_path": "/entry1/instrument/det/counter"})
+
+
+@unittest.skipUnless(H5MapWriter.H5CPP, "h5cpp backend is not available")
+class H5MapWriterH5CppTest(H5MapWriterTest):
+
+    BACKEND = "h5cpp"
+
+
+class H5MapWriterBackendTest(unittest.TestCase):
+
+    def tearDown(self):
+        H5MapWriter.backend = None
+
+    def test_default_backend(self):
+        expected = "h5cpp" if H5MapWriter.H5CPP else "h5py"
+        self.assertEqual(H5MapWriter.default_backend(), expected)
+        fl = H5MapWriter.create_file("/tmp/h5map_backend_test.nxs")
+        self.assertEqual(fl.backend, expected)
+        fl.close()
+        self.assertFalse(os.path.exists("/tmp/h5map_backend_test.nxs"))
+
+    def test_module_backend(self):
+        H5MapWriter.backend = "h5py"
+        self.assertEqual(H5MapWriter.default_backend(), "h5py")
+        fl = H5MapWriter.create_file("/tmp/h5map_backend_test.nxs")
+        self.assertEqual(fl.backend, "h5py")
+        self.assertEqual(
+            H5MapWriter.data_filter().__class__.__name__, "H5PYDataFilter")
+        fl.close()
+
+    def test_wrong_backend(self):
+        with self.assertRaises(ValueError):
+            H5MapWriter.create_file(
+                "/tmp/h5map_backend_test.nxs", backend="pni")
+        H5MapWriter.backend = "pni"
+        with self.assertRaises(ValueError):
+            H5MapWriter.default_backend()
+
+    @unittest.skipUnless(H5MapWriter.H5CPP, "h5cpp backend is not available")
+    def test_node_dispatch(self):
+        for backend in ["h5py", "h5cpp"]:
+            fl = H5MapWriter.create_file(
+                "/tmp/h5map_backend_test.nxs", backend=backend)
+            grp = fl.root().create_group("entry", "NXentry")
+            grp.create_group("data", "NXdata")
+            lk = H5MapWriter.link("/entry/data", grp, "lnk")
+            self.assertTrue(isinstance(
+                lk, H5MapWriter.BACKENDS[backend].H5PYLink
+                if backend == "h5py"
+                else H5MapWriter.BACKENDS[backend].H5CppLink))
+            self.assertEqual(H5MapWriter.unlimited(grp),
+                             H5MapWriter.BACKENDS[backend].unlimited())
+            h5map = fl.h5map()
+            self.assertEqual(
+                h5map["children"]["entry"]["children"]["lnk"],
+                {"type": "soft_link", "target_path": "/entry/data"})
+            fl.close()
+
+    @unittest.skipUnless(H5MapWriter.H5CPP, "h5cpp backend is not available")
+    def test_backends_equal(self):
+        maps = []
+        for backend in ["h5py", "h5cpp"]:
+            fl = H5MapWriter.create_file(
+                "/tmp/h5map_backend_test.nxs", backend=backend)
+            ent = fl.root().create_group("entry", "NXentry")
+            fld = ent.create_field("arr", "int32", [2, 2], [1, 2])
+            fld[...] = np.array([[1, 2], [3, 4]], dtype="int32")
+            fld.attributes.create("units", "string")[...] = "mm"
+            fld.attributes.create("offset", "float64")[...] = 1.5
+            sfld = ent.create_field("title", "string")
+            sfld.write("my title")
+            bfld = ent.create_field("flag", "bool", [1], [1])
+            bfld[...] = np.array([True])
+            fl.close()
+            h5map = fl.h5map()
+            for key in ["file_time", "file_update_time"]:
+                h5map["attributes"].pop(key)
+            maps.append(h5map)
+        self.assertEqual(maps[0], maps[1])
 
 
 if __name__ == '__main__':
