@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.nxsfileparser &#8212; NXSTools 4.72.0 documentation</title>
+    <title>nxstools.nxsfileparser &#8212; NXSTools 4.73.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
-    <script src="../../_static/documentation_options.js?v=1fc16106"></script>
+    <script src="../../_static/documentation_options.js?v=6e142b5f"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -34,7 +34,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.72</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.73</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -176,6 +176,7 @@
       <li><a class="reference external" href="../../index/../../latest/index.html">v:latest</a></li>
       <li><a class="reference external" href="../../index/../../stable/index.html">v:stable</a></li>
       
+      <li><a class="reference external" href="../../index/../../v4.73.0/index.html">v4.73.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.72.0/index.html">v4.72.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.71.0/index.html">v4.71.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.70.0/index.html">v4.70.0</a></li>
@@ -366,17 +367,12 @@
 <span class="sd">    :type xmlstring: :obj:`str`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
-                <span class="nb">bytes</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
-                <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">xmlstring</span>
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
-            <span class="n">xmlstring</span><span class="p">,</span>
+            <span class="nb">bytes</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
             <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">xmlstring</span>
     <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;datasource&#39;</span><span class="p">:</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -397,17 +393,12 @@
 <span class="sd">    :type xmlstring: :obj:`str`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
-                <span class="nb">bytes</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
-                <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
-            <span class="n">xmlstring</span><span class="p">,</span>
+            <span class="nb">bytes</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
             <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
     <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;datasource&#39;</span><span class="p">:</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -428,17 +419,12 @@
 <span class="sd">    :type xmlstring: :obj:`str`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
-                <span class="nb">bytes</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
-                <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">else</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
         <span class="n">node</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span>
-            <span class="n">xmlstring</span><span class="p">,</span>
+            <span class="nb">bytes</span><span class="p">(</span><span class="n">xmlstring</span><span class="p">,</span> <span class="s2">&quot;UTF-8&quot;</span><span class="p">),</span>
             <span class="n">parser</span><span class="o">=</span><span class="n">XMLParser</span><span class="p">(</span><span class="n">collect_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
     <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;datasource&#39;</span><span class="p">:</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>

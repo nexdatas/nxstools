@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nxstools.nxsfileinfo &#8212; NXSTools 4.72.0 documentation</title>
+    <title>nxstools.nxsfileinfo &#8212; NXSTools 4.73.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
-    <script src="../../_static/documentation_options.js?v=1fc16106"></script>
+    <script src="../../_static/documentation_options.js?v=6e142b5f"></script>
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -34,7 +34,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           NXSTools</a>
-        <span class="navbar-text navbar-version pull-left"><b>4.72</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>4.73</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -176,6 +176,7 @@
       <li><a class="reference external" href="../../index/../../latest/index.html">v:latest</a></li>
       <li><a class="reference external" href="../../index/../../stable/index.html">v:stable</a></li>
       
+      <li><a class="reference external" href="../../index/../../v4.73.0/index.html">v4.73.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.72.0/index.html">v4.72.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.71.0/index.html">v4.71.0</a></li>
       <li><a class="reference external" href="../../index/../../v4.70.0/index.html">v4.70.0</a></li>
@@ -233,10 +234,6 @@
 <span class="kn">from</span> <span class="nn">.nxsargparser</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Runner</span><span class="p">,</span> <span class="n">NXSArgParser</span><span class="p">,</span> <span class="n">ErrorException</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">filewriter</span>
 <span class="kn">from</span> <span class="nn">.ontology</span> <span class="kn">import</span> <span class="n">id_techniques</span><span class="p">,</span> <span class="n">nexus_panet</span>
-
-
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,):</span>
-    <span class="n">basestring</span> <span class="o">=</span> <span class="nb">str</span>
 
 
 <span class="n">WRITERS</span> <span class="o">=</span> <span class="p">{}</span>
@@ -898,7 +895,7 @@
                         <span class="k">if</span> <span class="n">dct</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                             <span class="n">cmap</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span>
                         <span class="k">elif</span> <span class="n">dct</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                                 <span class="n">dct</span> <span class="o">=</span> <span class="n">getlist</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">md</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
                             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                                 <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">dct</span><span class="p">:</span>
@@ -931,8 +928,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">append_copymap_field</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">cpmap</span><span class="p">,</span> <span class="n">cplist</span><span class="p">,</span> <span class="n">cmapfield</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">metadata</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">ts</span><span class="p">,</span> <span class="n">vs</span> <span class="ow">in</span> <span class="n">cpmap</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="k">if</span> <span class="n">ts</span> <span class="ow">and</span> <span class="n">vs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span> \
-                   <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vs</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span> \
+                <span class="k">if</span> <span class="n">ts</span> <span class="ow">and</span> <span class="n">vs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> \
+                   <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vs</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> \
                    <span class="ow">and</span> <span class="ow">not</span> <span class="n">ts</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">vs</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">):</span>
                     <span class="n">vls</span> <span class="o">=</span> <span class="n">vs</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
                     <span class="n">md</span> <span class="o">=</span> <span class="n">metadata</span>
@@ -955,12 +952,12 @@
                         <span class="n">parent</span><span class="p">[</span><span class="n">tg</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cplist</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> \
-                   <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">basestring</span><span class="p">)</span> <span class="ow">and</span> \
-                   <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">basestring</span><span class="p">)</span> <span class="ow">and</span> \
+                   <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> \
+                   <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> \
                    <span class="ow">not</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">):</span>
                     <span class="n">action</span> <span class="o">=</span> <span class="kc">None</span>
                     <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span> \
-                            <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">basestring</span><span class="p">):</span>
+                            <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
                         <span class="n">action</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
                     <span class="n">ts</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">vs</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -1026,7 +1023,7 @@
                     <span class="n">vv</span> <span class="o">=</span> <span class="n">vs</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">vs</span><span class="p">:</span>
                     <span class="n">vv</span> <span class="o">=</span> <span class="n">ts</span>
-                <span class="k">if</span> <span class="n">vv</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">vv</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                     <span class="n">vls</span> <span class="o">=</span> <span class="n">vv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
                     <span class="n">md</span> <span class="o">=</span> <span class="n">metadata</span>
                     <span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1048,7 +1045,7 @@
                             <span class="n">vv</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                         <span class="k">if</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
                             <span class="n">vv</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="n">vv</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">vv</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vv</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                         <span class="n">vls</span> <span class="o">=</span> <span class="n">vv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
                         <span class="n">md</span> <span class="o">=</span> <span class="n">metadata</span>
                         <span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
@@ -1713,7 +1710,7 @@
             <span class="k">if</span> <span class="n">dct</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                 <span class="n">usercopymap</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">dct</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                     <span class="n">dct</span> <span class="o">=</span> <span class="n">getlist</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">copymap</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">dct</span><span class="p">:</span>
@@ -1740,7 +1737,7 @@
                     <span class="k">if</span> <span class="n">dct</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                         <span class="n">usercopymap</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">dct</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                             <span class="n">dct</span> <span class="o">=</span> <span class="n">getlist</span><span class="p">(</span><span class="n">jstr</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
                         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">dct</span><span class="p">:</span>
@@ -2237,8 +2234,8 @@
         <span class="n">first</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">cplist</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> \
-               <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">basestring</span><span class="p">)</span> <span class="ow">and</span> \
-               <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">basestring</span><span class="p">)</span> <span class="ow">and</span> \
+               <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> \
+               <span class="nb">isinstance</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> \
                <span class="ow">not</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">):</span>
                 <span class="n">ts</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="n">vs</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -2607,7 +2604,7 @@
         <span class="n">tg</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parent</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">tg</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">md</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">basestring</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">md</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tg</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                 <span class="n">parent</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
                     <span class="p">[</span><span class="n">mi</span> <span class="k">for</span> <span class="n">mi</span> <span class="ow">in</span> <span class="n">md</span> <span class="k">if</span> <span class="n">mi</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tg</span><span class="p">])</span>
@@ -3179,7 +3176,7 @@
 <span class="sd">        :param tgtype: target type</span>
 <span class="sd">        :type tgtype: :obj:`str`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">_merge_string</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">tgtype</span><span class="p">)</span>
         <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">md</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -3305,8 +3302,8 @@
         <span class="k">for</span> <span class="n">ts</span><span class="p">,</span> <span class="n">vs</span> <span class="ow">in</span> <span class="n">cpmap</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">raw</span><span class="p">:</span>
                 <span class="n">ts</span> <span class="o">=</span> <span class="n">vs</span>
-            <span class="k">if</span> <span class="n">ts</span> <span class="ow">and</span> <span class="n">vs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span> \
-               <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vs</span><span class="p">,</span> <span class="n">basestring</span><span class="p">)</span> \
+            <span class="k">if</span> <span class="n">ts</span> <span class="ow">and</span> <span class="n">vs</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> \
+               <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">vs</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> \
                <span class="ow">and</span> <span class="ow">not</span> <span class="n">ts</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">vs</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">):</span>
                 <span class="n">vls</span> <span class="o">=</span> <span class="n">vs</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
                 <span class="n">md</span> <span class="o">=</span> <span class="n">ds</span>
@@ -3410,7 +3407,7 @@
             <span class="k">if</span> <span class="n">dct</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                 <span class="n">usergroupmap</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span>
             <span class="k">elif</span> <span class="n">dct</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                     <span class="n">dct</span> <span class="o">=</span> <span class="n">getlist</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">groupmap</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">dct</span><span class="p">:</span>
@@ -3438,7 +3435,7 @@
                     <span class="k">if</span> <span class="n">dct</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                         <span class="n">usergroupmap</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dct</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">dct</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="n">basestring</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
                             <span class="n">dct</span> <span class="o">=</span> <span class="n">getlist</span><span class="p">(</span><span class="n">jstr</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
                         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dct</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">dct</span><span class="p">:</span>
