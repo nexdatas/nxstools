@@ -21,7 +21,6 @@
 #
 import unittest
 # import os
-import sys
 # import random
 # import struct
 # import binascii
@@ -44,11 +43,6 @@ try:
     import ServerSetUp
 except ImportError:
     from . import ServerSetUp
-
-
-if sys.version_info > (3,):
-    unicode = str
-    long = int
 
 
 # test fixture

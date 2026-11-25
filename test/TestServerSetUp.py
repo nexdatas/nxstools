@@ -87,10 +87,7 @@ class TestServerSetUp(object):
     def setUp(self):
         print("\nsetting up...")
         path = os.path.dirname(TestPool.__file__)
-        if sys.version_info > (3,):
-            shutil.copy2("%s/TestServer3" % path, "%s/TestServer" % path)
-        else:
-            shutil.copy2("%s/TestServer2" % path, "%s/TestServer" % path)
+        shutil.copy2("%s/TestServer3" % path, "%s/TestServer" % path)
         self.add()
         self.start()
 
@@ -114,16 +111,10 @@ class TestServerSetUp(object):
         if not path:
             path = '.'
 
-        if sys.version_info > (3,):
-            self._psub = subprocess.call(
-                "cd %s; ./TestServer %s &" %
-                (path, self.instance), stdout=None,
-                stderr=None, shell=True)
-        else:
-            self._psub = subprocess.call(
-                "cd %s; python ./TestServer %s &" %
-                (path, self.instance), stdout=None,
-                stderr=None, shell=True)
+        self._psub = subprocess.call(
+            "cd %s; ./TestServer %s &" %
+            (path, self.instance), stdout=None,
+            stderr=None, shell=True)
 
         sys.stdout.write("waiting for simple server")
 
@@ -166,28 +157,13 @@ class TestServerSetUp(object):
 
     # stops server
     def stop(self):
-        if sys.version_info > (3,):
-            with subprocess.Popen(
-                    "ps -ef | grep 'TestServer %s' | grep -v grep" %
-                    self.instance,
-                    stdout=subprocess.PIPE, shell=True) as proc:
-
-                pipe = proc.stdout
-                res = str(pipe.read(), "utf-8").split("\n")
-                for r in res:
-                    sr = r.split()
-                    if len(sr) > 2:
-                        subprocess.call(
-                            "kill -9 %s" % sr[1], stderr=subprocess.PIPE,
-                            shell=True)
-                pipe.close()
-        else:
-            pipe = subprocess.Popen(
+        with subprocess.Popen(
                 "ps -ef | grep 'TestServer %s' | grep -v grep" %
                 self.instance,
-                stdout=subprocess.PIPE, shell=True).stdout
+                stdout=subprocess.PIPE, shell=True) as proc:
 
-            res = str(pipe.read()).split("\n")
+            pipe = proc.stdout
+            res = str(pipe.read(), "utf-8").split("\n")
             for r in res:
                 sr = r.split()
                 if len(sr) > 2:
@@ -273,14 +249,9 @@ class MultiTestServerSetUp(object):
         if not path:
             path = '.'
 
-        if sys.version_info > (3,):
-            self._psub = subprocess.call(
-                "cd %s;  python3 ./TestServer %s &" % (path, self.instance),
-                stdout=None, stderr=None, shell=True)
-        else:
-            self._psub = subprocess.call(
-                "cd %s;  python ./TestServer %s &" % (path, self.instance),
-                stdout=None, stderr=None, shell=True)
+        self._psub = subprocess.call(
+            "cd %s;  python3 ./TestServer %s &" % (path, self.instance),
+            stdout=None, stderr=None, shell=True)
         sys.stdout.write("waiting for simple server")
 
         found = False
@@ -320,28 +291,13 @@ class MultiTestServerSetUp(object):
 
     # stops server
     def stop(self):
-        if sys.version_info > (3,):
-            with subprocess.Popen(
-                    "ps -ef | grep 'TestServer %s' | grep -v grep" %
-                    self.instance,
-                    stdout=subprocess.PIPE, shell=True) as proc:
-
-                pipe = proc.stdout
-                res = str(pipe.read(), "utf-8").split("\n")
-                for r in res:
-                    sr = r.split()
-                    if len(sr) > 2:
-                        subprocess.call(
-                            "kill -9 %s" % sr[1], stderr=subprocess.PIPE,
-                            shell=True)
-                pipe.close()
-        else:
-            pipe = subprocess.Popen(
+        with subprocess.Popen(
                 "ps -ef | grep 'TestServer %s' | grep -v grep" %
                 self.instance,
-                stdout=subprocess.PIPE, shell=True).stdout
+                stdout=subprocess.PIPE, shell=True) as proc:
 
-            res = str(pipe.read()).split("\n")
+            pipe = proc.stdout
+            res = str(pipe.read(), "utf-8").split("\n")
             for r in res:
                 sr = r.split()
                 if len(sr) > 2:

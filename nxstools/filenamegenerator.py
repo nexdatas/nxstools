@@ -18,15 +18,6 @@
 
 """ Filename generator """
 
-import sys
-
-
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-else:
-    bytes = str
-
 
 class FilenameGenerator(object):
 
@@ -92,7 +83,7 @@ class FilenameGenerator(object):
             file_template.rsplit(":", 2)
         stop_index = None
         if stop_index_str is not None:
-            stop_index = long(stop_index_str)
+            stop_index = int(stop_index_str)
 
         start_index = int(start_index_str)
 

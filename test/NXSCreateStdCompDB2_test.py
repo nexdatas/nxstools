@@ -20,18 +20,12 @@
 # unittests for field Tags running Tango Server
 #
 import unittest
-import sys
 
 
 try:
     import NXSCreateStdCompDB_test
 except Exception:
     from . import NXSCreateStdCompDB_test
-
-
-if sys.version_info > (3,):
-    unicode = str
-    long = int
 
 
 # test fixture

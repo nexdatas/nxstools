@@ -18,7 +18,6 @@
 
 """ Command-line tool for ascess to the nexdatas configuration server """
 
-import sys
 import json
 import fnmatch
 import xml.etree.ElementTree as et
@@ -26,19 +25,10 @@ import lxml.etree
 from lxml.etree import XMLParser
 
 
-if sys.version_info > (3,):
-    unicode = str
-
-
 def _parseString(text):
-    if sys.version_info > (3,):
-        return et.fromstring(
-            bytes(text, "UTF-8"),
-            parser=XMLParser(collect_ids=False))
-    else:
-        return et.fromstring(
-            text,
-            parser=XMLParser(collect_ids=False))
+    return et.fromstring(
+        bytes(text, "UTF-8"),
+        parser=XMLParser(collect_ids=False))
 
 
 def _tostr(text):
@@ -53,10 +43,8 @@ def _tostr(text):
         text = text.tostring()
     if isinstance(text, str):
         return text
-    elif sys.version_info > (3,):
-        return str(text, encoding="utf-8")
     else:
-        return str(text)
+        return str(text, encoding="utf-8")
 
 
 def _toxml(node):
@@ -67,10 +55,7 @@ def _toxml(node):
     :returns: xml content string
     :rtype: :obj:`str`
     """
-    if sys.version_info > (3,):
-        xml = _tostr(et.tostring(node, encoding='unicode', method='xml'))
-    else:
-        xml = _tostr(et.tostring(node, encoding='utf8', method='xml'))
+    xml = _tostr(et.tostring(node, encoding='unicode', method='xml'))
     if xml.startswith("<?xml version='1.0' encoding='utf-8'?>"):
         xml = str(xml[39:])
     elif xml.startswith("<?xml version='1.0' encoding='utf8'?>"):
@@ -155,7 +140,7 @@ class ParserTools(object):
         if node is not None:
             tnodes = ([node.text] if node.text else []) \
                      + [child.tail for child in node if child.tail]
-            return unicode("".join(tnodes)).strip()
+            return str("".join(tnodes)).strip()
         return ""
 
     @classmethod

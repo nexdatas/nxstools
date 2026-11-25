@@ -31,11 +31,6 @@ except Exception:
     from . import NXSCreateOnlineDSFS_test
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
-
 # test fixture
 class NXSCreateOnlineDSFS2Test(
         NXSCreateOnlineDSFS_test.NXSCreateOnlineDSFSTest):

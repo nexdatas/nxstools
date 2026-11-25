@@ -21,7 +21,6 @@
 import copy
 import os.path
 import json
-import sys
 
 from operator import itemgetter
 
@@ -50,9 +49,6 @@ try:
 except Exception:
     pass
 
-if sys.version_info > (3,):
-    basestring = str
-    unicode = str
 
 npTn = {"double": "NX_FLOAT64",
         "int": "NX_INT64",
@@ -110,10 +106,8 @@ def _tostr(text):
         text = text.tostring()
     if isinstance(text, str):
         return text
-    elif sys.version_info > (3,):
-        return str(text, encoding="utf-8")
     else:
-        return str(text)
+        return str(text, encoding="utf-8")
 
 
 def _toxml(node):
@@ -124,10 +118,7 @@ def _toxml(node):
     :returns: xml content string
     :rtype: :obj:`str`
     """
-    if sys.version_info > (3,):
-        xml = _tostr(et.tostring(node, encoding='unicode', method='xml'))
-    else:
-        xml = _tostr(et.tostring(node, encoding='utf8', method='xml'))
+    xml = _tostr(et.tostring(node, encoding='unicode', method='xml'))
     if xml.startswith("<?xml version='1.0' encoding='utf-8'?>"):
         xml = str(xml[39:])
     elif xml.startswith("<?xml version='1.0' encoding='utf8'?>"):
@@ -143,10 +134,7 @@ def _simpletoxml(node):
     :returns: xml content string
     :rtype: :obj:`str`
     """
-    if sys.version_info > (3,):
-        return _tostr(et.tostring(node, encoding='unicode', method='xml'))
-    else:
-        return _tostr(et.tostring(node, encoding='utf8', method='xml'))
+    return _tostr(et.tostring(node, encoding='unicode', method='xml'))
 
 
 class Device(object):
@@ -2442,14 +2430,9 @@ class SECoPCPCreator(CPCreator):
                     else:
                         missing.append(var)
                 if missing:
-                    if sys.version_info > (3,):
-                        root = et.fromstring(
-                            bytes(xml, "UTF-8"),
-                            parser=XMLParser(collect_ids=False))
-                    else:
-                        root = et.fromstring(
-                            xml,
-                            parser=XMLParser(collect_ids=False))
+                    root = et.fromstring(
+                        bytes(xml, "UTF-8"),
+                        parser=XMLParser(collect_ids=False))
                     nodes = root.findall(".//attribute")
                     nodes.extend(root.findall(".//field"))
                     nodes.extend(root.findall(".//link"))
@@ -2552,14 +2535,9 @@ class SECoPCPCreator(CPCreator):
                     else:
                         missing.append(var)
                 if missing:
-                    if sys.version_info > (3,):
-                        root = et.fromstring(
-                            bytes(xml, "UTF-8"),
-                            parser=XMLParser(collect_ids=False))
-                    else:
-                        root = et.fromstring(
-                            xml,
-                            parser=XMLParser(collect_ids=False))
+                    root = et.fromstring(
+                        bytes(xml, "UTF-8"),
+                        parser=XMLParser(collect_ids=False))
                     nodes = root.findall(".//attribute")
                     nodes.extend(root.findall(".//field"))
                     nodes.extend(root.findall(".//link"))
@@ -2836,14 +2814,9 @@ class StandardCPCreator(CPCreator):
                     else:
                         missing.append(var)
                 if missing:
-                    if sys.version_info > (3,):
-                        root = et.fromstring(
-                            bytes(xml, "UTF-8"),
-                            parser=XMLParser(collect_ids=False))
-                    else:
-                        root = et.fromstring(
-                            xml,
-                            parser=XMLParser(collect_ids=False))
+                    root = et.fromstring(
+                        bytes(xml, "UTF-8"),
+                        parser=XMLParser(collect_ids=False))
                     nodes = root.findall(".//attribute")
                     nodes.extend(root.findall(".//field"))
                     nodes.extend(root.findall(".//link"))
@@ -2922,7 +2895,7 @@ class StandardCPCreator(CPCreator):
         if node is not None:
             tnodes = ([node.text] if node.text else []) \
                      + [child.tail for child in node if child.tail]
-            return unicode("".join(tnodes)).strip()
+            return str("".join(tnodes)).strip()
         return ""
 
 

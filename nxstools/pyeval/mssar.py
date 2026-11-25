@@ -20,7 +20,6 @@
 """  pyeval helper functions for mssar and msnsar """
 
 import pickle
-import sys
 import json
 
 
@@ -34,10 +33,7 @@ def mssarenv(msenv, varname):
     :returns: sardana variable value
     :rtype: :obj:`any`
     """
-    if sys.version_info > (3,):
-        msenv = pickle.loads(msenv, encoding='latin1')['new']
-    else:
-        msenv = pickle.loads(msenv)['new']
+    msenv = pickle.loads(msenv, encoding='latin1')['new']
 
     return msenv[varname]
 
@@ -54,10 +50,7 @@ def msnsarenv(msenv, varname):
     """
     varname = json.loads(varname)
 
-    if sys.version_info > (3,):
-        msenv = pickle.loads(msenv, encoding='latin1')['new']
-    else:
-        msenv = pickle.loads(msenv)['new']
+    msenv = pickle.loads(msenv, encoding='latin1')['new']
 
     result = msenv
     for var in varname:

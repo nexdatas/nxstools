@@ -20,7 +20,6 @@
 # unittests for field Tags running Tango Server
 #
 import unittest
-import sys
 try:
     import tango
 except Exception:
@@ -36,11 +35,6 @@ try:
     import ServerSetUp
 except ImportError:
     from . import ServerSetUp
-
-
-if sys.version_info > (3,):
-    unicode = str
-    long = int
 
 
 # test fixture

@@ -35,13 +35,6 @@ from .nxsargparser import (Runner, NXSArgParser, ErrorException)
 from . import filewriter
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-else:
-    bytes = str
-
-
 WRITERS = {}
 try:
     from . import h5pywriter
@@ -57,9 +50,9 @@ except Exception:
 
 
 pTc = {
-    "long": long,
+    "long": int,
     "str": str,
-    "unicode": unicode,
+    "unicode": str,
     "bool": bool,
     "int": int,
     "int64": int,
@@ -88,10 +81,8 @@ def _tostr(text):
     """
     if isinstance(text, str):
         return text
-    elif sys.version_info > (3,):
-        return str(text, "utf-8")
     else:
-        return str(text)
+        return str(text, "utf-8")
 
 
 def filegenerator(filestr, pattern=None):
@@ -1093,7 +1084,7 @@ class Collector(object):
                     files = inputfiles.read()
                     if hasattr(files, "tolist"):
                         files = files.tolist()
-                    if isinstance(files, (str, unicode)):
+                    if isinstance(files, (str, str)):
                         files = [files]
                     fieldname = "data"
                     fielddtype = None

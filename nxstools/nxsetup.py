@@ -521,28 +521,13 @@ class SetUp(object):
         if len(sserver) > 1:
             sname = sserver[0]
             instance = sserver[1]
-        if sys.version_info > (3,):
-            with subprocess.Popen(
-                    "ps -ef | grep '%s %s' | grep -v grep"
-                    % (sname, instance),
-                    stdout=subprocess.PIPE, shell=True) as proc:
-
-                pipe = proc.stdout
-                res = str(pipe.read(), "utf-8").split("\n")
-                for r in res:
-                    sr = r.split()
-                    if len(sr) > 2:
-                        subprocess.call(
-                            "kill -9 %s" % sr[1], stderr=subprocess.PIPE,
-                            shell=True)
-                pipe.close()
-        else:
-            pipe = subprocess.Popen(
+        with subprocess.Popen(
                 "ps -ef | grep '%s %s' | grep -v grep"
                 % (sname, instance),
-                stdout=subprocess.PIPE, shell=True).stdout
+                stdout=subprocess.PIPE, shell=True) as proc:
 
-            res = str(pipe.read()).split("\n")
+            pipe = proc.stdout
+            res = str(pipe.read(), "utf-8").split("\n")
             for r in res:
                 sr = r.split()
                 if len(sr) > 2:

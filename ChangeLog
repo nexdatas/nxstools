@@ -1,6 +1,7 @@
 2026-11-25 Jan Kotanski <jankotan@gmail.com>
 	* add h5mapwriter exporting the NeXus tree to blissdata h5maps
 	* add h5cpp and h5py backends to h5mapwriter, h5cpp preferred
+	* remove python2 support
 	* tagged as v4.73.0
 
 2026-11-23 Jan Kotanski <jankotan@gmail.com>

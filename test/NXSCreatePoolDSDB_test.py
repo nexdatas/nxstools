@@ -40,11 +40,6 @@ except ImportError:
     from . import ServerSetUp
 
 
-if sys.version_info > (3,):
-    unicode = str
-    long = int
-
-
 # test fixture
 class NXSCreatePoolDSDBTest(
         NXSCreatePoolDSFS_test.NXSCreatePoolDSFSTest):
@@ -101,7 +96,7 @@ class NXSCreatePoolDSDBTest(
             xmlc.Open()
         version = xmlc.version
         vv = version.split('.')
-        self.revision = long(vv[-1])
+        self.revision = int(vv[-1])
         self.version = ".".join(vv[0:3])
         self.label = ".".join(vv[3:-1])
 

@@ -97,16 +97,11 @@ if [ "$1" = "ubuntu26.10py" ]; then
 fi
 
 
-if [ "$2" = "2" ]; then
-    echo "install python-pytango ..."
-    docker exec --user root ndts /bin/sh -c 'apt-get -qq update; export DEBIAN_FRONTEND=noninteractive; apt-get -qq install -y  python-pytango python-nxswriter nxswriter python-nxsconfigserver nxsconfigserver'
-else
-    echo "install python3-pytango ..."
-    if [ "$1" = "ubuntu24.04" ] || [ "$1" = "ubuntu26.10py" ] || [ "$1" = "ubuntu25.04" ] || [ "$1" = "ubuntu26.04" ] || [ "$1" = "debian10" ] || [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu22.04" ] || [ "$1" = "ubuntu23.10" ] || [ "$1" = "ubuntu20.10" ]  || [ "$1" = "debian11" ] || [ "$1" = "debian12" ] || [ "$1" = "debian12tg10" ] || [ "$1" = "debian13" ] ; then
+echo "install python3-pytango ..."
+if [ "$1" = "ubuntu24.04" ] || [ "$1" = "ubuntu26.10py" ] || [ "$1" = "ubuntu25.04" ] || [ "$1" = "ubuntu26.04" ] || [ "$1" = "debian10" ] || [ "$1" = "ubuntu20.04" ] || [ "$1" = "ubuntu22.04" ] || [ "$1" = "ubuntu23.10" ] || [ "$1" = "ubuntu20.10" ]  || [ "$1" = "debian11" ] || [ "$1" = "debian12" ] || [ "$1" = "debian12tg10" ] || [ "$1" = "debian13" ] ; then
 	docker exec --user root ndts /bin/sh -c 'apt-get -qq update; export DEBIAN_FRONTEND=noninteractive; apt-get -qq install -y   python3-tango python3-nxswriter nxswriter python3-nxsconfigserver nxsconfigserver'
-    else
+else
 	docker exec --user root ndts /bin/sh -c 'apt-get -qq update; export DEBIAN_FRONTEND=noninteractive; apt-get -qq install -y   python3-pytango python3-nxswriter nxswriter3 python3-nxsconfigserver nxsconfigserver3'
-    fi
 fi
 if [ "$?" != "0" ]; then exit 255; fi
 
@@ -117,36 +112,29 @@ if  [ "$1" = "debian13py" ] || [ "$1" = "ubuntu26.04py" ] || [ "$1" = "ubuntu26.
     docker exec  --user root ndts /bin/bash -c 'apt-get  remove -y   python3-mysqldb'
 fi
 
-if [ "$2" = "2" ]; then
-    echo "install python-nxstools"
-    docker exec --user root ndts chown -R tango:tango .
-    docker exec  ndts python setup.py build
-    docker exec --user root ndts python setup.py  install
-else
-    # python3-nxswriter pulls the released python3-nxstools from apt.
-    # Remove it before installing the checkout: pip cannot uninstall
-    # a dpkg package (no RECORD file), so the install fails and the tests
-    # would use the released nxstools.  It has to be the last apt/dpkg step:
-    # apt refuses to work with the python3-nxswriter dependency unsatisfied.
-    echo "remove python3-nxstools"
-    docker exec  --user root ndts /bin/bash -c 'dpkg -r --force-depends python3-nxstools'
+# python3-nxswriter pulls the released python3-nxstools from apt.
+# Remove it before installing the checkout: pip cannot uninstall
+# a dpkg package (no RECORD file), so the install fails and the tests
+# would use the released nxstools.  It has to be the last apt/dpkg step:
+# apt refuses to work with the python3-nxswriter dependency unsatisfied.
+echo "remove python3-nxstools"
+docker exec  --user root ndts /bin/bash -c 'dpkg -r --force-depends python3-nxstools'
 
-    echo "install python3-nxstools"
-    docker exec --user root ndts chown -R tango:tango .
-    docker exec ndts mkdir build
-    # docker exec  ndts sphinx-build -b html doc ../nexdatas.tools-doc/html
-    if [ "$1" = "ubuntu22.04" ] ; then
+echo "install python3-nxstools"
+docker exec --user root ndts chown -R tango:tango .
+docker exec ndts mkdir build
+# docker exec  ndts sphinx-build -b html doc ../nexdatas.tools-doc/html
+if [ "$1" = "ubuntu22.04" ] ; then
 	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation
-    else
+else
 	docker exec --user root ndts python3 -m pip install . -vv  --no-deps --no-build-isolation  --break-system-packages --root-user-action=ignore
-    fi
-    # check the installed nxstools outside the source tree,
-    # i.e. without ./nxstools in sys.path
-    docker exec  ndts /bin/bash -c 'cd / && python3 -c "import nxstools, nxstools.release as rl; print(\"nxstools\", rl.__version__, nxstools.__file__)"'
-    if [ "$?" != "0" ]; then exit 255; fi
-
-    echo "build python3-nxstools docs"
-    docker exec ndts mkdir doc/_static
-    docker exec ndts sphinx-build  doc build/sphinx/html
 fi
+# check the installed nxstools outside the source tree,
+# i.e. without ./nxstools in sys.path
+docker exec  ndts /bin/bash -c 'cd / && python3 -c "import nxstools, nxstools.release as rl; print(\"nxstools\", rl.__version__, nxstools.__file__)"'
+if [ "$?" != "0" ]; then exit 255; fi
+
+echo "build python3-nxstools docs"
+docker exec ndts mkdir doc/_static
+docker exec ndts sphinx-build  doc build/sphinx/html
 if [ "$1" != "ubuntu26.04" ] && [ "$?" != "0" ]; then exit 255; fi
