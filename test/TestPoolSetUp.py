@@ -30,6 +30,13 @@ except Exception:
     import PyTango as tango
 
 try:
+    from TangoDbUtils import (
+        add_device, add_server, database, delete_server)
+except ImportError:
+    from .TangoDbUtils import (
+        add_device, add_server, database, delete_server)
+
+try:
     import TestPool
 except Exception:
     from . import TestPool
@@ -67,14 +74,14 @@ class TestPoolSetUp(object):
         self.start()
 
     def add(self):
-        db = tango.Database()
-        db.add_device(self.new_device_info_writer)
-        db.add_server(self.new_device_info_writer.server,
-                      self.new_device_info_writer)
+        db = database()
+        add_device(self.new_device_info_writer, db)
+        add_server(self.new_device_info_writer.server,
+                   self.new_device_info_writer, db)
 
     # starts server
     def start(self):
-        db = tango.Database()
+        db = database()
         path = os.path.dirname(TestPool.__file__)
         if not path:
             path = '.'
@@ -116,8 +123,7 @@ class TestPoolSetUp(object):
         self.stop()
 
     def delete(self):
-        db = tango.Database()
-        db.delete_server(self.new_device_info_writer.server)
+        delete_server(self.new_device_info_writer.server)
 
     # stops server
     def stop(self):

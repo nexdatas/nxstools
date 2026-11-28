@@ -66,15 +66,27 @@ except Exception:
 PLUGINS = {}
 
 try:
-    from blissdata.redis_engine.encoding.numeric import NumericStreamEncoder
+    try:
+        # blissdata >= 2 (blissdata.redis_engine.encoding is removed in 3)
+        from blissdata.streams.encoding.numeric import NumericStreamEncoder
+    except ImportError:
+        from blissdata.redis_engine.encoding.numeric import \
+            NumericStreamEncoder
 except Exception:
     NumericStreamEncoder = None
 try:
-    from blissdata.redis_engine.encoding.json import JsonStreamEncoder
+    try:
+        from blissdata.streams.encoding.json import JsonStreamEncoder
+    except ImportError:
+        from blissdata.redis_engine.encoding.json import JsonStreamEncoder
 except Exception:
     JsonStreamEncoder = None
 try:
-    from blissdata.streams.base import Stream
+    try:
+        # blissdata >= 2 (blissdata.streams.base is removed in 3)
+        from blissdata.streams.default import Stream
+    except ImportError:
+        from blissdata.streams.base import Stream
     PLUGINS["stream"] = Stream
 except Exception:
     Stream = None

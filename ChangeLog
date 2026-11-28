@@ -1,3 +1,8 @@
+2026-11-28 Jan Kotanski <jankotan@gmail.com>
+	* import the blissdata streams modules in h5rediswriter, blissdata.redis_engine.encoding and blissdata.streams.base are deprecated
+	* use a Tango database client with longer timeouts and retries in the test server setups
+	* tagged as v4.73.1
+
 2026-11-25 Jan Kotanski <jankotan@gmail.com>
 	* add h5mapwriter exporting the NeXus tree to blissdata h5maps
 	* add h5cpp and h5py backends to h5mapwriter, h5cpp preferred
