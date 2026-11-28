@@ -237,6 +237,20 @@ For more help:
             pipe.close()
         return pid
 
+    def initStarter(self, adp, servers):
+        """ re-initializes Starter and waits until it reports the servers
+        as running, otherwise nxsetup does not restart them
+
+        :param adp: Starter device proxy
+        :type adp: :class:`tango.DeviceProxy`
+        :param servers: server names, e.g. ``MacroServer/haso``
+        :type servers: :obj:`list` <:obj:`str`>
+        """
+        adp.Init()
+        setup = nxsetup.SetUp()
+        for server in servers:
+            setup.waitServerRunning(server, None, adp, verbose=False)
+
     def getProperty(self, dvname, prname):
         res = self.db.get_device_property(dvname, prname)[prname]
         if res:
@@ -3318,7 +3332,7 @@ For more help:
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
-            adp.Init()
+            self.initStarter(adp, ["MacroServer/%s" % ins2])
             recorderpaths = self.getProperty(msdv2, "RecorderPath")
             pid = self.serverPid("MacroServer/%s" % ins2)
             # print("PD1:", pid)
@@ -3463,7 +3477,8 @@ For more help:
                 newstartdspaths.append(newpath)
                 self.db.put_device_property(
                     admin, {"StartDsPath": newstartdspaths})
-                adp.Init()
+                self.initStarter(
+                    adp, ["MacroServer/%s" % ins2, "MacroServer/%s" % ins1])
 
                 recorder2paths = self.getProperty(msdv2, "RecorderPath")
                 recorder1paths = self.getProperty(msdv1, "RecorderPath")
@@ -3653,7 +3668,7 @@ For more help:
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
-            adp.Init()
+            self.initStarter(adp, ["MacroServer/%s" % ins2])
             recorder1paths = self.getProperty(msdv2[0], "RecorderPath")
             recorder2paths = self.getProperty(msdv2[1], "RecorderPath")
             self.assertEqual(recorder1paths, [])
@@ -3744,7 +3759,7 @@ For more help:
             newstartdspaths.append(newpath)
             self.db.put_device_property(
                 admin, {"StartDsPath": newstartdspaths})
-            adp.Init()
+            self.initStarter(adp, ["MacroServer/%s" % ins2])
             recorder1paths = self.getProperty(msdv2[0], "RecorderPath")
             recorder2paths = self.getProperty(msdv2[1], "RecorderPath")
             self.assertEqual(recorder1paths, [])
