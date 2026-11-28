@@ -32,6 +32,13 @@ try:
     import tango
 except Exception:
     import PyTango as tango
+
+try:
+    from TangoDbUtils import (
+        database, delete_server, retry)
+except ImportError:
+    from .TangoDbUtils import (
+        database, delete_server, retry)
 from nxstools import nxsetup
 
 try:
@@ -183,7 +190,7 @@ For more help:
         self.__args2 = '{"db":"nxsconfig", ' \
                        '"read_default_file":"%s/.my.cnf", ' \
                        '"use_unicode":true}' % home
-        self.db = tango.Database()
+        self.db = database()
         self.tghost = self.db.get_db_host().split(".")[0]
         self.tgport = self.db.get_db_port()
         self.host = socket.gethostname()
@@ -266,8 +273,8 @@ For more help:
 
     def unregisterServer(self, svname, dvname=None):
         if dvname is not None:
-            self.db.delete_device(dvname)
-        self.db.delete_server(svname)
+            retry(self.db.delete_device, dvname)
+        delete_server(svname)
 
     # test starter
     # \brief Common set up

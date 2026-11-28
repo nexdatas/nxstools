@@ -31,6 +31,13 @@ except Exception:
     import PyTango as tango
 
 try:
+    from TangoDbUtils import (
+        add_device, add_server, database, delete_server)
+except ImportError:
+    from .TangoDbUtils import (
+        add_device, add_server, database, delete_server)
+
+try:
     import TestPool
 except Exception:
     from . import TestPool
@@ -79,19 +86,19 @@ class MacroServerSetUp(object):
         self.start()
 
     def add(self):
-        db = tango.Database()
+        db = database()
 #        db.add_device(self.new_device_info_writer)
         devices = list(self.ms.values())
         devices.extend(list(self.door.values()))
         for dv in devices:
-            db.add_device(dv)
+            add_device(dv, db)
             print(dv.name)
         if devices:
-            db.add_server(self.server, devices)
+            add_server(self.server, devices, db)
 
     # starts server
     def start(self):
-        db = tango.Database()
+        db = database()
         path = os.path.dirname(TestPool.__file__)
         if not path:
             path = '.'
@@ -139,8 +146,7 @@ class MacroServerSetUp(object):
             os.remove(path)
 
     def delete(self):
-        db = tango.Database()
-        db.delete_server(self.server)
+        delete_server(self.server)
 
     # stops server
     def stop(self):
