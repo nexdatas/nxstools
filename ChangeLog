@@ -1,3 +1,7 @@
+2026-XX-YY Jan Kotanski <jankotan@gmail.com>
+	* import the blissdata streams modules in h5rediswriter, blissdata.redis_engine.encoding and blissdata.streams.base are deprecated
+	* tagged as v4.74.X
+
 2026-11-25 Jan Kotanski <jankotan@gmail.com>
 	* add h5mapwriter exporting the NeXus tree to blissdata h5maps
 	* add h5cpp and h5py backends to h5mapwriter, h5cpp preferred
